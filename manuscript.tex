@@ -1,0 +1,211 @@
+% Use only LaTeX2e, calling the article.cls class and 12-point type.
+
+\documentclass[12pt]{article}
+
+\usepackage[round,semicolon]{natbib}
+
+% Use times if you have the font installed; otherwise, comment out the
+% following line.
+
+\usepackage{times}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{seqsplit}
+
+% The following parameters seem to provide a reasonable page setup.
+
+\topmargin 0.0cm
+\oddsidemargin 0.2cm
+\textwidth 16cm 
+\textheight 21cm
+\footskip 1.0cm
+
+\usepackage{newfloat}
+\usepackage{amsmath}
+\usepackage[labelfont=bf]{caption}
+\usepackage{nameref}
+\usepackage{rotating}
+\usepackage{color}
+\usepackage{float}
+
+\setcounter{topnumber}{8}
+\setcounter{bottomnumber}{8}
+\setcounter{totalnumber}{8}
+
+\renewcommand{\figurename}{{}}
+\renewcommand{\thefigure}{{Figure \arabic{figure}}}
+
+\renewcommand{\tablename}{{}}
+\renewcommand{\thetable}{{Table \arabic{table}}}
+
+
+\newfloat{suppfig}{thp}{lofsupfig}
+\renewcommand{\thesuppfig}{Supplementary figure \arabic{suppfig}}
+\floatname{suppfig}{}
+
+\newfloat{supptab}{thp}{lofsuptab}
+\renewcommand{\thesupptab}{Supplementary table \arabic{supptab}}
+\floatname{supptab}{}
+
+\newfloat{suppfile}{thp}{lofsupfile}
+\renewcommand{\thesuppfile}{Supplementary file \arabic{suppfile}}
+\floatname{suppfile}{}
+
+\renewcommand{\theequation}{Equation \arabic{equation}}
+
+\definecolor{darkblue}{rgb}{0, 0.0, 0.6}
+
+\usepackage{hyperref}
+\hypersetup{colorlinks,citecolor=blue,linkcolor=darkblue,urlcolor=blue}
+
+\usepackage{seqsplit}
+
+\usepackage{array}
+\newcolumntype{R}[1]{>{\raggedright\arraybackslash}p{#1}}
+\newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+
+\newcommand{\comment}[1]{{\color{red}(\textsl{#1})}}
+\newcommand{\mikecomment}[1]{{\color{magenta}(\textsl{#1})}}
+
+\usepackage{setspace}
+
+\renewcommand{\topfraction}{1}
+\renewcommand{\bottomfraction}{1}
+\renewcommand{\textfraction}{0}
+\renewcommand{\floatpagefraction}{1}
+
+%\renewcommand{\abstractname}{\large SUMMARY}
+
+
+\title{Mapping sites of shifting and constant mutational effects on the evolutionary landscape of HIV Envelope}
+
+\author
+{Hugh K. Haddox$^{1,2}$ , Adam S. Dingens$^{1,2}$, Julie Overbaugh and Jesse D. Bloom$^{1,2,5}$\\
+\footnotesize{$^1$Basic Sciences and Computational Biology Program, Fred Hutchinson Cancer Research Center, Seattle, WA}\\
+\footnotesize{$^2$Molecular and Cellular Biology PhD program, University of Washington, Seattle, WA} \\
+\footnotesize{E-mail: \href{jbloom@fredhutch.org}{jbloom@fredhutch.org}}
+}
+
+\date{}
+
+
+\begin{document}
+
+\maketitle
+
+
+\begin{abstract}
+HIV Envelope (Env) evolves rapidly.
+The immediate the evolutionary space accessible to any viral variant is largely determined by the effects of single amino-acid mutations.
+However, the effects of these mutations can shift over evolutionary time as the virus traverses through sequence space.
+Here we comprehensively quantify the ways in which mutational effects shift or remain constant by experimentally measuring the effects of all amino-acid mutations to two homologs of Env with 85\% (?) sequence identity.
+We find...
+\end{abstract}
+
+\section*{Introduction}
+
+\section*{Results}
+
+\subsection*{Deep mutational scanning of two Env homologs from transmitted-founder (?) viruses}
+Previously we've done deep mutational scanning on a lab-passaged CXCR4-tropic virus isolated late in infection.
+Here we sought to examine the effects of mutations in viruses more relevant to selection on HIV in nature.
+We chose...
+
+We made an alignment of group M sequences (\ref{suppfile:grpM}) and clade A (\ref{suppfile:cladeA})
+The relationship between BG505 and BF520 is shown in \ref{ref:tree}
+
+\begin{figure}
+%\centerline{\includegraphics[width=5in]{?}}
+\caption{\label{fig:tree}
+Phylogenetic tree showing the relationship among BG505 and BF520.
+{\bf(A)} Alignment of group M sequences.
+{\bf(B)} Zooms in on clade A sequences, shows more.
+Both use alignments for actual analyses with \texttt{phydms}.}
+\end{figure}
+
+We performed deep mutational scanning as described previously with a few modifications that are very briefly described here and detailed in the methods.
+We saw strong selection as indicated in \ref{fig:mutfreqs}.
+More details on DMS is shown in \ref{suppfig:dms}
+
+\begin{figure}
+%\centerline{\includegraphics[width=5in]{?}}
+\caption{\label{fig:mutfreqs}
+Mutation frequencies before and after selection after subtracting off stop codons.
+Correlations among the 2 pairs of replicates within each homolog.
+So this figure has something like 4 panels.
+}
+\end{figure}
+
+\subsection*{Re-scaling the experimental measurements to optimally describe HIV evolution in nature}
+
+Re-scaled as in \ref{tab:phydms}
+
+\begin{table}
+\caption{\label{tab:phydms}
+Results of \texttt{phydms} analysis with each set of averaged homologs.
+Maybe two nested table showing results for both clade A and group M.
+Show results for individual replicates as a supptab.
+}
+\end{table}
+
+A figure with the re-scaled average preferences for both BG505 and BF520. Wildtype under them.
+
+A supplemental file for each of these and the results for each replicate. This is a lot of files, so you might just make a zip with all eight.
+
+\subsection*{Differences between homologs}
+
+\begin{itemize}
+\item I like your heat map of correlation coefficients with HA included.
+\item You define a distance metric with is half sum absolute corrected. A little example plot of how this is calculated
+\item Also as the same figure subpanel or a supplemental figure perhaps show that this is highly correlated with the other two distance measures (just show two correlation plots), and then that's probably enough
+\item As a new figure or subpanel you'd have the histogram -- I think it would be cool if you could actually overlay the histogram of Env with HA. Either overlay or align with same scales. 
+\item For a summary figure showing the difference, I think you should do the following: (1) For each site, make the total height of the letter stack in each direction equal to the your corrected distance measure (the same thing in the histogram). (2) The height of each letter is equal to the difference in preferences of the average for each homolog. Plot overlays of conserved and variable, and surface versus core.
+\end{itemize}
+
+\subsection*{Validating sites of mutational shifts}
+Describe and validate a few of these sites
+
+\subsection*{Looking at how shifts relate to evolution and structure}
+
+\section*{Discussion}
+
+\section*{Methods}
+
+\subsection*{Sequence alignments}
+
+\subsection*{Acknowledgments}
+
+
+\bibliographystyle{mbe}
+\bibliography{references.bib}
+
+\clearpage
+\normalsize
+
+\section*{Supplementary Material}
+
+\begin{supptab}
+\caption{\label{supptab:phydms_replicates}
+phydms analysis for all replicates
+}
+\end{supptab}
+
+\begin{suppfig}
+\caption{\label{suppfig:dms}
+some plots about DMS
+}
+\end{suppfig}
+
+\begin{suppfile}
+\caption{\label{suppfile:grpM}
+Alignment of all group M sequences numbered and aligned as ???
+}
+\end{suppfile}
+
+\begin{suppfile}
+\caption{\label{suppfile:cladeA}
+Alignment of clade A sequences...
+}
+\end{suppfile}
+
+\end{document}
