@@ -59,12 +59,15 @@ We made an alignment of group M sequences (\ref{suppfile:grpM}) and clade A (\re
 The relationship between BG505 and BF520 is shown in \ref{ref:tree}
 
 \begin{figure}
-%\centerline{\includegraphics[width=5in]{?}}
+\centerline{\includegraphics[width=5in]{figures/tree/tree}}
 \caption{\label{fig:tree}
 Phylogenetic tree showing the relationship among BG505 and BF520.
-{\bf(A)} Alignment of group M sequences.
-{\bf(B)} Zooms in on clade A sequences, shows more.
-Both use alignments for actual analyses with \texttt{phydms}.}
+{\bf(A)} A tree of group-M sequences with 20 sequences per subtype for subtypes A, B, C, D, F, and G.
+{\bf(B)} A tree of subtype-A sequences with 120 sequences total, rooted using a subtype-B sequence as an outgroup.
+BG505 and BF520 cluster within subtype A, while LAI clusters within subtype B.
+The alignments we used to make these trees are the same alignments we used in the below \texttt{phydms} analysis, excluding the outgroup sequence used to root the subtype-A tree.
+The scale bars are in units of codon substitutions per site.
+}
 \end{figure}
 
 We performed deep mutational scanning as described previously with a few modifications that are very briefly described here and detailed in the methods.
@@ -72,45 +75,172 @@ We saw strong selection as indicated in \ref{fig:mutfreqs}.
 More details on DMS is shown in \ref{suppfig:dms}
 
 \begin{figure}
-%\centerline{\includegraphics[width=5in]{?}}
-\caption{\label{fig:mutfreqs}
-Mutation frequencies before and after selection after subtracting off stop codons.
-Correlations among the 2 pairs of replicates within each homolog.
-So this figure has something like 4 panels.
+\centerline{\includegraphics[width=3in]{figures/dms_schematic/dms_schematic}}
+\caption{\label{fig:dms_schematic}
+Deep mutational scanning workflow.
+{\bf (A)} For each homolog, we made a library of proviral HIV plasmids with random codon-level mutations in \textit{env}.
+We then transfected the plasmids into 293T cells to generate mutant viruses, which may lack a genotype-phenotype link since transfected cell are expected to each receive multiple plasmids.
+To establish this link and select for functional variants, we first passaged the libraries in SupT1 cells at a low MOI.
+Then, we imposed a second round of selection by infecting the passaged viruses into SupT1 cells at a high MOI and then harvesting reverse-transcribed unintegrated viral DNA at 12 hours post-infection.
+Finally, we deep sequenced the libraries before and after selection.
+We also deep sequenced wildtype controls to estimate error rates due to PCR, deep sequencing, and viral replication.
+Using these sequencing data, we then inferred each site's preference for each of the 20 amino acids.
+{\bf (B)} For each homolog, we conducted this experiment in full biological triplicate, beginning at the stage of independently creating the plasmid mutant libraries.
 }
 \end{figure}
+
+\begin{figure}
+\centerline{\includegraphics[width=5in]{figures/mutfreqs/mutfreqs}}
+\caption{\label{fig:mutfreqs}
+The deep mutational scanning experiments imposed strong purifying selection and led to reproducible estimates of each homolog's amino-acid preferences.
+{\bf(A)} For each replicate of each homolog, we deep sequenced the starting plasmid libraries (DNA) and the selected virus libraries (virus).
+Bars show the per-codon mutation frequency averaged across all sites after subtracting mutation frequencies determined using wildtype controls (Fig \ref{suppfig:ch3_mutfreqs_supp}).
+Mutations leading to stop codons were purged during the selection step to 3-17\% their starting frequencies (see red numbers), indicating strong purifying selection.
+Nonsynonymous mutations decreased to 40-50\% their starting frequencies, consistent with a large fraction of amino-acid mutations being deleterious to Env.
+Synonymous mutations only decreased to 87-95\% their starting frequencies, as would be expected if synonymous mutations tend to have more neutral effects than nonsynonymous changes.
+Panels {\bf(B)} and {\bf(C)} show the correlation in our estimates of each homolog's site-specific amino-acid preferences between experimental replicates, with {\bf(B)} showing the correlation between BF520 replicates and {\bf(C)} showing the correlation between BG505 replicates.
+Each correlation plot reports the associated Pearson correlation coefficient, which ranged from 0.59-0.75, indicating that our estimates are largely repeatable between replicates.
+}
+%\figsupp{test text}{\includegraphics[width=5cm]{figures/mutfreqs_supp/mutfreqs_supp}}
+\end{figure}
+
 
 \subsection*{Re-scaling the experimental measurements to optimally describe HIV evolution in nature}
 
 Re-scaled as in \ref{tab:phydms}
 
 \begin{table}
-\caption{\label{tab:phydms}
-Results of \texttt{phydms} analysis with each set of averaged homologs.
-Maybe two nested table showing results for both clade A and group M.
-Show results for individual replicates as a supptab.
+\centering
+\caption{
+{\bf Phylogenetic models that incorporate Env's preferences indicate that selection was less stringent in the lab than in nature.}}
+{\footnotesize
+\begin{tabular}{cccc}
+\multicolumn{4}{c}{\bf{Group M}}\\
+\hline
+model & $\Delta$AIC & log likelihood & parameters: optimized values \\ 
+\hline
+BG505 & 0.00 & $-$58185.53 & 7: $\beta$ = 2.07, $\alpha_\omega$ = 0.69, $\beta_\omega$ = 0.49, $\kappa$ = 3.16\\
+BF520 & 70.26 & $-$58220.66 & 7: $\beta$ = 2.44, $\alpha_\omega$ = 0.71, $\beta_\omega$ = 0.47, $\kappa$ = 3.11\\
+LAI & 2994.80 & $-$59682.93 & 7: $\beta$ = 1.00, $\alpha_\omega$ = 0.55, $\beta_\omega$ = 0.46, $\kappa$ = 3.09\\
+BF520 site averaged & 3913.08 & $-$60142.07 & 7: $\beta$ = 2.24, $\alpha_\omega$ = 0.50, $\beta_\omega$ = 0.41, $\kappa$ = 3.21\\
+BG505 site averaged & 3922.08 & $-$60146.57 & 7: $\beta$ = 1.53, $\alpha_\omega$ = 0.51, $\beta_\omega$ = 0.42, $\kappa$ = 3.21\\
+LAI site averaged & 4083.20 & $-$60227.13 & 7: $\beta$ = 0.83, $\alpha_\omega$ = 0.51, $\beta_\omega$ = 0.41, $\kappa$ = 3.2\\
+YNGKP M5 & 4423.42 & $-$60392.24 & 12: $\alpha_\omega$ = 0.53, $\beta_\omega$ = 0.55, $\kappa$ = 3.20\\
+\\
+\multicolumn{4}{c}{\bf{Subtype A}}\\
+\hline
+model & $\Delta$AIC & log likelihood & parameters: optimized values \\ 
+\hline
+BF520 & 0.00 & $-$48166.45 & 7: $\beta$ = 2.80, $\alpha_\omega$ = 0.59, $\beta_\omega$ = 0.33, $\kappa$ = 3.53\\
+BG505 & 234.70 & $-$48283.8 & 7: $\beta$ = 2.19, $\alpha_\omega$ = 0.58, $\beta_\omega$ = 0.32, $\kappa$ = 3.50\\
+LAI & 2860.64 & $-$49596.77 & 7: $\beta$ = 1.06, $\alpha_\omega$ = 0.48, $\beta_\omega$ = 0.30, $\kappa$ = 3.41\\
+BG505 site averaged & 3909.68 & $-$50121.29 & 7: $\beta$ = 0.93, $\alpha_\omega$ = 0.47, $\beta_\omega$ = 0.30, $\kappa$ = 3.61\\
+BF520 site averaged & 3913.70 & $-$50123.3 & 7: $\beta$ = 1.22, $\alpha_\omega$ = 0.47, $\beta_\omega$ = 0.30, $\kappa$ = 3.61\\
+LAI site averaged & 3961.18 & $-$50147.04 & 7: $\beta$ = 0.01, $\alpha_\omega$ = 0.46, $\beta_\omega$ = 0.30, $\kappa$ = 3.67\\
+YNGKP M5 & 3980.00 & $-$50151.45 & 12: $\alpha_\omega$ = 0.42, $\beta_\omega$ = 0.42, $\kappa$ = 3.62
+\end{tabular}
 }
+\begin{flushleft}
+We used \texttt{phydms} to incorporate each homolog's averaged preferences into ExpCMs.
+This table shows the results of using these models to optimize the branch lengths of the group-M and subtype-A trees shown in Fig \ref{fig:ch3_tree}.
+For both trees, the ExpCMs dramatically outperformed a standard codon-substitution model (YNGKP M5), based on differences in Akaike information criterion (AIC), with BG505's and BF520's preferences describing Env's evolution better than LAI's preferences. 
+The stringency parameters ($\beta$) inferred for BG505 and BF520 were both  $>$1, indicating that selection is more stringent in nature than our experiments for these homologs.
+In contrast, the stringency parameters inferred for LAI were $\sim$1, which may be due to experimental or biological differences, as discussed in the main text.
+As a control, for each homolog, we created an ExpCMs using preferences averaged across all sites in the protein.
+This averaging substantially decreased phylogenetic fit, indicating that the preferences capture site-specific selective pressures on Env in nature.
+The results for individual experimental replicates are shown in Tables \ref{tab:phydms_groupM_supp} and \ref{tab:phydms_subtypeA_supp}.
+\end{flushleft}
+\label{tab:phydms}
 \end{table}
 
-A figure with the re-scaled average preferences for both BG505 and BF520. Wildtype under them.
+\begin{figure}
+\centerline{\includegraphics[width=6.5in]{figures/prefs_BG505/prefs_BG505.png}}
+\caption{\label{fig:bg505_prefs_logo}
+The rescaled averaged site-specific amino-acid preferences for BG505.
+This logo plot shows the site-specific amino-acid preferences for BG505 after averaging between replicates and then rescaling them using the stringency parameter from Table \ref{tab:phydms} inferred for BG505 from the group-M alignment.
+Each site has a stack of 20 letters corresponding to the 20 amino acids.
+Letter heights, which sum to one at each site, are proportional to the site's preference for each amino acid.
+The top bar (R) indicates gp120 variable loops, other regions in gp120, or gp41.
+The bottom bar (WT) shows the wildtype amino-acid sequence for BG505.
+Sites are numbered according to the HXB2 numbering scheme~\cite{korber1998numbering}).
+}
+\end{figure}
+
+\begin{figure}
+\centerline{\includegraphics[width=6.5in]{figures/prefs_BF520/prefs_BF520.png}}
+\caption{\label{fig:bf520_prefs_logo}
+The re-scaled averaged site-specific amino-acid preferences for BF520.
+This figure is the same as Fig \ref{fig:bg505_prefs_logo}, but for BF520 instead of BG505.
+}
+\end{figure}
 
 A supplemental file for each of these and the results for each replicate. This is a lot of files, so you might just make a zip with all eight.
 
 \subsection*{Differences between homologs}
 
-\begin{itemize}
-\item I like your heat map of correlation coefficients with HA included.
-\item You define a distance metric with is half sum absolute corrected. A little example plot of how this is calculated
-\item Also as the same figure subpanel or a supplemental figure perhaps show that this is highly correlated with the other two distance measures (just show two correlation plots), and then that's probably enough
-\item As a new figure or subpanel you'd have the histogram -- I think it would be cool if you could actually overlay the histogram of Env with HA. Either overlay or align with same scales. 
-\item For a summary figure showing the difference, I think you should do the following: (1) For each site, make the total height of the letter stack in each direction equal to the your corrected distance measure (the same thing in the histogram). (2) The height of each letter is equal to the difference in preferences of the average for each homolog. Plot overlays of conserved and variable, and surface versus core.
-\end{itemize}
+\begin{figure}
+\centerline{\includegraphics[width=6.5in]{figures/homologs_corr/homologs_corr.png}}
+\caption{\label{fig:homologs_corr}
+Env's preferences are well correlated between BG505 and BF520.
+This figure shows the correlation of the preferences between replicates, both within and between Env homologs.
+In this figure, the preferences for each replicate have been rescaled using the stringency parameter for the corresponding homolog from the group-M analysis in Table \ref{tab:phydms}.
+We analyzed 616 sites that are shared between homologs and were in readily alignable regions of the group-M multiple-sequence alignment.
+As a control, we also compared our estimates of Env's preferences with the preferences of a non-homologous protein -- influenza HA -- across the 480 sites where these proteins overlap in sequential numbering.
+{\bf (A)} Plots showing the correlation of preferences between two replicates from the same protein.
+Here, differences reflect experimental noise.
+{\bf (B)} Plots showing the correlation of preferences between Env homologs, or between BG505 and HA.
+Here, differences reflect a combination of experimental noise and biological differences between proteins.
+The Env homologs are well correlated, whereas BG505 and HA are not correlated.
+{\bf (C)} The heat map shows the Pearson correlation coefficient for all pairwise comparisons of all experimental replicates of each homolog (coefficients are also shown on the correlation plots).
+This heat map indicates that the trends in {\bf (A)} and {\bf (B)} hold for all replicates.
+}
+\end{figure}
+
+\begin{figure}
+\centerline{\includegraphics[width=4.5in]{figures/distances/distances.png}}
+\caption{\label{fig:distances}
+Most shifts in amino-acid preference between Env homologs are small-to-intermediate in effect size after correcting for experimental noise.
+We quantified the shift in each site's preferences using a distance metric that corrects for experimental noise, as quantified by experimental replicates.
+{\bf (A)} This panel shows how the distance metric is calculated for a subset of sites.
+{\bf (B)} The blue histogram shows the distribution of site-specific $RMSD_{corrected}$ values between Env homologs for all 616 sites being compared.
+Most sites have a distance greater than zero.
+The overlayed green histogram shows the distribution of $RMSD_{corrected}$ values between BG505 Env and influenza HA for all 480 sites that overlap in sequential numbering.
+Most site-specific distances in the Env-HA comparison are much larger than the distances in the BG505-BF520 comparison.
+}
+\end{figure}
+
+Add a supplemental figure showing that the distance metric we use (half sum absolute corrected) is correlated with other distance metrics (e.g., Jensen-Shannon distance).
+
+\begin{figure}
+\centerline{\includegraphics[width=6.5in]{figures/diffs_logo/diffs_logo.png}}
+\caption{\label{fig:diffs_logo}
+{\bf The difference in Env's site-specific amino-acid preferences between homologs, scaled by site-specific $RMSD_{corrected}$ values.}
+This figure shows the estimated preference shift for each amino acid across all 616 sites in Env being compared.
+For each site, we plot the difference in the rescaled averaged preferences between homologs ($\Delta\pi_{r,a} = \pi_{r,a}^{BG505} - \pi_{r,a}^{BF520}$), where each site has 20 letters corresponding to the 20 amino acids, and where negative and positive values are shown below and above the central black line, respectively.
+Thus, amino acids above the central line are more preferred in BG505, whereas amino acids below the central line are more preferred in BF520.
+At each site, we adjusted the total height of the letters in both directions to equal that site's $RMSD_{corrected}$ from Fig \ref{fig:distances}B (i.e., $\sum_{a}| \Delta\pi_{r,a} | = RMSD_{corrected}$).
+In effect, the sites with the largest stack heights are the sites where we observe the largest differences, after accounting for noise.
+The bar indicates which sites are variable or conserved in amino-acid sequence between homologs.
+Note that adjacent sites are not always contiguous in primary sequence, since we masked sites that are either not shared between homologs, or are not readily alignable in the group-M multiple-sequence alignment.
+}
+\end{figure}
+
+Plot overlays of conserved and variable, and surface versus core?
 
 \subsection*{Validating sites of mutational shifts}
 Describe and validate a few of these sites
 
 \subsection*{Looking at how shifts relate to evolution and structure}
 
+\begin{figure}
+\centerline{\includegraphics[width=2.5in]{figures/distances_at_subsets_of_sites/distances_at_subsets_of_sites.png}}
+\caption{\label{fig:shifts_at_variable_sites}
+{\bf The median shift in preferences between Env homologs is similar at variable vs. conserved sites.}
+The box plots compare show the shifts at all sites, just sites that differ in wildtype amino acids between BG505 and BF520 (variable), or sites that are conserved between the homologs.
+Shifts are quantified by site-specific $RMSD_{corrected}$ values from Fig \ref{fig:ch3_distances}.
+The median shift is roughly equivalent for each group of sites.
+}
+\end{figure}
 
 \section{Discussion}
 
@@ -153,5 +283,132 @@ Alignment of clade A sequences...
 \end{suppfile}
 % remove the below line when figure out how to format the supplement correctly
 \fi
+
+\begin{figure}
+\centerline{\includegraphics[width=5in]{figures/sanger_sequencing_supp/sanger_sequencing_supp}}
+\caption{\label{suppfig:sanger_sequencing_supp}
+{\bf Sanger sequencing of the BG505 mutant plasmids revealed that codon mutations were distributed roughly uniformly, with an average of 1.5 mutations per gene.}
+We Sanger sequenced 44 clones of BG505 Env.
+We sampled these clones roughly evenly from the three replicate mutant plasmid libraries before these libraries had undergone any functional selection. 
+{\bf(A)} There was an average of 1.5 mutant codons per clone, with the number of mutations per clone roughly following a Poisson distribution. 
+{\bf(B)} The mutant codons had a mix of single-, double-, and triple-nucleotide changes, with an elevated number of single-nucleotide changes than expected.
+{\bf(C)} Nucleotide frequencies were fairly uniform in the mutant codons, as expected from random mutagenesis.
+{\bf(D)} Mutations were distributed roughly evenly along the mutagenized region of {\it env} (30-699 in BG505 numbering).
+{\bf(E)} For clones with multiple mutations, we computed the pairwise distance in primary sequence between each codon mutation and plotted the cumulative distribution of these distances (red line). 
+We also simulated the expected distribution of pairwise distances if mutations occurred entirely independently (blue line). 
+The observed distribution is close to the expected distribution.
+}
+\end{figure}
+
+\begin{figure}
+\centerline{\includegraphics[width=5in]{figures/mutfreqs_supp/mutfreqs_supp}}
+\caption{\label{suppfig:mutfreqs_supp}
+{\bf Per-codon mutation frequencies of the mutant libraries and wildtype controls before and after selection.}
+This figure is similar to Fig \ref{fig:mutfreqs}, but it reports \textit{non}-error-corrected per-codon mutation frequencies for each of the mutant libraries and wildtype controls before and after selection for {\bf (A)} BG505 and {\bf (B)} BF520.
+Specifically, for each each replicate, wt-DNA and mut-DNA refer to the pre-selection wildtype and mutant plasmids, respectively; and wt-virus and mut-virus refer to the post-selection wildtype and mutant viruses, respectively.
+Note, there is only a single replicate of the wt-DNA sample for BF520.
+The bars show frequencies of different codon-level mutations.
+The left bar for each sample groups mutations as being either synonymous, non-synonymous, or leading to the introduction of a stop codon.
+The right bar for each sample groups mutations as introducing a single-nucleotide codon mutation (e.g., aaa $\rightarrow$ aaT), double-nucleotide codon mutation (e.g., aaa $\rightarrow$ aTT), or triple-nucleotide mutation (e.g., aaa $\rightarrow$ TTT).
+Each wildtype plasmid shows a low rate of single-nucleotide codon mutations, consistent with errors from PCR and deep sequencing.
+Importantly, the wildtype plasmids have a much lower mutation rate than the mutant plasmids.
+The mutation frequency of single-nucleotide mutations substantially increases for each wildtype virus, which is expected due to errors from viral replication.
+Comparing the wildtype viruses to the mutant viruses suggests that roughly a third to a half of mutations in the mutant viruses arise due to to errors from PCR, deep sequencing, and viral replication, underlying the importance of estimating these error rates using the controls.
+When inferring Env's amino-acid preferences, we use the wildtype controls to statistically correct for such errors, as described in the Methods.
+}
+\end{figure}
+
+\begin{table}
+\centering
+\caption[Results of the \texttt{phydms} analysis with group-M sequences for individual experimental replicates.]{
+{\bf Results of the \texttt{phydms} analysis with group-M sequences for individual experimental replicates.}}
+{\footnotesize
+\begin{tabular}{cccc}
+model & $\Delta$AIC & log likelihood & parameters: optimized values \\ 
+\hline
+BG505-avg & 0.00 & $-$58185.53 & 7: $\beta$ = 2.07, $\alpha_\omega$ = 0.69, $\beta_\omega$ = 0.49, $\kappa$ = 3.16\\
+BF520-avg & 70.26 & $-$58220.66 & 7: $\beta$ = 2.44, $\alpha_\omega$ = 0.71, $\beta_\omega$ = 0.47, $\kappa$ = 3.11\\
+BF520-1 & 1149.48 & $-$58760.27 & 7: $\beta$ = 1.69, $\alpha_\omega$ = 0.62, $\beta_\omega$ = 0.48, $\kappa$ = 3.18\\
+BG505-1 & 1169.24 & $-$58770.15 & 7: $\beta$ = 1.35, $\alpha_\omega$ = 0.55, $\beta_\omega$ = 0.52, $\kappa$ = 3.16\\
+BG505-3 & 1188.94 & $-$58780.0 & 7: $\beta$ = 1.58, $\alpha_\omega$ = 0.69, $\beta_\omega$ = 0.52, $\kappa$ = 3.21\\
+BG505-2 & 1215.68 & $-$58793.37 & 7: $\beta$ = 1.44, $\alpha_\omega$ = 0.66, $\beta_\omega$ = 0.50, $\kappa$ = 3.18\\
+BF520-3 & 1550.10 & $-$58960.58 & 7: $\beta$ = 1.69, $\alpha_\omega$ = 0.66, $\beta_\omega$ = 0.54, $\kappa$ = 3.08\\
+BF520-2 & 1613.64 & $-$58992.35 & 7: $\beta$ = 1.50, $\alpha_\omega$ = 0.65, $\beta_\omega$ = 0.50, $\kappa$ = 3.18\\
+LAI-3b & 2792.12 & $-$59581.59 & 7: $\beta$ = 0.87, $\alpha_\omega$ = 0.56, $\beta_\omega$ = 0.44, $\kappa$ = 3.17\\
+LAI-avg & 2994.80 & $-$59682.93 & 7: $\beta$ = 1.00, $\alpha_\omega$ = 0.55, $\beta_\omega$ = 0.46, $\kappa$ = 3.09\\
+LAI-1 & 3402.28 & $-$59886.67 & 7: $\beta$ = 0.59, $\alpha_\omega$ = 0.52, $\beta_\omega$ = 0.49, $\kappa$ = 3.17\\
+LAI-2 & 3561.38 & $-$59966.22 & 7: $\beta$ = 0.53, $\alpha_\omega$ = 0.53, $\beta_\omega$ = 0.46, $\kappa$ = 3.15\\
+LAI-3 & 3594.92 & $-$59982.99 & 7: $\beta$ = 0.45, $\alpha_\omega$ = 0.54, $\beta_\omega$ = 0.40, $\kappa$ = 3.18\\
+BF520-3 site averaged & 3904.60 & $-$60137.83 & 7: $\beta$ = 2.42, $\alpha_\omega$ = 0.50, $\beta_\omega$ = 0.42, $\kappa$ = 3.21\\
+BF520-avg site averaged & 3913.08 & $-$60142.07 & 7: $\beta$ = 2.24, $\alpha_\omega$ = 0.50, $\beta_\omega$ = 0.41, $\kappa$ = 3.21\\
+BG505-1 site averaged & 3914.92 & $-$60142.99 & 7: $\beta$ = 1.51, $\alpha_\omega$ = 0.51, $\beta_\omega$ = 0.42, $\kappa$ = 3.21\\
+BF520-1 site averaged & 3920.58 & $-$60145.82 & 7: $\beta$ = 2.17, $\alpha_\omega$ = 0.51, $\beta_\omega$ = 0.41, $\kappa$ = 3.22\\
+BF520-2 site averaged & 3921.04 & $-$60146.05 & 7: $\beta$ = 2.09, $\alpha_\omega$ = 0.50, $\beta_\omega$ = 0.41, $\kappa$ = 3.21\\
+BG505-3 site averaged & 3921.64 & $-$60146.35 & 7: $\beta$ = 1.61, $\alpha_\omega$ = 0.51, $\beta_\omega$ = 0.42, $\kappa$ = 3.20\\
+BG505-avg site averaged & 3922.08 & $-$60146.57 & 7: $\beta$ = 1.53, $\alpha_\omega$ = 0.51, $\beta_\omega$ = 0.42, $\kappa$ = 3.21\\
+BG505-2 site averaged & 3933.90 & $-$60152.48 & 7: $\beta$ = 1.44, $\alpha_\omega$ = 0.51, $\beta_\omega$ = 0.42, $\kappa$ = 3.22\\
+LAI-3b site averaged & 4056.98 & $-$60214.02 & 7: $\beta$ = 1.05, $\alpha_\omega$ = 0.51, $\beta_\omega$ = 0.40, $\kappa$ = 3.26\\
+LAI-avg site averaged & 4083.20 & $-$60227.13 & 7: $\beta$ = 0.83, $\alpha_\omega$ = 0.51, $\beta_\omega$ = 0.41, $\kappa$ = 3.26\\
+LAI-3 site averaged & 4085.00 & $-$60228.03 & 7: $\beta$ = 0.73, $\alpha_\omega$ = 0.51, $\beta_\omega$ = 0.41, $\kappa$ = 3.27\\
+LAI-1 site averaged & 4093.64 & $-$60232.35 & 7: $\beta$ = 0.73, $\alpha_\omega$ = 0.51, $\beta_\omega$ = 0.41, $\kappa$ = 3.27\\
+LAI-2 site averaged & 4100.52 & $-$60235.79 & 7: $\beta$ = 0.61, $\alpha_\omega$ = 0.51, $\beta_\omega$ = 0.41, $\kappa$ = 3.27\\
+YNGKP M5 & 4423.42 & $-$60392.24 & 12: $\alpha_\omega$ = 0.53, $\beta_\omega$ = 0.55, $\kappa$ = 3.20
+\end{tabular}
+}
+\begin{flushleft}
+This table is similar to Table \ref{tab:ch3_phydms}, but shows the results of ExpCMs for \textit{all} experimental replicates of each homolog, instead of just the ExpCMs made after averaging a homolog's amino-acid preferences among its replicates.
+This table only shows the results of the analysis with group-M sequences; see \ref{tab:ch3_phydms_subtypeA_supp} for the results of the analysis with subtype-A sequences.
+With the exception of LAI replicate 3b, the ExpCMs for individual experimental replicates always perform worse (based on $\Delta$AIC) than the ExpCMs for the averaged replicates.
+Moreover, the inferred stringency parameters are always lower for individual replicates than for the averaged replicates.
+These patterns are both consistent with the idea that averaging across replicates increases the accuracy of our estimates by decreasing experimental noise.
+As in \ref{tab:ch3_phydms}, the ExpCMs for individual replicates all outperform the standard model and decrease in performance when the preferences are averaged across all sites in the protein to create model that is not site-specific.
+\end{flushleft}
+\label{tab:ch3_phydms_groupM_supp}
+\end{table}
+
+\begin{table}
+\centering
+\caption[Results of the \texttt{phydms} analysis with subtype-A sequences for individual experimental replicates.]{
+{\bf Results of the \texttt{phydms} analysis with subtype-A sequences for individual experimental replicates.}}
+{\footnotesize
+\begin{tabular}{cccc}
+model & $\Delta$AIC & log likelihood & parameters: optimized values \\ 
+\hline
+BF520-avg & 0.00 & $-$48166.45 & 7: $\beta$ = 2.80, $\alpha_\omega$ = 0.59, $\beta_\omega$ = 0.33, $\kappa$ = 3.53\\
+BG505-avg & 234.70 & $-$48283.8 & 7: $\beta$ = 2.19, $\alpha_\omega$ = 0.58, $\beta_\omega$ = 0.32, $\kappa$ = 3.50\\
+BF520-1 & 1027.22 & $-$48680.06 & 7: $\beta$ = 1.90, $\alpha_\omega$ = 0.57, $\beta_\omega$ = 0.30, $\kappa$ = 3.61\\
+BG505-3 & 1236.20 & $-$48784.55 & 7: $\beta$ = 1.63, $\alpha_\omega$ = 0.53, $\beta_\omega$ = 0.33, $\kappa$ = 3.59\\
+BG505-1 & 1270.98 & $-$48801.94 & 7: $\beta$ = 1.48, $\alpha_\omega$ = 0.55, $\beta_\omega$ = 0.33, $\kappa$ = 3.53\\
+BG505-2 & 1392.52 & $-$48862.71 & 7: $\beta$ = 1.53, $\alpha_\omega$ = 0.54, $\beta_\omega$ = 0.39, $\kappa$ = 3.41\\
+BF520-3 & 1468.76 & $-$48900.83 & 7: $\beta$ = 1.88, $\alpha_\omega$ = 0.61, $\beta_\omega$ = 0.34, $\kappa$ = 3.47\\
+BF520-2 & 1591.72 & $-$48962.31 & 7: $\beta$ = 1.68, $\alpha_\omega$ = 0.54, $\beta_\omega$ = 0.34, $\kappa$ = 3.65\\
+LAI-3b & 2813.66 & $-$49573.28 & 7: $\beta$ = 0.89, $\alpha_\omega$ = 0.49, $\beta_\omega$ = 0.30, $\kappa$ = 3.54\\
+LAI-avg & 2860.64 & $-$49596.77 & 7: $\beta$ = 1.06, $\alpha_\omega$ = 0.48, $\beta_\omega$ = 0.30, $\kappa$ = 3.41\\
+LAI-1 & 3173.34 & $-$49753.12 & 7: $\beta$ = 0.68, $\alpha_\omega$ = 0.46, $\beta_\omega$ = 0.33, $\kappa$ = 3.49\\
+LAI-3 & 3397.38 & $-$49865.14 & 7: $\beta$ = 0.45, $\alpha_\omega$ = 0.49, $\beta_\omega$ = 0.30, $\kappa$ = 3.49\\
+LAI-2 & 3451.26 & $-$49892.08 & 7: $\beta$ = 0.51, $\alpha_\omega$ = 0.47, $\beta_\omega$ = 0.34, $\kappa$ = 3.48\\
+BF520-3 site averaged & 3900.54 & $-$50116.72 & 7: $\beta$ = 1.53, $\alpha_\omega$ = 0.47, $\beta_\omega$ = 0.30, $\kappa$ = 3.61\\
+BG505-1 site averaged & 3908.02 & $-$50120.46 & 7: $\beta$ = 0.92, $\alpha_\omega$ = 0.47, $\beta_\omega$ = 0.30, $\kappa$ = 3.61\\
+BG505-2 site averaged & 3908.50 & $-$50120.7 & 7: $\beta$ = 0.90, $\alpha_\omega$ = 0.47, $\beta_\omega$ = 0.30, $\kappa$ = 3.61\\
+BG505-avg site averaged & 3909.68 & $-$50121.29 & 7: $\beta$ = 0.93, $\alpha_\omega$ = 0.47, $\beta_\omega$ = 0.30, $\kappa$ = 3.61\\
+BF520-avg site averaged & 3913.70 & $-$50123.3 & 7: $\beta$ = 1.22, $\alpha_\omega$ = 0.47, $\beta_\omega$ = 0.30, $\kappa$ = 3.61\\
+BG505-3 site averaged & 3914.34 & $-$50123.62 & 7: $\beta$ = 0.94, $\alpha_\omega$ = 0.47, $\beta_\omega$ = 0.30, $\kappa$ = 3.60\\
+BF520-2 site averaged & 3917.84 & $-$50125.37 & 7: $\beta$ = 1.18, $\alpha_\omega$ = 0.47, $\beta_\omega$ = 0.30, $\kappa$ = 3.62\\
+BF520-1 site averaged & 3922.20 & $-$50127.55 & 7: $\beta$ = 1.20, $\alpha_\omega$ = 0.47, $\beta_\omega$ = 0.30, $\kappa$ = 3.63\\
+LAI-3b site averaged & 3959.56 & $-$50146.23 & 7: $\beta$ = 0.20, $\alpha_\omega$ = 0.46, $\beta_\omega$ = 0.30, $\kappa$ = 3.65\\
+LAI-3 site averaged & 3961.16 & $-$50147.03 & 7: $\beta$ = 0.03, $\alpha_\omega$ = 0.46, $\beta_\omega$ = 0.30, $\kappa$ = 3.67\\
+LAI-avg site averaged & 3961.18 & $-$50147.04 & 7: $\beta$ = 0.01, $\alpha_\omega$ = 0.46, $\beta_\omega$ = 0.30, $\kappa$ = 3.67\\
+LAI-1 site averaged & 3961.22 & $-$50147.06 & 7: $\beta$ = 0.01, $\alpha_\omega$ = 0.46, $\beta_\omega$ = 0.30, $\kappa$ = 3.67\\
+LAI-2 site averaged & 3961.30 & $-$50147.1 & 7: $\beta$ = 0.01, $\alpha_\omega$ = 0.46, $\beta_\omega$ = 0.30, $\kappa$ = 3.67\\
+YNGKP M5 & 3980.00 & $-$50151.45 & 12: $\alpha_\omega$ = 0.42, $\beta_\omega$ = 0.42, $\kappa$ = 3.62
+\end{tabular}
+}
+\begin{flushleft}
+This table is similar to Table \ref{tab:ch3_phydms_groupM_supp}, but shows the results of the analysis with subtype-A sequences.
+The trends seen for subtype A are similar to those for group M.
+\end{flushleft}
+\label{tab:phydms_subtypeA_supp}
+\end{table}
+
 
 \end{document}
