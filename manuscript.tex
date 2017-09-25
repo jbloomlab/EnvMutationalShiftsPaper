@@ -1,98 +1,40 @@
-% Use only LaTeX2e, calling the article.cls class and 12-point type.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% ELIFE ARTICLE TEMPLATE
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% PREAMBLE 
+\documentclass[9pt,lineno]{elife}
+% Use the onehalfspacing option for 1.5 line spacing
+% Use the doublespacing option for 2.0 line spacing
+% Please note that these options may affect formatting.
 
-\documentclass[12pt]{article}
+\usepackage{lipsum} % Required to insert dummy text
+\usepackage[version=4]{mhchem}
+\usepackage{siunitx}
+\DeclareSIUnit\Molar{M}
 
-\usepackage[round,semicolon]{natbib}
-
-% Use times if you have the font installed; otherwise, comment out the
-% following line.
-
-\usepackage{times}
-\usepackage{amssymb}
-\usepackage{amsmath}
-\usepackage{seqsplit}
-
-% The following parameters seem to provide a reasonable page setup.
-
-\topmargin 0.0cm
-\oddsidemargin 0.2cm
-\textwidth 16cm 
-\textheight 21cm
-\footskip 1.0cm
-
-\usepackage{newfloat}
-\usepackage{amsmath}
-\usepackage[labelfont=bf]{caption}
-\usepackage{nameref}
-\usepackage{rotating}
-\usepackage{color}
-\usepackage{float}
-
-\setcounter{topnumber}{8}
-\setcounter{bottomnumber}{8}
-\setcounter{totalnumber}{8}
-
-\renewcommand{\figurename}{{}}
-\renewcommand{\thefigure}{{Figure \arabic{figure}}}
-
-\renewcommand{\tablename}{{}}
-\renewcommand{\thetable}{{Table \arabic{table}}}
-
-
-\newfloat{suppfig}{thp}{lofsupfig}
-\renewcommand{\thesuppfig}{Supplementary figure \arabic{suppfig}}
-\floatname{suppfig}{}
-
-\newfloat{supptab}{thp}{lofsuptab}
-\renewcommand{\thesupptab}{Supplementary table \arabic{supptab}}
-\floatname{supptab}{}
-
-\newfloat{suppfile}{thp}{lofsupfile}
-\renewcommand{\thesuppfile}{Supplementary file \arabic{suppfile}}
-\floatname{suppfile}{}
-
-\renewcommand{\theequation}{Equation \arabic{equation}}
-
-\definecolor{darkblue}{rgb}{0, 0.0, 0.6}
-
-\usepackage{hyperref}
-\hypersetup{colorlinks,citecolor=blue,linkcolor=darkblue,urlcolor=blue}
-
-\usepackage{seqsplit}
-
-\usepackage{array}
-\newcolumntype{R}[1]{>{\raggedright\arraybackslash}p{#1}}
-\newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
-
-\newcommand{\comment}[1]{{\color{red}(\textsl{#1})}}
-\newcommand{\mikecomment}[1]{{\color{magenta}(\textsl{#1})}}
-
-\usepackage{setspace}
-
-\renewcommand{\topfraction}{1}
-\renewcommand{\bottomfraction}{1}
-\renewcommand{\textfraction}{0}
-\renewcommand{\floatpagefraction}{1}
-
-%\renewcommand{\abstractname}{\large SUMMARY}
-
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% ARTICLE SETUP
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \title{Mapping sites of shifting and constant mutational effects on the evolutionary landscape of HIV Envelope}
 
-\author
-{Hugh K. Haddox$^{1,2}$ , Adam S. Dingens$^{1,2}$, Julie Overbaugh and Jesse D. Bloom$^{1,2,5}$\\
-\footnotesize{$^1$Basic Sciences and Computational Biology Program, Fred Hutchinson Cancer Research Center, Seattle, WA}\\
-\footnotesize{$^2$Molecular and Cellular Biology PhD program, University of Washington, Seattle, WA} \\
-\footnotesize{E-mail: \href{jbloom@fredhutch.org}{jbloom@fredhutch.org}}
-}
+\author[1,2\authfn{1}]{Hugh K. Haddox}
+\author[1,2\authfn{1}]{Adam S. Dingens}
+\author[3]{Julie Overbaugh}
+\author[1,2,4]{Jesse D. Bloom}
+\affil[1]{Basic Sciences and Computational Biology Program, Fred Hutchinson Cancer Research Center, Seattle, WA}
+\affil[2]{Molecular and Cellular Biology PhD program, University of Washington, Seattle, WA}
+\contrib[\authfn{1}]{These authors contributed equally to this work}
 
-\date{}
+\corr{jbloom@fredhutch.org}{JDB}
+% \presentadd[\authfn{5}]{eLife Sciences editorial Office, eLife Sciences, Cambridge, United Kingdom}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% ARTICLE START
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{document}
 
 \maketitle
-
 
 \begin{abstract}
 HIV Envelope (Env) evolves rapidly.
@@ -102,9 +44,11 @@ Here we comprehensively quantify the ways in which mutational effects shift or r
 We find...
 \end{abstract}
 
-\section*{Introduction}
 
-\section*{Results}
+\section{Introduction}
+
+
+\section{Results}
 
 \subsection*{Deep mutational scanning of two Env homologs from transmitted-founder (?) viruses}
 Previously we've done deep mutational scanning on a lab-passaged CXCR4-tropic virus isolated late in infection.
@@ -167,23 +111,23 @@ Describe and validate a few of these sites
 
 \subsection*{Looking at how shifts relate to evolution and structure}
 
-\section*{Discussion}
 
-\section*{Methods}
+\section{Discussion}
+
+
+\section{Methods and Materials}
 
 \subsection*{Sequence alignments}
 
-\subsection*{Acknowledgments}
+\section{Acknowledgments}
 
-
-\bibliographystyle{mbe}
+\nocite{*} % This command displays all refs in the bib file
 \bibliography{references.bib}
 
-\clearpage
-\normalsize
-
 \section*{Supplementary Material}
-
+% figure out how to do the supplement for eLife
+% then remove the `\iffalse` and `\fi` commands below
+\iffalse
 \begin{supptab}
 \caption{\label{supptab:phydms_replicates}
 phydms analysis for all replicates
@@ -207,5 +151,7 @@ Alignment of all group M sequences numbered and aligned as ???
 Alignment of clade A sequences...
 }
 \end{suppfile}
+% remove the below line when figure out how to format the supplement correctly
+\fi
 
 \end{document}
