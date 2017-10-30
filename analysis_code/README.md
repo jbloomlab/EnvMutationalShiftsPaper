@@ -28,3 +28,6 @@ Specifically, this subdirectory includes the following files:
         - DNA/Protein: DNA 
         - Year: 2016
         - Format: FASTA
+
+    * A breakdown of Env into regions (*gp41*, *gp120 variable loops*, *gp120 other regions*) in HXB2 nubmering is in [./data/Env_regions.csv](./data/Env_regions.csv). The variable loop definitions are the [ones provided by the Los Alamos database](https://www.hiv.lanl.gov/content/sequence/VAR_REG_CHAR/variable_region_characterization_explanation.html). The gp41 definition is also the one provided at that site.
+
