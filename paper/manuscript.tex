@@ -12,10 +12,20 @@
 \usepackage{siunitx}
 \DeclareSIUnit\Molar{M}
 
+\usepackage{float}
+\newfloat{suppfile}{thp}{lofsupfile}
+\floatname{suppfile}{Supplementary file}
+
+\usepackage{placeins}
+
+\renewcommand{\floatpagefraction}{1}
+
+\newcommand{\jdbcomment}[1]{\emph{\color{red} [#1]}}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% ARTICLE SETUP
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\title{Mapping sites of shifting and constant mutational effects on the evolutionary landscape of HIV Envelope}
+\title{Shifting mutational effects on the evolutionary landscape of HIV Envelope}
 
 \author[1,2\authfn{1}]{Hugh K. Haddox}
 \author[1,2\authfn{1}]{Adam S. Dingens}
@@ -54,11 +64,6 @@ We find...
 \section{Results}
 
 \subsection*{Deep mutational scanning of two Env homologs from transmitted-founder (?) viruses}
-Previously we've done deep mutational scanning on a lab-passaged CXCR4-tropic virus isolated late in infection.
-Here we sought to examine the effects of mutations in viruses more relevant to selection on HIV in nature.
-We chose...
-
-The relationship between BG505 and BF520 is shown in \ref{ref:tree}
 
 \begin{figure}
 \centerline{\bf \Large A \hspace{0.52\textwidth} \bf B \hspace{0.35\textwidth}}
@@ -69,10 +74,7 @@ CAPTION
 \figdata{The coding sequence alignment of clade A \textit{env} sequences in FASTA format is in \texttt{cladeA\_alignment.fasta}.}
 \figdata{Sites masked in all phylogenetic analyses because they were not mutagenized in our experiments or are poorly alignable are listed in \texttt{alignment\_mask.csv}.}
 \end{figure}
-
-We performed deep mutational scanning as described previously with a few modifications that are very briefly described here and detailed in the methods.
-We saw strong selection as indicated in \ref{fig:mutfreqs}.
-More details on DMS is shown in \ref{suppfig:dms}
+\FloatBarrier
 
 \begin{figure}
 \centerline{\includegraphics[width=0.9\textwidth]{figures/dms_schematic/dms_schematic.pdf}}
@@ -87,7 +89,18 @@ We also deep sequenced wildtype controls to estimate error rates due to PCR, dee
 Using these sequencing data, we then inferred each site's preference for each of the 20 amino acids.
 {\bf (B)} For each homolog, we conducted this experiment in full biological triplicate, beginning at the stage of independently creating the plasmid mutant libraries.
 }
+\figsupp[Sanger sequencing of the BG505 mutant plasmid libraries.]{
+We Sanger sequenced 44 clones of BG505 Env sampled roughly evenly from each of the three replicate mutant plasmid libraries.
+{\bf(A)} There was an average of 1.5 mutant codons per clone, with the number of mutations per clone roughly following a Poisson distribution. 
+{\bf(B)} The mutant codons had a mix of single-, double-, and triple-nucleotide changes, with an elevated number of single-nucleotide changes than expected.
+{\bf(C)} Nucleotide frequencies were fairly uniform in the mutant codons.
+{\bf(D)} Mutations were distributed roughly evenly along the mutagenized region of {\it env} (30-699 in the sequential numbering scheme used here).
+{\bf(E)} For clones with multiple mutations, we computed the pairwise distance in primary sequence between each codon mutation and plotted the cumulative distribution of these distances (red line). 
+We also simulated the expected distribution of pairwise distances if mutations occurred entirely independently (blue line). 
+The observed distribution is close to the expected distribution.
+}{\includegraphics[width=\textwidth]{figures/sanger_sequencing_supp/sanger_sequencing_supp.pdf}}
 \end{figure}
+\FloatBarrier
 
 \begin{figure}
 {{\bf \Large A} \hspace{0.2\textwidth} BG505 \hspace{0.51\textwidth} BF520} \\
@@ -107,11 +120,10 @@ Each correlation plot reports the associated Pearson correlation coefficient, wh
 \figdata{The raw numerical data plotted in panel (A) are in the file \texttt{avgmutfreqs.csv}.}
 \figdata{The amino-acid preferences for each replicate and the replicate averages for each homolog are in \texttt{all\_prefs\_unscaled.zip}.}
 \end{figure}
+\FloatBarrier
 
 
 \subsection*{Re-scaling the experimental measurements to optimally describe HIV evolution in nature}
-
-Re-scaled as in \ref{tab:phydms}
 
 \begin{table}
 \begin{fullwidth}
@@ -121,9 +133,11 @@ Phylogenetic models that incorporate Env's preferences indicate that selection w
 \tabledata{Results for phylogenetic models where $\omega$ is not drawn from a gamma-distribution or where the preferences are averaged across sites are in \texttt{modelcomparison.md}.}
 \end{fullwidth}
 \end{table}
+\FloatBarrier
 
 \begin{figure}
-\centerline{\includegraphics[width=6.5in]{figures/prefs_BG505/prefs_BG505.png}}
+\begin{fullwidth}
+{\includegraphics[width=1.3\textwidth]{figures/BG505_prefs.pdf}}
 \caption{\label{fig:bg505_prefs_logo}
 The rescaled averaged site-specific amino-acid preferences for BG505.
 This logo plot shows the site-specific amino-acid preferences for BG505 after averaging between replicates and then rescaling them using the stringency parameter from Table \ref{tab:phydms} inferred for BG505 from the group-M alignment.
@@ -133,83 +147,35 @@ The top bar (R) indicates gp120 variable loops, other regions in gp120, or gp41.
 The bottom bar (WT) shows the wildtype amino-acid sequence for BG505.
 Sites are numbered according to the HXB2 numbering scheme~\cite{korber1998numbering}).
 }
+\figdata{The re-scaled preferences plotted in this figure are in \texttt{rescaled\_BG505\_prefs.csv.}}
+\figdata{Sequence of the BG505 Env and mapping from sequential 1, 2, ... numbering of this sequence (\emph{original} column) to HXB2 numbering (\emph{new} column) is in \texttt{BG505\_to\_HXB2.csv}.}
+\figdata{The $\omega_r$ values and associated $P$-values for BG505 in HXB2 numbering are in \texttt{BG505\_omegabysite.tsv}.}
+\end{fullwidth}
 \end{figure}
+\FloatBarrier
 
 \begin{figure}
-\centerline{\includegraphics[width=6.5in]{figures/prefs_BF520/prefs_BF520.png}}
+\begin{fullwidth}
+{\includegraphics[width=1.3\textwidth]{figures/BF520_prefs.pdf}}
 \caption{\label{fig:bf520_prefs_logo}
 The re-scaled averaged site-specific amino-acid preferences for BF520.
 This figure is the same as Fig \ref{fig:bg505_prefs_logo}, but for BF520 instead of BG505.
 }
+\figdata{The re-scaled preferences plotted in this figure are in \texttt{rescaled\_BF520\_prefs.csv.}}
+\figdata{Sequence of the BF520 Env and mapping from sequential 1, 2, ... numbering of this sequence (\emph{original} column) to HXB2 numbering (\emph{new} column) is in \texttt{BF520\_to\_HXB2.csv}.}
+\figdata{The $\omega_r$ values and associated $P$-values for BF520 in HXB2 numbering are in \texttt{BG505\_omegabysite.tsv}.}
+\end{fullwidth}
 \end{figure}
+\FloatBarrier
 
-A supplemental file for each of these and the results for each replicate. This is a lot of files, so you might just make a zip with all eight.
 
 \subsection*{Differences between homologs}
 
-\begin{figure}
-\centerline{\includegraphics[width=6.5in]{figures/homologs_corr/homologs_corr.png}}
-\caption{\label{fig:homologs_corr}
-Env's preferences are well correlated between BG505 and BF520.
-This figure shows the correlation of the preferences between replicates, both within and between Env homologs.
-In this figure, the preferences for each replicate have been rescaled using the stringency parameter for the corresponding homolog from the group-M analysis in Table \ref{tab:phydms}.
-We analyzed 616 sites that are shared between homologs and were in readily alignable regions of the group-M multiple-sequence alignment.
-As a control, we also compared our estimates of Env's preferences with the preferences of a non-homologous protein -- influenza HA -- across the 480 sites where these proteins overlap in sequential numbering.
-{\bf (A)} Plots showing the correlation of preferences between two replicates from the same protein.
-Here, differences reflect experimental noise.
-{\bf (B)} Plots showing the correlation of preferences between Env homologs, or between BG505 and HA.
-Here, differences reflect a combination of experimental noise and biological differences between proteins.
-The Env homologs are well correlated, whereas BG505 and HA are not correlated.
-{\bf (C)} The heat map shows the Pearson correlation coefficient for all pairwise comparisons of all experimental replicates of each homolog (coefficients are also shown on the correlation plots).
-This heat map indicates that the trends in {\bf (A)} and {\bf (B)} hold for all replicates.
-}
-\end{figure}
-
-\begin{figure}
-\centerline{\includegraphics[width=4.5in]{figures/distances/distances.png}}
-\caption{\label{fig:distances}
-Most shifts in amino-acid preference between Env homologs are small-to-intermediate in effect size after correcting for experimental noise.
-We quantified the shift in each site's preferences using a distance metric that corrects for experimental noise, as quantified by experimental replicates.
-{\bf (A)} This panel shows how the distance metric is calculated for a subset of sites.
-{\bf (B)} The blue histogram shows the distribution of site-specific $RMSD_{corrected}$ values between Env homologs for all 616 sites being compared.
-Most sites have a distance greater than zero.
-The overlayed green histogram shows the distribution of $RMSD_{corrected}$ values between BG505 Env and influenza HA for all 480 sites that overlap in sequential numbering.
-Most site-specific distances in the Env-HA comparison are much larger than the distances in the BG505-BF520 comparison.
-}
-\end{figure}
-
-Add a supplemental figure showing that the distance metric we use (half sum absolute corrected) is correlated with other distance metrics (e.g., Jensen-Shannon distance).
-
-\begin{figure}
-\centerline{\includegraphics[width=6.5in]{figures/diffs_logo/diffs_logo.png}}
-\caption{\label{fig:diffs_logo}
-{\bf The difference in Env's site-specific amino-acid preferences between homologs, scaled by site-specific $RMSD_{corrected}$ values.}
-This figure shows the estimated preference shift for each amino acid across all 616 sites in Env being compared.
-For each site, we plot the difference in the rescaled averaged preferences between homologs ($\Delta\pi_{r,a} = \pi_{r,a}^{BG505} - \pi_{r,a}^{BF520}$), where each site has 20 letters corresponding to the 20 amino acids, and where negative and positive values are shown below and above the central black line, respectively.
-Thus, amino acids above the central line are more preferred in BG505, whereas amino acids below the central line are more preferred in BF520.
-At each site, we adjusted the total height of the letters in both directions to equal that site's $RMSD_{corrected}$ from Fig \ref{fig:distances}B (i.e., $\sum_{a}| \Delta\pi_{r,a} | = RMSD_{corrected}$).
-In effect, the sites with the largest stack heights are the sites where we observe the largest differences, after accounting for noise.
-The bar indicates which sites are variable or conserved in amino-acid sequence between homologs.
-Note that adjacent sites are not always contiguous in primary sequence, since we masked sites that are either not shared between homologs, or are not readily alignable in the group-M multiple-sequence alignment.
-}
-\end{figure}
-
-Plot overlays of conserved and variable, and surface versus core?
 
 \subsection*{Validating sites of mutational shifts}
-Describe and validate a few of these sites
 
 \subsection*{Looking at how shifts relate to evolution and structure}
 
-\begin{figure}
-\centerline{\includegraphics[width=2.5in]{figures/distances_at_subsets_of_sites/distances_at_subsets_of_sites.png}}
-\caption{\label{fig:shifts_at_variable_sites}
-{\bf The median shift in preferences between Env homologs is similar at variable vs. conserved sites.}
-The box plots compare show the shifts at all sites, just sites that differ in wildtype amino acids between BG505 and BF520 (variable), or sites that are conserved between the homologs.
-Shifts are quantified by site-specific $RMSD_{corrected}$ values from Fig \ref{fig:ch3_distances}.
-The median shift is roughly equivalent for each group of sites.
-}
-\end{figure}
 
 \section{Discussion}
 
@@ -220,25 +186,13 @@ The median shift is roughly equivalent for each group of sites.
 
 \section{Acknowledgments}
 
-\nocite{*} % This command displays all refs in the bib file
 \bibliography{references.bib}
 
-\section*{Supplementary Material}
+\begin{suppfile}
+\caption{
+\label{suppfile:code}
+The code to perform all steps in the analysis beginning with downloading the FASTQ files is in \texttt{analysis\_code.zip}.}
+\end{suppfile}
 
-\begin{figure}
-\centerline{\includegraphics[width=5in]{figures/sanger_sequencing_supp/sanger_sequencing_supp}}
-\caption{\label{suppfig:sanger_sequencing_supp}
-{\bf Sanger sequencing of the BG505 mutant plasmids revealed that codon mutations were distributed roughly uniformly, with an average of 1.5 mutations per gene.}
-We Sanger sequenced 44 clones of BG505 Env.
-We sampled these clones roughly evenly from the three replicate mutant plasmid libraries before these libraries had undergone any functional selection. 
-{\bf(A)} There was an average of 1.5 mutant codons per clone, with the number of mutations per clone roughly following a Poisson distribution. 
-{\bf(B)} The mutant codons had a mix of single-, double-, and triple-nucleotide changes, with an elevated number of single-nucleotide changes than expected.
-{\bf(C)} Nucleotide frequencies were fairly uniform in the mutant codons, as expected from random mutagenesis.
-{\bf(D)} Mutations were distributed roughly evenly along the mutagenized region of {\it env} (30-699 in BG505 numbering).
-{\bf(E)} For clones with multiple mutations, we computed the pairwise distance in primary sequence between each codon mutation and plotted the cumulative distribution of these distances (red line). 
-We also simulated the expected distribution of pairwise distances if mutations occurred entirely independently (blue line). 
-The observed distribution is close to the expected distribution.
-}
-\end{figure}
 
 \end{document}
