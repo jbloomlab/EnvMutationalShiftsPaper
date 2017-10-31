@@ -114,47 +114,12 @@ Each correlation plot reports the associated Pearson correlation coefficient, wh
 Re-scaled as in \ref{tab:phydms}
 
 \begin{table}
-\centering
-\caption{
-{\bf Phylogenetic models that incorporate Env's preferences indicate that selection was less stringent in the lab than in nature.}}
-{\footnotesize
-\begin{tabular}{cccc}
-\multicolumn{4}{c}{\bf{Group M}}\\
-\hline
-model & $\Delta$AIC & log likelihood & parameters: optimized values \\ 
-\hline
-BG505 & 0.00 & $-$58185.53 & 7: $\beta$ = 2.07, $\alpha_\omega$ = 0.69, $\beta_\omega$ = 0.49, $\kappa$ = 3.16\\
-BF520 & 70.26 & $-$58220.66 & 7: $\beta$ = 2.44, $\alpha_\omega$ = 0.71, $\beta_\omega$ = 0.47, $\kappa$ = 3.11\\
-LAI & 2994.80 & $-$59682.93 & 7: $\beta$ = 1.00, $\alpha_\omega$ = 0.55, $\beta_\omega$ = 0.46, $\kappa$ = 3.09\\
-BF520 site averaged & 3913.08 & $-$60142.07 & 7: $\beta$ = 2.24, $\alpha_\omega$ = 0.50, $\beta_\omega$ = 0.41, $\kappa$ = 3.21\\
-BG505 site averaged & 3922.08 & $-$60146.57 & 7: $\beta$ = 1.53, $\alpha_\omega$ = 0.51, $\beta_\omega$ = 0.42, $\kappa$ = 3.21\\
-LAI site averaged & 4083.20 & $-$60227.13 & 7: $\beta$ = 0.83, $\alpha_\omega$ = 0.51, $\beta_\omega$ = 0.41, $\kappa$ = 3.2\\
-YNGKP M5 & 4423.42 & $-$60392.24 & 12: $\alpha_\omega$ = 0.53, $\beta_\omega$ = 0.55, $\kappa$ = 3.20\\
-\\
-\multicolumn{4}{c}{\bf{Subtype A}}\\
-\hline
-model & $\Delta$AIC & log likelihood & parameters: optimized values \\ 
-\hline
-BF520 & 0.00 & $-$48166.45 & 7: $\beta$ = 2.80, $\alpha_\omega$ = 0.59, $\beta_\omega$ = 0.33, $\kappa$ = 3.53\\
-BG505 & 234.70 & $-$48283.8 & 7: $\beta$ = 2.19, $\alpha_\omega$ = 0.58, $\beta_\omega$ = 0.32, $\kappa$ = 3.50\\
-LAI & 2860.64 & $-$49596.77 & 7: $\beta$ = 1.06, $\alpha_\omega$ = 0.48, $\beta_\omega$ = 0.30, $\kappa$ = 3.41\\
-BG505 site averaged & 3909.68 & $-$50121.29 & 7: $\beta$ = 0.93, $\alpha_\omega$ = 0.47, $\beta_\omega$ = 0.30, $\kappa$ = 3.61\\
-BF520 site averaged & 3913.70 & $-$50123.3 & 7: $\beta$ = 1.22, $\alpha_\omega$ = 0.47, $\beta_\omega$ = 0.30, $\kappa$ = 3.61\\
-LAI site averaged & 3961.18 & $-$50147.04 & 7: $\beta$ = 0.01, $\alpha_\omega$ = 0.46, $\beta_\omega$ = 0.30, $\kappa$ = 3.67\\
-YNGKP M5 & 3980.00 & $-$50151.45 & 12: $\alpha_\omega$ = 0.42, $\beta_\omega$ = 0.42, $\kappa$ = 3.62
-\end{tabular}
-}
-\begin{flushleft}
-We used \texttt{phydms} to incorporate each homolog's averaged preferences into ExpCMs.
-This table shows the results of using these models to optimize the branch lengths of the group-M and subtype-A trees shown in Fig \ref{fig:ch3_tree}.
-For both trees, the ExpCMs dramatically outperformed a standard codon-substitution model (YNGKP M5), based on differences in Akaike information criterion (AIC), with BG505's and BF520's preferences describing Env's evolution better than LAI's preferences. 
-The stringency parameters ($\beta$) inferred for BG505 and BF520 were both  $>$1, indicating that selection is more stringent in nature than our experiments for these homologs.
-In contrast, the stringency parameters inferred for LAI were $\sim$1, which may be due to experimental or biological differences, as discussed in the main text.
-As a control, for each homolog, we created an ExpCMs using preferences averaged across all sites in the protein.
-This averaging substantially decreased phylogenetic fit, indicating that the preferences capture site-specific selective pressures on Env in nature.
-The results for individual experimental replicates are shown in Tables \ref{tab:phydms_groupM_supp} and \ref{tab:phydms_subtypeA_supp}.
-\end{flushleft}
-\label{tab:phydms}
+\begin{fullwidth}
+{\centering \include{figures/gamma_omega_modelcomparison}}
+\caption{\label{tab:phydms}
+Phylogenetic models that incorporate Env's preferences indicate that selection was less stringent in the lab than in nature.}
+\tabledata{Results for phylogenetic models where $\omega$ is not drawn from a gamma-distribution or where the preferences are averaged across sites are in \texttt{modelcomparison.md}.}
+\end{fullwidth}
 \end{table}
 
 \begin{figure}
@@ -275,98 +240,5 @@ We also simulated the expected distribution of pairwise distances if mutations o
 The observed distribution is close to the expected distribution.
 }
 \end{figure}
-
-\begin{table}
-\centering
-\caption[Results of the \texttt{phydms} analysis with group-M sequences for individual experimental replicates.]{
-{\bf Results of the \texttt{phydms} analysis with group-M sequences for individual experimental replicates.}}
-{\footnotesize
-\begin{tabular}{cccc}
-model & $\Delta$AIC & log likelihood & parameters: optimized values \\ 
-\hline
-BG505-avg & 0.00 & $-$58185.53 & 7: $\beta$ = 2.07, $\alpha_\omega$ = 0.69, $\beta_\omega$ = 0.49, $\kappa$ = 3.16\\
-BF520-avg & 70.26 & $-$58220.66 & 7: $\beta$ = 2.44, $\alpha_\omega$ = 0.71, $\beta_\omega$ = 0.47, $\kappa$ = 3.11\\
-BF520-1 & 1149.48 & $-$58760.27 & 7: $\beta$ = 1.69, $\alpha_\omega$ = 0.62, $\beta_\omega$ = 0.48, $\kappa$ = 3.18\\
-BG505-1 & 1169.24 & $-$58770.15 & 7: $\beta$ = 1.35, $\alpha_\omega$ = 0.55, $\beta_\omega$ = 0.52, $\kappa$ = 3.16\\
-BG505-3 & 1188.94 & $-$58780.0 & 7: $\beta$ = 1.58, $\alpha_\omega$ = 0.69, $\beta_\omega$ = 0.52, $\kappa$ = 3.21\\
-BG505-2 & 1215.68 & $-$58793.37 & 7: $\beta$ = 1.44, $\alpha_\omega$ = 0.66, $\beta_\omega$ = 0.50, $\kappa$ = 3.18\\
-BF520-3 & 1550.10 & $-$58960.58 & 7: $\beta$ = 1.69, $\alpha_\omega$ = 0.66, $\beta_\omega$ = 0.54, $\kappa$ = 3.08\\
-BF520-2 & 1613.64 & $-$58992.35 & 7: $\beta$ = 1.50, $\alpha_\omega$ = 0.65, $\beta_\omega$ = 0.50, $\kappa$ = 3.18\\
-LAI-3b & 2792.12 & $-$59581.59 & 7: $\beta$ = 0.87, $\alpha_\omega$ = 0.56, $\beta_\omega$ = 0.44, $\kappa$ = 3.17\\
-LAI-avg & 2994.80 & $-$59682.93 & 7: $\beta$ = 1.00, $\alpha_\omega$ = 0.55, $\beta_\omega$ = 0.46, $\kappa$ = 3.09\\
-LAI-1 & 3402.28 & $-$59886.67 & 7: $\beta$ = 0.59, $\alpha_\omega$ = 0.52, $\beta_\omega$ = 0.49, $\kappa$ = 3.17\\
-LAI-2 & 3561.38 & $-$59966.22 & 7: $\beta$ = 0.53, $\alpha_\omega$ = 0.53, $\beta_\omega$ = 0.46, $\kappa$ = 3.15\\
-LAI-3 & 3594.92 & $-$59982.99 & 7: $\beta$ = 0.45, $\alpha_\omega$ = 0.54, $\beta_\omega$ = 0.40, $\kappa$ = 3.18\\
-BF520-3 site averaged & 3904.60 & $-$60137.83 & 7: $\beta$ = 2.42, $\alpha_\omega$ = 0.50, $\beta_\omega$ = 0.42, $\kappa$ = 3.21\\
-BF520-avg site averaged & 3913.08 & $-$60142.07 & 7: $\beta$ = 2.24, $\alpha_\omega$ = 0.50, $\beta_\omega$ = 0.41, $\kappa$ = 3.21\\
-BG505-1 site averaged & 3914.92 & $-$60142.99 & 7: $\beta$ = 1.51, $\alpha_\omega$ = 0.51, $\beta_\omega$ = 0.42, $\kappa$ = 3.21\\
-BF520-1 site averaged & 3920.58 & $-$60145.82 & 7: $\beta$ = 2.17, $\alpha_\omega$ = 0.51, $\beta_\omega$ = 0.41, $\kappa$ = 3.22\\
-BF520-2 site averaged & 3921.04 & $-$60146.05 & 7: $\beta$ = 2.09, $\alpha_\omega$ = 0.50, $\beta_\omega$ = 0.41, $\kappa$ = 3.21\\
-BG505-3 site averaged & 3921.64 & $-$60146.35 & 7: $\beta$ = 1.61, $\alpha_\omega$ = 0.51, $\beta_\omega$ = 0.42, $\kappa$ = 3.20\\
-BG505-avg site averaged & 3922.08 & $-$60146.57 & 7: $\beta$ = 1.53, $\alpha_\omega$ = 0.51, $\beta_\omega$ = 0.42, $\kappa$ = 3.21\\
-BG505-2 site averaged & 3933.90 & $-$60152.48 & 7: $\beta$ = 1.44, $\alpha_\omega$ = 0.51, $\beta_\omega$ = 0.42, $\kappa$ = 3.22\\
-LAI-3b site averaged & 4056.98 & $-$60214.02 & 7: $\beta$ = 1.05, $\alpha_\omega$ = 0.51, $\beta_\omega$ = 0.40, $\kappa$ = 3.26\\
-LAI-avg site averaged & 4083.20 & $-$60227.13 & 7: $\beta$ = 0.83, $\alpha_\omega$ = 0.51, $\beta_\omega$ = 0.41, $\kappa$ = 3.26\\
-LAI-3 site averaged & 4085.00 & $-$60228.03 & 7: $\beta$ = 0.73, $\alpha_\omega$ = 0.51, $\beta_\omega$ = 0.41, $\kappa$ = 3.27\\
-LAI-1 site averaged & 4093.64 & $-$60232.35 & 7: $\beta$ = 0.73, $\alpha_\omega$ = 0.51, $\beta_\omega$ = 0.41, $\kappa$ = 3.27\\
-LAI-2 site averaged & 4100.52 & $-$60235.79 & 7: $\beta$ = 0.61, $\alpha_\omega$ = 0.51, $\beta_\omega$ = 0.41, $\kappa$ = 3.27\\
-YNGKP M5 & 4423.42 & $-$60392.24 & 12: $\alpha_\omega$ = 0.53, $\beta_\omega$ = 0.55, $\kappa$ = 3.20
-\end{tabular}
-}
-\begin{flushleft}
-This table is similar to Table \ref{tab:ch3_phydms}, but shows the results of ExpCMs for \textit{all} experimental replicates of each homolog, instead of just the ExpCMs made after averaging a homolog's amino-acid preferences among its replicates.
-This table only shows the results of the analysis with group-M sequences; see \ref{tab:ch3_phydms_subtypeA_supp} for the results of the analysis with subtype-A sequences.
-With the exception of LAI replicate 3b, the ExpCMs for individual experimental replicates always perform worse (based on $\Delta$AIC) than the ExpCMs for the averaged replicates.
-Moreover, the inferred stringency parameters are always lower for individual replicates than for the averaged replicates.
-These patterns are both consistent with the idea that averaging across replicates increases the accuracy of our estimates by decreasing experimental noise.
-As in \ref{tab:ch3_phydms}, the ExpCMs for individual replicates all outperform the standard model and decrease in performance when the preferences are averaged across all sites in the protein to create model that is not site-specific.
-\end{flushleft}
-\label{tab:ch3_phydms_groupM_supp}
-\end{table}
-
-\begin{table}
-\centering
-\caption[Results of the \texttt{phydms} analysis with subtype-A sequences for individual experimental replicates.]{
-{\bf Results of the \texttt{phydms} analysis with subtype-A sequences for individual experimental replicates.}}
-{\footnotesize
-\begin{tabular}{cccc}
-model & $\Delta$AIC & log likelihood & parameters: optimized values \\ 
-\hline
-BF520-avg & 0.00 & $-$48166.45 & 7: $\beta$ = 2.80, $\alpha_\omega$ = 0.59, $\beta_\omega$ = 0.33, $\kappa$ = 3.53\\
-BG505-avg & 234.70 & $-$48283.8 & 7: $\beta$ = 2.19, $\alpha_\omega$ = 0.58, $\beta_\omega$ = 0.32, $\kappa$ = 3.50\\
-BF520-1 & 1027.22 & $-$48680.06 & 7: $\beta$ = 1.90, $\alpha_\omega$ = 0.57, $\beta_\omega$ = 0.30, $\kappa$ = 3.61\\
-BG505-3 & 1236.20 & $-$48784.55 & 7: $\beta$ = 1.63, $\alpha_\omega$ = 0.53, $\beta_\omega$ = 0.33, $\kappa$ = 3.59\\
-BG505-1 & 1270.98 & $-$48801.94 & 7: $\beta$ = 1.48, $\alpha_\omega$ = 0.55, $\beta_\omega$ = 0.33, $\kappa$ = 3.53\\
-BG505-2 & 1392.52 & $-$48862.71 & 7: $\beta$ = 1.53, $\alpha_\omega$ = 0.54, $\beta_\omega$ = 0.39, $\kappa$ = 3.41\\
-BF520-3 & 1468.76 & $-$48900.83 & 7: $\beta$ = 1.88, $\alpha_\omega$ = 0.61, $\beta_\omega$ = 0.34, $\kappa$ = 3.47\\
-BF520-2 & 1591.72 & $-$48962.31 & 7: $\beta$ = 1.68, $\alpha_\omega$ = 0.54, $\beta_\omega$ = 0.34, $\kappa$ = 3.65\\
-LAI-3b & 2813.66 & $-$49573.28 & 7: $\beta$ = 0.89, $\alpha_\omega$ = 0.49, $\beta_\omega$ = 0.30, $\kappa$ = 3.54\\
-LAI-avg & 2860.64 & $-$49596.77 & 7: $\beta$ = 1.06, $\alpha_\omega$ = 0.48, $\beta_\omega$ = 0.30, $\kappa$ = 3.41\\
-LAI-1 & 3173.34 & $-$49753.12 & 7: $\beta$ = 0.68, $\alpha_\omega$ = 0.46, $\beta_\omega$ = 0.33, $\kappa$ = 3.49\\
-LAI-3 & 3397.38 & $-$49865.14 & 7: $\beta$ = 0.45, $\alpha_\omega$ = 0.49, $\beta_\omega$ = 0.30, $\kappa$ = 3.49\\
-LAI-2 & 3451.26 & $-$49892.08 & 7: $\beta$ = 0.51, $\alpha_\omega$ = 0.47, $\beta_\omega$ = 0.34, $\kappa$ = 3.48\\
-BF520-3 site averaged & 3900.54 & $-$50116.72 & 7: $\beta$ = 1.53, $\alpha_\omega$ = 0.47, $\beta_\omega$ = 0.30, $\kappa$ = 3.61\\
-BG505-1 site averaged & 3908.02 & $-$50120.46 & 7: $\beta$ = 0.92, $\alpha_\omega$ = 0.47, $\beta_\omega$ = 0.30, $\kappa$ = 3.61\\
-BG505-2 site averaged & 3908.50 & $-$50120.7 & 7: $\beta$ = 0.90, $\alpha_\omega$ = 0.47, $\beta_\omega$ = 0.30, $\kappa$ = 3.61\\
-BG505-avg site averaged & 3909.68 & $-$50121.29 & 7: $\beta$ = 0.93, $\alpha_\omega$ = 0.47, $\beta_\omega$ = 0.30, $\kappa$ = 3.61\\
-BF520-avg site averaged & 3913.70 & $-$50123.3 & 7: $\beta$ = 1.22, $\alpha_\omega$ = 0.47, $\beta_\omega$ = 0.30, $\kappa$ = 3.61\\
-BG505-3 site averaged & 3914.34 & $-$50123.62 & 7: $\beta$ = 0.94, $\alpha_\omega$ = 0.47, $\beta_\omega$ = 0.30, $\kappa$ = 3.60\\
-BF520-2 site averaged & 3917.84 & $-$50125.37 & 7: $\beta$ = 1.18, $\alpha_\omega$ = 0.47, $\beta_\omega$ = 0.30, $\kappa$ = 3.62\\
-BF520-1 site averaged & 3922.20 & $-$50127.55 & 7: $\beta$ = 1.20, $\alpha_\omega$ = 0.47, $\beta_\omega$ = 0.30, $\kappa$ = 3.63\\
-LAI-3b site averaged & 3959.56 & $-$50146.23 & 7: $\beta$ = 0.20, $\alpha_\omega$ = 0.46, $\beta_\omega$ = 0.30, $\kappa$ = 3.65\\
-LAI-3 site averaged & 3961.16 & $-$50147.03 & 7: $\beta$ = 0.03, $\alpha_\omega$ = 0.46, $\beta_\omega$ = 0.30, $\kappa$ = 3.67\\
-LAI-avg site averaged & 3961.18 & $-$50147.04 & 7: $\beta$ = 0.01, $\alpha_\omega$ = 0.46, $\beta_\omega$ = 0.30, $\kappa$ = 3.67\\
-LAI-1 site averaged & 3961.22 & $-$50147.06 & 7: $\beta$ = 0.01, $\alpha_\omega$ = 0.46, $\beta_\omega$ = 0.30, $\kappa$ = 3.67\\
-LAI-2 site averaged & 3961.30 & $-$50147.1 & 7: $\beta$ = 0.01, $\alpha_\omega$ = 0.46, $\beta_\omega$ = 0.30, $\kappa$ = 3.67\\
-YNGKP M5 & 3980.00 & $-$50151.45 & 12: $\alpha_\omega$ = 0.42, $\beta_\omega$ = 0.42, $\kappa$ = 3.62
-\end{tabular}
-}
-\begin{flushleft}
-This table is similar to Table \ref{tab:ch3_phydms_groupM_supp}, but shows the results of the analysis with subtype-A sequences.
-The trends seen for subtype A are similar to those for group M.
-\end{flushleft}
-\label{tab:phydms_subtypeA_supp}
-\end{table}
-
 
 \end{document}
