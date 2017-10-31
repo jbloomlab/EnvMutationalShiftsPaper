@@ -19,10 +19,13 @@
 
 \author[1,2\authfn{1}]{Hugh K. Haddox}
 \author[1,2\authfn{1}]{Adam S. Dingens}
-\author[3]{Julie Overbaugh}
-\author[1,2,4]{Jesse D. Bloom}
-\affil[1]{Basic Sciences and Computational Biology Program, Fred Hutchinson Cancer Research Center, Seattle, WA}
+\author[1,3]{Sarah K. Hilton}
+\author[4]{Julie Overbaugh}
+\author[1,2,3]{Jesse D. Bloom}
+\affil[1]{Basic Sciences Division and Computational Biology Program, Fred Hutchinson Cancer Research Center, Seattle, WA}
 \affil[2]{Molecular and Cellular Biology PhD program, University of Washington, Seattle, WA}
+\affil[3]{Department of Genome Sciences, University of Washington, Seattle, WA}
+\affil[4]{Human Biology Division, Fred Hutchinson Cancer Research Center, Seattle, WA}
 \contrib[\authfn{1}]{These authors contributed equally to this work}
 
 \corr{jbloom@fredhutch.org}{JDB}
@@ -55,20 +58,16 @@ Previously we've done deep mutational scanning on a lab-passaged CXCR4-tropic vi
 Here we sought to examine the effects of mutations in viruses more relevant to selection on HIV in nature.
 We chose...
 
-We made an alignment of group M sequences (\ref{suppfile:grpM}) and clade A (\ref{suppfile:cladeA})
 The relationship between BG505 and BF520 is shown in \ref{ref:tree}
 
 \begin{figure}
-\centerline{\includegraphics[width=5in]{figures/tree/tree}}
+\centerline{\bf \Large A \hspace{0.52\textwidth} \bf B \hspace{0.35\textwidth}}
+\centerline{\includegraphics[width=0.6\textwidth]{figures/tree_plot.pdf} \includegraphics[width=0.4\textwidth]{figures/masked_alignment_identity.pdf}}
 \caption{\label{fig:tree}
-Phylogenetic tree showing the relationship among BG505 and BF520.
-{\bf(A)} A tree of group-M sequences with 20 sequences per subtype for subtypes A, B, C, D, F, and G.
-{\bf(B)} A tree of subtype-A sequences with 120 sequences total, rooted using a subtype-B sequence as an outgroup.
-BG505 and BF520 cluster within subtype A, while LAI clusters within subtype B.
-The alignments we used to make these trees are the same alignments we used in the below \texttt{phydms} analysis, excluding the outgroup sequence used to root the subtype-A tree.
-The scale bars are in units of codon substitutions per site.
+CAPTION
 }
-\figdata{The alignments used to make the group-M and subtype-A trees are in files \ref{suppfile:grpM} and \ref{suppfile:cladeA}, respectively}
+\figdata{The coding sequence alignment of clade A \textit{env} sequences in FASTA format is in \texttt{cladeA\_alignment.fasta}.}
+\figdata{Sites masked in all phylogenetic analyses because they were not mutagenized in our experiments or are poorly alignable are listed in \texttt{alignment\_mask.csv}.}
 \end{figure}
 
 We performed deep mutational scanning as described previously with a few modifications that are very briefly described here and detailed in the methods.
@@ -76,7 +75,7 @@ We saw strong selection as indicated in \ref{fig:mutfreqs}.
 More details on DMS is shown in \ref{suppfig:dms}
 
 \begin{figure}
-\centerline{\includegraphics[width=3in]{figures/dms_schematic/dms_schematic}}
+\centerline{\includegraphics[width=0.9\textwidth]{figures/dms_schematic/dms_schematic.pdf}}
 \caption{\label{fig:dms_schematic}
 Deep mutational scanning workflow.
 {\bf (A)} For each homolog, we made a library of proviral HIV plasmids with random codon-level mutations in \textit{env}.
@@ -267,34 +266,6 @@ The median shift is roughly equivalent for each group of sites.
 \bibliography{references.bib}
 
 \section*{Supplementary Material}
-% figure out how to do the supplement for eLife
-% then remove the `\iffalse` and `\fi` commands below
-\iffalse
-\begin{supptab}
-\caption{\label{supptab:phydms_replicates}
-phydms analysis for all replicates
-}
-\end{supptab}
-
-\begin{suppfig}
-\caption{\label{suppfig:dms}
-some plots about DMS
-}
-\end{suppfig}
-
-\begin{suppfile}
-\caption{\label{suppfile:grpM}
-Alignment of all group M sequences numbered and aligned as ???
-}
-\end{suppfile}
-
-\begin{suppfile}
-\caption{\label{suppfile:cladeA}
-Alignment of clade A sequences...
-}
-\end{suppfile}
-% remove the below line when figure out how to format the supplement correctly
-\fi
 
 \begin{figure}
 \centerline{\includegraphics[width=5in]{figures/sanger_sequencing_supp/sanger_sequencing_supp}}
