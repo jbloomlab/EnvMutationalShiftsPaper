@@ -90,7 +90,10 @@ Using these sequencing data, we then inferred each site's preference for each of
 \end{figure}
 
 \begin{figure}
-\centerline{\includegraphics[width=5in]{figures/mutfreqs/mutfreqs}}
+{{\bf \Large A} \hspace{0.2\textwidth} BG505 \hspace{0.51\textwidth} BF520} \\
+{\includegraphics[height=0.32\textwidth]{figures/BG505_avgmutfreqs.pdf}\includegraphics[clip=true,trim=0in 0in 1.7in 0in,height=0.32\textwidth]{figures/BF520_avgmutfreqs.pdf}} \\
+{\bf \Large B} \\
+{\includegraphics[width=0.37\textwidth]{figures/BG505_prefscorr.pdf}\hspace{0.1\textwidth}\includegraphics[width=0.37\textwidth]{figures/BF520_prefscorr.pdf}}
 \caption{\label{fig:mutfreqs}
 The deep mutational scanning experiments imposed strong purifying selection and led to reproducible estimates of each homolog's amino-acid preferences.
 {\bf(A)} For each replicate of each homolog, we deep sequenced the starting plasmid libraries (DNA) and the selected virus libraries (virus).
@@ -101,18 +104,8 @@ Synonymous mutations only decreased to 87-95\% their starting frequencies, as wo
 Panels {\bf(B)} and {\bf(C)} show the correlation in our estimates of each homolog's site-specific amino-acid preferences between experimental replicates, with {\bf(B)} showing the correlation between BF520 replicates and {\bf(C)} showing the correlation between BG505 replicates.
 Each correlation plot reports the associated Pearson correlation coefficient, which ranged from 0.59-0.75, indicating that our estimates are largely repeatable between replicates.
 }
-\figsupp[Per-codon mutation frequencies of the mutant libraries and wildtype controls before and after selection.\label{mutfreqs_supp}]{Per-codon mutation frequencies of the mutant libraries and wildtype controls before and after selection.
-This figure is similar to Fig \ref{fig:mutfreqs}, but it reports \textit{non}-error-corrected per-codon mutation frequencies for each of the mutant libraries and wildtype controls before and after selection for {\bf (A)} BG505 and {\bf (B)} BF520.
-Specifically, for each each replicate, wt-DNA and mut-DNA refer to the pre-selection wildtype and mutant plasmids, respectively; and wt-virus and mut-virus refer to the post-selection wildtype and mutant viruses, respectively.
-Note, there is only a single replicate of the wt-DNA sample for BF520.
-The bars show frequencies of different codon-level mutations.
-The left bar for each sample groups mutations as being either synonymous, non-synonymous, or leading to the introduction of a stop codon.
-The right bar for each sample groups mutations as introducing a single-nucleotide codon mutation (e.g., aaa $\rightarrow$ aaT), double-nucleotide codon mutation (e.g., aaa $\rightarrow$ aTT), or triple-nucleotide mutation (e.g., aaa $\rightarrow$ TTT).
-Each wildtype plasmid shows a low rate of single-nucleotide codon mutations, consistent with errors from PCR and deep sequencing.
-Importantly, the wildtype plasmids have a much lower mutation rate than the mutant plasmids.
-The mutation frequency of single-nucleotide mutations substantially increases for each wildtype virus, which is expected due to errors from viral replication.
-Comparing the wildtype viruses to the mutant viruses suggests that roughly a third to a half of mutations in the mutant viruses arise due to to errors from PCR, deep sequencing, and viral replication, underlying the importance of estimating these error rates using the controls.
-When inferring Env's amino-acid preferences, we use the wildtype controls to statistically correct for such errors, as described in the Methods.}{\includegraphics[width=5in]{figures/mutfreqs_supp/mutfreqs_supp}}
+\figdata{The raw numerical data plotted in panel (A) are in the file \texttt{avgmutfreqs.csv}.}
+\figdata{The amino-acid preferences for each replicate and the replicate averages for each homolog are in \texttt{all\_prefs\_unscaled.zip}.}
 \end{figure}
 
 
