@@ -103,24 +103,32 @@ The observed distribution is close to the expected distribution.
 \FloatBarrier
 
 \begin{figure}
-{{\bf \Large A} \hspace{0.2\textwidth} BG505 \hspace{0.51\textwidth} BF520} \\
-{\includegraphics[height=0.32\textwidth]{figures/BG505_avgmutfreqs.pdf}\includegraphics[clip=true,trim=0in 0in 1.7in 0in,height=0.32\textwidth]{figures/BF520_avgmutfreqs.pdf}} \\
+%{{\bf \Large A} \hspace{0.2\textwidth} BG505 \hspace{0.51\textwidth} BF520} \\
+%{\includegraphics[height=0.32\textwidth]{figures/BG505_avgmutfreqs.pdf}\includegraphics[clip=true,trim=0in 0in 1.7in 0in,height=0.32\textwidth]{figures/BF520_avgmutfreqs.pdf}} \\
+%{\bf \Large B} \\
+%{\includegraphics[width=0.37\textwidth]{figures/BG505_prefscorr.pdf}\hspace{0.1\textwidth}\includegraphics[width=0.37\textwidth]{figures/BF520_prefscorr.pdf}}
+\begin{minipage}[t]{0.34\textwidth}
+{\bf \Large A} \\ 
+\centerline{{\includegraphics[clip=true, trim=4.3in 1.4in 0in 0.48in, width=0.4\textwidth]{figures/BG505_avgmutfreqs.pdf}}} 
+\centerline{\small BG505}
+\includegraphics[clip=true, trim=0in 0in 1.7in 0in, width=\textwidth]{figures/BG505_avgmutfreqs.pdf}
+\centerline{\small BF520}
+\includegraphics[clip=true, trim=0in 0in 1.7in 0in, width=0.89\textwidth]{figures/BF520_avgmutfreqs.pdf}
+\end{minipage}
+\begin{minipage}[t]{0.01\textwidth}
+\end{minipage}
+\begin{minipage}[t]{0.65\textwidth}
 {\bf \Large B} \\
-{\includegraphics[width=0.37\textwidth]{figures/BG505_prefscorr.pdf}\hspace{0.1\textwidth}\includegraphics[width=0.37\textwidth]{figures/BF520_prefscorr.pdf}}
+\includegraphics[width=\textwidth]{figures/allprefscorr.pdf}
+\end{minipage}
 \caption{\label{fig:mutfreqs}
-The deep mutational scanning experiments imposed strong purifying selection and led to reproducible estimates of each homolog's amino-acid preferences.
-{\bf(A)} For each replicate of each homolog, we deep sequenced the starting plasmid libraries (DNA) and the selected virus libraries (virus).
-Bars show the per-codon mutation frequency averaged across all sites after subtracting mutation frequencies determined using wildtype controls (Fig \ref{suppfig:ch3_mutfreqs_supp}).
-Mutations leading to stop codons were purged during the selection step to 3-17\% their starting frequencies (see red numbers), indicating strong purifying selection.
-Nonsynonymous mutations decreased to 40-50\% their starting frequencies, consistent with a large fraction of amino-acid mutations being deleterious to Env.
-Synonymous mutations only decreased to 87-95\% their starting frequencies, as would be expected if synonymous mutations tend to have more neutral effects than nonsynonymous changes.
-Panels {\bf(B)} and {\bf(C)} show the correlation in our estimates of each homolog's site-specific amino-acid preferences between experimental replicates, with {\bf(B)} showing the correlation between BF520 replicates and {\bf(C)} showing the correlation between BG505 replicates.
-Each correlation plot reports the associated Pearson correlation coefficient, which ranged from 0.59-0.75, indicating that our estimates are largely repeatable between replicates.
+CAPTION
 }
 \figdata{The raw numerical data plotted in panel (A) are in the file \texttt{avgmutfreqs.csv}.}
 \figdata{The amino-acid preferences for each replicate and the replicate averages for each homolog are in \texttt{all\_prefs\_unscaled.zip}.}
 \end{figure}
 \FloatBarrier
+
 
 
 \subsection*{Re-scaling the experimental measurements to optimally describe HIV evolution in nature}
@@ -165,6 +173,16 @@ This figure is the same as Fig \ref{fig:bg505_prefs_logo}, but for BF520 instead
 \figdata{Sequence of the BF520 Env and mapping from sequential 1, 2, ... numbering of this sequence (\emph{original} column) to HXB2 numbering (\emph{new} column) is in \texttt{BF520\_to\_HXB2.csv}.}
 \figdata{The $\omega_r$ values and associated $P$-values for BF520 in HXB2 numbering are in \texttt{BG505\_omegabysite.tsv}.}
 \end{fullwidth}
+\end{figure}
+\FloatBarrier
+
+\begin{figure}
+\includegraphics[width=0.5\textwidth]{figures/diversifying_selection_corr.pdf}
+\caption{\label{fig:divselcorr}
+Correlation between sites of diversifying and purifying selection among homologs.
+\jdbcomment{Hugh - can you make a structure or structures that color sites by evidence for purifying and diversifying selection? The data are in the \texttt{merged\_omegabysite.csv} file. Probably you could just color by the log10 P-value. It may be better to show one structure for diversifying and one for purifying rather than trying to show both on the same structure? Also, any observations about where these sites are located would be useful...}  
+}
+\figdata{The $\omega_r$ and associated $P$-values plotted in this figure are in \texttt{merged\_omegabysite.csv}.}
 \end{figure}
 \FloatBarrier
 
