@@ -6,90 +6,119 @@ It is intended to be run in the PyMOL terminal as:
 
 Hugh Haddox, November-2-2017
 """
+
+# Imports
 import pymol
 from pymol import cmd
 
-structure = '5fyl'
-cmd.reinitialize()
-cmd.delete('all')
-cmd.fetch(structure) #, type='pdb1')
+homologs = ['BG505', 'BF520']
+for h in homologs:
 
-# Remove non-Env chains
-# gp41 = chain B
-# gp120 = chain G
-# 35O22 = chains D and E
-# PGT122 = chains H and L
-cmd.remove ('c;D,E,H,L,U,V')
-cmd.symexp(structure, structure, structure, 3) # generate symmetry partners based on crystal structure
+	# Fetch structure
+	structure = '5fyl'
+	cmd.reinitialize()
+	cmd.delete('all')
+	cmd.fetch(structure) #, type='pdb1')
 
-# Tweak initial display and color of Env monomers
-cmd.hide('everything')
-cmd.bg_color('white')
-cmd.show('cartoon')
-cmd.color('grey90')
-#cmd.color('grey20', structure)
-cmd.set('cartoon_transparency', '0.5')
-cmd.set('cartoon_transparency', '0', structure)
-#cmd.hide('hetatm')
+	# Remove non-Env chains
+	# gp41 = chain B
+	# gp120 = chain G
+	# 35O22 = chains D and E
+	# PGT122 = chains H and L
+	cmd.remove ('c;D,E,H,L,U,V')
+	cmd.symexp(structure, structure, structure, 3) # generate symmetry partners based on crystal structure
 
-# Identify unique sites in structure
-sites_in_structure = []
-cmd.iterate("(name ca)","sites_in_structure.append(resi)")
-unique_sites_in_structure = []
-for site in sites_in_structure:
-	if site not in unique_sites_in_structure:
-		unique_sites_in_structure.append(site)
+	# Tweak initial display and color of Env monomers
+	cmd.hide('everything')
+	cmd.bg_color('white')
+	cmd.show('cartoon')
+	cmd.color('grey90')
+	#cmd.color('grey20', structure)
+	cmd.set('cartoon_transparency', '0.5')
+	cmd.set('cartoon_transparency', '0', structure)
+	#cmd.hide('hetatm')
 
-# Get omega-by-site values and determine which sites evolve significantly
-# faster or slower than expected
-omega_d = {'BG505':{}, 'BF520':{}}
-sites_sig_fast = {'BG505':[], 'BF520':[]}
-sites_sig_slow = {'BG505':[], 'BF520':[]}
-Q_cutoff = 0.05
-with open('../merged_omegabysite.csv') as f:
-	lines = f.readlines()[1:]
-	for line in lines:
-		(site, omega, P, dLnL, Q, Env, log10P, log10Pdir) = line.strip().split(',')
-		omega_d[Env][site] = float(log10Pdir)
-		if float(Q) < Q_cutoff and float(omega) < 1.0:
-			sites_sig_slow[Env].append(site)
-		if float(Q) < Q_cutoff and float(omega) > 1.0:
-			sites_sig_fast[Env].append(site)
+	# Identify unique sites in structure
+	sites_in_structure = []
+	cmd.iterate("(name ca)","sites_in_structure.append(resi)")
+	unique_sites_in_structure = []
+	for site in sites_in_structure:
+		if site not in unique_sites_in_structure:
+			unique_sites_in_structure.append(site)
 
-# Identify min and max omega values
-h = 'BG505'
-min_omega = min(omega_d[h].values())
-max_omega = max(omega_d[h].values())
-print "\nThe minimum and maximum omega-by-site values are:"
-print "min: {0}".format(min_omega)
-print "max: {0}".format(max_omega)
+	# Get omega-by-site values and determine which sites evolve significantly
+	# faster or slower than expected
+	omega_d = {'BG505':{}, 'BF520':{}}
+	sites_sig_fast = {'BG505':[], 'BF520':[]}
+	sites_sig_slow = {'BG505':[], 'BF520':[]}
+	Q_cutoff = 0.05
+	with open('../merged_omegabysite.csv') as f:
+		lines = f.readlines()[1:]
+		for line in lines:
+			(site, omega, P, dLnL, Q, Env, log10P, log10Pdir) = line.strip().split(',')
+			omega_d[Env][site] = float(log10Pdir)
+			if float(Q) < Q_cutoff and float(omega) < 1.0:
+				sites_sig_slow[Env].append(site)
+			if float(Q) < Q_cutoff and float(omega) > 1.0:
+				sites_sig_fast[Env].append(site)
+	min_omega = min(omega_d['BG505'].values() + omega_d['BF520'].values())
+	max_omega = max(omega_d['BG505'].values() + omega_d['BF520'].values())
+	print "\nThe minimum and maximum omega-by-site values are:"
+	print "min: {0}".format(min_omega)
+	print "max: {0}".format(max_omega)
 
-# Color residues by omega-by-site log10P values
-BG505_sites = sorted(omega_d['BG505'].keys())
-BF520_sites = sorted(omega_d['BF520'].keys())
-assert BG505_sites == BF520_sites
-sites_with_data = BG505_sites
-sites_not_in_structure = []
-for site in sites_with_data:
-    cmd.alter("{0} and resi {1}".format(structure, site), "b = {0}".format(omega_d[h][site]))
-    if site not in unique_sites_in_structure:
-    	sites_not_in_structure.append(site)
-cmd.spectrum('b', 'red_grey_blue', structure, minimum = min_omega, maximum = max_omega)
-print ("\nSites with data not in structure: {0}".format(', '.join(sites_not_in_structure)))
+	# Color residues by omega-by-site log10P values
 
-# Color residues lacking data white
-sites_lacking_data = [site for site in unique_sites_in_structure if site not in sites_with_data]
-print ("\nThe following sites in the structure, but lacking data will be colored white: {0}".format(', '.join(sites_lacking_data)))
-cmd.color('white', '{0} and resi {1}'.format(structure, '+'.join(sites_lacking_data)))
+	BG505_sites = sorted(omega_d['BG505'].keys())
+	BF520_sites = sorted(omega_d['BF520'].keys())
+	assert BG505_sites == BF520_sites
+	sites_with_data = BG505_sites
+	sites_not_in_structure = []
+	for site in sites_with_data:
+	    cmd.alter("{0} and resi {1}".format(structure, site), "b = {0}".format(omega_d[h][site]))
+	    if site not in unique_sites_in_structure:
+	    	sites_not_in_structure.append(site)
+	cmd.spectrum('b', 'red_grey_blue', structure, minimum = min_omega, maximum = max_omega)
+	print ("\nSites with data not in structure: {0}".format(', '.join(sites_not_in_structure)))
 
-# Show significant sites as spheres
-print ("\nUsing a Q-value cutoff of {0}".format(Q_cutoff))
-print ("\n{0} sites that evolve slower than expected with significant Q values: {1}".format(len(sites_sig_slow[h]), ', '.join(sites_sig_slow[h])))
-print ("\n{0} sites that evolve faster than expected with significant Q values: {1}".format(len(sites_sig_fast[h]), ', '.join(sites_sig_fast[h])))
-cmd.select('sites_sig_slow', '{0} and resi {1}'.format(structure, '+'.join(sites_sig_slow[h])))
-cmd.select('sites_sig_fast', '{0} and resi {1}'.format(structure, '+'.join(sites_sig_fast[h])))
-cmd.show('spheres', 'sites_sig_fast')
-cmd.show('spheres', 'sites_sig_slow')
+	# Color residues lacking data white
+	sites_lacking_data = [site for site in unique_sites_in_structure if site not in sites_with_data]
+	print ("\nThe following sites in the structure, but lacking data will be colored white: {0}".format(', '.join(sites_lacking_data)))
+	cmd.color('white', '{0} and resi {1}'.format(structure, '+'.join(sites_lacking_data)))
+
+	# Show significant sites as spheres
+	print ("\nUsing a Q-value cutoff of {0}".format(Q_cutoff))
+	print ("\n{0} sites that evolve slower than expected with significant Q values: {1}".format(len(sites_sig_slow[h]), ', '.join(sites_sig_slow[h])))
+	print ("\n{0} sites that evolve faster than expected with significant Q values: {1}".format(len(sites_sig_fast[h]), ', '.join(sites_sig_fast[h])))
+	cmd.select('sites_sig_slow', '{0} and resi {1}'.format(structure, '+'.join(sites_sig_slow[h])))
+	cmd.select('sites_sig_fast', '{0} and resi {1}'.format(structure, '+'.join(sites_sig_fast[h])))
+	cmd.show('spheres', 'sites_sig_fast')
+	cmd.show('spheres', 'sites_sig_slow')
+
+	# Take a pictures of Env rotated 120 degrees relative to one another
+	cmd.set_view ("""\
+	     0.413237274,    0.018612767,   -0.910427451,\
+	     0.910516560,    0.006436472,    0.413409144,\
+	     0.013554142,   -0.999800861,   -0.014289021,\
+	    -0.000450239,   -0.000266090, -364.028167725,\
+	    64.596366882,   39.767127991,   -5.709826946,\
+	   224.197448730,  503.894958496,  -20.000000000""")
+	take_pictures = True
+	if take_pictures:
+		cmd.bg_color('white')
+		cmd.png('{0}_face1.png'.format(h), width=1000, dpi=1000, ray=1)
+		cmd.rotate('y', '120')
+		cmd.png('{0}_face2.png'.format(h), width=1000, dpi=1000, ray=1)
+
+
+
+
+
+
+
+
+
+
 
 # Annotations of structural features
 # gp120 and gp41
