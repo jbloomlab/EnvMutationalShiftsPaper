@@ -67,7 +67,7 @@ We find...
 
 \begin{figure}
 \centerline{\bf \Large A \hspace{0.52\textwidth} \bf B \hspace{0.35\textwidth}}
-\centerline{\includegraphics[width=0.6\textwidth]{figures/tree_plot.pdf} \includegraphics[width=0.4\textwidth]{figures/masked_alignment_identity.pdf}}
+\centerline{\includegraphics[width=0.64\textwidth]{figures/tree_plot.pdf} \includegraphics[width=0.36\textwidth]{figures/masked_alignment_identity.pdf}}
 \caption{\label{fig:tree}
 CAPTION
 }
@@ -77,7 +77,7 @@ CAPTION
 \FloatBarrier
 
 \begin{figure}
-\centerline{\includegraphics[width=0.9\textwidth]{figures/dms_schematic/dms_schematic.pdf}}
+\centerline{\includegraphics[width=0.85\textwidth]{figures/dms_schematic/dms_schematic.pdf}}
 \caption{\label{fig:dms_schematic}
 Deep mutational scanning workflow.
 {\bf (A)} For each homolog, we made a library of proviral HIV plasmids with random codon-level mutations in \textit{env}.
@@ -181,7 +181,7 @@ This figure is the same as Fig \ref{fig:bg505_prefs_logo}, but for BF520 instead
 \includegraphics[width=1.0\textwidth]{figures/omegabysite_structural_analysis/omegabysite_structural_analysis.pdf}
 \caption{\label{fig:divselcorr}
 Correlation between sites of diversifying and purifying selection among homologs.
-\jdbcomment{Hugh - can you make panels showing the RSA and structure view of sites of purifying selection.}  
+\jdbcomment{Hugh - can you make the panel showing the relationship between purifying selection and the Andrew Ward sites.}  
 }
 \figsupp[Amino-acid preferences and alignment frequencies at sites of purifying selection.]{
 This plot shows all sites that are evolving more slowly than expected in natural sequences given the preferences measured in both homologs.
@@ -189,6 +189,11 @@ Specifically, it shows all sites with $\omega_r < 1$ at $Q < 0.05$ for the ExpCM
 For each site, the plots show the preferences averaged across replicates and re-scaled for each homolog, as well as the frequencies of amino acids in the clade A Env alignment. 
 The $Q$-value indicated is the maximum of that for the two homologs.
 }{\includegraphics[width=\textwidth]{figures/purifying_selsites.pdf}}
+\figsupp[Distribution of relative solvent accessibilities among sites of diversifying and purifying selection.]{
+Sites are grouped by whether they are under diversifying or purifying selection at $Q < 0.05$ in \emph{both} homologs, or whether they do not fall into either of these categories.
+The absolute solvent accessibility of each site in the BG505 SOSIP trimer in PDB 5FYL~\citep{?} was calculated using DSSP~\citep{?}, and normalized to a relative solvent accessibility using the absolute accessibilities provided by \citet{?}.
+As can be seen from these box plots with overlaid points for each site, sites of both diversifying and purifying selection tend to have higher relative solvent accessibility than other sites.
+}{\includegraphics[width=0.5\textwidth]{figures/selsites_rsa.pdf}}
 \figdata{The $\omega_r$ and associated $P$-values plotted in this figure are in \texttt{merged\_omegabysite.csv}.}
 \end{figure}
 \FloatBarrier
