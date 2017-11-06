@@ -14,13 +14,17 @@ The analysis primarily uses [dms_tools2](https://jbloomlab.github.io/dms_tools2/
 All input data required by [analysis_notebook.ipynb](analysis_notebook.ipynb) is in the [./data/](./data/) subdirectory. 
 Specifically, this subdirectory includes the following files:
 
-    * The wildtype *env* coding sequences for the BG505 and BF520 strains used in the experiments are in [./data/BG505_env.fasta](./data/BG505_env.fasta) and [./data/BF520_env.fasta](./data/BF520_env.fasta).
+  * The wildtype *env* coding sequences for the BG505 and BF520 strains used in the experiments are in [./data/BG505_env.fasta](./data/BG505_env.fasta) and [./data/BF520_env.fasta](./data/BF520_env.fasta).
 
-    * A protein alignment of the Env homologs used in this study plus HXB2 is in [./data/Env_protalignment_manualtweaks.fasta](./data/Env_protalignment_manualtweaks.fasta). This is a manually tweaked version of an alignment created by [mafft](https://mafft.cbrc.jp/alignment/software/). The alignment is used to get the other homologs into the HXB2 numbering scheme. The manual tweaking was done by Hugh Haddox in regions of the variable loops, which are hard to align due to low identity and many indels. Specifically,. Hugh notes that he:
-        - re-aligned BF520 in the regions between 184-191 (noninclusive bounds in variable loop 1; HXB2 numbering) and 395-412 (noninclusive bounds in variable loop 4; HXB2 numbering). 
-        - re-aligned LAI in the region between 137-144 (noninclusive bounds in variable loop 1; HXB2 numbering). 
+  * A protein alignment of the Env homologs used in this study plus HXB2 is in [./data/Env_protalignment_manualtweaks.fasta](./data/Env_protalignment_manualtweaks.fasta). This is a manually tweaked version of an alignment created by [mafft](https://mafft.cbrc.jp/alignment/software/). The alignment is used to get the other homologs into the HXB2 numbering scheme. The manual tweaking was done by Hugh Haddox in regions of the variable loops, which are hard to align due to low identity and many indels. Specifically,. Hugh notes that he:
 
-    * An alignment of HIV Env coding sequences is in [./data/HIV1_FLT_2016_env_DNA.fasta](./data/HIV1_FLT_2016_env_DNA.fasta). This alignment is used for the phylogenetic analyses. This alignment was downloaded from the [Los Alamos (LANL) HIV sequence database](http://www.hiv.lanl.gov/). Specifically, it was downloaded using the following settings:
+    - re-aligned BF520 in the regions between 184-191 (noninclusive bounds in variable loop 1; HXB2 numbering) and 395-412 (noninclusive bounds in variable loop 4; HXB2 numbering). 
+
+    - re-aligned LAI in the region between 137-144 (noninclusive bounds in variable loop 1; HXB2 numbering). 
+
+
+  * An alignment of HIV Env coding sequences is in [./data/HIV1_FLT_2016_env_DNA.fasta](./data/HIV1_FLT_2016_env_DNA.fasta). This alignment is used for the phylogenetic analyses. This alignment was downloaded from the [Los Alamos (LANL) HIV sequence database](http://www.hiv.lanl.gov/). Specifically, it was downloaded using the following settings:
+
         - Alignment type: Filtered web
         - Organism: HIV-1/SIVcpz
         - Region: Env
@@ -29,5 +33,12 @@ Specifically, this subdirectory includes the following files:
         - Year: 2016
         - Format: FASTA
 
-    * A breakdown of Env into regions (*gp41*, *gp120 variable loops*, *gp120 other regions*) in HXB2 nubmering is in [./data/Env_regions.csv](./data/Env_regions.csv). The variable loop definitions are the [ones provided by the Los Alamos database](https://www.hiv.lanl.gov/content/sequence/VAR_REG_CHAR/variable_region_characterization_explanation.html). The gp41 definition is also the one provided at that site.
+  * A breakdown of Env into regions (*gp41*, *gp120 variable loops*, *gp120 other regions*) in HXB2 nubmering is in [./data/Env_regions.csv](./data/Env_regions.csv). The variable loop definitions are the [ones provided by the Los Alamos database](https://www.hiv.lanl.gov/content/sequence/VAR_REG_CHAR/variable_region_characterization_explanation.html). The gp41 definition is also the one provided at that site.
 
+  * Files used for calculating the solvent accessibility of Env using [dssp](http://swift.cmbi.ru.nl/gv/dssp/). The solvent accessibility is calculated on the full trimer as represented in [PDB 5FYL](http://www.rcsb.org/pdb/explore.do?structureId=5fyl), which is the BG505 trimer. Specifically:
+
+    1. [PDB 5FYL](http://www.rcsb.org/pdb/explore.do?structureId=5fyl) was downloaded.
+
+    2. This PDB file was modified by removing antibody chains to leave a single Env monomer, then generating symmetry partners using [PyMol symexp command](https://pymolwiki.org/index.php/Symexp) to create the full Env trimer, then re-naming the gp120 and gp41 chains so that they are unique, and finally removing lines that start with `TER`. The result of all of these operations is in the file [./data/5FYL_Env_trimer_rmTER.pdb](./data/5FYL_Env_trimer_rmTER.pdb).
+
+    3. [dssp](http://swift.cmbi.ru.nl/gv/dssp/) was run on [./data/5FYL_Env_trimer_rmTER.pdb](./data/5FYL_Env_trimer_rmTER.pdb) to compute the absolute solvent accessibility of each residue, and the results were saved to [./data/5FYL_dssp.txt](./data/5FYL_dssp.txt).
