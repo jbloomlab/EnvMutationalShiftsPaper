@@ -181,8 +181,14 @@ This figure is the same as Fig \ref{fig:bg505_prefs_logo}, but for BF520 instead
 \includegraphics[width=1.0\textwidth]{figures/omegabysite_structural_analysis/omegabysite_structural_analysis.pdf}
 \caption{\label{fig:divselcorr}
 Correlation between sites of diversifying and purifying selection among homologs.
-\jdbcomment{Hugh - can you make a structure or structures that color sites by evidence for purifying and diversifying selection? The data are in the \texttt{merged\_omegabysite.csv} file. Probably you could just color by the log10 P-value. It may be better to show one structure for diversifying and one for purifying rather than trying to show both on the same structure? Also, any observations about where these sites are located would be useful...}  
+\jdbcomment{Hugh - can you make panels showing the RSA and structure view of sites of purifying selection.}  
 }
+\figsupp[Amino-acid preferences and alignment frequencies at sites of purifying selection.]{
+This plot shows all sites that are evolving more slowly than expected in natural sequences given the preferences measured in both homologs.
+Specifically, it shows all sites with $\omega_r < 1$ at $Q < 0.05$ for the ExpCMs for \emph{both} BG505 and BF520.
+For each site, the plots show the preferences averaged across replicates and re-scaled for each homolog, as well as the frequencies of amino acids in the clade A Env alignment. 
+The $Q$-value indicated is the maximum of that for the two homologs.
+}{\includegraphics[width=\textwidth]{figures/purifying_selsites.pdf}}
 \figdata{The $\omega_r$ and associated $P$-values plotted in this figure are in \texttt{merged\_omegabysite.csv}.}
 \end{figure}
 \FloatBarrier
