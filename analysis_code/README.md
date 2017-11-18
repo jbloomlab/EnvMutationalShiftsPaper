@@ -43,4 +43,10 @@ Specifically, this subdirectory includes the following files:
 
     3. [dssp](http://swift.cmbi.ru.nl/gv/dssp/) was run on [./data/5FYL_Env_trimer_rmTER.pdb](./data/5FYL_Env_trimer_rmTER.pdb) to compute the absolute solvent accessibility of each residue, and the results were saved to [./data/5FYL_dssp.txt](./data/5FYL_dssp.txt).
 
-  * Files giving the amino-acid preferences for influenza HA (A/WSN/1933 H1N1 strain) to be used for a control comparison to the preferences measured for Env. These are from the experiments of [Doud and Bloom (2016)](https://www.ncbi.nlm.nih.gov/pubmed/27271655), although the files are actually taken from the re-analysis of the data in the [dms_tools2 example](https://github.com/jbloomlab/dms_tools2/blob/master/examples/Doud2016/analysis_notebook.ipynb). The preferences are in the files [data/Doud2016_HA_replicate-1_prefs.csv](data/Doud2016_HA_replicate-1_prefs.csv), [data/Doud2016_HA_replicate-2_prefs.csv](data/Doud2016_HA_replicate-2_prefs.csv), and [data/Doud2016_HA_replicate-3_prefs.csv](data/Doud2016_HA_replicate-3_prefs.csv). They are **not** yet re-scaled by a stringency parameter.
+  * Files giving the amino-acid preferences for influenza HA (A/WSN/1933 H1N1 strain) to be used for a control comparison to the preferences measured for Env. These are from the experiments of [Doud and Bloom (2016)](https://www.ncbi.nlm.nih.gov/pubmed/27271655), although the files are actually taken from the re-analysis of the data in the [dms_tools2 example](https://github.com/jbloomlab/dms_tools2/blob/master/examples/Doud2016/analysis_notebook.ipynb). The (**not** yet re-scaled by a stringency parameter) preferences are in the following files:
+
+    - [data/Doud2016_HA_replicate-1_prefs.csv](data/Doud2016_HA_replicate-1_prefs.csv)
+
+    - [data/Doud2016_HA_replicate-2_prefs.csv](data/Doud2016_HA_replicate-2_prefs.csv)
+
+    - [data/Doud2016_HA_replicate-3_prefs.csv](data/Doud2016_HA_replicate-3_prefs.csv)

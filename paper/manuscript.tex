@@ -202,13 +202,19 @@ As can be seen from these box plots with overlaid points for each site, sites of
 
 \begin{figure}
 \begin{fullwidth}
-{\includegraphics[width=0.65\textwidth]{figures/prefs_distance/prefs_distance.pdf}} \\
-{\includegraphics[width=1.3\textwidth]{figures/BG505-to-BF520_diffprefs.pdf}}
-\caption{\label{fig:bf520_prefs_logo}
-The re-scaled averaged site-specific amino-acid preferences for BF520.
-This figure is the same as Fig \ref{fig:bg505_prefs_logo}, but for BF520 instead of BG505.
+{\bf \Large A} \hspace{0.61\textwidth} {\bf \Large B} \\
+\hspace{0.01\textwidth} 
+\includegraphics[width=0.58\textwidth]{figures/prefs_distance/prefs_distance.pdf}
+\hspace{0.03\textwidth}
+\includegraphics[clip=true, trim=0in 0in 0in 1.2in, width=0.68\textwidth]{figures/distance_distribution.pdf}
+\vspace{0.15in}
+\\ 
+{\bf \Large C} \\
+\includegraphics[width=1.3\textwidth]{figures/shifted_sites.pdf}
+\caption{\label{fig:diffprefs}
+Difference in preferences.
 }
-\figdata{The data plotted in this figure are in \texttt{BG505\_to\_BF520\_prefs\_dist.csv}.}
+\figdata{The corrected distances between BG505 and BF520 at each site are in \texttt{BG505\_to\_BF520\_prefs\_dist.csv}.}
 \end{fullwidth}
 \end{figure}
 \FloatBarrier
