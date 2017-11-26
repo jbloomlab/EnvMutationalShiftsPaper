@@ -233,7 +233,7 @@
 % custom title page 
 %
 \renewcommand{\Authfont}{\bfseries\large\raggedright}
-\renewcommand{\Affilfont}{\mdseries\large\raggedright}
+\renewcommand{\Affilfont}{\mdseries\normalsize\raggedright}
 \renewcommand{\Authands}{, }
 \setlength{\affilsep}{16pt}
 \renewcommand{\AB@affilsepx}{; \protect\Affilfont}
@@ -253,7 +253,7 @@
 
 \renewcommand{\maketitle}{%
   \vskip36pt%
-  {\color{eLifeDarkBlue}\raggedright\bfseries\fontsize{22}{27}\selectfont \@title\par}%
+  {\color{eLifeDarkBlue}\raggedright\bfseries\fontsize{20}{24}\selectfont \@title\par}%
   \vskip16pt
   {\@author\par}
   \vskip8pt
