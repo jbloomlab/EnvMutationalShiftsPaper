@@ -3,6 +3,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% PREAMBLE 
 \documentclass[9pt]{elife}
+\sloppy
 % add lineno for line numbering
 % Use the onehalfspacing option for 1.5 line spacing
 % Use the doublespacing option for 2.0 line spacing
@@ -12,11 +13,15 @@
 \usepackage[version=4]{mhchem}
 \usepackage{siunitx}
 \DeclareSIUnit\Molar{M}
-
+%\usepackage{indentfirst} %I prefer to have indents following section headings, I find it to be more consistent in style throughout document
+\usepackage{natbib}
 \usepackage{float}
-\newfloat{suppfile}{thp}{lofsupfile}
-\floatname{suppfile}{Supplementary file}
+\usepackage{tikz}
 
+
+\newfloat{suppfile}{thp}{lofsupfile}
+%\renewcommand{\thesuppfile}{Supplementary file \arabic{suppfile}}
+\floatname{suppfile}{Supplementary file}
 \usepackage{placeins}
 
 \renewcommand{\floatpagefraction}{1}
@@ -32,7 +37,7 @@
 \author[1,2,\authfn{1}]{Adam S. Dingens}
 \author[1,3]{Sarah K. Hilton}
 \author[4]{Julie Overbaugh}
-\author[1,2,3]{Jesse D. Bloom}
+\author[1,3,*]{Jesse D. Bloom}
 \affil[1]{Basic Sciences Division and Computational Biology Program, Fred Hutchinson Cancer Research Center, Seattle, WA} 
 \affil[2]{Molecular and Cellular Biology PhD program, University of Washington, Seattle, WA}
 \affil[3]{Department of Genome Sciences, University of Washington, Seattle, WA}
@@ -51,54 +56,49 @@
 \maketitle
 
 \begin{abstract}
-The immediate evolutionary space accessible to a virus is largely determined by how single mutations affect fitness.
+The immediate evolutionary space accessible to HIV is largely determined by how single amino-acid mutations affect fitness.
 These mutational effects can shift as the virus evolves.
 However, the prevalence of such shifts remains unclear.
-Here we quantify the effects on viral replication of all amino-acid mutations to two HIV envelope (Env) variants that differ at $>$100 residues.
+Here we quantify the effects on viral replication of all amino-acid mutations to two HIV envelope (Env) proteins that differ at $>$100 residues.
 Most mutations similarly affect both Envs, but the amino-acid preferences of a substantial minority of sites have clearly shifted.
-These shifts usually involve sites that prefer a single amino acid in one Env but tolerate many amino acids in the other.
-Surprisingly, shifts are only slightly enriched at sites that differ between the Envs -- and many occur at residues that do not even contact substitutions.
+These shifted sites usually prefer a specific amino acid in one Env, but can tolerate many amino acids in the other.
+Surprisingly, shifts are only slightly enriched at sites that have substituted between the Envs -- and many occur at residues that do not even contact substitutions.
 Therefore, long-range epistasis can unpredictably shift Env's mutational tolerance during HIV evolution, although the evolutionary capacity of most sites is conserved between moderately diverged viral strains.
 \end{abstract}
 
 
 \section{Introduction}
-HIV's envelope protein (Env) rapidly evolves.
-In just a single HIV-infected individual, the infecting virus can give rise to a pool of Env variants that are as diverse as all globally circulating influenza strains in a given year~\cite{korber2001evolutionary}.
-Env's ability to rapidly evolve has dire consequences for the immune system.
-Most HIV-infected individuals generate anti-Env antibodies that neutralize the virus~\cite{albert1990rapid,wei2003antibody,richman2003rapid}.
-However, Env readily evades this response through rapid sequence evolution~\cite{albert1990rapid,wei2003antibody,richman2003rapid}.
-The immune system can adapt to target new viral variants through through the elicitation of new antibodies and refining the specificity of antibodies through somatic hypermutation.
-But, Env is able to evade new immune responses each time they arise~\cite{albert1990rapid,wei2003antibody,richman2003rapid}.
-Understanding this protein's ability to do so is thus central to understanding HIV's ability to evade immunity.
+HIV's envelope (Env) protein evolves very rapidly.
+The major group of HIV-1 that is responsible for the current pandemic originated from a virus that entered the human population $\sim$100 years ago~\citep{sharp2011origins,worobey2008direct,faria2014early}.
+The descendants of this virus have evolved so rapidly that their Envs now have as little as 65\% protein identity~\citep{lynch2009appreciating}.
+For comparison, protein orthologs shared between humans and mice have only diverged to a median identity of 78\% over 90 million years~\citep{waterston2002initial,hedges2006timetree}.
 
-The immediate evolutionary space surrounding Env is largely defined by the effects of single point mutations on viral replication.
-To better understand this space, a large number of studies have characterized the effects of mutations on Env's ability to support viral replication in cell culture and evade antibodies~\cite{olshevsky1990identification,cordonnier1989single,basmaciogullari2002identification,freed1989mutational,lu2001structural,jacobs2005alanine,zwick2005anti,pantophlet2003fine,li2011mechanism,lynch2015hiv,haddox2016experimental}.
-For practical reasons, these studies often measured these effects in just a single or a few genetic backgrounds.
-However, effects of mutations can change over evolutionary time due to epistasis.
-One form of epistasis is intra-protein epistasis, where the effect of a mutation at one site in a protein is influenced by which amino acids are present at other sites in the same protein.
-Thus, as a protein evolves, substitutions at one site may "shift" the effects of mutations at other sites in the protein, such that a mutation that is not tolerated in one background is tolerated in a closely related one.
-This phenomenon has been documented for a wide variety of proteins~\cite{weinreich2006darwinian,bloom2006protein,bershtein2006robustness,ortlund2007crystal,lunzer2010pervasive,gong2013stability,natarajan2013epistasis,harms2014historical,podgornaia2015pervasive}, including Env~\cite{freed1994evidence,wang1996single,da2010fitness,gasser2016buffering}, and is described in greater detail in the Introduction of this thesis.
+Env's rapid evolution has dire consequences for anti-HIV immunity, since it erodes the efficacy of most neutralizing antibodies~\citep{albert1990rapid,wei2003antibody,richman2003rapid}.
+Because of this public-health importance, numerous studies have experimentally characterized aspects of the ``evolutionary landscape'' that Env traverses.
+The immediate evolutionary space accessible to any given Env is defined by the effects on viral fitness of all $19 \times 856 \sim 1.6 \times 10^4$ single amino-acid mutations that can be made to a typical-length 856-residue Env. 
+Most studies have measured how just a small fraction of these mutations affect viral replication in cell culture~\citep{freed1989mutational,cordonnier1989single,olshevsky1990identification,lu2001structural,basmaciogullari2002identification,jacobs2005alanine,zwick2005anti,lynch2015hiv}, although it has recently become possible to use deep mutational scanning to measure the effects of many~\citep{al2014high,duenas2016saturation} or even all~\citep{haddox2016experimental} mutations to any given Env variant.
 
-Considering the effects of mutations in different genetic backgrounds is important for a protein as diverse as Env.
-Since HIV's introduction into humans, several phylogenetically distinct subtypes have arisen (Fig \ref{fig:ch3_tree}).
-The level of sequence divergence in Env between subtypes is typically 20-35\% amino-acid divergence~\cite{korber2001evolutionary}.
-Even within a subtype, Env variants typically differ by 15-20\% amino-acid divergence~\cite{korber2001evolutionary}.
-Thus, given that Env is $\sim$850 amino acids in length, homologs often differ by $>$100 amino acids.
-In principle, even single amino-acid changes can cause large shifts in the effect of mutations at other sites in a protein~\cite{weinreich2006darwinian,ortlund2007crystal,gong2013stability}.
-Thus, mutational effects may substantially differ between Env homologs.
-However, the frequency of large shifts in long-term protein evolution is still largely unknown.
-Some studies suggest that such shifts may be rare~\cite{doud2015site,ashenberg2013mutational}.
+But interpreting these studies in the context of Env evolution requires addressing a fundamental question: How informative are mutational studies of a single protein variant about constraints on long-term evolution?
+During protein evolution, substitutions at one site can shift the effect of mutations at other sites~\citep{natarajan2013epistasis,gong2013stability,harms2014historical,podgornaia2015pervasive,starr2016epistasis}.
+Such shifts can accumulate as substitutions become entrenched via epistatic interactions with subsequent changes~\citep{starr2017pervasive,pollock2012amino,shah2015contingency} -- although the magnitude of these shifts is usually limited~\citep{doud2015site,chan2017correlation,ashenberg2013mutational,risso2014mutational}.
+Given that the Envs of circulating HIV strains represent a vast collection of homologs that often differ at $>$100 residues, such shifts could make the outcome of any study highly dependent on the Env used.
+The extent to which this is actually the case is unclear, since the few protein-wide studies of mutational shifts have examined proteins far simpler than Env, which forms a large heterotrimeric complex that transitions through multiple conformational states~\citep{munro2014conformational,ozorowski2017open}.
 
-Here, we quantified shifts in the effects of mutations on Env's ability to support viral replication in cell culture among two divergent Env homologs that share 85\% amino-acid identity.
-A technique called deep mutational scanning can be used to measure the effects of all possible single amino-acid mutations to a protein or protein domain of interest in a single high-throughput experiment~\cite{mclaughlin2012spatial,roscoe2013analyses,firnberg2014comprehensive,olson2014comprehensive,melnikov2014comprehensive,bloom2014experimentally,qi2014quantitative,thyagarajan2014inherent,stiffler2015evolvability,doud2015site,kitzman2015massively,mishra2016systematic,doud2016accurate,mavor2015determination}.
-We applied this technique to measure the ability of each homolog to tolerate all single amino-acid amino-acids across 612 homologous sites.
-A small fraction of mutations had dramatically different effects between homologs, with the mutation being well tolerated in one homolog, but highly deleterious to the other homolog.
-However, the effects of most mutations had only shifted by small-to-intermediate amounts, suggesting that the effects of most mutations are largely conserved between the divergent homologs despite underlying amino-acid differences at 15\% of sites.
+Here we measure the effects on viral replication of all single amino-acid mutations to the ectodomains of two transmitted-founder virus Envs that differ by $>$100 mutations.
+By comparing these complete mutational maps, we identify sites where amino-acid preferences have shifted between the Envs.
+Most sites show no detectable shifts, but 30 sites have clearly altered their amino-acid preferences.
+These shifts tend to involve sites that strongly prefer a specific amino acid in one Env but tolerate many amino acids in the other.
+The shifted sites cluster in Env's structure, but are often distant from any of the amino-acid substitutions that distinguish the two Envs -- demonstrating the action of long-range epistasis.
+By aggregating our measurements for both Envs, we identify sites that evolve faster or slower in nature than expected given the functional constraints measured in the lab.
+Overall, our work provides across-strain genotype-to-phenotype maps that complement existing work characterizing Env's diversity at the level of protein sequence and structure.
 
 \section{Results}
 
 \subsection*{Deep mutational scanning of two Env homologs from transmitted-founder viruses}
+Correlations between replicates in prior studies:
+\citet{haddox2016experimental} all sites, had $R = 0.45$ to $R = 0.50$;
+
+
 Previously, we used deep mutational scanning to estimate the effects of all single amino-acid mutations to Env from the LAI strain of HIV, which is a lab-passaged CXCR4-tropic strain isolated late in infection~\cite{peden1991changes,haddox2016experimental}.
 Here, we sought to examine the effects of mutations in viruses isolated from earlier in infection, near the time of transmission.
 We chose two Envs -- BG505.W6M.C2 and BF520.W14M.C2 (hereafter referred to as BG505 Env and BF520 Env, respectively) -- both from viruses isolated from HIV-infected infants shortly after mother-to-child transmission~\cite{goo2014early}.
@@ -124,7 +124,6 @@ CAPTION
 \figdata{The coding sequence alignment of clade A \textit{env} sequences in FASTA format is in \texttt{cladeA\_alignment.fasta}.}
 \figdata{Sites masked in all phylogenetic analyses because they were not mutagenized in our experiments or are poorly alignable are listed in \texttt{alignment\_mask.csv}.}
 \end{figure}
-\FloatBarrier
 
 We used the deep mutational-scanning approach schematized in Fig \ref{fig:ch3_dms_schematic} to quantify the effects of all single amino-acid changes to both BG505 and BF520 Env.
 We followed the same technique that we used for LAI~\cite{haddox2016experimental}, with a few modifications.
@@ -165,7 +164,6 @@ We also simulated the expected distribution of pairwise distances if mutations o
 The observed distribution is close to the expected distribution.
 }{\includegraphics[width=\textwidth]{figures/sanger_sequencing_supp/sanger_sequencing_supp.pdf}}
 \end{figure}
-\FloatBarrier
 
 For the deep mutational-scanning experiments to succeed, the selection step must efficiently purge deleterious mutations from the library.
 As a first measure of the strength of selection, we examined changes in per-codon mutation frequencies averaged across all sites in Env.
@@ -197,7 +195,6 @@ CAPTION
 \figdata{The raw numerical data plotted in panel (A) are in the file \texttt{avgmutfreqs.csv}.}
 \figdata{The amino-acid preferences for each replicate and the replicate averages for each homolog are in \texttt{all\_prefs\_unscaled.zip}.}
 \end{figure}
-\FloatBarrier
 
 The observed changes in per-codon mutation frequencies are consistent with the experiments imposing strong purifying selection.
 Mutations leading to pre-mature stop codons are expected to be highly deleterious and thus efficiently purged by selection.
@@ -270,7 +267,6 @@ Phylogenetic models that incorporate Env's preferences indicate that selection w
 \tabledata{Results for phylogenetic models where $\omega$ is not drawn from a gamma-distribution or where the preferences are averaged across sites are in \texttt{modelcomparison.md}.}
 \end{fullwidth}
 \end{table}
-\FloatBarrier
 
 For both alignments, the ExpCMs inferred stringency parameters of $>$1 for both BG505 and BF520, indicating that selection was weaker in our experiments for these homologs than in nature.
 The results are largely consistent between the two alignments, indicating that the rescaling is robust to the different levels of sequence diversity we examined.
@@ -305,7 +301,6 @@ Sites are numbered according to the HXB2 numbering scheme~\cite{korber1998number
 \figdata{The $\omega_r$ values and associated $Q$-values for BG505 in HXB2 numbering are in \texttt{BG505\_omegabysite.tsv}.}
 \end{fullwidth}
 \end{figure}
-\FloatBarrier
 
 \begin{figure}
 \begin{fullwidth}
@@ -319,7 +314,6 @@ This figure is the same as Fig \ref{fig:bg505_prefs_logo}, but for BF520 instead
 \figdata{The $\omega_r$ values and associated $P$-values for BF520 in HXB2 numbering are in \texttt{BG505\_omegabysite.tsv}.}
 \end{fullwidth}
 \end{figure}
-\FloatBarrier
 
 \begin{figure}
 %\includegraphics[width=0.5\textwidth]{figures/diversifying_selection_corr.pdf}
@@ -340,7 +334,6 @@ As can be seen from these box plots with overlaid points for each site, sites of
 }{\includegraphics[width=0.5\textwidth]{figures/selsites_rsa.pdf}}
 \figdata{The $\omega_r$ and associated $P$-values plotted in this figure are in \texttt{merged\_omegabysite.csv}.}
 \end{figure}
-\FloatBarrier
 
 
 \subsection*{Differences between homologs}
@@ -381,7 +374,6 @@ Difference in preferences.
 \figdata{The corrected distances between BG505 and BF520 at each site are in \texttt{BG505\_to\_BF520\_prefs\_dist.csv}.}
 \end{fullwidth}
 \end{figure}
-\FloatBarrier
 
 Next, we sought to quantify shifts in Env's preferences at a site-specific level.
 Correlating preferences between replicates of the same homolog showed that some sites were substantially influenced by experimental noise Fig \ref{fig:ch3_homologs_corr}.
@@ -595,9 +587,11 @@ The trees shown in Fig \ref{ref:ch3_tree} are the results of optimizing the bran
 The code we used to generate these alignments, build the trees, and conduct the \texttt{phydms} analyses will be made available upon publication of this work.
 
 \section{Acknowledgments}
-\comment{add this}
+\jdbcomment{add this}
 
 \bibliography{references.bib}
+
+\clearpage
 
 \begin{suppfile}
 \caption{
