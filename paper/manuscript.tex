@@ -82,19 +82,42 @@ But interpreting these studies in the context of Env evolution requires addressi
 During protein evolution, substitutions at one site can shift the effect of mutations at other sites~\citep{natarajan2013epistasis,gong2013stability,harms2014historical,podgornaia2015pervasive,starr2016epistasis}.
 Such shifts can accumulate as substitutions become entrenched via epistatic interactions with subsequent changes~\citep{starr2017pervasive,pollock2012amino,shah2015contingency} -- although the magnitude of these shifts is usually limited~\citep{doud2015site,chan2017correlation,ashenberg2013mutational,risso2014mutational}.
 Given that the Envs of circulating HIV strains represent a vast collection of homologs that often differ at $>$100 residues, such shifts could make the outcome of any study highly dependent on the Env used.
-The extent to which this is actually the case is unclear, since the few protein-wide studies of mutational shifts have examined proteins far simpler than Env, which forms a large heterotrimeric complex that transitions through multiple conformational states~\citep{munro2014conformational,ozorowski2017open}.
+The extent to which this is actually the case is unclear, since the few protein-wide studies of mutational shifts have examined proteins that are structurally far simpler than Env, which forms a large heavily glycosylated heterotrimeric complex that transitions through multiple conformational states~\citep{munro2014conformational,ozorowski2017open}.
 
 Here we measure the effects on viral replication of all single amino-acid mutations to the ectodomains of two transmitted-founder virus Envs that differ by $>$100 mutations.
 By comparing these complete mutational maps, we identify sites where amino-acid preferences have shifted between the Envs.
 Most sites show no detectable shifts, but 30 sites have clearly altered their amino-acid preferences.
-These shifts tend to involve sites that strongly prefer a specific amino acid in one Env but tolerate many amino acids in the other.
-The shifted sites cluster in Env's structure, but are often distant from any of the amino-acid substitutions that distinguish the two Envs -- demonstrating the action of long-range epistasis.
+These shifted sites usually strongly prefer a specific amino acid in one Env but have shifted to tolerate many amino acids in the other Env.
+The shifted sites cluster in Env's structure, but are often distant from any amino-acid substitutions that distinguish the two Envs -- demonstrating the action of long-range epistasis.
 By aggregating our measurements for both Envs, we identify sites that evolve faster or slower in nature than expected given the functional constraints measured in the lab.
-Overall, our work provides across-strain genotype-to-phenotype maps that complement existing work characterizing Env's diversity at the level of protein sequence and structure.
+Overall, our work provides across-strain genotype-to-phenotype maps that inform the analysis of Env's structure and evolution.
 
 \section{Results}
 
+\subsection*{Two Env homologs from clade A transmitted-founder viruses}
+
+\begin{figure}
+\centerline{\includegraphics[clip=true, trim= 0in 0in 1in 0in, angle=-90, width=0.9\textwidth]{figures/tree_plot.pdf}}
+\caption{\label{fig:tree}
+Phylogenetic tree showing the relationship of BG505 and BF520 to other clade A Envs.
+The tree shows the 69 Envs in the alignment in Figure~\ref{fig:tree}-Figure~data~\ref{figdata:alignment}, which is a subsample of substantially unique sequences clade A sequences from the group M alignment in the Los Alamos HIV sequence database (\url{http://www.hiv.lanl.gov}).
+Sites not mutagenized in our experiments (the signal peptide and cytoplasmic tail) or that are poorly alignable (mostly sites in the variable loops) were masked as indicated in Figure~\ref{fig:tree}-Figure~data~\ref{figdata:alignment}, leaving 616 alignable sites.
+The pairwise identity of BG505 and BF520 to the other sequences at these alignable sites is shown in Figure~\ref{fig:tree}-Figure~data~\ref{figsupp:identity}.
+The tree topology was inferred using \texttt{RAxML}~\citep{stamatakis2014raxml} under the GTRCAT model of nucleotide substitution, and then branch lengths were optimized under the M0 version of the Goldman-Yang model~\citep{yang2000codon} using \texttt{phydms}~\citep{hilton2017phydms}.
+}
+\figsupp[\label{figsupp:identity}  Pairwise identity of all Env sequences in our clade A alignment to BG505 and BF520 after masking poorly alignable or non-mutagenized sites.]
+{The histograms show the pairwise amino-acid identity of each Env to all other sequences in the clade A alignment in Figure~\ref{fig:tree}-Figure~data~\ref{figdata:alignment} after masking the sites delineated in Figure~\ref{fig:tree}-Figure~data~\ref{figdata:mask}.
+There are 616 non-masked sites.
+The pairwise protein identity between BG505 and BF520 is 86.2\% (721 of 836 sites identical) when considering \emph{all} sites, and 89.1\% (549 of 616 sites identical) when considering just the non-masked sites.}
+{\includegraphics[width=0.7\textwidth]{figures/masked_alignment_identity.pdf}}
+\figdata{\label{figdata:alignment} The sequence alignment of clade A \textit{env} coding sequences in FASTA format is in \texttt{cladeA\_alignment.fasta}.}
+\figdata{\label{figdata:mask} The 240 Env sites masked in all phylogenetic analyses because they were not mutagenized in our experiments or are poorly alignable are listed in \texttt{alignment\_mask.csv}.}
+\end{figure}
+
 \subsection*{Deep mutational scanning of two Env homologs from transmitted-founder viruses}
+
+
+
 Correlations between replicates in prior studies:
 \citet{haddox2016experimental} all sites, had $R = 0.45$ to $R = 0.50$;
 
@@ -115,15 +138,7 @@ BG505 and BF520 Env are 85\% identical at the amino-acid level, while both are 7
 Since each of these Envs are $\sim$850 amino-acids in length, these levels of divergence correspond to $>100$ amino-acid differences between each pair of homologs.
 
 
-\begin{figure}
-\centerline{\bf \Large A \hspace{0.52\textwidth} \bf B \hspace{0.35\textwidth}}
-\centerline{\includegraphics[width=0.64\textwidth]{figures/tree_plot.pdf} \includegraphics[width=0.36\textwidth]{figures/masked_alignment_identity.pdf}}
-\caption{\label{fig:tree}
-CAPTION
-}
-\figdata{The coding sequence alignment of clade A \textit{env} sequences in FASTA format is in \texttt{cladeA\_alignment.fasta}.}
-\figdata{Sites masked in all phylogenetic analyses because they were not mutagenized in our experiments or are poorly alignable are listed in \texttt{alignment\_mask.csv}.}
-\end{figure}
+
 
 We used the deep mutational-scanning approach schematized in Fig \ref{fig:ch3_dms_schematic} to quantify the effects of all single amino-acid changes to both BG505 and BF520 Env.
 We followed the same technique that we used for LAI~\cite{haddox2016experimental}, with a few modifications.
