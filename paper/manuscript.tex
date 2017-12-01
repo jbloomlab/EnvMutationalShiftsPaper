@@ -109,13 +109,13 @@ We have previously created comprehensive codon-mutant libraries of the BF520 Env
 \centerline{\includegraphics[clip=true, trim= 0in 0in 1in 0in, angle=-90, width=0.9\textwidth]{figures/tree_plot.pdf}}
 \caption{\label{fig:tree}
 Phylogenetic tree showing the relationship of BG505 and BF520 to other clade A Envs.
-The tree shows the 69 Envs in the alignment in Figure~\ref{fig:tree}-Figure~data~\ref{figdata:alignment}, which is a subsample of clade A sequences from the group M alignment in the Los Alamos HIV sequence database (\url{http://www.hiv.lanl.gov}).
-Sites not mutagenized in our experiments (the signal peptide and cytoplasmic tail) or that are poorly alignable (mostly sites in the variable loops) were masked as indicated in Figure~\ref{fig:tree}-Figure~data~\ref{figdata:mask}, leaving 616 alignable sites.
+The tree shows the 69 Envs in the alignment in Figure~\ref{fig:tree}-source~data~\ref{figdata:alignment}, which is a subsample of clade A sequences from the group M alignment in the Los Alamos HIV sequence database (\url{http://www.hiv.lanl.gov}).
+Sites not mutagenized in our experiments (the signal peptide and cytoplasmic tail) or that are poorly alignable (mostly sites in the variable loops) were masked as indicated in Figure~\ref{fig:tree}-source~data~\ref{figdata:mask}, leaving 616 alignable sites.
 The pairwise identity of BG505 and BF520 to the other sequences at these alignable sites is shown in Figure~\ref{fig:tree}-Figure~supplement~\ref{figsupp:identity}.
 The tree topology was inferred using \texttt{RAxML}~\citep{stamatakis2014raxml} under the GTRCAT model of nucleotide substitution, and branch lengths were optimized under the M0 version of the Goldman-Yang model~\citep{yang2000codon} using \texttt{phydms}~\citep{hilton2017phydms}.
 }
 \figsupp[\label{figsupp:identity}  Pairwise identity of all Env sequences in our clade A alignment to BG505 and BF520 after masking poorly alignable or non-mutagenized sites.]
-{The histograms show the pairwise amino-acid identity of each Env to all other sequences in the clade A alignment in Figure~\ref{fig:tree}-Figure~data~\ref{figdata:alignment} after masking the sites delineated in Figure~\ref{fig:tree}-Figure~data~\ref{figdata:mask}.
+{The histograms show the pairwise amino-acid identity of each Env to all other sequences in the clade A alignment in Figure~\ref{fig:tree}-source~data~\ref{figdata:alignment} after masking the sites delineated in Figure~\ref{fig:tree}-source~data~\ref{figdata:mask}.
 There are 616 non-masked sites.
 The pairwise protein identity between BG505 and BF520 is 86.2\% (721 of 836 sites identical) when considering \emph{all} sites, and 89.1\% (549 of 616 sites identical) when considering just the non-masked sites.}
 {\includegraphics[width=0.7\textwidth]{figures/masked_alignment_identity.pdf}}
@@ -125,10 +125,11 @@ The pairwise protein identity between BG505 and BF520 is 86.2\% (721 of 836 site
 
 Both BG505 and BF520 are from clade A of the major (M) group of HIV-1.
 Figure~\ref{fig:tree} shows the phylogenetic relationship among these two Envs and other clade A sequences.
-BG505 and BF520 have typical divergence for two clade A Envs: they are identical at 721 of the 836 pairwise-alignable protein sites (86.2\% identity), and 549 of the 616 sites (89.1\% identity) in the ectodomain and transmembrane domain that are alignable across the clade A alignment (Figure~\ref{fig:tree}-Figure~data~\ref{figdata:alignment}, Figure~\ref{fig:tree}-Figure~data~\ref{figdata:mask}).
+BG505 and BF520 have typical divergence for two clade A Envs: they are identical at 721 of the 836 pairwise-alignable protein sites (86.2\% identity), and 549 of the 616 sites (89.1\% identity) in the ectodomain and transmembrane domain that are alignable across the clade A alignment (Figure~\ref{fig:tree}-source~data~\ref{figdata:alignment}, Figure~\ref{fig:tree}-source~data~\ref{figdata:mask}).
 The divergence between BG505 and BF520 therefore offers ample opportunity to investigate mutational shifts during Env evolution.
 
-\subsection*{Deep mutational scanning of two Env homologs from transmitted-founder viruses}
+\subsection*{Deep mutational scanning to measure the effects of all amino-acid mutations to each Env on HIV replication}
+We have previously described a deep mutational scanning strategy for 
 
 Correlations between replicates in prior studies:
 \citet{haddox2016experimental} all sites, had $R = 0.45$ to $R = 0.50$;
@@ -150,27 +151,31 @@ We also estimated error rates from viral replication by sequencing wildtype viru
 We conducted the entire experiment in biological triplicate for each homolog (Fig \ref{fig:ch3_dms_schematic}B) (except that we only sequenced a single wildtype plasmid for the BF520 experiment).
 
 \begin{figure}
-\centerline{\includegraphics[width=0.85\textwidth]{figures/dms_schematic/dms_schematic.pdf}}
+\centerline{\includegraphics[width=0.75\textwidth]{figures/dms_schematic/dms_schematic.pdf}}
 \caption{\label{fig:dms_schematic}
 Deep mutational scanning workflow.
-{\bf (A)} For each homolog, we made a library of proviral HIV plasmids with random codon-level mutations in \textit{env}.
-We then transfected the plasmids into 293T cells to generate mutant viruses, which may lack a genotype-phenotype link since transfected cell are expected to each receive multiple plasmids.
-To establish this link and select for functional variants, we first passaged the libraries in SupT1 cells at a low MOI.
-Then, we imposed a second round of selection by infecting the passaged viruses into SupT1 cells at a high MOI and then harvesting reverse-transcribed unintegrated viral DNA at 12 hours post-infection.
-Finally, we deep sequenced the libraries before and after selection.
-We also deep sequenced wildtype controls to estimate error rates due to PCR, deep sequencing, and viral replication.
-Using these sequencing data, we then inferred each site's preference for each of the 20 amino acids.
-{\bf (B)} For each homolog, we conducted this experiment in full biological triplicate, beginning at the stage of independently creating the plasmid mutant libraries.
+{\bf (A)} We made libraries of proviral HIV plasmids with random codon-level mutations in the \textit{env} gene.
+The number of mutations per gene followed a roughly Poisson distribution with a mean between 1 and 1.5 (Figure~\ref{fig:dms_schematic}-Figure~supplement~\ref{figsupp:sanger}).
+We transfected the plasmids into 293T cells to generate mutant viruses, which lack a genotype-phenotype link since cells are multiply transfected.
+To establish a genotype-phenotype link and select for Env variants that support HIV replication, we passaged the libraries in SupT1.CCR5 cells for four days at a low multiplicity of infection (MOI) of 0.01.
+To isolate the \textit{env} genes from only viruses that encoded a functional Env protein, we infected the passaged libraries into SupT1.CCR5 cells at high MOI and harvested reverse-transcribed non-integrated viral DNA after 12 hours.
+We then deep sequenced the \textit{env} genes from these final samples as well as the initial plasmid library, using molecular barcoding to reduce the sequencing error rate.
+We also deep sequenced identically handled wildtype controls to estimate error and mutation rates.
+Using these sequencing data, we estimated the preference for each of the 20 amino acids at each site in Env.
+These data are represented in logo plots, with the height of each letter proportional to that site's preference for that amino acid.
+{\bf (B)} We conducted this experiment in full biological triplicate for both BG505 and BF520, beginning each replicate with independent creation of the plasmid mutant library.
+These replicates therefore account for \emph{all} sources of noise and error in the experiments.
 }
-\figsupp[Sanger sequencing of the BG505 mutant plasmid libraries.]{
+\figsupp[Sanger sequencing of selected clones from the mutant plasmid libraries.\label{figsupp:sanger}]{
 We Sanger sequenced 44 clones of BG505 Env sampled roughly evenly from each of the three replicate mutant plasmid libraries.
 {\bf(A)} There was an average of 1.5 mutant codons per clone, with the number of mutations per clone roughly following a Poisson distribution. 
 {\bf(B)} The mutant codons had a mix of single-, double-, and triple-nucleotide changes, with an elevated number of single-nucleotide changes than expected.
 {\bf(C)} Nucleotide frequencies were fairly uniform in the mutant codons.
-{\bf(D)} Mutations were distributed roughly evenly along the mutagenized region of {\it env} (30-699 in the sequential numbering scheme used here).
+{\bf(D)} Mutations were distributed roughly evenly along the mutagenized region of {\it env} (30-699 in the sequential numbering scheme used in this plot).
 {\bf(E)} For clones with multiple mutations, we computed the pairwise distance in primary sequence between each codon mutation and plotted the cumulative distribution of these distances (red line). 
 We also simulated the expected distribution of pairwise distances if mutations occurred entirely independently (blue line). 
 The observed distribution is close to the expected distribution.
+Comparable data for the BF520 libraries is provided in \citet{dingens2017comprehensive}.
 }{\includegraphics[width=\textwidth]{figures/sanger_sequencing_supp/sanger_sequencing_supp.pdf}}
 \end{figure}
 
