@@ -95,14 +95,23 @@ Overall, our work provides across-strain genotype-to-phenotype maps that inform 
 \section{Results}
 
 \subsection*{Two Env homologs from clade A transmitted-founder viruses}
+The viruses most relevant to HIV's long-term evolution are those which are transmitted from human-to-human.
+However, all previous deep mutational scanning studies that have measured how large numbers of mutations affect HIV replication have used lab-adapted CXCR4-tropic viruses~\citep[LAI and NL4-3;][]{haddox2016experimental,al2014high} or a CCR5-tropic virus from a late-stage infection~\citep[LN40;][]{duenas2016saturation}.
+The properties of Env can vary substantially between such lab-passaged or late-stage viruses and the transmitted-founder viruses that are most relevant to HIV's long-term evolution~\citep{sagar2006human,wilen2011phenotypic,parrish2013phenotypic}.
+
+We therefore selected Envs from two transmitted-founder viruses, BG505.W6M.C2.T332N and BF520.W14M.C2 (hereafter referred to as BG505 and BF520), that were isolated from HIV-infected infants shortly after mother-to-child transmission~\citep{goo2014early}.
+The BG505 Env has been extensively studied from a structural standpoint~\citep{julien2013crystal,lyumkis2013cryo,pancera2014structure,huang2014broad,sanders2015hiv,stewart2016trimeric}, and variants of this Env are being tested as a vaccine immunogens~\citep{sanders2013next,sanders2015hiv,de2015immunogenicity}.
+We used the T332N variant of BG505 Env because it has a glycosylation site that is targeted by many anti-HIV antibodies but is absent in wildtype BG505~\citep{sanders2013next}.
+The BF520 Env was isolated from an infant who developed an early broad anti-HIV antibody response~\citep{goo2014early,simonich2016hiv}.
+We have previously created comprehensive codon-mutant libraries of the BF520 Env and used them to map HIV antibody escape~\citep{dingens2017comprehensive}, but these BF520 libraries have not been characterized with respect to how mutations affect viral replication.
 
 \begin{figure}
 \centerline{\includegraphics[clip=true, trim= 0in 0in 1in 0in, angle=-90, width=0.9\textwidth]{figures/tree_plot.pdf}}
 \caption{\label{fig:tree}
 Phylogenetic tree showing the relationship of BG505 and BF520 to other clade A Envs.
 The tree shows the 69 Envs in the alignment in Figure~\ref{fig:tree}-Figure~data~\ref{figdata:alignment}, which is a subsample of substantially unique sequences clade A sequences from the group M alignment in the Los Alamos HIV sequence database (\url{http://www.hiv.lanl.gov}).
-Sites not mutagenized in our experiments (the signal peptide and cytoplasmic tail) or that are poorly alignable (mostly sites in the variable loops) were masked as indicated in Figure~\ref{fig:tree}-Figure~data~\ref{figdata:alignment}, leaving 616 alignable sites.
-The pairwise identity of BG505 and BF520 to the other sequences at these alignable sites is shown in Figure~\ref{fig:tree}-Figure~data~\ref{figsupp:identity}.
+Sites not mutagenized in our experiments (the signal peptide and cytoplasmic tail) or that are poorly alignable (mostly sites in the variable loops) were masked as indicated in Figure~\ref{fig:tree}-Figure~data~\ref{figdata:mask}, leaving 616 alignable sites.
+The pairwise identity of BG505 and BF520 to the other sequences at these alignable sites is shown in Figure~\ref{fig:tree}-Figure~supplement~\ref{figsupp:identity}.
 The tree topology was inferred using \texttt{RAxML}~\citep{stamatakis2014raxml} under the GTRCAT model of nucleotide substitution, and then branch lengths were optimized under the M0 version of the Goldman-Yang model~\citep{yang2000codon} using \texttt{phydms}~\citep{hilton2017phydms}.
 }
 \figsupp[\label{figsupp:identity}  Pairwise identity of all Env sequences in our clade A alignment to BG505 and BF520 after masking poorly alignable or non-mutagenized sites.]
@@ -114,30 +123,15 @@ The pairwise protein identity between BG505 and BF520 is 86.2\% (721 of 836 site
 \figdata{\label{figdata:mask} The 240 Env sites masked in all phylogenetic analyses because they were not mutagenized in our experiments or are poorly alignable are listed in \texttt{alignment\_mask.csv}.}
 \end{figure}
 
+Both BG505 and BF520 are from clade A of the major group of HIV-1.
+Figure~\ref{fig:tree} shows the phylogenetic relationship among these two Envs and other clade A sequences.
+BG505 and BF520 have a typical divergence for two clade A Envs: they are identical at 721 of the 836 pairwise-alignable protein sites (86.2\% identity), and at 549 of the 616 sites (89.1\% identity) in the ectodomain and transmembrane domain that are alignable across the entire clade A alignment (Figure~\ref{fig:tree}-Figure~data~\ref{figdata:alignment}, Figure~\ref{fig:tree}-Figure~data~\ref{figdata:mask}).
+The divergence between BG505 and BF520 therefore offers ample opportunity to investigate mutational shifts during Env evolution.
+
 \subsection*{Deep mutational scanning of two Env homologs from transmitted-founder viruses}
-
-
 
 Correlations between replicates in prior studies:
 \citet{haddox2016experimental} all sites, had $R = 0.45$ to $R = 0.50$;
-
-
-Previously, we used deep mutational scanning to estimate the effects of all single amino-acid mutations to Env from the LAI strain of HIV, which is a lab-passaged CXCR4-tropic strain isolated late in infection~\cite{peden1991changes,haddox2016experimental}.
-Here, we sought to examine the effects of mutations in viruses isolated from earlier in infection, near the time of transmission.
-We chose two Envs -- BG505.W6M.C2 and BF520.W14M.C2 (hereafter referred to as BG505 Env and BF520 Env, respectively) -- both from viruses isolated from HIV-infected infants shortly after mother-to-child transmission~\cite{goo2014early}.
-Both infants rapidly developed broad plasma responses \cite{goo2014early}, and an anti-Env broadly neutralizing antibody (bNAb) has been isolated from BF520~\cite{simonich2016hiv}.
-We have previously used deep mutational scanning to comprehensively identify all amino-acid mutations that allow BF520 Env to escape a different bNAb \cite{dingens2017comprehensive}.
-BG505 Env has been extensively studied from a structural and immunological standpoint~\cite{julien2013crystal,lyumkis2013cryo,pancera2014structure,huang2014broad,falkowska2014broadly,sanders2015hiv,stewart2016trimeric}, and variants of this Env are being tested as a vaccine immunogens~\cite{sanders2013next,sanders2015hiv,de2015immunogenicity}.
-Specifically, we examined the T332N variant of BG505 Env, which has a glycosylation site that is targeted by many bNAbs, but is absent in wildtype BG505 Env~\cite{sanders2013next}.
-Thus, we considered strains that are relevant to the effort to create antibody-based immunotherapies targeting Env.
-
-The trees in Fig \ref{fig:ch3_tree} show the relationship between the Envs from BG505, BF520, and LAI in context of other HIV-1 sequences.
-Fig \ref{fig:ch3_tree}A, which includes group-M sequences from several different subtypes, shows that BG505 and BF520 cluster within subtype-A, while LAI clusters within subtype-B.
-Fig \ref{fig:ch3_tree}B, which includes an larger number of just subtype-A sequences, shows that BG505 and BF520 are separated by long branches, which is typical of any two sequences in this star-like phylogeny.
-BG505 and BF520 Env are 85\% identical at the amino-acid level, while both are 73\% identical to LAI Env.
-Since each of these Envs are $\sim$850 amino-acids in length, these levels of divergence correspond to $>100$ amino-acid differences between each pair of homologs.
-
-
 
 
 We used the deep mutational-scanning approach schematized in Fig \ref{fig:ch3_dms_schematic} to quantify the effects of all single amino-acid changes to both BG505 and BF520 Env.
