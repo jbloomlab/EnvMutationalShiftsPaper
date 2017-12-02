@@ -132,7 +132,7 @@ The divergence between BG505 and BF520 therefore offers ample opportunity to inv
 We have previously described a deep mutational scanning strategy for measuring how all amino-acid mutations to Env affect HIV replication in cell culture, and applied this strategy to the LAI strain of HIV~\citep{haddox2016experimental}.
 In addition to using a late-stage lab-adapted HIV strain, that study had another shortcoming: the measurements were quite noisy.
 Specifically, the Pearson correlation coefficients between measurements of mutational effects from independent biological replicates were in the range of $R = 0.45$ to $0.50$~\citep{haddox2016experimental}.
-This noise is a major problem when trying to identify differences in mutational effects between Envs, since it is only possible to reliably identify differences that exceed the magnitude of the experimental noise. 
+This noise is a problem when trying to identify differences in mutational effects between Envs, since it is only possible to reliably identify differences that exceed the magnitude of the experimental noise. 
 
 \begin{figure}
 \centerline{\includegraphics[width=0.75\textwidth]{figures/dms_schematic/dms_schematic.pdf}}
@@ -164,7 +164,7 @@ Comparable data for the BF520 libraries is provided in \citet{dingens2017compreh
 \end{figure}
 
 We therefore modified the deep mutational scanning strategy into the approach illustrated in Figure~\ref{fig:dms_schematic}A.
-This approach had the following substantive modifications from that of \citet{haddox2016experimental}: we used SupT1 cells expressing CCR5 to support replication of viruses with transmitted-founder Envs, we use a larger number of virions ($\ge 3 \times 10^6$ infectious units per library in the current work versus $5\times 10^5$ in the prior work) to avoid bottlenecking the library diversity, and rather than performing a full second passage we just did a short high-MOI infection to enable recovery of \textit{env} genes from infectious virions (Figure~\ref{fig:dms_schematic}A).
+This approach had the following substantive changes from that of \citet{haddox2016experimental}: we used SupT1 cells expressing CCR5 to support replication of viruses with transmitted-founder Envs, we use a larger number of virions ($\ge 3 \times 10^6$ infectious units per library in the current work versus $5\times 10^5$ in the prior work) to avoid bottlenecking the library diversity, and rather than performing a full second passage we just did a short high-MOI infection to enable recovery of \textit{env} genes from infectious virions without bottlenecking diversity (Figure~\ref{fig:dms_schematic}A).
 We performed this deep mutational scanning approach in full biological triplicate for both BG505 and BF520 (Figure~\ref{fig:dms_schematic}B).
 
 \begin{figure}
@@ -185,16 +185,24 @@ We performed this deep mutational scanning approach in full biological triplicat
 \caption{\label{fig:mutfreqs}
 The deep mutational scanning selects for functional Envs and yields measurements that are well correlated among replicates.
 {\bf (A)}
-The average per-codon mutation frequency when sequencing plasmids encoding wildtype Env (\emph{DNA}), the plasmid mutant libraries (\emph{mutDNA}), the mutant viruses after the final infection (\emph{mutvirus}), and virus generated from the wildtype plasmids (\emph{virus}).
-Mutations are categorized by whether they are nonsynonymous, synonymous, or introduce a stop codon. 
-The \emph{DNA} samples show that the sequencing errors are rare, and the \emph{virus} samples show that viral replication and reverse-transcription errors are well below the frequency of mutations in the \emph{mutDNA} samples.
-Comparing the \emph{mutvirus} to \emph{mutDNA} shows clear purifying selection against stop codons and some nonsynonymous mutations, particularly after subtracting the appropriate background error rates given by the \emph{virus} and \emph{DNA} samples, respectively.
-The numerical data are in Figure~\ref{fig:mutfreqs}-source~data~\ref{figdata:mutfreqs}.
+The average per-codon mutation frequency when sequencing plasmids encoding wildtype Env (\emph{DNA}), plasmid mutant libraries (\emph{mutDNA}), mutant viruses after the final infection (\emph{mutvirus}), and virus generated from wildtype plasmids (\emph{virus}).
+Mutations are categorized as nonsynonymous, synonymous, or stop codon. 
+The \emph{DNA} samples show that sequencing errors are rare, and the \emph{virus} samples show that viral replication and reverse-transcription errors are well below the frequency of mutations in the \emph{mutDNA} samples.
+Comparing the \emph{mutvirus} to \emph{mutDNA} shows clear purifying selection against stop codons and some nonsynonymous mutations, particularly after subtracting the background error rates given by the \emph{virus} and \emph{DNA} samples (Figure~\ref{fig:mutfreqs}-Figure~supplement~\ref{figsupp:mutfreqs}).
 More extensive plots from the analysis of the deep sequencing data are in Supplementary~files~\ref{suppfile:code} and \ref{suppfile:html}.
 {\bf (B)}
+Correlations between replicates in the measured preferences of each site in Env for all 20 amino acids.
+Blue indicates replicate measurements on BF520, red indicates replicate measurements on BG505, and gray indicates across-Env measurements of BF520 versus BG505.
+$R$ is the Pearson correlation coefficient. 
+The numerical values for the preferences are in Figure~\ref{fig:mutfreqs}-source~data~\ref{figdata:allprefs}.
 }
-\figdata{\label{figdata:mutfreqs} The raw numerical data plotted in panel (A) are in the file \texttt{avgmutfreqs.csv}.}
-\figdata{The amino-acid preferences for each replicate and the replicate averages for each homolog are in \texttt{all\_prefs\_unscaled.zip}.}
+\figsupp[\label{figsupp:mutfreqs} Numerical frequencies of mutations.]
+{This table gives the average frequencies of nonsynonymous, synonymous, and stop-codon mutations as plotted in Figure~\ref{fig:mutfreqs}.
+Note that there is only one \emph{DNA} sample for BF520, so that same sample is repeated three times in the sample in conjunction with each BF520 replicate.
+We calculate the error-corrected \emph{pre}-selection mutation frequency as the \emph{mutDNA} frequency minus the \emph{DNA} frequency, and the error-corrected \emph{post}-selection mutation frequency as the \emph{mutvirus} frequency minus the \emph{virus} frequency.
+We then use these error-corrected frequencies to calculate the \emph{percent} of mutations remaining after selection for each replicate and type of mutation.}
+{\input{figures/avgmutfreqs}}
+\figdata{\label{figdata:allprefs} Preferences for each replicate and averages are in \texttt{all\_prefs\_unscaled.zip}.}
 \end{figure}
 
 We estimated error rates from PCR and deep sequencing by sequencing wildtype plasmids.
