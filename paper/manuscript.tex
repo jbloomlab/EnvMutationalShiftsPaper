@@ -96,7 +96,7 @@ Overall, our work provides across-strain genotype-to-phenotype maps that inform 
 
 \subsection*{Two Env homologs from clade A transmitted-founder viruses}
 The viruses most relevant to HIV's long-term evolution are those which are transmitted from human-to-human.
-However, the only previous deep mutational scanning study that has measured how all Env amino-acid mutations affect HIV replication is a study by our group~\citep{haddox2016experimental} that used a late-stage lab-passaged CXCR4-tropic virus~\citep[LAI;][]{peden1991changes}.
+However, the only prior work that has measured how all Env amino-acid mutations affect HIV replication is a study by our group~\citep{haddox2016experimental} that used a late-stage lab-passaged CXCR4-tropic virus~\citep[LAI;][]{peden1991changes}.
 The properties of Env can vary substantially between such late-stage viruses and the transmitted-founder viruses relevant to HIV's long-term evolution~\citep{sagar2006human,wilen2011phenotypic,parrish2013phenotypic}.
 
 We therefore selected Envs from two transmitted-founder viruses, BG505.W6M.C2.T332N and BF520.W14M.C2 (hereafter referred to as BG505 and BF520), that were isolated from HIV-infected infants shortly after mother-to-child transmission~\citep{goo2014early}.
@@ -129,26 +129,10 @@ BG505 and BF520 have typical divergence for two clade A Envs: they are identical
 The divergence between BG505 and BF520 therefore offers ample opportunity to investigate mutational shifts during Env evolution.
 
 \subsection*{Deep mutational scanning to measure the effects of all amino-acid mutations to each Env on HIV replication}
-We have previously described a deep mutational scanning strategy for 
-
-Correlations between replicates in prior studies:
-\citet{haddox2016experimental} all sites, had $R = 0.45$ to $R = 0.50$;
-
-
-We used the deep mutational-scanning approach schematized in Fig \ref{fig:ch3_dms_schematic} to quantify the effects of all single amino-acid changes to both BG505 and BF520 Env.
-We followed the same technique that we used for LAI~\cite{haddox2016experimental}, with a few modifications.
-For each homolog, we created a library of \textit{env} genes with random codon mutations.
-We cloned these libraries into full-length proviral plasmids encoding the Q23 strain of HIV \cite{poss1999variants}, using high-efficiency cloning to obtain $>$1 million unique plasmid clones per library.
-Sanger sequencing revealed that for both BG505 and BF520, the codon mutations were evenly distributed across the genes, with an average of 1.5 and 1.1 codon mutations per gene, respectively (see Fig~\ref{suppfig:ch3_sanger_sequencing_supp} and \cite{dingens2017comprehensive}).
-We then generated mutant viruses by transfecting the plasmid library into 293T cells.
-Since transfected cells each receive multiple plasmids, the resulting viruses are unlikely to have a genotype-phenotype link.
-To establish this link and select for functional variants, we first passaged viral libraries for four days at a low initial multiplicity of infection (MOI) of 0.01 in SupT1 cells expressing CCR5.
-We then infected SupT1 cells expressing CCR5 with the passaged libraries at a high MOI ($>$1) and harvested reverse-transcribed unintegrated viral DNA 12 hours post-infection, before additional rounds of replication could occur.
-Essentially, this second infection imposes an additional round of selection for viruses with entry-competent Env variants.
-Finally, we deep sequenced the plasmid library before selection and the unintegrated proviral DNA after selection to quantify the change in frequency of each mutation.
-We estimated error rates from PCR and deep sequencing by sequencing wildtype plasmids.
-We also estimated error rates from viral replication by sequencing wildtype viruses passaged in parallel with the mutant viruses.
-We conducted the entire experiment in biological triplicate for each homolog (Fig \ref{fig:ch3_dms_schematic}B) (except that we only sequenced a single wildtype plasmid for the BF520 experiment).
+We have previously described a deep mutational scanning strategy for measuring how all amino-acid mutations to Env affect HIV replication in cell culture, and applied this strategy to the LAI strain of HIV~\citep{haddox2016experimental}.
+In addition to using a late-stage lab-adapted HIV strain, that study had another shortcoming: the measurements were quite noisy.
+Specifically, the Pearson correlation coefficients between measurements of mutational effects from independent biological replicates were in the range of $R = 0.45$ to $0.50$~\citep{haddox2016experimental}.
+This noise is a major problem when trying to identify differences in mutational effects between Envs, since it is only possible to reliably identify differences that exceed the magnitude of the experimental noise. 
 
 \begin{figure}
 \centerline{\includegraphics[width=0.75\textwidth]{figures/dms_schematic/dms_schematic.pdf}}
@@ -179,14 +163,9 @@ Comparable data for the BF520 libraries is provided in \citet{dingens2017compreh
 }{\includegraphics[width=\textwidth]{figures/sanger_sequencing_supp/sanger_sequencing_supp.pdf}}
 \end{figure}
 
-For the deep mutational-scanning experiments to succeed, the selection step must efficiently purge deleterious mutations from the library.
-As a first measure of the strength of selection, we examined changes in per-codon mutation frequencies averaged across all sites in Env.
-Codon-level mutations can be classified as being nonsynonymous, synonymous, or leading to a stop codon.
-Deep sequencing of the mutant libraries allowed us to quantify the frequency each of these mutation types.
-In addition, deep sequencing of the wildtype controls allowed us to quantify mutational errors from PCR, deep sequencing, and viral replication.
-We corrected for these errors by subtracting mutation frequencies in the wildtype plasmids from the those in the mutant plasmids, and the mutation frequencies in the wildtype viruses from those in the mutant viruses.
-Figure \ref{fig:ch3_mutfreqs}A shows the resulting error-corrected per-codon mutation frequencies for each replicate before and after selection.
-The overall mutation frequency was higher in the BG505 libraries compared to the BF520 libraries, consistent with the higher mutation frequency estimated by Sanger sequencing Fig~\ref{suppfig:ch3_sanger_sequencing_supp}.
+We therefore modified the deep mutational scanning strategy into the approach illustrated in Figure~\ref{fig:dms_schematic}A.
+This approach had the following substantive modifications from that of \citet{haddox2016experimental}: we used SupT1 cells expressing CCR5 to support replication of viruses with transmitted-founder Envs, we use a larger number of virions ($\ge 3 \times 10^6$ infectious units per library in the current work versus $5\times 10^5$ in the prior work) to avoid bottlenecking the library diversity, and rather than performing a full second passage we just did a short high-MOI infection to enable recovery of \textit{env} genes from infectious virions (Figure~\ref{fig:dms_schematic}A).
+We performed this deep mutational scanning approach in full biological triplicate for both BG505 and BF520 (Figure~\ref{fig:dms_schematic}B).
 
 \begin{figure}
 \begin{minipage}[t]{0.34\textwidth}
@@ -204,11 +183,33 @@ The overall mutation frequency was higher in the BG505 libraries compared to the
 \includegraphics[width=\textwidth]{figures/allprefscorr.pdf}
 \end{minipage}
 \caption{\label{fig:mutfreqs}
-CAPTION
+The deep mutational scanning selects for functional Envs and yields measurements that are well correlated among replicates.
+{\bf (A)}
+The average per-codon mutation frequency when sequencing plasmids encoding wildtype Env (\emph{DNA}), the plasmid mutant libraries (\emph{mutDNA}), the mutant viruses after the final infection (\emph{mutvirus}), and virus generated from the wildtype plasmids (\emph{virus}).
+Mutations are categorized by whether they are nonsynonymous, synonymous, or introduce a stop codon. 
+The \emph{DNA} samples show that the sequencing errors are rare, and the \emph{virus} samples show that viral replication and reverse-transcription errors are well below the frequency of mutations in the \emph{mutDNA} samples.
+Comparing the \emph{mutvirus} to \emph{mutDNA} shows clear purifying selection against stop codons and some nonsynonymous mutations, particularly after subtracting the appropriate background error rates given by the \emph{virus} and \emph{DNA} samples, respectively.
+The numerical data are in Figure~\ref{fig:mutfreqs}-source~data~\ref{figdata:mutfreqs}.
+More extensive plots from the analysis of the deep sequencing data are in Supplementary~files~\ref{suppfile:code} and \ref{suppfile:html}.
+{\bf (B)}
 }
-\figdata{The raw numerical data plotted in panel (A) are in the file \texttt{avgmutfreqs.csv}.}
+\figdata{\label{figdata:mutfreqs} The raw numerical data plotted in panel (A) are in the file \texttt{avgmutfreqs.csv}.}
 \figdata{The amino-acid preferences for each replicate and the replicate averages for each homolog are in \texttt{all\_prefs\_unscaled.zip}.}
 \end{figure}
+
+We estimated error rates from PCR and deep sequencing by sequencing wildtype plasmids.
+We also estimated error rates from viral replication by sequencing wildtype viruses passaged in parallel with the mutant viruses.
+We conducted the entire experiment in biological triplicate for each homolog (Fig \ref{fig:ch3_dms_schematic}B) (except that we only sequenced a single wildtype plasmid for the BF520 experiment).
+
+
+For the deep mutational-scanning experiments to succeed, the selection step must efficiently purge deleterious mutations from the library.
+As a first measure of the strength of selection, we examined changes in per-codon mutation frequencies averaged across all sites in Env.
+Codon-level mutations can be classified as being nonsynonymous, synonymous, or leading to a stop codon.
+Deep sequencing of the mutant libraries allowed us to quantify the frequency each of these mutation types.
+In addition, deep sequencing of the wildtype controls allowed us to quantify mutational errors from PCR, deep sequencing, and viral replication.
+We corrected for these errors by subtracting mutation frequencies in the wildtype plasmids from the those in the mutant plasmids, and the mutation frequencies in the wildtype viruses from those in the mutant viruses.
+Figure \ref{fig:ch3_mutfreqs}A shows the resulting error-corrected per-codon mutation frequencies for each replicate before and after selection.
+The overall mutation frequency was higher in the BG505 libraries compared to the BF520 libraries, consistent with the higher mutation frequency estimated by Sanger sequencing Fig~\ref{suppfig:ch3_sanger_sequencing_supp}.
 
 The observed changes in per-codon mutation frequencies are consistent with the experiments imposing strong purifying selection.
 Mutations leading to pre-mature stop codons are expected to be highly deleterious and thus efficiently purged by selection.
@@ -610,7 +611,17 @@ The code we used to generate these alignments, build the trees, and conduct the 
 \begin{suppfile}
 \caption{
 \label{suppfile:code}
-The code to perform all steps in the analysis beginning with downloading the FASTQ files is in \texttt{analysis\_code.zip}.}
+The code to perform all steps in the analysis beginning with downloading the FASTQ files is in \texttt{analysis\_code.zip}.
+Specifically, this file contains a Jupyter notebook that performs the full analysis, as well as all required input data and all reasonably sized output files.}
+\end{suppfile}
+
+\begin{suppfile}
+\caption{
+\label{suppfile:html}
+An HTML rendering of the Jupyter notebook that performs the computational analysis.
+The actual notebook is in Supplementary~file~\ref{suppfile:code}, but if you just want to look at the analysis rather than run it, then you may prefer to examine this file instead.
+In particular, the notebook contains detailed plots summarizing the deep sequencing data as generated using the \texttt{dms\_tools2} software~\citep{bloom2015software}.
+}
 \end{suppfile}
 
 
