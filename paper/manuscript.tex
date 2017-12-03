@@ -99,14 +99,8 @@ The viruses most relevant to HIV's long-term evolution are those which are trans
 However, the only prior work that has measured how all Env amino-acid mutations affect HIV replication is a study by our group~\citep{haddox2016experimental} that used a late-stage lab-passaged CXCR4-tropic virus~\citep[LAI;][]{peden1991changes}.
 The properties of Env can vary substantially between such late-stage viruses and the transmitted-founder viruses relevant to HIV's long-term evolution~\citep{sagar2006human,wilen2011phenotypic,parrish2013phenotypic}.
 
-We therefore selected Envs from two transmitted-founder viruses, BG505.W6M.C2.T332N and BF520.W14M.C2 (hereafter referred to as BG505 and BF520), that were isolated from HIV-infected infants shortly after mother-to-child transmission~\citep{goo2014early}.
-The BG505 Env has been extensively studied from a structural standpoint~\citep{julien2013crystal,lyumkis2013cryo,pancera2014structure,huang2014broad,sanders2015hiv,stewart2016trimeric}, and variants of this Env are being tested as a vaccine immunogens~\citep{sanders2013next,sanders2015hiv,de2015immunogenicity}.
-We used the T332N variant of BG505 Env because it has a glycosylation site that is targeted by many anti-HIV antibodies but is absent in wildtype BG505~\citep{sanders2013next}.
-The BF520 Env was isolated from an infant who developed an early broad anti-HIV antibody response~\citep{goo2014early,simonich2016hiv}.
-We have previously created comprehensive codon-mutant libraries of the BF520 Env and used them to map HIV antibody escape~\citep{dingens2017comprehensive}, but these BF520 libraries have not been characterized with respect to how mutations affect viral replication.
-
 \begin{figure}
-\centerline{\includegraphics[clip=true, trim= 0in 0in 1in 0in, angle=-90, width=0.9\textwidth]{figures/tree_plot.pdf}}
+\centerline{\includegraphics[clip=true, trim= 0in 0in 1in 0in, angle=-90, width=0.85\textwidth]{figures/tree_plot.pdf}}
 \caption{\label{fig:tree}
 Phylogenetic tree showing the relationship of BG505 and BF520 to other clade A Envs.
 The tree shows the 69 Envs in the alignment in Figure~\ref{fig:tree}-source~data~\ref{figdata:alignment}, which is a subsample of clade A sequences from the group M alignment in the Los Alamos HIV sequence database (\url{http://www.hiv.lanl.gov}).
@@ -122,6 +116,12 @@ The pairwise protein identity between BG505 and BF520 is 86.2\% (721 of 836 site
 \figdata{\label{figdata:alignment} The sequence alignment of clade A \textit{env} coding sequences in FASTA format is in \texttt{cladeA\_alignment.fasta}.}
 \figdata{\label{figdata:mask} The 240 Env sites masked in all phylogenetic analyses because they were not mutagenized in our experiments or are poorly alignable are listed in \texttt{alignment\_mask.csv}.}
 \end{figure}
+
+We therefore selected Envs from two transmitted-founder viruses, BG505.W6M.C2.T332N and BF520.W14M.C2 (hereafter referred to as BG505 and BF520), that were isolated from HIV-infected infants shortly after mother-to-child transmission~\citep{goo2014early}.
+The BG505 Env has been extensively studied from a structural standpoint~\citep{julien2013crystal,lyumkis2013cryo,pancera2014structure,huang2014broad,sanders2015hiv,stewart2016trimeric}, and variants of this Env are being tested as a vaccine immunogens~\citep{sanders2013next,sanders2015hiv,de2015immunogenicity}.
+We used the T332N variant of BG505 Env because it has a glycosylation site that is targeted by many anti-HIV antibodies but is absent in wildtype BG505~\citep{sanders2013next}.
+The BF520 Env was isolated from an infant who developed an early broad anti-HIV antibody response~\citep{goo2014early,simonich2016hiv}.
+We have previously created comprehensive codon-mutant libraries of the BF520 Env and used them to map HIV antibody escape~\citep{dingens2017comprehensive}, but these BF520 libraries have not been characterized with respect to how mutations affect viral replication.
 
 Both BG505 and BF520 are from clade A of the major (M) group of HIV-1.
 Figure~\ref{fig:tree} shows the phylogenetic relationship among these two Envs and other clade A sequences.
@@ -163,9 +163,10 @@ Comparable data for the BF520 libraries is provided in \citet{dingens2017compreh
 }{\includegraphics[width=\textwidth]{figures/sanger_sequencing_supp/sanger_sequencing_supp.pdf}}
 \end{figure}
 
-We therefore modified the deep mutational scanning strategy into the approach illustrated in Figure~\ref{fig:dms_schematic}A.
-This approach had the following substantive changes from that of \citet{haddox2016experimental}: we used SupT1 cells expressing CCR5 to support replication of viruses with transmitted-founder Envs, we use a larger number of virions ($\ge 3 \times 10^6$ infectious units per library in the current work versus $5\times 10^5$ in the prior work) to avoid bottlenecking the library diversity, and rather than performing a full second passage we just did a short high-MOI infection to enable recovery of \textit{env} genes from infectious virions without bottlenecking diversity (Figure~\ref{fig:dms_schematic}A).
+We therefore modified the deep mutational scanning strategy of \citet{haddox2016experimental} to yield the approach in Figure~\ref{fig:dms_schematic}A.
+This approach had the following substantive changes: we used SupT1 cells expressing CCR5 to support replication of viruses with transmitted-founder Envs, we used more virions for the first passage ($\ge 3 \times 10^6$ versus $5\times 10^5$ infectious units per library) to avoid bottlenecking the library diversity, and rather than performing a full second passage we just did a short high-MOI infection to enable recovery of \textit{env} genes from infectious virions without bottlenecking (Figure~\ref{fig:dms_schematic}A).
 We performed this deep mutational scanning approach in full biological triplicate for both BG505 and BF520 (Figure~\ref{fig:dms_schematic}B).
+Our deep mutational scanning libraries encompassed all codon mutations to all sites in Env except for the signal peptide and cytoplasmic tail.
 
 \begin{figure}
 \begin{minipage}[t]{0.34\textwidth}
@@ -205,52 +206,24 @@ We then use these error-corrected frequencies to calculate the \emph{percent} of
 \figdata{\label{figdata:allprefs} Preferences for each replicate and averages are in \texttt{all\_prefs\_unscaled.zip}.}
 \end{figure}
 
-We estimated error rates from PCR and deep sequencing by sequencing wildtype plasmids.
-We also estimated error rates from viral replication by sequencing wildtype viruses passaged in parallel with the mutant viruses.
-We conducted the entire experiment in biological triplicate for each homolog (Fig \ref{fig:ch3_dms_schematic}B) (except that we only sequenced a single wildtype plasmid for the BF520 experiment).
+The deep mutational scanning effectively selected for functional Env as evidenced by strong purifying selection against stop codons.
+Figure~\ref{fig:mutfreqs}A shows the average frequency of mutations across Env in the plasmid mutant libraries, the mutant viruses, and wildtype controls as determined from the deep sequencing.
+The mutant viruses show clear selection against stop codons and many nonsynonymous mutations (Figure~\ref{fig:mutfreqs}A).
+This selection is more apparent if we correct for the background error rates estimated from the wildtype controls (Figure~\ref{fig:mutfreqs}-Figure-supplement~\ref{figsupp:mutfreqs}).
+The error-corrected frequencies of stop codons drop to 3\%--16\% of their original values (Figure~\ref{fig:mutfreqs}-Figure-supplement~\ref{figsupp:mutfreqs}), with the residual stop codons probably due to some non-functional virions surviving due to complementation by other co-infecting virions. 
+The error-corrected frequencies of nonsynonymous mutations also drop substantially (43\%--49\% of their original values), whereas the frequencies of synonymous mutations drop only slightly (85\%--95\% of their original values).
+These trends are consistent with the fact that nonsynonymous mutations are often deleterious, whereas synonymous mutations often~\citep[although certainly not always, see][]{zanini2013quantifying} have only mild effects on viral replication.
+Of course, Figure~\ref{fig:mutfreqs}A only summarizes one aspect of the deep mutational scanning data.
+Supplementary~files~\ref{suppfile:code} and \ref{suppfile:html} contain detailed summaries of all aspects of the data (read depth, per-site mutation rate, etc) as generated by the \texttt{dms\_tools2} software~\citep[\url{https://jbloomlab.github.io/dms_tools2/}]{bloom2015software}.
 
-
-For the deep mutational-scanning experiments to succeed, the selection step must efficiently purge deleterious mutations from the library.
-As a first measure of the strength of selection, we examined changes in per-codon mutation frequencies averaged across all sites in Env.
-Codon-level mutations can be classified as being nonsynonymous, synonymous, or leading to a stop codon.
-Deep sequencing of the mutant libraries allowed us to quantify the frequency each of these mutation types.
-In addition, deep sequencing of the wildtype controls allowed us to quantify mutational errors from PCR, deep sequencing, and viral replication.
-We corrected for these errors by subtracting mutation frequencies in the wildtype plasmids from the those in the mutant plasmids, and the mutation frequencies in the wildtype viruses from those in the mutant viruses.
-Figure \ref{fig:ch3_mutfreqs}A shows the resulting error-corrected per-codon mutation frequencies for each replicate before and after selection.
-The overall mutation frequency was higher in the BG505 libraries compared to the BF520 libraries, consistent with the higher mutation frequency estimated by Sanger sequencing Fig~\ref{suppfig:ch3_sanger_sequencing_supp}.
-
-The observed changes in per-codon mutation frequencies are consistent with the experiments imposing strong purifying selection.
-Mutations leading to pre-mature stop codons are expected to be highly deleterious and thus efficiently purged by selection.
-Indeed, stop codons were purged to between 3-17\% their starting frequencies in each replicate (see the red numbers in Figure \ref{fig:ch3_mutfreqs}A).
-This purging was more efficient in the BG505 replicates than in the BF520 replicates, suggesting that the BG505 experiments imposed stronger selection.
-Nonsynonymous mutations can have more varied effects depending on the site and amino-acid change in question.
-A variety of studies indicate that many if not most amino-acid mutations tend to be deleterious to any protein~\cite{guo2004protein,shafikhani1997generation,bloom2005thermodynamic}.
-Consistent with this expectation, we found that nonsynonymous mutations were purged to 40-50\% their starting frequencies across all replicates.
-In contrast, the effects of synonymous mutations might be expected to be more neutral than the effects of nonsynonymous mutations.
-This expectation does not always hold~\cite{parmley2006evidence,cuevas2012fitness,subramaniam2013serine,zanini2013quantifying}, especially in regions where codon mutations have the potential to disrupt important RNA secondary structures, such as HIV's Rev-response element, which overlaps with the \textit{env} codon sequence~\cite{fernandes2012hiv,haddox2016experimental}.
-However, when averaging across all sites, we found that the synonymous mutations were mostly retained upon selection, only decreasing to 87-95\% their starting frequency in each replicate.
-Overall, these changes are broadly consistent with selection strongly purging deleterious variants in the libraries.
-
-Next, we used the deep-sequencing data to infer each homolog's site-specific amino-acid preferences.
-For each site ($r$), we inferred that site's relative preference ($\pi_{r,a}$) for each amino acid ($a$) as values that are proportional to that amino acid's enrichment or depletion upon selection.
-These preferences are defined to sum to one at each site (i.e., $\sum_{a} \pi_{r,a} = 1$).
-In making these inferences, we used the deep-sequencing data of the wildtype controls to statistically correct for errors.
-We mutagenized 670 sites in BG505 and and 662 sites BF520.
-Thus, we estimated 14,070 (= 670 $\times$ 21) and 13,902 (=662 $\times$ 21) site-specific amino-acid preferences for these homologs, respectively.
-Fig \ref{fig:ch3_bg505_prefs_logo} shows the preferences for BG505 averaged between replicates and rescaled to optimally reflect the strength of selection in nature (as described in the next section).
-Fig \ref{fig:ch3_bf520_prefs_logo} is the same as Fig \ref{fig:ch3_bg505_prefs_logo}, but shows the preferences for BF520 instead of BG505.
-Each homolog's preferences are highly heterogeneous among sites.
-For instance, although some sites strongly prefer just a single amino acid (e.g., site 54), other sites, such as the region of variable loop 4 between sites 396-413, prefer a large number of amino acids roughly equally.
-Of sites that tolerate multiple amino acids, some sites prefer amino acids with a wide variety of chemical properties (e.g., site 31), while other sites only prefer amino acids with similar properties (e.g., site 35 only prefers aromatic amino acids).
-Overall, these data quantify each homolog's ability to tolerate each amino acid at each site.
-
-Comparing the preferences between experimental replicates of the same homolog allowed us to quantify the level of experimental noise in our estimates (Figs \ref{fig:ch3_mutfreqs} B and C).
-Our estimates were largely reproducible between replicates for a give homolog, with Pearson correlation coefficients ranging from 0.59-0.75.
-The estimates were more reproducible for BG505 than for BF520.
-This trend might be explained by the fact that stop codons were less efficiently purged in the BF520 experiments (Fig \ref{fig:ch3_mutfreqs}A).
-Thus, a higher fraction of nonfunctional variants may have randomly survived the selection step in the BF520 experiments, which would be expected to result in increased noise.
-Overall, however, the above results indicate that our estimates were largely reproducible for both homologs.
-
+We used the deep mutational scanning data to estimate the preference of each site in Env for each amino acid via the analysis method described in \citet{bloom2015software}.
+As graphically illustrated in Figure~\ref{fig:dms_schematic}A, the preferences for each site are normalized to sum to one.
+Our libraries mutagenized 670 sites in BG505 and 662 sites in BF520, so $670 \times 20 = 13,400$ and $662 \times 20 = 13,240$ preferences were estimated for each Env, respectively.
+The correlations between the preferences from different experimental replicates are in Figure~\ref{fig:mutfreqs}B.
+These replicate-to-replicate correlations are substantially higher than those for the deep mutational scanning of LAI Env by \citet{haddox2016experimental}, indicating that the experimental modifications used here were beneficial.
+Because of the clear superiority of the current measurements, we focus on comparisons between BG505 and BF520, and do not attempt to make comparisons to the earlier inferior LAI data set. 
+Figure~\ref{fig:mutfreqs}B also shows that while replicates are well correlated across both Envs, the replicates for BG505 are more correlated with each other than with replicates for BF520, and vice versa.
+This fact is an initial hint that there are some shifts in amino-acid preferences between the two Envs -- something that is investigated with more statistical rigor later in this paper.
 
 \subsection*{Re-scaling the experimental measurements to optimally describe HIV evolution in nature}
 Next, we sought to compare Env's amino-acid preferences between BG505 and BF520.
@@ -619,16 +592,18 @@ The code we used to generate these alignments, build the trees, and conduct the 
 \begin{suppfile}
 \caption{
 \label{suppfile:code}
-The code to perform all steps in the analysis beginning with downloading the FASTQ files is in \texttt{analysis\_code.zip}.
-Specifically, this file contains a Jupyter notebook that performs the full analysis, as well as all required input data and all reasonably sized output files.}
+The code to perform all steps in the analysis is in \texttt{analysis\_code.zip}.
+Specifically, this file contains a Jupyter notebook that performs the analysis, all required input data, and all reasonably sized output files.
+The Jupyter notebook downloads the deep sequencing data, processes it with the \texttt{dms\_tools2} software~\citep[\url{https://jbloomlab.github.io/dms_tools2/}]{bloom2015software}, and also performs a variety of downstream analyses that generate most of the figures for this paper.
+}
 \end{suppfile}
 
 \begin{suppfile}
 \caption{
 \label{suppfile:html}
 An HTML rendering of the Jupyter notebook that performs the computational analysis.
-The actual notebook is in Supplementary~file~\ref{suppfile:code}, but if you just want to look at the analysis rather than run it, then you may prefer to examine this file instead.
-In particular, the notebook contains detailed plots summarizing the deep sequencing data as generated using the \texttt{dms\_tools2} software~\citep{bloom2015software}.
+The actual notebook is in Supplementary~file~\ref{suppfile:code}, but if you just want to look at the analysis rather than run it, then you may prefer this file instead.
+In particular, the notebook contains plots detailing the deep sequencing data analysis as generated using the \texttt{dms\_tools2} software~\citep[\url{https://jbloomlab.github.io/dms_tools2/}]{bloom2015software}.
 }
 \end{suppfile}
 
