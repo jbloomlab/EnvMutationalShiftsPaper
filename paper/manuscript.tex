@@ -24,7 +24,13 @@
 \floatname{suppfile}{Supplementary file}
 \usepackage{placeins}
 
+\renewcommand{\topfraction}{1}
+\renewcommand{\bottomfraction}{1}
+\renewcommand{\textfraction}{0}
 \renewcommand{\floatpagefraction}{1}
+\setcounter{topnumber}{9}
+\setcounter{bottomnumber}{9}
+\setcounter{totalnumber}{20}
 
 \newcommand{\jdbcomment}[1]{\emph{\color{red} [#1]}}
 
@@ -254,7 +260,6 @@ As expected, these site-averaged models perform worse than the site-specific one
 The site-averaged models perform about as well as the standard model, which also lacks site-specific information.
 Tables \ref{tab:ch3_phydms_groupM_supp} and \ref{tab:ch3_phydms_subtypeA_supp} show the results of ExpCMs made using the preferences of individual replicates.
 
-
 \begin{table}
 \begin{fullwidth}
 {\centering \include{figures/gamma_omega_modelcomparison}}
@@ -281,18 +286,19 @@ Since both homologs were rescaled with respect to the same sequences, we expect 
 \begin{figure}
 \begin{fullwidth}
 {\includegraphics[width=1.3\textwidth]{figures/BG505_prefs.pdf}}
-\caption{\label{fig:bg505_prefs_logo}
-The rescaled averaged site-specific amino-acid preferences for BG505.
-This logo plot shows the site-specific amino-acid preferences for BG505 after averaging between replicates and then rescaling them using the stringency parameter from Table \ref{tab:phydms} inferred for BG505 from the group-M alignment.
-Each site has a stack of 20 letters corresponding to the 20 amino acids.
-Letter heights, which sum to one at each site, are proportional to the site's preference for each amino acid.
-The top bar (R) indicates gp120 variable loops, other regions in gp120, or gp41.
-The bottom bar (WT) shows the wildtype amino-acid sequence for BG505.
-Sites are numbered according to the HXB2 numbering scheme~\cite{korber1998numbering}).
+\caption{\label{fig:BG505prefs}
+Amino-acid preferences for the BG505 Env.
+At each site, the height of the letter is proportional for that site's preference for that amino acid.
+The upper overlaid color bar indicates the region of Env (gp120 variable loop, gp120 not variable loop, or gp41).
+The lower overlaid color bar indicates the evidence that the site is evolving faster or slower than expected in nature given the experiments~\citep[see][]{bloom2017identification}.
+The letters above the logos indicate the wildtype amino acid in BG505.
+Sites are numbered using the HXB2 scheme~\citep{korber1998numbering}).
+This logo plot shows the site-specific amino-acid preferences for BG505 after averaging the replicates and re-scaling by the stringency parameter in Table \ref{tab:phydms}.
+The figure was generated using \texttt{dms\_tools2}~\citep[\url{https://jbloomlab.github.io/dms_tools2/}]{bloom2015software}, which in turn utilizes \texttt{weblogo}~\citep{crooks2004weblogo}.
 }
-\figdata{The re-scaled preferences plotted in this figure are in \texttt{rescaled\_BG505\_prefs.csv.}}
-\figdata{Sequence of the BG505 Env and mapping from sequential 1, 2, ... numbering of this sequence (\emph{original} column) to HXB2 numbering (\emph{new} column) is in \texttt{BG505\_to\_HXB2.csv}.}
-\figdata{The $\omega_r$ values and associated $Q$-values for BG505 in HXB2 numbering are in \texttt{BG505\_omegabysite.tsv}.}
+\figdata{The numerical values of the amino-acid preferences plotted in this figure are in \texttt{rescaled\_BG505\_prefs.csv.}}
+\figdata{The sequence of BG505 Env and mapping from sequential (\emph{original} column) to HXB2 numbering (\emph{new} column) is in \texttt{BG505\_to\_HXB2.csv}.}
+\figdata{The $\omega_r$ values and associated $P$-values for BG505 in HXB2 numbering are in \texttt{BG505\_omegabysite.tsv}.}
 \end{fullwidth}
 \end{figure}
 
@@ -300,11 +306,11 @@ Sites are numbered according to the HXB2 numbering scheme~\cite{korber1998number
 \begin{fullwidth}
 {\includegraphics[width=1.3\textwidth]{figures/BF520_prefs.pdf}}
 \caption{\label{fig:bf520_prefs_logo}
-The re-scaled averaged site-specific amino-acid preferences for BF520.
-This figure is the same as Fig \ref{fig:bg505_prefs_logo}, but for BF520 instead of BG505.
+Amino-acid preferences for the BF520 Env.
+This figure is the same as Fig \ref{fig:BG505prefs} except that it shows the data for BF520 instead of BG505.
 }
-\figdata{The re-scaled preferences plotted in this figure are in \texttt{rescaled\_BF520\_prefs.csv.}}
-\figdata{Sequence of the BF520 Env and mapping from sequential 1, 2, ... numbering of this sequence (\emph{original} column) to HXB2 numbering (\emph{new} column) is in \texttt{BF520\_to\_HXB2.csv}.}
+\figdata{The numerical values of the amino-acid preferences plotted in this figure are in \texttt{rescaled\_BF520\_prefs.csv.}}
+\figdata{The sequence of BG505 Env and mapping from sequential (\emph{original} column) to HXB2 numbering (\emph{new} column) is in \texttt{BF520\_to\_HXB2.csv}.}
 \figdata{The $\omega_r$ values and associated $P$-values for BF520 in HXB2 numbering are in \texttt{BG505\_omegabysite.tsv}.}
 \end{fullwidth}
 \end{figure}
