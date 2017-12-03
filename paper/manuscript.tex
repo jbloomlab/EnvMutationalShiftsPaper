@@ -227,48 +227,26 @@ As graphically illustrated in Figure~\ref{fig:dms_schematic}A, the preferences f
 Our libraries mutagenized 670 sites in BG505 and 662 sites in BF520, so $670 \times 20 = 13,400$ and $662 \times 20 = 13,240$ preferences were estimated for each Env, respectively.
 The correlations between the preferences from different experimental replicates are in Figure~\ref{fig:mutfreqs}B.
 These replicate-to-replicate correlations are substantially higher than those for the deep mutational scanning of LAI Env by \citet{haddox2016experimental}, indicating that the experimental modifications used here were beneficial.
-Because of the clear superiority of the current measurements, we focus on comparisons between BG505 and BF520, and do not attempt to compare to the earlier inferior LAI data set. 
-Figure~\ref{fig:mutfreqs}B also shows that while replicates are well correlated across both Envs, the replicates for BG505 are more correlated with each other than with replicates for BF520, and vice versa.
+Because of the clear superiority of the current measurements, in this paper we focus on the new BG505 and BF520 datasets, and do not attempt to compare to the inferior LAI dataset. 
+Figure~\ref{fig:mutfreqs}B also shows that while replicates are well correlated across BG505 and BF520, the replicates for BG505 are more correlated with each other than with replicates for BF520, and vice versa.
 This fact is an initial hint that there are some shifts in amino-acid preferences between the two Envs -- something that is investigated with more statistical rigor later in this paper.
 
 \subsection*{Amino-acid preferences of the BG505 and BF520 Envs and their relationship to HIV evolution in nature}
-Next, we sought to compare Env's amino-acid preferences between BG505 and BF520.
-We also sought to compare these homologs to LAI~\cite{haddox2016experimental}.
-However, a concern is that differences we see between homologs may be due to experimental differences, rather than true biological differences.
-For instance, the LAI experiments involved passaging the viral libraries for a substantially longer amount of time in cell culture, which may have imposed increased selection.
-Additionally, even though we conducted the BG505 and BF520 experiments using very similar protocols, the experiments seemed to have exerted different levels of purifying selection, as indicated by differential purging of stop codons (Fig \ref{fig:ch3_mutfreqs}A).
-The strength of selection in our experiments may also differ from the strength of selection in nature.
-Ideally, however, we would like to compare the preferences after rescaling them to reflect the intensity of selection in a natural setting.
-
-To address these concerns, we estimated differences in selection strength between our experiments and nature using a phylogenetic approach.
-A software package called \texttt{phydms} can be used to incorporate site-specific amino-acid preferences into substitution models for maximum-likelihood phylogenetics~\cite{hilton2017phydms}.
-These models, known as experimentally informed codon models (ExpCMs), define the probability of a substitution at site $r$ to amino-acid $j$ from amino-acid $i$ as being proportional to the ratio of the site's preferences for these amino acids: $\frac{\pi_{r,j}}{\pi_{r,i}}$.
-Thus, if $j$ is more preferred than $i$, the probability of substituting from $j$ to $i$ is greater than substituting from $i$ to $j$.
-These models also define a stringency parameter ($\beta$) that rescales the preference for each amino acid $a$ at a site to be: $\pi_{r,a}^{\beta} / \lbrack \sum_{a} \pi_{r,a}^{\beta} \rbrack$.
-Given an alignment of natural sequences, ExpCMs can be used to infer the value of this parameter that rescales the preferences to optimally describe the evolution of these sequences.
-If the inferred stringency parameter is greater than one, the indication is that selection in nature tends to prefer the same amino acids as the experiments, but with greater stringency.
-
-We created ExpCMs with each homolog's averaged preferences.
-We then used these ExpCMs to analyze the \textit{env} sequences used to make the trees in Fig \ref{fig:ch3_tree}.
-To do so, we first used \texttt{RAxML} to infer the topology of each tree using the GTRCAT model.
-Fixing this topology, we then optimized the tree's branch lengths using either a standard codon-substitution model (YNGKP M5) or one of the ExpCMs.
-Table \ref{tab:ch3_phydms} compares the performance of each model with respect to each tree.
-For both trees, the ExpCMs describe Env's natural evolution far better than the standard model, as gauged by differences Akaike information criterion (AIC), which quantifies the likelihood of the data given the model while taking into account the number of model parameters, with higher AIC values indicating worse model performance.
-Notably, BG505 and BF520's preferences describe Env's evolution substantially better than LAI's preferences, though the ExpCM for LAI still outperforms the standard model.
-As a control, for each homolog, we averaged that homolog's preferences across all sites and made a ExpCM that modeled each site using these averaged preferences.
-As expected, these site-averaged models perform worse than the site-specific ones, indicating that the preferences recapitulate site-specific constraints in nature.
-The site-averaged models perform about as well as the standard model, which also lacks site-specific information.
-Tables \ref{tab:ch3_phydms_groupM_supp} and \ref{tab:ch3_phydms_subtypeA_supp} show the results of ExpCMs made using the preferences of individual replicates.
+The most immediate question is how authentically the experimental measurements describe the actual selection on Env function in nature.
+Direct comparisons between experimentally measured amino-acid preferences and amino-acid frequencies in natural sequences are confounded by the fact that the natural sequences are evolutionarily related.
+This problem can be overcome by making the comparison in a phylogenetic context.
+Specifically, we used our deep mutational scanning data to construct experimentally informed codon models (ExpCM's) for Env evolution~\citep{hilton2017phydms,bloom2017identification}.
+Importantly, since we expect many sites in Env to be under diversifying selection from immunity, we extended the ExpCM's to draw the relative dN/dS parameter ($\omega$) from a gamma distribution as is commonly done for codon-substitution models~\citep{yang2000codon}.
 
 \begin{table}
 \begin{fullwidth}
 {\centering \include{figures/gamma_omega_modelcomparison}}
 \caption{\label{tab:phydms}
-Evolutionary models informed by the deep mutational scanning describe HIV's evolution in nature better than a standard substitution model.
+Evolutionary models informed by the deep mutational scanning describe HIV's evolution in nature much better than a standard substitution model.
 Shown are the results of maximum likelihood fitting of substitution models to the clade A phylogeny in Figure~\ref{fig:tree}.
-Experimentally informed codon models~\citep[ExpCM,][]{hilton2017phydms} utilizing either deep mutational scanning dataset describe Env's natural evolution far better than a standard codon substitution model~\citep[the M5 model of][]{yang2000codon} as judged by comparing the Akaike information criteria~\citep[$\Delta$AIC,][]{posada2004model}.
-Both ExpCM models have a stringency parameter $>$1, indicating that natural evolution prefers the same amino acids as the experiments, but with greater stringency~\citep{hilton2017phydms}.
-All models draw $\omega$ (the dN/dS ratio for the Goldman-Yang model, and the relative dN/dS ratio after accounting for the measured constraints for the ExpCM) from a gamma distribution, and the table shows the mean ($\overline{\omega}$) and shape parameters ($\omega_{\alpha}$ and $\omega_{\beta}$) of this distribution.
+Experimentally informed codon models~\citep[ExpCM,][]{hilton2017phydms} utilizing the across-replicate average of the deep mutational scanning describe Env's natural evolution far better than a standard codon substitution model~\citep[the M5 model of][]{yang2000codon} as judged by comparing the Akaike information criteria~\citep[$\Delta$AIC,][]{posada2004model}.
+Both ExpCM models have a stringency parameter $>$1.
+All models draw $\omega$ from a gamma distribution, and the table shows the mean ($\overline{\omega}$) and shape parameters ($\omega_{\alpha}$ and $\omega_{\beta}$) of this distribution.
 The last two columns show the number of sites evolving faster ($\omega_r > 1$) or slower ($\omega_r < 1$) than expected, as determined using the approach in \citet{bloom2017identification}.
 Analyses were performed using \texttt{phydms} (\url{http://jbloomlab.github.io/phydms/}).
 Table~\ref{tab:phydms}-source-data~\ref{tabledata:phydms} shows the results of analyses of the same tree with additional substitution models.
@@ -277,11 +255,16 @@ Table~\ref{tab:phydms}-source-data~\ref{tabledata:phydms} shows the results of a
 \end{fullwidth}
 \end{table}
 
-For both alignments, the ExpCMs inferred stringency parameters of $>$1 for both BG505 and BF520, indicating that selection was weaker in our experiments for these homologs than in nature.
-The results are largely consistent between the two alignments, indicating that the rescaling is robust to the different levels of sequence diversity we examined.
-We decided to rescale the preferences for BG505 and BF520 using the stringency parameters from the group-M analysis (Table \ref{tab:ch3_phydms}).
-These resulting rescaled preferences are shown in Figs \ref{fig:ch3_bg505_prefs_logo} and \ref{fig:ch3_bf520_prefs_logo} for BG505 and BF520, respectively.
-Since both homologs were rescaled with respect to the same sequences, we expect this rescaling to also normalize the preferences across experiments, helping to correct for differences in selection strength between experiments.
+Table~\ref{tab:phydms} shows that phylogenetic models informed by the deep mutational scanning of either BG505 or BF520 describe the natural evolution of Env vastly better than a standard codon substitution model.
+In addition to simply comparing model fits, we can interpret the model parameters.
+ExpCM's have a stringency parameter that relates selection in the experiments to that in nature.
+A stringency parameter $>$1 indicates that natural selection prefers the same amino acids as the experiments, but with greater stringency~\citep{hilton2017phydms}.
+Both ExpCM's have stringency parameters $>$1 (Table~\ref{tab:phydms}) -- a finding that makes sense, since the stop-codon analysis in the previous section suggests that the experimental selections are more lax than natural selection on HIV.
+We can also interpret the $\omega$ parameter.
+For standard codon substitution models, $\omega$ is the rate of fixation of nonsynonymous mutations relative to synonymous one -- and the gene-wide average $\omega$ is almost always $<$1, since purifying selection purges many functionally deleterious amino-acid mutations even for adaptively evolving proteins~\citep{murrell2015gene}.
+Indeed, Table~\ref{tab:phydms} shows that Env's gene-wide average $\omega$ is $<$1 for a standard model.
+But for ExpCM, $\omega$ is the relative rate of nonsynonymous to synonymous substitutions \emph{after} accounting for functional constraints measured in the deep mutational scanning~\citep{bloom2017identification}.
+Table~\ref{tab:phydms} shows that the ExpCM's have a gene-wide average $\omega$ that is $>$1, indicating that immune selection drives Env to fix amino-acid mutations faster than expected under a null model that only accounts for functional constraints.
 
 \begin{figure}
 \begin{fullwidth}
@@ -305,7 +288,7 @@ The figure was generated using \texttt{dms\_tools2}~\citep[\url{https://jbloomla
 \begin{figure}
 \begin{fullwidth}
 {\includegraphics[width=1.3\textwidth]{figures/BF520_prefs.pdf}}
-\caption{\label{fig:bf520_prefs_logo}
+\caption{\label{fig:BF520prefs}
 Amino-acid preferences for the BF520 Env.
 This figure is the same as Fig \ref{fig:BG505prefs} except that it shows the data for BF520 instead of BG505.
 }
@@ -315,26 +298,14 @@ This figure is the same as Fig \ref{fig:BG505prefs} except that it shows the dat
 \end{fullwidth}
 \end{figure}
 
-\begin{figure}
-%\includegraphics[width=0.5\textwidth]{figures/diversifying_selection_corr.pdf}
-\includegraphics[width=1.0\textwidth]{figures/omegabysite_structural_analysis/omegabysite_structural_analysis.pdf}
-\caption{\label{fig:divselcorr}
-Correlation between sites of diversifying and purifying selection among homologs.
-}
-\figsupp[Amino-acid preferences and alignment frequencies at sites of purifying selection.]{
-This plot shows all sites that are evolving more slowly than expected in natural sequences given the preferences measured in both homologs.
-Specifically, it shows all sites with $\omega_r < 1$ at $Q < 0.05$ for the ExpCMs for \emph{both} BG505 and BF520.
-For each site, the plots show the preferences averaged across replicates and re-scaled for each homolog, as well as the frequencies of amino acids in the clade A Env alignment. 
-The $Q$-value indicated is the maximum of that for the two homologs.
-}{\includegraphics[width=\textwidth]{figures/purifying_selsites.pdf}}
-\figsupp[Distribution of relative solvent accessibilities among sites of diversifying and purifying selection.]{
-Sites are grouped by whether they are under diversifying or purifying selection at $Q < 0.05$ in \emph{both} homologs, or whether they do not fall into either of these categories.
-The absolute solvent accessibility of each site in the BG505 SOSIP trimer in PDB 5FYL~\citep{?} was calculated using DSSP~\citep{?}, and normalized to a relative solvent accessibility using the absolute accessibilities provided by \citet{?}.
-As can be seen from these box plots with overlaid points for each site, sites of both diversifying and purifying selection tend to have higher relative solvent accessibility than other sites.
-}{\includegraphics[width=0.5\textwidth]{figures/selsites_rsa.pdf}}
-\figdata{The $\omega_r$ and associated $P$-values plotted in this figure are in \texttt{merged\_omegabysite.csv}.}
-\end{figure}
-
+A more qualitative way to assess if the deep mutational scanning authentically describes selection on Env function is to visually compare the measurements with existing knowledge.
+Figures~\ref{fig:BG505prefs} and \ref{fig:BF520prefs} show the across-replicate average of the amino-acid preferences for each Env after re-scaling by the stringency parameters in Table~\ref{tab:phydms}.
+At sites of known functional importance, these preferences are usually consistent with prior knowledge.
+For instance, residues T257, D368, E370, W427, and D457 are important for Env binding to CD4~\citep{olshevsky1990identification}, and all these amino acids are highly preferred in our deep mutational scanning (Figures~\ref{fig:BG505prefs} and \ref{fig:BF520prefs}).
+Likewise, Env has 10 disulfide bonds (linking sites 54-74, 119-205, 126-196, 131-157, 218-247, 228-239, 296-331, 378-445, 385-418, and 598-604), most of which are important for function~\citep{van2008only} -- and the cysteines at these sites are highly preferred in our deep mutational scanning.
+The deep mutational scanning is also consistent with prior knowledge about sites that are tolerant of mutations.
+For instance, Env has five variable loops that mostly evolve under weak constraint in nature~\citep{starcich1986identification,zolla2010structure} -- and most sites in these loops are mutationally tolerant in our deep mutational scanning (see sites indicated by gray overlay bars in Figures~\ref{fig:BG505prefs} and \ref{fig:BF520prefs}, such as 132 to 195).
+It is of course beyond the scope of this paper to catalog associations between our measurements and all prior mutational studies of Env, but we anticipate that the complete maps of mutational effects in Figures~\ref{fig:BG505prefs} and \ref{fig:BF520prefs} will be useful for future sequence-structure-function studies.
 
 \subsection*{Differences between homologs}
 Having rescaled the preferences of each homolog to optimally describe Env's evolution in nature, we next sought to compare the preferences between homologs to determine how much Env's preferences have shifted over evolutionary time.
@@ -449,6 +420,26 @@ CAPTION
 }
 \end{figure}
 
+\subsection{Diversifying selection}
+
+\begin{figure}
+\includegraphics[width=1.0\textwidth]{figures/omegabysite_structural_analysis/omegabysite_structural_analysis.pdf}
+\caption{\label{fig:divselcorr}
+Correlation between sites of diversifying and purifying selection among homologs.
+}
+\figsupp[Amino-acid preferences and alignment frequencies at sites of purifying selection.]{
+This plot shows all sites that are evolving more slowly than expected in natural sequences given the preferences measured in both homologs.
+Specifically, it shows all sites with $\omega_r < 1$ at $Q < 0.05$ for the ExpCMs for \emph{both} BG505 and BF520.
+For each site, the plots show the preferences averaged across replicates and re-scaled for each homolog, as well as the frequencies of amino acids in the clade A Env alignment. 
+The $Q$-value indicated is the maximum of that for the two homologs.
+}{\includegraphics[width=\textwidth]{figures/purifying_selsites.pdf}}
+\figsupp[Distribution of relative solvent accessibilities among sites of diversifying and purifying selection.]{
+Sites are grouped by whether they are under diversifying or purifying selection at $Q < 0.05$ in \emph{both} homologs, or whether they do not fall into either of these categories.
+The absolute solvent accessibility of each site in the BG505 SOSIP trimer in PDB 5FYL~\citep{?} was calculated using DSSP~\citep{?}, and normalized to a relative solvent accessibility using the absolute accessibilities provided by \citet{?}.
+As can be seen from these box plots with overlaid points for each site, sites of both diversifying and purifying selection tend to have higher relative solvent accessibility than other sites.
+}{\includegraphics[width=0.5\textwidth]{figures/selsites_rsa.pdf}}
+\figdata{The $\omega_r$ and associated $P$-values plotted in this figure are in \texttt{merged\_omegabysite.csv}.}
+\end{figure}
 
 \section{Discussion}
 We experimentally estimated the effects of all single amino-acid changes to two Env homologs with 85\% amino-acid identity.
