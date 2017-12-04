@@ -229,9 +229,9 @@ The correlations between the preferences from different experimental replicates 
 These replicate-to-replicate correlations are substantially higher than those for the deep mutational scanning of LAI Env by \citet{haddox2016experimental}, indicating that the experimental modifications used here were beneficial.
 Because of the clear superiority of the current measurements, in this paper we focus on the new BG505 and BF520 datasets, and do not attempt to compare to the inferior LAI dataset. 
 Figure~\ref{fig:mutfreqs}B also shows that while replicates are well correlated across BG505 and BF520, the replicates for BG505 are more correlated with each other than with replicates for BF520, and vice versa.
-This fact is an initial hint that there are some shifts in amino-acid preferences between the two Envs -- something that is investigated with more statistical rigor later in this paper.
+This fact hints that there are some shifts in amino-acid preferences between the two Envs -- something that is investigated with more statistical rigor later in this paper.
 
-\subsection*{Amino-acid preferences of the BG505 and BF520 Envs and their relationship to HIV evolution in nature}
+\subsection*{Amino-acid preferences of the Envs and their relationship to HIV evolution in nature}
 The most immediate question is how authentically the experimental measurements describe the actual selection on Env function in nature.
 Direct comparisons between experimentally measured amino-acid preferences and amino-acid frequencies in natural sequences are confounded by the fact that the natural sequences are evolutionarily related.
 This problem can be overcome by making the comparison in a phylogenetic context.
@@ -305,28 +305,14 @@ For instance, residues T257, D368, E370, W427, and D457 are important for Env bi
 Likewise, Env has 10 disulfide bonds (linking sites 54-74, 119-205, 126-196, 131-157, 218-247, 228-239, 296-331, 378-445, 385-418, and 598-604), most of which are important for function~\citep{van2008only} -- and the cysteines at these sites are highly preferred in our deep mutational scanning.
 The deep mutational scanning is also consistent with prior knowledge about sites that are tolerant of mutations.
 For instance, Env has five variable loops that mostly evolve under weak constraint in nature~\citep{starcich1986identification,zolla2010structure} -- and most sites in these loops are mutationally tolerant in our deep mutational scanning (see sites indicated by gray overlay bars in Figures~\ref{fig:BG505prefs} and \ref{fig:BF520prefs}, such as 132 to 195).
-It is of course beyond the scope of this paper to catalog associations between our measurements and all prior mutational studies of Env, but we anticipate that the complete maps of mutational effects in Figures~\ref{fig:BG505prefs} and \ref{fig:BF520prefs} will be useful for future sequence-structure-function studies.
+It is beyond the scope of this paper to catalog associations between our measurements and all other prior mutational studies of Env, but we anticipate that the complete maps of mutational effects in Figures~\ref{fig:BG505prefs} and \ref{fig:BF520prefs} will be useful for future sequence-structure-function studies.
 
-\subsection*{Differences between homologs}
-Having rescaled the preferences of each homolog to optimally describe Env's evolution in nature, we next sought to compare the preferences between homologs to determine how much Env's preferences have shifted over evolutionary time.
-We estimated preferences for 670 and 662 sites in BG505 and BF520, respectively.
-We compared the subset of 616 sites that are shared between homologs and are readily alignable in the group-M multiple-sequence alignment.
-Thus, in total, we compared 12,320 (=616$\times$20) amino-acid preferences between the homologs.
-
-As an initial gene-wide measure of these shifts, we simply quantified the correlation of the preferences between homologs.
-We expected some of the observed differences to be due to experimental noise rather than true biological differences.
-We estimated this noise by correlating the preferences between replicates for the same homolog after rescaling the preferences for each replicate using the stringency parameter from Table \ref{tab:ch3_phydms} for the appropriate homolog, as inferred from the group-M alignments.
-Fig \ref{fig:ch3_homologs_corr}A shows this correlation between a single pair of replicates for both BG505 and BF520.
-These comparisons provide an approximate ceiling for the expected correlation of replicates between homologs if both homologs have identical preferences.
-Conversely, if Env's preferences have substantially shifted over evolutionary time, the correlation between homologs is expected to be much lower.
-Fig \ref{fig:ch3_homologs_corr}B shows the correlation between homologs for a single pair of replicates.
-These replicates are nearly as well correlated as two replicates from the same homolog, suggesting that Env's preferences are substantially conserved between homologs.
-As a control, we correlated Env's preferences to the preferences of a non-homologous protein -- influenza hemagglutinin (HA) -- estimated in another study ~\cite{doud2016accurate} and rescaled with the appropriate stringency parameter from Table 1 of that study.
-HA's preferences were highly repeatable between the pair of replicates shown in Fig \ref{fig:ch3_homologs_corr}A.
-However, comparing replicates between BG505 and HA across all 480 sites that overlap in sequential numbering yielded a very low correlation, as would be expected when comparing preferences for non-homologous sites.
-Fig \ref{fig:ch3_homologs_corr} C shows that these trends are consistent across all three replicates for each protein.
-Thus, the correlations between Env homologs are much higher than the expected correlation between two non-homologous proteins.
-
+\subsection*{Shifts in amino-acid preferences between BG505 and BF520}
+The most fundamental question that we seek to address is if the effects of mutations are similar across Envs, or highly idiosyncratic to the particular Env variant under study.
+We can get some hint simply by examining Figure~\ref{fig:mutfreqs}B, which shows the correlations among the amino-acid preferences measured for all experimental replicates for both BG505 and BF520.
+All replicates are strongly correlated with each other regardless of which Env was used, indicating that many aspects of the preferences are conserved between BG505 and BF520.
+But the correlations between replicate measurements for the same Env are always greater than or equal to those for replicate measurements on different Envs, suggesting at least some shifts in preferences between BG505 and BF520.
+However, simply comparing correlation coefficients in this way cannot identify specific sites where mutational effects have shifted, nor can it quantify the magnitude of any shifts.
 
 \begin{figure}
 \begin{fullwidth}
@@ -339,28 +325,32 @@ Thus, the correlations between Env homologs are much higher than the expected co
 \\ 
 {\bf \Large C} \\
 \includegraphics[width=1.3\textwidth]{figures/shifted_sites.pdf}
-\caption{\label{fig:diffprefs}
-Difference in preferences.
+\caption{\label{fig:prefsdist}
+Env sites with shifted amino-acid preferences between BG505 and BF520.
+{\bf (A)} Calculation of the corrected distance between the amino-acid preferences of BG505 and BF520 at five example sites.
+We have triplicate measurements for each Env.
+We calculate the distance between each pair of replicate measurements, and group these into comparisons \emph{between} the two Envs and \emph{within} replicates for the same Env.
+We compute the root-mean-square distance (RMSD) for both sets of comparisons, which we denote as RMSD$_{\rm{between}}$ and RMSD$_{\rm{within}}$.
+The latter quantity is a measure of experimental noise.
+The noise-corrected distance between Envs at a site, RMSD$_{\rm{corrected}}$, is simply the distance between the two Envs minus this noise.
+{\bf (B)} The bottom distribution (orange) shows the corrected distances between BG505 and BF520 at all alignable sites.
+The next distribution (blue) is a null generated by computing the corrected distances on all randomizations of the replicates among Envs.
+The top two distributions (green) compare Env to the non-homologous influenza hemagglutinin protein~\citep{doud2016accurate} simply putting sites into correspondence based on sequence number.
+We compute the $P$-value that a site has shifted between BG505 and BF520 as the fraction of the null distribution that exceeds that shift, and identify significant shifts at a false discovery rate (FDR) of 0.1 using the method of \citet{benjamini1995controlling}.
+Using this approach, 30 of the 659 sites have significant shifts (corrected distance $\ge$0.22).
+{\bf (C)} All sites that have significantly shifted their amino-acid preferences at an FDR of 0.01.
+For each site, the logo stacks show the across-replicate average preferences for BG505 and BF520.
 }
-\figdata{The corrected distances between BG505 and BF520 at each site are in \texttt{BG505\_to\_BF520\_prefs\_dist.csv}.}
+\figdata{\label{figdata:prefsdist}The corrected distances between BG505 and BF520 at each site are in \texttt{BG505\_to\_BF520\_prefs\_dist.csv}.}
 \end{fullwidth}
 \end{figure}
 
-Next, we sought to quantify shifts in Env's preferences at a site-specific level.
-Correlating preferences between replicates of the same homolog showed that some sites were substantially influenced by experimental noise Fig \ref{fig:ch3_homologs_corr}.
-Thus, we quantified shifts using an approach that corrects for noise, similar to the one used in a previous study that deep mutational-scanning data between homologs of influenza's nucleoprotein \cite{doud2015site}.
-Fig \ref{fig:ch3_distances}A shows how we quantified shifts for a few example sites.
-For a given site $r$, we define the distance in preferences between an arbitrary pair of replicates $i$ and $j$ as: $D_{r}^{i,j} = \frac{1}{2}\sum_{a}|\pi_{r,a}^{i}-\pi_{r,a}^{j}|$.
-We then use this metric to measure the distance between all pairwise combinations of replicates from both homologs.
-We quantified the un-corrected distance between homologs as the root mean square of all replicate-replicate distances between homologs ($RMSD_{between}$).
-Since $D_{r}^{i,j}$ can range between 0-1, $RMSD_{between}$ also ranges between 0-1, with 0 indicating no differences and 1 indicating extreme differences between the homologs.
-Next, we quantified experimental noise as the root mean square of all replicate-replicate distances where both replicates came from the \textit{same} homolog ($RMSD_{within}$).
-Finally, we computed the noise-corrected distance between homologs ($RMSD_{corrected}$) by subtracting $RMSD_{between}$ by $RMSD_{within}$.
-
-Sites where we repeatedly measured large differences between homologs are expected to have $RMSD_{corrected}$ values much greater than zero (e.g., sites 512 and 309; Fig \ref{fig:ch3_distances}A).
-In contrast, sites where we repeatedly measured small differences between homologs are expected to have $RMSD_{corrected}$ values close to zero (e.g., site 296).
-Sites where the noise completely overwhelmed the biological signal are also expected to have $RMSD_{corrected}$ values close to zero (e.g., site 607).
-Thus, a $RMSD_{corrected}$ value near zero could indicate that a site's preferences are conserved between homologs, or that the noise at a site is high.
+We therefore used a more statistically rigorous approach to identify sites where the amino-acid preferences had shifted between BG505 and BF520 by an amount that exceeds the noise in our experiments.
+We first re-scaled the preferences from each experimental replicate by the stringency parameter for that Env from Table~\ref{tab:phydms} to uniformly calibrate all measurements to match the stringency of natural selection on clade A Envs.
+We then identified the 659 sites in the mutagenized regions of Env that are pairwise alignable between BG505 and BF520 (Figure~\ref{fig:prefsdist}-source~data~\ref{figdata:prefsdist}).
+For each of these sites, we then calculated the shift in amino-acid preferences between Envs using an approach similar to that of \citet{doud2015site} as illustrated in Figure~\ref{fig:prefsdist}A.
+This approach calculates the magnitude of the shift after correcting for experimental noise by comparing the differences in preferences between replicates for BG505 and BF520 to the differences between replicates of the same Env.
+ 
 
 The blue histogram in Fig \ref{fig:ch3_distances}B shows the distribution of site-specific $RMSD_{corrected}$ values between BG505 and BF520 for all 616 sites being compared (Fig \ref{fig:ch3_homologs_corr}).
 Most sites have distances greater than zero.
@@ -576,6 +566,24 @@ The topologies of these trees were inferred by \texttt{RAxML} using the GTRCAT m
 In the \texttt{phydms}~\cite{hilton2017phydms} analyses, we fixed the topologies of these trees, and then compared the ability of the different models to optimize the branch lengths.
 The trees shown in Fig \ref{ref:ch3_tree} are the results of optimizing the branch lengths using the YNGKP M5 model.
 The code we used to generate these alignments, build the trees, and conduct the \texttt{phydms} analyses will be made available upon publication of this work.
+
+\subsubsection*{Preference differences}Next, we sought to quantify shifts in Env's preferences at a site-specific level.
+Correlating preferences between replicates of the same homolog showed that some sites were substantially influenced by experimental noise Fig \ref{fig:ch3_homologs_corr}.
+Thus, we quantified shifts using an approach that corrects for noise, similar to the one used in a previous study that deep mutational-scanning data between homologs of influenza's nucleoprotein \cite{doud2015site}.
+Fig \ref{fig:ch3_distances}A shows how we quantified shifts for a few example sites.
+For a given site $r$, we define the distance in preferences between an arbitrary pair of replicates $i$ and $j$ as: $D_{r}^{i,j} = \frac{1}{2}\sum_{a}|\pi_{r,a}^{i}-\pi_{r,a}^{j}|$.
+We then use this metric to measure the distance between all pairwise combinations of replicates from both homologs.
+We quantified the un-corrected distance between homologs as the root mean square of all replicate-replicate distances between homologs ($RMSD_{between}$).
+Since $D_{r}^{i,j}$ can range between 0-1, $RMSD_{between}$ also ranges between 0-1, with 0 indicating no differences and 1 indicating extreme differences between the homologs.
+Next, we quantified experimental noise as the root mean square of all replicate-replicate distances where both replicates came from the \textit{same} homolog ($RMSD_{within}$).
+Finally, we computed the noise-corrected distance between homologs ($RMSD_{corrected}$) by subtracting $RMSD_{between}$ by $RMSD_{within}$.
+
+Sites where we repeatedly measured large differences between homologs are expected to have $RMSD_{corrected}$ values much greater than zero (e.g., sites 512 and 309; Fig \ref{fig:ch3_distances}A).
+In contrast, sites where we repeatedly measured small differences between homologs are expected to have $RMSD_{corrected}$ values close to zero (e.g., site 296).
+Sites where the noise completely overwhelmed the biological signal are also expected to have $RMSD_{corrected}$ values close to zero (e.g., site 607).
+Thus, a $RMSD_{corrected}$ value near zero could indicate that a site's preferences are conserved between homologs, or that the noise at a site is high.
+
+
 
 \section{Acknowledgments}
 \jdbcomment{add this}
