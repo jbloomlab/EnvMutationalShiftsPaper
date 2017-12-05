@@ -95,7 +95,7 @@ By comparing these complete mutational maps, we identify sites where amino-acid 
 Most sites show no detectable shifts, but 30 sites have clearly altered their amino-acid preferences.
 These shifted sites usually strongly prefer a specific amino acid in one Env but have shifted to tolerate many amino acids in the other Env.
 The shifted sites cluster in Env's structure, but are often distant from any amino-acid substitutions that distinguish the two Envs -- demonstrating the action of long-range epistasis.
-By aggregating our measurements for both Envs, we identify sites that evolve faster or slower in nature than expected given the functional constraints measured in the lab.
+By aggregating our measurements for both Envs, we identify sites that evolve faster or slower in nature than expected given the functional constraints measured in the lab, probably due to pressure for immune evasion.
 Overall, our work provides across-strain genotype-to-phenotype maps that inform the analysis of Env's structure and evolution.
 
 \section{Results}
@@ -224,10 +224,10 @@ Supplementary~files~\ref{suppfile:code} and \ref{suppfile:html} contain detailed
 
 We used the deep mutational scanning data to estimate the preference of each site in Env for each amino acid via the analysis method described in \citet{bloom2015software}.
 As graphically illustrated in Figure~\ref{fig:dms_schematic}A, the preferences for each site are normalized to sum to one.
-Our libraries mutagenized 670 sites in BG505 and 662 sites in BF520, so $670 \times 20 = 13,400$ and $662 \times 20 = 13,240$ preferences were estimated for each Env, respectively.
+Our libraries were mutagenized at 670 sites in BG505 and 662 sites in BF520, so $670 \times 20 = 13,400$ and $662 \times 20 = 13,240$ preferences were estimated for each Env, respectively.
 The correlations between the preferences from different experimental replicates are in Figure~\ref{fig:mutfreqs}B.
 These replicate-to-replicate correlations are substantially higher than those for the deep mutational scanning of LAI Env by \citet{haddox2016experimental}, indicating that the experimental modifications used here were beneficial.
-Because of the clear superiority of the current measurements, in this paper we focus on the new BG505 and BF520 datasets, and do not attempt to compare to the inferior LAI dataset. 
+Because of the clear superiority of the current measurements, in this paper we do not attempt to compare to the earlier inferior LAI dataset. 
 Figure~\ref{fig:mutfreqs}B also shows that while replicates are well correlated across BG505 and BF520, the replicates for BG505 are more correlated with each other than with replicates for BF520, and vice versa.
 This fact hints that there are some shifts in amino-acid preferences between the two Envs -- something that is investigated with more statistical rigor later in this paper.
 
@@ -290,7 +290,7 @@ The figure was generated using \texttt{dms\_tools2}~\citep[\url{https://jbloomla
 {\includegraphics[width=1.3\textwidth]{figures/BF520_prefs.pdf}}
 \caption{\label{fig:BF520prefs}
 Amino-acid preferences for the BF520 Env.
-This figure is the same as Fig \ref{fig:BG505prefs} except that it shows the data for BF520 instead of BG505.
+This figure is the same as Figure~\ref{fig:BG505prefs} except that it shows the data for BF520 instead of BG505.
 }
 \figdata{The numerical values of the amino-acid preferences plotted in this figure are in \texttt{rescaled\_BF520\_prefs.csv.}}
 \figdata{The sequence of BG505 Env and mapping from sequential (\emph{original} column) to HXB2 numbering (\emph{new} column) is in \texttt{BF520\_to\_HXB2.csv}.}
@@ -308,11 +308,11 @@ For instance, Env has five variable loops that mostly evolve under weak constrai
 It is beyond the scope of this paper to catalog associations between our measurements and all other prior mutational studies of Env, but we anticipate that the complete maps of mutational effects in Figures~\ref{fig:BG505prefs} and \ref{fig:BF520prefs} will be useful for future sequence-structure-function studies.
 
 \subsection*{Shifts in amino-acid preferences between BG505 and BF520}
-The most fundamental question that we seek to address is if the effects of mutations are similar across Envs, or highly idiosyncratic to the particular Env variant under study.
+The most fundamental question that we seek to address is how similar the effects of mutations are between the two Envs.
 We can get some hint simply by examining Figure~\ref{fig:mutfreqs}B, which shows the correlations among the amino-acid preferences measured for all experimental replicates for both BG505 and BF520.
 All replicates are strongly correlated with each other regardless of which Env was used, indicating that many aspects of the preferences are conserved between BG505 and BF520.
 But the correlations between replicate measurements for the same Env are always greater than or equal to those for replicate measurements on different Envs, suggesting at least some shifts in preferences between BG505 and BF520.
-However, simply comparing correlation coefficients in this way cannot identify specific sites where mutational effects have shifted, nor can it quantify the magnitude of any shifts.
+However, simply comparing correlation coefficients in this way does not identify specific sites where mutational effects have shifted, nor does it quantify the magnitude of any shifts.
 
 \begin{figure}
 \begin{fullwidth}
@@ -335,45 +335,49 @@ The latter quantity is a measure of experimental noise.
 The noise-corrected distance between Envs at a site, RMSD$_{\rm{corrected}}$, is simply the distance between the two Envs minus this noise.
 {\bf (B)} The bottom distribution (orange) shows the corrected distances between BG505 and BF520 at all alignable sites.
 The next distribution (blue) is a null generated by computing the corrected distances on all randomizations of the replicates among Envs.
-The top two distributions (green) compare Env to the non-homologous influenza hemagglutinin protein~\citep{doud2016accurate} simply putting sites into correspondence based on sequence number.
+The top two distributions (green) compare Env to the non-homologous influenza hemagglutinin (HA) protein~\citep{doud2016accurate} simply putting sites into correspondence based on sequence number.
 We compute the $P$-value that a site has shifted between BG505 and BF520 as the fraction of the null distribution that exceeds that shift, and identify significant shifts at a false discovery rate (FDR) of 0.1 using the method of \citet{benjamini1995controlling}.
 Using this approach, 30 of the 659 sites have significant shifts (corrected distance $\ge$0.22).
 {\bf (C)} All sites that have significantly shifted their amino-acid preferences at an FDR of 0.01.
 For each site, the logo stacks show the across-replicate average preferences for BG505 and BF520.
+The sites are sorted by the magnitude of the shift.
 }
 \figdata{\label{figdata:prefsdist}The corrected distances between BG505 and BF520 at each site are in \texttt{BG505\_to\_BF520\_prefs\_dist.csv}.}
 \end{fullwidth}
 \end{figure}
 
-We therefore used a more statistically rigorous approach to identify sites where the amino-acid preferences had shifted between BG505 and BF520 by an amount that exceeds the noise in our experiments.
-We first re-scaled the preferences from each experimental replicate by the stringency parameter for that Env from Table~\ref{tab:phydms} to uniformly calibrate all measurements to match the stringency of natural selection on clade A Envs.
+We therefore used a more rigorous approach to identify sites where the amino-acid preferences differ between BG505 and BF520 by an amount that exceeds the noise in our experiments.
+We first re-scaled the preferences from each experimental replicate by the stringency parameter for that Env from Table~\ref{tab:phydms} to calibrate all measurements to the stringency of natural selection.
 We then identified the 659 sites in the mutagenized regions of Env that are pairwise alignable between BG505 and BF520 (Figure~\ref{fig:prefsdist}-source~data~\ref{figdata:prefsdist}).
-For each of these sites, we then calculated the shift in amino-acid preferences between Envs using an approach similar to that of \citet{doud2015site} as illustrated in Figure~\ref{fig:prefsdist}A.
-This approach calculates the magnitude of the shift after correcting for experimental noise by comparing the differences in preferences between replicates for BG505 and BF520 to the differences between replicates of the same Env.
+For each site, we calculated the shift in amino-acid preferences between Envs using an approach similar to that of \citet{doud2015site} as illustrated in Figure~\ref{fig:prefsdist}A.
+This approach calculates the magnitude of the shift after correcting for experimental noise by comparing the differences in preferences between replicates for BG505 and BF520 to the differences between replicates for the same Env.
+Figure~\ref{fig:prefsdist}A shows this calculation for a site that has not shifted (site 598, which strongly prefers cysteine in both Envs), the most shifted site (512, which shifts from being mutationally tolerant in BG505 to strongly preferring alanine in BF520), and several other sites with more intermediate behaviors.
+
+The overall distribution of shifts between BG505 and BF520 is shown in Figure~\ref{fig:prefsdist}B.
+Most sites have relatively small shifts (close to zero), although there is a long tail of sites with large shifts.
+This tail reaches its upper value with site 512, which has a shift of 0.52 out of a maximum possible of 1.0.
+How should we interpret this distribution -- have mutational effects have shifted a lot, or not very much?
+We can establish an upper-bound for how much sites can shift by comparing Env to a \emph{non}-homologous protein.
+Figure~\ref{fig:prefsdist}B shows the distribution of shifts when comparing Env to influenza's hemagglutinin protein, which has previously had its amino-acid preferences measured by deep mutational scanning~\citep{doud2016accurate} .
+Most sites have large shifts between Env and hemagglutinin, with the typical shift being $\sim$0.4 and some approaching the maximum value of 1.0.
+We can also establish a lower-bound by creating a null distribution for the expected shifts if all differences are simply due to experimental noise.
+This null distribution is created by randomizing the experimental replicates among Envs.
+Figure~\ref{fig:prefsdist}B shows that the null distribution is more peaked at zero than the real distribution, and does not have the same prominent tail of sites with large shifts.
+The answer to the question of how much mutational effects have shifted is therefore nuanced: they have substantially shifted at some sites, but remain vastly more similar between the two Envs than between two unrelated proteins. 
+
+We can use the null distribution to identify sites where the shifts between BG505 and BF520 are significantly larger than the noise in our experiments (Figure~\ref{fig:prefsdist}B).
+There are 30 such sites at a false discovery rate of 0.1.
+Figure~\ref{fig:prefsdist}C shows the amino-acid preferences of these significantly shifted sites for each Env.
+For the majority of shifted sites, one Env prefers a specific amino acid whereas the other Env tolerates many amino acids; for instance, see sites 512, 516, 165, 605 and 505 in Figure~\ref{fig:prefsdist}C.
+Such broadening and narrowing of a site's mutational tolerance is often observed during protein evolution, and is frequently~\citep{wang2002evolution,bloom2006protein,gong2013stability,kumar2017stability} although not always~\citep{starr2017alternative} linked to changes in protein stability -- with a more stable protein typically being more mutationally tolerant.
+Work with engineered Env protein in the form of ``SOSIP'' trimer~\citep{binley2000recombinant,sanders2002stabilization} has shown that BG505 SOSIP is more thermostable than BF520 SOSIP~\citep{verkerke2016epitope}.
+It is therefore interesting to note that the shifted sites often (although not always, see sites 165 and 520 in Figure~\ref{fig:prefsdist}C) tolerate more mutations in the more stable BG505 Env.
  
-
-The blue histogram in Fig \ref{fig:ch3_distances}B shows the distribution of site-specific $RMSD_{corrected}$ values between BG505 and BF520 for all 616 sites being compared (Fig \ref{fig:ch3_homologs_corr}).
-Most sites have distances greater than zero.
-Yet, only a small fraction of sites have large distances as extreme as sites 512 and 309 ($RMSD_{corrected}$ = 0.30-0.47; Fig \ref{fig:ch3_distances}A), as indicated by the small tail at the positive end of the distribution.
-Thus, it appears that few sites have dramatically shifted in preference.
-However, since $RMSD_{corrected}$ is influenced by noise, and since this noise is heterogeneous between sites, it was unclear exactly what the distribution would look like if Env's preferences had actually shifted at a large number of sites.
-We estimated the expected shape of this distribution by comparing BG505's preferences with the preferences from influenza HA, comparing all 480 sites that overlap in primary sequence.
-Since these proteins are non-homologous, we expected large site-specific differences in their preferences, mimicking large shifts during evolution.
-The green histogram in Fig \ref{fig:ch3_distances}B shows the resulting distribution of $RMSD_{corrected}$ values between Env and HA.
-As expected, the values in the Env-HA comparison tend to be much larger than the values in the Env-Env comparison.
-Thus, most differences between Env homologs are small-to-intermediate in effect size relative to the typical differences we observe for non-homologous sites.
-
-To examine the preference shifts in greater detail, we made a logo plot that shows the estimated shift for each amino acid at each of the 616 sites being compared (Fig \ref{fig:ch3_diffs_logo}).
-As described in the figure legend, this logo plot shows the results of subtracting the averaged preferences between homologs and then adjusting the total height of the letters at each site to correspond to that site's $RMSD_{corrected}$ value from Fig \ref{fig:ch3_distances}B.
-Most sites have small-to-intermediate stack heights, reflecting the fact that most site have relatively small-to-intermediate $RMSD_{corrected}$ values in Fig \ref{fig:ch3_distances}B.
-Sites where we detect large shifts between homologs are distributed throughout Env's primary sequence.
-The observed shifts follow a variety of patterns.
-At some sites, the preferences are strongly shifted for just a few amino acids (e.g., sites 309 and 288).
-At other sites, the preferences are strongly shifted in terms of the overall number of tolerated mutations (e.g., sites 512, 516, 599).
-Many of the largest shifts involved shifting from one hyrdrophobic amino acid to another (e.g., sites 165, 288, 307, 309).
-Overall, the shifts in the preferences are highly heterogeneous between sites.
-We are currently validating our findings for a subset of mutations by independently cloning each of these mutations into proviral plasmids, and then testing the ability of mutant viruses to replicate in cell culture.
-
+ An important caveat is that the foregoing analysis only identifies sites with shifts that exceed the magnitude of the experimental noise.
+ It is possible that other sites have undergone small shifts not detectable by our experiments -- indeed, a recent study by \citet{starr2017pervasive} found that small-effect mutational shifts are common during the evolution of the Hsp90 protein in yeast.
+ However, it is not technically feasible to experimentally measure the fitness effects of mutations to HIV with the same precision as for model organisms such as yeast.
+Therefore, we can only conclude that 30 Env sites have undergone \emph{detectable} shifts in amino-acid preferences between BG505 and BF520.
+It is possible that more sensitive experiments would find additional small shifts, but our approach should have identified all sites of large to moderate shifts. 
 
 \subsection*{Looking at how shifts relate to evolution and structure}
 
@@ -586,7 +590,9 @@ Thus, a $RMSD_{corrected}$ value near zero could indicate that a site's preferen
 
 
 \section{Acknowledgments}
-\jdbcomment{add this}
+We thank Michael Doud and Orr Ashenberg for computer code that helped form the basis for some of the analyses.
+We thank Kelly Lee for helpful input about the relative stabilities of the BG505 and BF520 Envs.
+\jdbcomment{add more}
 
 \bibliography{references.bib}
 
