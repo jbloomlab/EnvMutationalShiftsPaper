@@ -100,7 +100,7 @@ Overall, our work provides across-strain genotype-to-phenotype maps that inform 
 
 \section{Results}
 
-\subsection*{Two Env homologs from clade A transmitted-founder viruses}
+\subsection{Two Env homologs from clade A transmitted-founder viruses}
 The viruses most relevant to HIV's long-term evolution are those which are transmitted from human-to-human.
 However, the only prior work that has measured how all Env amino-acid mutations affect HIV replication is a study by some of us~\citep{haddox2016experimental} that used a late-stage lab-passaged CXCR4-tropic virus~\citep[LAI;][]{peden1991changes}.
 The properties of Env can vary substantially between such late-stage viruses and the transmitted-founder viruses relevant to HIV's long-term evolution~\citep{sagar2006human,wilen2011phenotypic,parrish2013phenotypic}.
@@ -134,7 +134,7 @@ Figure~\ref{fig:tree} shows the phylogenetic relationship among these two Envs a
 BG505 and BF520 have typical divergence for two clade A Envs: they are identical at 721 of the 836 pairwise-alignable protein sites (86.2\% identity), and 549 of the 616 sites (89.1\% identity) in the ectodomain and transmembrane domain that are alignable across the clade A alignment (Figure~\ref{fig:tree}-source~data~\ref{figdata:alignment}, Figure~\ref{fig:tree}-source~data~\ref{figdata:mask}).
 The divergence between BG505 and BF520 therefore offers ample opportunity to investigate mutational shifts during Env evolution.
 
-\subsection*{Deep mutational scanning to measure the effects of all amino-acid mutations to each Env on HIV replication}
+\subsection{Deep mutational scanning to measure the effects of all amino-acid mutations to each Env on HIV replication}
 We have previously described a deep mutational scanning strategy for measuring how all amino-acid mutations to Env affect HIV replication in cell culture, and applied this strategy to the LAI strain~\citep{haddox2016experimental}.
 In addition to using a late-stage lab-adapted HIV strain, that study had another shortcoming: the measurements were quite noisy.
 Specifically, the Pearson correlation coefficients between measurements of mutational effects from independent biological replicates were in the range of $R = 0.45$ to $0.50$~\citep{haddox2016experimental}.
@@ -231,7 +231,7 @@ Because of the clear superiority of the current measurements, in this paper we d
 Figure~\ref{fig:mutfreqs}B also shows that while replicates are well correlated across BG505 and BF520, the replicates for BG505 are more correlated with each other than with replicates for BF520, and vice versa.
 This fact hints that there are some shifts in amino-acid preferences between the two Envs -- something that is investigated with more statistical rigor later in this paper.
 
-\subsection*{Amino-acid preferences of the Envs and their relationship to HIV evolution in nature}
+\subsection{Amino-acid preferences of the Envs and their relationship to HIV evolution in nature}
 The most immediate question is how authentically the experimental measurements describe the actual selection on Env function in nature.
 Direct comparisons between experimentally measured amino-acid preferences and amino-acid frequencies in natural sequences are confounded by the fact that the natural sequences are evolutionarily related.
 This problem can be overcome by making the comparison in a phylogenetic context.
@@ -307,7 +307,7 @@ The deep mutational scanning is also consistent with prior knowledge about sites
 For instance, Env has five variable loops that mostly evolve under weak constraint in nature~\citep{starcich1986identification,zolla2010structure} -- and most sites in these loops are mutationally tolerant in our deep mutational scanning (see sites indicated by gray overlay bars in Figures~\ref{fig:BG505prefs} and \ref{fig:BF520prefs}, such as 132 to 195).
 It is beyond the scope of this paper to catalog associations between our measurements and all other prior mutational studies of Env, but we anticipate that the complete maps of mutational effects in Figures~\ref{fig:BG505prefs} and \ref{fig:BF520prefs} will be useful for future sequence-structure-function studies.
 
-\subsection*{Shifts in amino-acid preferences between BG505 and BF520}
+\subsection{Shifts in amino-acid preferences between BG505 and BF520}
 The most fundamental question that we seek to address is how similar the effects of mutations are between the two Envs.
 We can get some hint simply by examining Figure~\ref{fig:mutfreqs}B, which shows the correlations among the amino-acid preferences measured for all experimental replicates for both BG505 and BF520.
 All replicates are strongly correlated with each other regardless of which Env was used, indicating that many aspects of the preferences are conserved between BG505 and BF520.
@@ -371,15 +371,50 @@ Figure~\ref{fig:prefsdist}C shows the amino-acid preferences of these significan
 For the majority of shifted sites, one Env prefers a specific amino acid whereas the other Env tolerates many amino acids; for instance, see sites 512, 516, 165, 605 and 505 in Figure~\ref{fig:prefsdist}C.
 Such broadening and narrowing of a site's mutational tolerance is often observed during protein evolution, and is frequently~\citep{wang2002evolution,bloom2006protein,gong2013stability,kumar2017stability} although not always~\citep{starr2017alternative} linked to changes in protein stability -- with a more stable protein typically being more mutationally tolerant.
 Work with engineered Env protein in the form of ``SOSIP'' trimer~\citep{binley2000recombinant,sanders2002stabilization} has shown that BG505 SOSIP is more thermostable than BF520 SOSIP~\citep{verkerke2016epitope}.
-It is therefore interesting to note that the shifted sites often (although not always, see sites 165 and 520 in Figure~\ref{fig:prefsdist}C) tolerate more mutations in the more stable BG505 Env.
+The fact that the shifted sites usually (although not always, see sites 165 and 520 in Figure~\ref{fig:prefsdist}C) tolerate more mutations in the more stable BG505 Env is therefore consistent with the view that increased protein stability is often associated with shifts towards higher mutational tolerance.
+
+However, not all of the significantly shifted sites show a simple pattern of broadening or narrowing of mutational tolerance.
+For instance, site 288 does not alter its mutational tolerance but rather flips its rather narrow amino-acid preference from phenylalanine in BG505 to leucine in BF520 (Figure~\ref{fig:prefsdist}C).
+Several other sites show similar but somewhat milder flips in which amino acids they prefer.
+In later sections, we investigate evolutionary and structural characteristics of these shifted sites -- but as is often the case for proteins as complex as Env, we are unable to fully rationalize many aspects of the observed sequence-function relationships.
  
- An important caveat is that the foregoing analysis only identifies sites with shifts that exceed the magnitude of the experimental noise.
- It is possible that other sites have undergone small shifts not detectable by our experiments -- indeed, a recent study by \citet{starr2017pervasive} found that small-effect mutational shifts are common during the evolution of the Hsp90 protein in yeast.
+ An important caveat to the foregoing analysis is that it only identifies the 30 sites with shifts that exceed the experimental noise.
+ It is possible that other sites have undergone small shifts not detectable by our experiments -- indeed, a recent study by \citet{starr2017pervasive} found that small shifts are common during the evolution of the Hsp90 protein in yeast.
  However, it is not technically feasible to experimentally measure the fitness effects of mutations to HIV with the same precision as for model organisms such as yeast.
 Therefore, we can only conclude that 30 Env sites have undergone \emph{detectable} shifts in amino-acid preferences between BG505 and BF520.
-It is possible that more sensitive experiments would find additional small shifts, but our approach should have identified all sites of large to moderate shifts. 
+It is possible that more sensitive experiments would find additional small shifts. 
 
-\subsection*{Looking at how shifts relate to evolution and structure}
+\subsection{Entrenchment of substitutions contributes to mutational shifts}
+What is the evolutionary process by which sites in Env shift their amino-acid preferences?
+One idea that has developed in the protein-evolution field is that substitutions become ``entrenched'' by subsequent evolution.
+Specifically, after \citet{pollock2012amino} suggested that amino-acid preferences systematically shift at sites of substitutions, \citet{shah2015contingency} formalized a definition of entrenchment which \citet{starr2017pervasive} subsequently reduced to experimental practice.
+Entrenchment is defined as the tendency of a mutational reversion to become increasingly unfavorable as a sequence evolves.
+Given two homologs, if there is no entrenchment then the effect of mutating a site in the first homolog to its identity in the second will simply be the opposite of mutating the site in the second homolog to its identity in the first.
+But if there is entrenchment, then both mutations will be unfavorable, since the site is entrenched at its preferred identity in each homolog.
+
+\begin{figure}
+\centerline{\includegraphics[clip=true, trim=0in 0in 0in 0.7in, width=0.7\textwidth]{figures/entrenchment.pdf}}
+\caption{\label{fig:entrenchment}
+Entrenchment of substitutions during the divergence of BG505 and BF520.
+There are 12,521 possible amino-acid mutations at the 659 mutagenized sites alignable between BG505 and BF520.
+The blue densities show the effects of all these mutations to BG505 and BF520.
+The orange densities show the effects of just the 92 mutations that convert BG505 to BF520 or vice versa.
+In the absence of entrenchment, the effect of mutating a site in BG505 to its identity in BF520 should be the negative of the effect of mutating the site in BF520 to its identity in BG505.
+In this case, we would expect the BF520$\rightarrow$BG505 distribution to be the mirror image of the BG505$\rightarrow$BF520 distribution -- and both distributions should be centered around zero if the two Envs are equivalently functional.
+Instead, mutating a site in either Env to its identity in the other Env tends to be deleterious, indicating that substitutions tend to be entrenched in the protein variant in which they have fixed.
+The effect of a mutation is quantified as the ratio of the site's preference for the mutant amino acid to the preference for the wildtype amino acid.
+}
+\end{figure}
+
+Figure~\ref{fig:entrenchment} shows the actual distribution of effects for mutating all sites that differ between BG505 and BF520 to the identity in the other Env.
+As expected under entrenchment, the average effect of these mutations is negative -- although there are a substantial number of sites where the substitutions distinguishing BG505 and BF520 are not entrenched, since not all mutational flips are deleterious. 
+We can get some sense of the magnitude of the entrenchment by comparing the effects of the BG505$\leftrightarrow$BF520 mutations to the distribution of effects of all possible amino-acid mutations (Figure~\ref{fig:entrenchment}).
+This comparison shows that reverting even highly entrenched substitutions is still more favorable than random amino-acid mutations.
+Therefore, entrenchment occurs for some but not all substitutions that distinguish BG505 and BF520, and the magnitude of entrenchment is less than the effect of a typical random mutation.
+
+\subsection{Looking at how shifts relate to evolution and structure}
+
+
 
 Next, we sought to explore the evolutionary basis of these shifts.
 One prediction is that the shifts would be concentrated at sites that differ between homologs.
@@ -407,12 +442,6 @@ Note that the analyses in panels B-D are restricted to only those sites that are
 \figdata{Statistical testing of whether significantly shifted sites are more likely to have substituted between homologs are in \texttt{shifts\_vs\_subs\_table.txt}.}
 \end{figure}
 
-\begin{figure}
-\centerline{\includegraphics[clip=true, trim=0in 0in 0in 0.7in, width=0.7\textwidth]{figures/entrenchment.pdf}}
-\caption{\label{fig:entrenchment}
-CAPTION
-}
-\end{figure}
 
 \subsection{Diversifying selection}
 
@@ -488,11 +517,11 @@ This technique, when applied to two different Env homologs, could be used to com
 
 \section{Methods and Materials}
 
-\subsubsection*{Sequence numbering}
+\subsection{Sequence numbering}
 We use the HXB2 numbering system \cite{korber1998numbering} for each Env homolog unless otherwise noted.
 We defined Env's ``variable loops'' according to \url{http://www.hiv.lanl.gov/}, but did not consider the disulfide-bonded cysteines as part of the loops.
 
-\subsubsection*{Codon-mutant libraries}
+\subsection{Codon-mutant libraries}
 For BF520 \textit{env}, we used the codon-mutant libraries generated from a previous study \cite{dingens2017comprehensive}.
 For BG505 \textit{env}, we generated codon-mutant libraries using essentially the same methods as the previous study, but with a few modifications.
 We computationally generated the sequences of the codon-tiling primers for the PCR-mutagenesis step using the same approach as in~\cite{dingens2017comprehensive}.
@@ -509,7 +538,7 @@ The transformations yielded between 1.5-3.6 million unique clones for each of th
 As before, we scraped the plated colonies and maxiprepped the plasmid DNA, but this time we did not include the 4-hour outgrowth step after the scraping step.
 For the wildtype controls, we maxiprepped three independent cultures of wildtype BG505 \textit{env} in the \textit{env} locus of the full-length Q23 proviral plasmid.
 
-\subsubsection*{Generation and passaging of viruses}
+\subsection{Generation and passaging of viruses}
 For BF520, we analyzed the viruses generated and passaged in our previous study \cite{dingens2017comprehensive}.
 For BG505, we generated and passaged viral libraries using essentially the same methods.
 First, for each replicate, we generated mutant viruses by transfecting 293T cells in three 6-well plates with a mixture of 2 ug mutant plasmid DNA and 6 uL FuGENE 6 Transfection Reagent (Promega, E269A) and 100 uL DMEM per well.
@@ -532,7 +561,7 @@ For each virus, we infected 1 million TMZ-bl infectious units into 1 million Sup
 Three hours post-infection, we pelleted the cells and resuspended them in fresh media without any DEAE-dextran.
 At 12 hours post-infection, we pelleted cells, washed them once with PBS, and then used a miniprep kit to harvest reverse-transcribed unintegrated viral DNA.
 
-\subsubsection*{Generation of samples for Illumina sequencing}
+\subsection{Generation of samples for Illumina sequencing}
 We deeply sequenced each plasmid library before selection and each viral library after the two passages, as well as the wildtype plasmids and wildtype viruses that served as controls.
 First, we generated PCR amplicons of \textit{env} using the same approach as~\cite{dingens2017comprehensive} with the primers: 5'-GAAGACAGTGGCAATGAGAGTGATGG-3' and 5'-TTCCCTAACCTCAGGCCATCC-3'.
 Next, we sequenced these amplicons using a barcoded sub-amplicon sequencing strategy to reduce the sequencing error rate, as previously described~\cite{doud2016accurate,haddox2016experimental}, dividing \textit{env} into seven amplicons.
@@ -552,7 +581,7 @@ The primer pairs used to generate these subamplicons are as follows, where N cha
 
 The resulting deep-sequencing data will be made available on the Sequence Read Archive upon the publication of this work.
 
-\subsubsection*{Analysis of deep-sequencing data}
+\subsection{Analysis of deep-sequencing data}
 
 We analyzed the deep-sequencing data using the \texttt{dms\_tools} software package~\cite{bloom2015software}.
 The specific code we used will be made available upon the publication of this work.
@@ -561,7 +590,7 @@ First, we aligned sequencing reads to \textit{env} and computed site-specific co
 Next, we inferred Env's preferences from the codon counts using \texttt{dms\_inferprefs}.
 We then used a custom script to compare these preferences between homologs.
 
-\subsubsection*{Alignments and phylogenetic analyses of HIV-1 {\it env} sequences}
+\subsection{Alignments and phylogenetic analyses of HIV-1 {\it env} sequences}
 We made the trees in Fig \ref{ref:ch3_tree} using multiple-sequence alignments downloaded from the HIV sequence database (\url{http://www.hiv.lanl.gov/}) that we then manually curated in the following ways:
 First, we removed sequences that differed in length from the HXB2 reference sequence (including gap characters), or which contained a premature stop codon, ambiguous residue, or frame-shift mutation.
 Next, we removed columns in the alignment for which we lack deep mutational scanning data or are not present in HXB2, columns that have $>$5\% gap characters, or columns in variable loops that looked poorly aligned by eye.
@@ -571,7 +600,7 @@ In the \texttt{phydms}~\cite{hilton2017phydms} analyses, we fixed the topologies
 The trees shown in Fig \ref{ref:ch3_tree} are the results of optimizing the branch lengths using the YNGKP M5 model.
 The code we used to generate these alignments, build the trees, and conduct the \texttt{phydms} analyses will be made available upon publication of this work.
 
-\subsubsection*{Preference differences}Next, we sought to quantify shifts in Env's preferences at a site-specific level.
+\subsection{Preference differences}Next, we sought to quantify shifts in Env's preferences at a site-specific level.
 Correlating preferences between replicates of the same homolog showed that some sites were substantially influenced by experimental noise Fig \ref{fig:ch3_homologs_corr}.
 Thus, we quantified shifts using an approach that corrects for noise, similar to the one used in a previous study that deep mutational-scanning data between homologs of influenza's nucleoprotein \cite{doud2015site}.
 Fig \ref{fig:ch3_distances}A shows how we quantified shifts for a few example sites.
