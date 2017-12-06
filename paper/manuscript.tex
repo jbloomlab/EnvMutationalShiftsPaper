@@ -18,6 +18,9 @@
 \usepackage{float}
 \usepackage{tikz}
 
+\usepackage{amsmath} % or simply amstext
+\newcommand{\angstrom}{\textup{\AA}}
+
 
 \newfloat{suppfile}{thp}{lofsupfile}
 %\renewcommand{\thesuppfile}{Supplementary file \arabic{suppfile}}
@@ -384,6 +387,60 @@ In later sections, we investigate evolutionary and structural characteristics of
 Therefore, we can only conclude that 30 Env sites have undergone \emph{detectable} shifts in amino-acid preferences between BG505 and BF520.
 It is possible that more sensitive experiments would find additional small shifts. 
 
+\subsection{Structural and evolutionary properties of shifted sites}
+
+\begin{figure}
+{\bf \Large A} \\
+\includegraphics[width=0.8\textwidth]{figures/shifts_on_structure/shifts_on_structure.pdf}
+\\
+{\bf \Large B} \hspace{0.28\textwidth} {\bf \Large C} \hspace{0.28\textwidth} {\bf \Large D} \\
+\includegraphics[width=0.28\textwidth]{figures/rsa_vs_shifts.pdf}
+\hspace{0.01\textwidth}
+\includegraphics[width=0.28\textwidth]{figures/shifts_proximity.pdf}
+\hspace{0.01\textwidth}
+\includegraphics[width=0.4\textwidth]{figures/conservation_vs_shifts.pdf} 
+\caption{\label{fig:shiftfeatures}
+Characteristics of significantly shifted sites.
+{\bf (A)} One monomer of the Env trimer~\citep[PDB 5FYL;][]{stewart2016trimeric} is colored from gray to orange according to the magnitude of the mutational shift at each site (orange indicates large shift).
+Sites that are significantly shifted according to Figure~\ref{fig:prefsdist}B are in spheres, and all other sites are in cartoon representation.
+{\bf (B)} 
+There is no significant difference in relative solvent accessibility of sites that have and have not undergone significant shifts.
+The absolute solvent accessibility of each site was calculated using DSSP~\citep{kabsch1983dictionary} and normalized to a relative solvent accessibility using the absolute accessibilities from \citet{tien2013maximum}.
+{\bf (C)} 
+Sites of significant shifts are clustered in Env's structure.
+Shown is the distance of each significantly shifted and not-shifted site to the closest other shifted site.
+{\bf (D)}
+Large mutational shifts are \emph{not} strongly enriched at sites that have substituted between BG505 and BF520. 
+The plot shows the magnitudes of the shifts among the 83 crystallographically resolved sites that have substituted between BG505 and BF520, the 234 sites that physically contact a substitution in the Env structure (any non-hydrogen atom within 3.5\angstrom), and all other sites.
+Figure~\ref{fig:shiftfeatures}-Figure~supplement~\ref{figsupp:subs_shifts} shows that there is a modest borderline-significant tendency of significantly shifted sites to have substituted.
+All panels only show the 577 sites that are resolved in the crystal structure.
+Of the 30 significantly shifted sites identified in Figure~\ref{fig:prefsdist}B, only 28 are crystallographically resolved.
+Structural distances and solvent accessibilities were calculated using all monomers in the trimer.
+$P$ values were calculated using the Mann-Whitney $U$ test.
+}
+\figsupp[\label{figsupp:subs_shifts}Statistical testing of whether significantly shifted sites are more likely to have substituted between BG505 and BF520.]
+{The sites of significant shifts as determined in Figure~\ref{fig:prefsdist}B are somewhat more likely to be among the sites that have substituted between BG505 and BF520.
+However, this association is only borderline statistically significant, with $P = 0.055$ using a Fisher's exact test.}
+{\input{figures/shifts_vs_subs_table}}
+\end{figure}
+
+What properties distinguish the sites that have undergone substantial shifts in their amino-acid preferences?
+Figure~\ref{fig:shiftfeatures}A shows the locations of the significantly shifted sites on the crystal structure of Env.
+There is no visually obvious tendency for shifted sites to preferentially be on Env's surface or in its core, and a statistical analysis (Figure~\ref{fig:shiftfeatures}B) finds no association between a site's relative solvent accessibility and whether its amino-acid preferences have shifted.
+However, visual inspection of Figure~\ref{fig:shiftfeatures}A does suggest that the sites of significant shifts tend to cluster in Env's structure, and a statistical analysis confirms that this is indeed the case (Figure~\ref{fig:shiftfeatures}C).
+Therefore, whatever process drives shifts in Env's mutational tolerance appear to affect physically interacting clusters of residues in a coordinated fashion.
+
+An obvious hypothesis is that the strongly shifted sites are either sites that have substituted between BG505 and BF520, or are sites that physically contact such substitutions.
+According to this hypothesis, substitutions would alter the local physicochemical environment of the substituted site itself and its neighbors, thereby shifting the amino-acid preferences of all sites in this physical cluster.
+
+Next, we sought to explore the evolutionary basis of these shifts.
+One prediction is that the shifts would be concentrated at sites that differ between homologs.
+For instance, at site 309, Env's preferences shift with wildtype amino acid, where the BG505 wildtype amino acid (isoleucine) is more preferred in BG505 and the BF520 wildtype amino acid (leucine) is more preferred in BF520.
+This trend was observed in another study that compared shifts in mutational effects between homologs of influenza's nucleoprotein~\cite{doud2015site}.
+However, when we considered all sites, we did not find evidence that shifts at variable sites were stronger than shifts at conserved sites (Fig \ref{fig:ch3_shifts_at_variable_sites}).
+In the future, I plan to examine other evolutionary explanations for these shifts.
+I also plan to examine these shifts in context of Env's structure, which might lend insight into their functional basis.
+
 \subsection{Entrenchment of substitutions contributes to mutational shifts}
 What is the evolutionary process by which sites in Env shift their amino-acid preferences?
 One idea that has developed in the protein-evolution field is that substitutions become ``entrenched'' by subsequent evolution.
@@ -412,35 +469,6 @@ We can get some sense of the magnitude of the entrenchment by comparing the effe
 This comparison shows that reverting even highly entrenched substitutions is still more favorable than random amino-acid mutations.
 Therefore, entrenchment occurs for some but not all substitutions that distinguish BG505 and BF520, and the magnitude of entrenchment is less than the effect of a typical random mutation.
 
-\subsection{Looking at how shifts relate to evolution and structure}
-
-
-
-Next, we sought to explore the evolutionary basis of these shifts.
-One prediction is that the shifts would be concentrated at sites that differ between homologs.
-For instance, at site 309, Env's preferences shift with wildtype amino acid, where the BG505 wildtype amino acid (isoleucine) is more preferred in BG505 and the BF520 wildtype amino acid (leucine) is more preferred in BF520.
-This trend was observed in another study that compared shifts in mutational effects between homologs of influenza's nucleoprotein~\cite{doud2015site}.
-However, when we considered all sites, we did not find evidence that shifts at variable sites were stronger than shifts at conserved sites (Fig \ref{fig:ch3_shifts_at_variable_sites}).
-In the future, I plan to examine other evolutionary explanations for these shifts.
-I also plan to examine these shifts in context of Env's structure, which might lend insight into their functional basis.
-
-
-\begin{figure}
-{\bf \Large A} \\
-\includegraphics[width=0.9\textwidth]{figures/shifts_on_structure/shifts_on_structure.pdf}
-\\
-{\bf \Large B} \hspace{0.38\textwidth} {\bf \Large C} \hspace{0.28\textwidth} {\bf \Large D} \\
-\includegraphics[width=0.4\textwidth]{figures/conservation_vs_shifts.pdf} 
-\hspace{0.01\textwidth}
-\includegraphics[width=0.28\textwidth]{figures/rsa_vs_shifts.pdf}
-\hspace{0.01\textwidth}
-\includegraphics[width=0.28\textwidth]{figures/shifts_proximity.pdf}
-\caption{\label{fig:shiftfeatures}
-CAPTION.
-Note that the analyses in panels B-D are restricted to only those sites that are resolved in the Env crystal structure.
-}
-\figdata{Statistical testing of whether significantly shifted sites are more likely to have substituted between homologs are in \texttt{shifts\_vs\_subs\_table.txt}.}
-\end{figure}
 
 
 \subsection{Diversifying selection}
@@ -458,7 +486,7 @@ The $Q$-value indicated is the maximum of that for the two homologs.
 }{\includegraphics[width=\textwidth]{figures/purifying_selsites.pdf}}
 \figsupp[Distribution of relative solvent accessibilities among sites of diversifying and purifying selection.]{
 Sites are grouped by whether they are under diversifying or purifying selection at $Q < 0.05$ in \emph{both} homologs, or whether they do not fall into either of these categories.
-The absolute solvent accessibility of each site in the BG505 SOSIP trimer in PDB 5FYL~\citep{?} was calculated using DSSP~\citep{?}, and normalized to a relative solvent accessibility using the absolute accessibilities provided by \citet{?}.
+Relative solvent accessibilities were calculated as in Figure~\ref{fig:shiftfeatures}.
 As can be seen from these box plots with overlaid points for each site, sites of both diversifying and purifying selection tend to have higher relative solvent accessibility than other sites.
 }{\includegraphics[width=0.5\textwidth]{figures/selsites_rsa.pdf}}
 \figdata{The $\omega_r$ and associated $P$-values plotted in this figure are in \texttt{merged\_omegabysite.csv}.}
