@@ -85,7 +85,7 @@ For comparison, protein orthologs shared between humans and mice have only diver
 Env's rapid evolution has dire consequences for anti-HIV immunity, since it erodes the efficacy of most neutralizing antibodies~\citep{albert1990rapid,wei2003antibody,richman2003rapid}.
 Because of this public-health importance, numerous studies have experimentally characterized aspects of the ``evolutionary landscape'' that Env traverses.
 The immediate evolutionary space accessible to any given Env is defined by the effects on viral fitness of all $19 \times 856 \sim 1.6 \times 10^4$ single amino-acid mutations that can be made to a typical-length 856-residue Env. 
-Most studies have measured how just a small fraction of these mutations affect viral replication in cell culture~\citep{freed1989mutational,cordonnier1989single,olshevsky1990identification,lu2001structural,basmaciogullari2002identification,jacobs2005alanine,zwick2005anti,lynch2015hiv}, although it has recently become possible to use deep mutational scanning to measure the effects of many~\citep{al2014high,duenas2016saturation} or even all~\citep{haddox2016experimental} mutations to any given Env variant.
+Most mutational studies have measured how just a small fraction of these mutations affect viral replication in cell culture~\citep{freed1989mutational,cordonnier1989single,olshevsky1990identification,lu2001structural,basmaciogullari2002identification,jacobs2005alanine,zwick2005anti,lynch2015hiv}, although it has recently become possible to use deep mutational scanning to measure the effects of many~\citep{al2014high,duenas2016saturation} or even all~\citep{haddox2016experimental} mutations to an Env variant.
 
 But interpreting these studies in the context of Env evolution requires addressing a fundamental question: How informative are mutational studies of a single protein variant about constraints on long-term evolution?
 During protein evolution, substitutions at one site can shift the effect of mutations at other sites~\citep{natarajan2013epistasis,gong2013stability,harms2014historical,podgornaia2015pervasive,starr2016epistasis}.
@@ -97,7 +97,7 @@ Here we use an improved version of a previously described deep mutational scanni
 By comparing these complete mutational maps, we identify sites where amino-acid preferences have shifted between the Envs.
 Most sites show no detectable shifts, but 30 sites have clearly altered their amino-acid preferences.
 These shifted sites usually strongly prefer a specific amino acid in one Env but have shifted to tolerate many amino acids in the other Env.
-The shifted sites cluster in Env's structure, but are often distant from any amino-acid substitutions that distinguish the two Envs -- demonstrating the action of long-range epistasis.
+The shifted sites cluster in Env's structure, but are often distant from any amino-acid substitutions that distinguish the two Envs, demonstrating the action of long-range epistasis.
 By aggregating our measurements for both Envs, we identify sites that evolve faster or slower in nature than expected given the functional constraints measured in the lab, probably due to pressure for immune evasion.
 Overall, our work provides across-strain genotype-to-phenotype maps that inform the analysis of Env's structure and evolution.
 
@@ -414,7 +414,7 @@ Large mutational shifts are \emph{not} strongly enriched at sites that have subs
 The plot shows the magnitudes of the shifts among the 83 crystallographically resolved sites that have substituted between BG505 and BF520, the 234 sites that physically contact a substitution in the Env structure (any non-hydrogen atom within 3.5\angstrom), and all other sites.
 Figure~\ref{fig:shiftfeatures}-Figure~supplement~\ref{figsupp:subs_shifts} shows that there is a modest borderline-significant tendency of significantly shifted sites to have substituted.
 All panels only show the 577 sites that are resolved in the crystal structure.
-Of the 30 significantly shifted sites identified in Figure~\ref{fig:prefsdist}B, only 28 are crystallographically resolved.
+Of the 30 significantly shifted sites in Figure~\ref{fig:prefsdist}B, only 28 are crystallographically resolved.
 Structural distances and solvent accessibilities were calculated using all monomers in the trimer.
 $P$ values were calculated using the Mann-Whitney $U$ test.
 }
@@ -424,73 +424,93 @@ However, this association is only borderline statistically significant, with $P 
 {\input{figures/shifts_vs_subs_table}}
 \end{figure}
 
-What properties distinguish the sites that have undergone substantial shifts in their amino-acid preferences?
-Figure~\ref{fig:shiftfeatures}A shows the locations of the significantly shifted sites on the crystal structure of Env.
+What distinguishes the sites that have undergone significant shifts in their amino-acid preferences?
+Figure~\ref{fig:shiftfeatures}A shows the locations of the shifted sites on the crystal structure of Env.
 There is no visually obvious tendency for shifted sites to preferentially be on Env's surface or in its core, and a statistical analysis (Figure~\ref{fig:shiftfeatures}B) finds no association between a site's relative solvent accessibility and whether its amino-acid preferences have shifted.
-However, visual inspection of Figure~\ref{fig:shiftfeatures}A does suggest that the sites of significant shifts tend to cluster in Env's structure, and a statistical analysis confirms that this is indeed the case (Figure~\ref{fig:shiftfeatures}C).
-Therefore, whatever process drives shifts in Env's mutational tolerance appear to affect physically interacting clusters of residues in a coordinated fashion.
+However, visual inspection of Figure~\ref{fig:shiftfeatures}A does suggest that the sites of significant shifts tend to cluster in Env's structure, and a statistical analysis confirms that this is the case (Figure~\ref{fig:shiftfeatures}C).
+Therefore, the factors that drive shifts in Env's mutational tolerance often affect physically interacting clusters of residues in a coordinated fashion.
 
-An obvious hypothesis is that the strongly shifted sites are either sites that have substituted between BG505 and BF520, or are sites that physically contact such substitutions.
-According to this hypothesis, substitutions would alter the local physicochemical environment of the substituted site itself and its neighbors, thereby shifting the amino-acid preferences of all sites in this physical cluster.
+An obvious hypothesis is that strongly shifted sites have substituted between BG505 and BF520, or physically contact such substitutions.
+According to this hypothesis, substitutions would alter the local physicochemical environment of the substituted site and its neighbors, thereby shifting the amino-acid preferences of sites in the physical cluster.
+But surprisingly, the typical magnitude of shifts is not significantly larger at sites that have substituted or contact substitutions compared to other sites in Env (Figure~\ref{fig:shiftfeatures}C).
+There is a borderline trend for the significantly shifted sites to be more likely to have substituted between BG505 and BF520 (Figure~\ref{fig:shiftfeatures}-Figure~supplement~\ref{figsupp:subs_shifts}), but most of the shifted sites have not substituted (only 8 of the 30 shifted sites differ between the two Envs).
+The lack of a strong enrichment in shifts at substituted sites contrasts with previous protein-wide experimental~\citep{doud2015site} and simulation-based~\citep{pollock2012amino,shah2015contingency} studies of shifting amino-acid preferences, which have found that shifts are dramatically more pronounced at sites of substitutions.
+The difference may arise because these earlier studies examined proteins that are fairly conformationally static (absolutely so in the case of the simulations).
+On the other hand, Env is an extremely complex and conformationally dynamic protein~\citep{munro2014conformational,ozorowski2017open}, which may increase the opportunities for long-range epistasis to enable substitutions at one site to shift the amino-acid preferences of distant sites.
 
-Next, we sought to explore the evolutionary basis of these shifts.
-One prediction is that the shifts would be concentrated at sites that differ between homologs.
-For instance, at site 309, Env's preferences shift with wildtype amino acid, where the BG505 wildtype amino acid (isoleucine) is more preferred in BG505 and the BF520 wildtype amino acid (leucine) is more preferred in BF520.
-This trend was observed in another study that compared shifts in mutational effects between homologs of influenza's nucleoprotein~\cite{doud2015site}.
-However, when we considered all sites, we did not find evidence that shifts at variable sites were stronger than shifts at conserved sites (Fig \ref{fig:ch3_shifts_at_variable_sites}).
-In the future, I plan to examine other evolutionary explanations for these shifts.
-I also plan to examine these shifts in context of Env's structure, which might lend insight into their functional basis.
-
-\subsection{Entrenchment of substitutions contributes to mutational shifts}
-What is the evolutionary process by which sites in Env shift their amino-acid preferences?
-One idea that has developed in the protein-evolution field is that substitutions become ``entrenched'' by subsequent evolution.
-Specifically, after \citet{pollock2012amino} suggested that amino-acid preferences systematically shift at sites of substitutions, \citet{shah2015contingency} formalized a definition of entrenchment which \citet{starr2017pervasive} subsequently reduced to experimental practice.
-Entrenchment is defined as the tendency of a mutational reversion to become increasingly unfavorable as a sequence evolves.
-Given two homologs, if there is no entrenchment then the effect of mutating a site in the first homolog to its identity in the second will simply be the opposite of mutating the site in the second homolog to its identity in the first.
-But if there is entrenchment, then both mutations will be unfavorable, since the site is entrenched at its preferred identity in each homolog.
+\subsection{Entrenchment of substitutions modestly contributes to mutational shifts}
 
 \begin{figure}
-\centerline{\includegraphics[clip=true, trim=0in 0in 0in 0.7in, width=0.7\textwidth]{figures/entrenchment.pdf}}
+\centerline{\includegraphics[clip=true, trim=0in 0in 0in 0.7in, width=0.68\textwidth]{figures/entrenchment.pdf}}
 \caption{\label{fig:entrenchment}
-Entrenchment of substitutions during the divergence of BG505 and BF520.
+Entrenchment of substitutions during Env evolution.
 There are 12,521 possible amino-acid mutations at the 659 mutagenized sites alignable between BG505 and BF520.
-The blue densities show the effects of all these mutations to BG505 and BF520.
+The blue densities show the effects of all these mutations to each Env.
 The orange densities show the effects of just the 92 mutations that convert BG505 to BF520 or vice versa.
-In the absence of entrenchment, the effect of mutating a site in BG505 to its identity in BF520 should be the negative of the effect of mutating the site in BF520 to its identity in BG505.
+In the absence of entrenchment, mutating a site in BG505 to its identity in BF520 should have the opposite effect of mutating the site in BF520 to its identity in BG505.
 In this case, we would expect the BF520$\rightarrow$BG505 distribution to be the mirror image of the BG505$\rightarrow$BF520 distribution -- and both distributions should be centered around zero if the two Envs are equivalently functional.
-Instead, mutating a site in either Env to its identity in the other Env tends to be deleterious, indicating that substitutions tend to be entrenched in the protein variant in which they have fixed.
+Instead, mutating a site in either Env to its identity in the other Env tends to be deleterious, indicating that substitutions are often entrenched in the Env in which they have fixed.
 The effect of a mutation is quantified as the ratio of the site's preference for the mutant amino acid to the preference for the wildtype amino acid.
 }
 \end{figure}
 
-Figure~\ref{fig:entrenchment} shows the actual distribution of effects for mutating all sites that differ between BG505 and BF520 to the identity in the other Env.
-As expected under entrenchment, the average effect of these mutations is negative -- although there are a substantial number of sites where the substitutions distinguishing BG505 and BF520 are not entrenched, since not all mutational flips are deleterious. 
+One idea that has recently gained support in the protein-evolution field is that substitutions become ``entrenched'' by subsequent evolution.
+Specifically, after \citet{pollock2012amino} suggested that amino-acid preferences systematically shift at sites of substitutions, \citet{shah2015contingency} formalized a definition of entrenchment which \citet{starr2017pervasive} subsequently reduced to experimental practice.
+Entrenchment is the tendency of a mutational reversion to become increasingly unfavorable as a sequence evolves.
+Given two homologs, if there is no entrenchment then the effect of mutating a site in the first homolog to its identity in the second will simply be the opposite of mutating the site in the second homolog to its identity in the first.
+But if there is entrenchment, then both mutations will be unfavorable, since the site is entrenched at its preferred identity in each homolog.
+
+Figure~\ref{fig:entrenchment} shows the distribution of effects for mutating all sites that differ between BG505 and BF520 to the identity in the other Env.
+As expected under entrenchment, the average effect of these mutations is deleterious -- although there are a substantial number of sites where the mutational flips are not deleterious. 
 We can get some sense of the magnitude of the entrenchment by comparing the effects of the BG505$\leftrightarrow$BF520 mutations to the distribution of effects of all possible amino-acid mutations (Figure~\ref{fig:entrenchment}).
-This comparison shows that reverting even highly entrenched substitutions is still more favorable than random amino-acid mutations.
+This comparison shows that even unfavorable inter-Env mutational flips are generally more favorable than random amino-acid mutations.
 Therefore, entrenchment occurs for some but not all substitutions that distinguish BG505 and BF520, and the magnitude of entrenchment is less than the effect of a typical random mutation.
+Entrenchment of substitutions therefore contributes to some of the mutational shifts.
+But given that many of these shifts occur at sites that do not even differ between the Envs (Figure~\ref{fig:shiftfeatures}D), entrenchment of substitutions is clearly not the only cause of the shifting amino-acid preferences.
 
 
-
-\subsection{Diversifying selection}
+\subsection{Comparing selection in the lab to natural selection}
+All the foregoing experiments measure the effects of mutations on viral replication \emph{in a T-cell line in the lab}.
+But HIV actually evolves in humans, where additional selection pressures on Env are undoubtedly present.
+For instance, antibody pressure might increase the rate of evolution at some sites~\citep{wei2003antibody}, whereas pressure to mask certain epitopes~\citep{kwong2002hiv} might add constraint at other sites. 
+Comparing selection in our experiments to natural selection can identify sites that are under such additional pressures during HIV's actual evolution in humans.
+In contrast, standard methods for analyzing protein evolution that do not use experiments only test if sites are changing faster or slower than expected under neutral selection~\citep[so-called dN/dS tests;][]{yang2000codon,kosakovsky2005not,murrell2013fubar} -- something that is of less utility since we already know that Env is under strong functional constraint.
 
 \begin{figure}
 \includegraphics[width=1.0\textwidth]{figures/omegabysite_structural_analysis/omegabysite_structural_analysis.pdf}
-\caption{\label{fig:divselcorr}
-Correlation between sites of diversifying and purifying selection among homologs.
+\caption{\label{fig:divsel}
+Sites in Env that evolve faster or slower in nature than expected given the functional constraints measured in the lab.
+We calculated the statistical evidence ($P$ value) that each site evolves faster ($\omega_r > 1$) or slower ($\omega_r < 1$) than expected given the experimentally measured amino-acid preferences using the method of \citet{bloom2017identification}.
+We then converted the $P$ values to $Q$ values to interpret them in the context of the false discovery rate~\citep{storey2003statistical}
+{\bf (A)}
+One monomer of the Env trimer~\citep[PDB 5FYL;][]{stewart2016trimeric} is colored from blue to red based on the strength of evidence that sites are evolving slower (blue) or faster (red) than expected given the BG505 experiments.
+Sites where the rate of evolution is significantly different than expected at a false discovery rate of 0.05 are shown in spheres.
+{\bf (B)}
+Sites of slower or faster than expected evolution given the BF520 experiments.
+For both sets of experiments, sites that evolve faster or slower than expected are often on Env's surface (Figure~\ref{fig:divsel}-Figure~supplement~\ref{figsupp:divselRSA}).
+{\bf (C)}
+The results are similar regardless of whether the BG505 or BF520 experiments are used.
+Many of the sites of slower-than-expected evolution are asparagines in N-linked glycosylation motifs.
+All sites that evolve slower than expected for both experimental datasets are in Figure~\ref{fig:divsel}-Figure~supplement~\ref{figsupp:slower}.
+{\bf (D)} 
+A large cluster of sites that evolve slower than expected is likely involved in Env's transition between open and closed conformational states.
+Gray boxes indicate sites that \citet[PDB 5VN3]{ozorowski2017open} proposed form the hydrophobic network that regulates the conformational change; blue boxes and sticks indicate sites that evolve slower than expected.
 }
-\figsupp[Amino-acid preferences and alignment frequencies at sites of purifying selection.]{
+\figsupp[\label{figsupp:divselRSA}Relative solvent accessibilities of sites evolving faster or slower than expected.]{
+Sites are grouped by whether they have $\omega_r > 1$ (diversifying selection) or $\omega_r < 1$ (purifying selection) at $Q < 0.05$ in \emph{both} homologs, or whether they do fall into neither of these categories.
+Relative solvent accessibilities were calculated as in Figure~\ref{fig:shiftfeatures}.
+As can be seen from these box plots with overlaid points for each site, sites of both diversifying and purifying selection tend to have higher relative solvent accessibility than other sites.
+}{\includegraphics[width=0.5\textwidth]{figures/selsites_rsa.pdf}}
+\figsupp[\label{figsupp:slower}Amino-acid preferences and alignment frequencies of sites that evolve slower than expected.]{
 This plot shows all sites that are evolving more slowly than expected in natural sequences given the preferences measured in both homologs.
 Specifically, it shows all sites with $\omega_r < 1$ at $Q < 0.05$ for the ExpCMs for \emph{both} BG505 and BF520.
 For each site, the plots show the preferences averaged across replicates and re-scaled for each homolog, as well as the frequencies of amino acids in the clade A Env alignment. 
 The $Q$-value indicated is the maximum of that for the two homologs.
 }{\includegraphics[width=\textwidth]{figures/purifying_selsites.pdf}}
-\figsupp[Distribution of relative solvent accessibilities among sites of diversifying and purifying selection.]{
-Sites are grouped by whether they are under diversifying or purifying selection at $Q < 0.05$ in \emph{both} homologs, or whether they do not fall into either of these categories.
-Relative solvent accessibilities were calculated as in Figure~\ref{fig:shiftfeatures}.
-As can be seen from these box plots with overlaid points for each site, sites of both diversifying and purifying selection tend to have higher relative solvent accessibility than other sites.
-}{\includegraphics[width=0.5\textwidth]{figures/selsites_rsa.pdf}}
-\figdata{The $\omega_r$ and associated $P$-values plotted in this figure are in \texttt{merged\_omegabysite.csv}.}
+\figdata{The $\omega_r$ and $Q$-values are in \texttt{merged\_omegabysite.csv}.}
 \end{figure}
+
+We determined whether each site in Env was evolving faster or slower in nature than expected given three models: that evolution is purely neutral (all nonsynonymous and synonymous mutations have equivalent effects), that sites are under the protein-level constraint measured in our experiments with BG505, or that sites are under the constraint measured with BF520. 
 
 \section{Discussion}
 We experimentally estimated the effects of all single amino-acid changes to two Env homologs with 85\% amino-acid identity.
@@ -647,7 +667,8 @@ Thus, a $RMSD_{corrected}$ value near zero could indicate that a site's preferen
 
 
 \section{Acknowledgments}
-We thank Michael Doud and Orr Ashenberg for computer code that helped form the basis for some of the analyses.
+We thank Michael Doud and Orr Ashenberg for computer code that formed the basis for some of the analyses.
+We thank Andrew Ward for pointing out to us that some of the sites with slower-than-expected rates of evolution are involved in Env's conformational changes upon receptor binding.
 We thank Kelly Lee for helpful input about the relative stabilities of the BG505 and BF520 Envs.
 \jdbcomment{add more}
 
