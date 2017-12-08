@@ -250,9 +250,9 @@ Shown are the results of maximum likelihood fitting of substitution models to th
 Experimentally informed codon models~\citep[ExpCM,][]{hilton2017phydms} utilizing the across-replicate average of the deep mutational scanning describe Env's natural evolution far better than a standard codon substitution model~\citep[the M5 model of][]{yang2000codon} as judged by comparing the Akaike information criteria~\citep[$\Delta$AIC,][]{posada2004model}.
 Both ExpCM models have a stringency parameter $>$1.
 All models draw $\omega$ from a gamma distribution, and the table shows the mean ($\overline{\omega}$) and shape parameters ($\omega_{\alpha}$ and $\omega_{\beta}$) of this distribution.
-The last two columns show the number of sites evolving faster ($\omega_r > 1$) or slower ($\omega_r < 1$) than expected, as determined using the approach in \citet{bloom2017identification}.
+The last two columns show the number of sites evolving faster ($\omega_r > 1$) or slower ($\omega_r < 1$) than expected at a false discovery rate of 0.05, as determined using the approach in \citet{bloom2017identification}.
 Analyses were performed using \texttt{phydms} (\url{http://jbloomlab.github.io/phydms/}).
-Table~\ref{tab:phydms}-source-data~\ref{tabledata:phydms} shows the results of analyses of the same tree with additional substitution models.
+Table~\ref{tab:phydms}-source-data~\ref{tabledata:phydms} shows the results for additional substitution models.
 }
 \tabledata{\label{tabledata:phydms}Results for phylogenetic models where $\omega$ is not drawn from a gamma-distribution or where the preferences are averaged across sites to eliminate the site specificity are in \texttt{modelcomparison.md}.}
 \end{fullwidth}
@@ -470,11 +470,12 @@ But given that many of these shifts occur at sites that do not even differ betwe
 
 
 \subsection{Comparing selection in the lab to natural selection}
-All the foregoing experiments measure the effects of mutations on viral replication \emph{in a T-cell line in the lab}.
+All the foregoing experiments measure the effects of mutations on viral replication in a T-cell line in the lab.
 But HIV actually evolves in humans, where additional selection pressures on Env are undoubtedly present.
-For instance, antibody pressure might increase the rate of evolution at some sites~\citep{wei2003antibody}, whereas pressure to mask certain epitopes~\citep{kwong2002hiv} might add constraint at other sites. 
+For instance, antibody pressure might increase the rate of evolution at some sites~\citep{albert1990rapid,wei2003antibody,richman2003rapid}, whereas pressure to mask certain epitopes~\citep{kwong2002hiv} might add constraint at other sites. 
 Comparing selection in our experiments to natural selection can identify sites that are under such additional pressures during HIV's actual evolution in humans.
-In contrast, standard methods for analyzing protein evolution that do not use experiments only test if sites are changing faster or slower than expected under neutral selection~\citep[so-called dN/dS tests;][]{yang2000codon,kosakovsky2005not,murrell2013fubar} -- something that is of less utility since we already know that Env is under strong functional constraint.
+%In contrast, standard methods for analyzing protein evolution that do not use experiments only test if sites are changing faster or slower than expected under neutral selection~\citep[so-called dN/dS tests;][]{yang2000codon,kosakovsky2005not,murrell2013fubar}.
+% -- something that is of less utility since we already know that Env is under strong functional constraint.
 
 \begin{figure}
 \includegraphics[width=1.0\textwidth]{figures/omegabysite_structural_analysis/omegabysite_structural_analysis.pdf}
@@ -495,6 +496,7 @@ All sites that evolve slower than expected for both experimental datasets are in
 {\bf (D)} 
 A large cluster of sites that evolve slower than expected is likely involved in Env's transition between open and closed conformational states.
 Gray boxes indicate sites that \citet[PDB 5VN3]{ozorowski2017open} proposed form the hydrophobic network that regulates the conformational change; blue boxes and sticks indicate sites that evolve slower than expected.
+All analyses used the phylogenetic tree in Figure~\ref{fig:tree}.
 }
 \figsupp[\label{figsupp:divselRSA}Relative solvent accessibilities of sites evolving faster or slower than expected.]{
 Sites are grouped by whether they have $\omega_r > 1$ (diversifying selection) or $\omega_r < 1$ (purifying selection) at $Q < 0.05$ in \emph{both} homologs, or whether they do fall into neither of these categories.
@@ -510,7 +512,28 @@ The $Q$-value indicated is the maximum of that for the two homologs.
 \figdata{The $\omega_r$ and $Q$-values are in \texttt{merged\_omegabysite.csv}.}
 \end{figure}
 
-We determined whether each site in Env was evolving faster or slower in nature than expected given three models: that evolution is purely neutral (all nonsynonymous and synonymous mutations have equivalent effects), that sites are under the protein-level constraint measured in our experiments with BG505, or that sites are under the constraint measured with BF520. 
+We determined whether each site in Env evolves faster or slower in nature than expected given three models: that evolution is purely neutral (all nonsynonymous and synonymous mutations have equivalent effects), that sites are under the protein-level constraint measured in our experiments with BG505, or that sites are under the constraint measured with BF520. 
+The first model used a standard dN/dS test~\citep[the ``FEL'' method of][]{kosakovsky2005not}, whereas the other two models performed a conceptually similar test but used ExpCM that incorporate experimental measurements as described by \citet{bloom2017identification}.
+As shown in Table~\ref{tab:phydms}, the standard dN/dS model finds hundreds of sites evolve slower than expected under neutral evolution, and only a handful of sites evolve faster than expected under neutral evolution.
+This finding is only of modest interest, since it is well known that Env is under functional constraint and so has many sites that evolve non-neutrally.
+In contrast, ExpCM that test the rates of evolution relative to the experimentally measured constraints find far fewer sites that evolve slower than expected, but many more sites that evolve faster (Table~\ref{tab:phydms}). 
+
+The sites that evolve slower or faster than expected from the experiments are shown in Figure~\ref{fig:divsel}A,B.
+The identified sites are similar regardless of whether we use the experiments with BG505 or BF520 (Figure~\ref{fig:divsel}C).
+The reason the results are similar for both experimental datasets is that (as discussed above) the amino-acid preferences of \emph{most} sites are similar in both Envs, meaning that either dataset provides a reasonable approximation of the site-specific functional constraints across the clade A Envs in Figure~\ref{fig:tree}.
+
+What causes some sites to evolve faster or slower in nature than expected from the experiments?
+The answer in both cases is likely to be immune selection.
+Most of the sites of faster-than-expected evolution are on the surface of Env (Figure~\ref{fig:divsel}A,B and Figure~\ref{fig:divsel}-Figure~supplement~\ref{figsupp:slower}).
+It is known that Env's escape from autologous neutralizing antibodies often involves amino-acid substitutions in surface-exposed regions~\citep{moore2009specificity}, including at many of the sites that evolve faster than expected.
+Since our deep mutational scanning did not impose antibody pressure, sites where substitutions are antibody-driven will evolve faster in nature than expected from the experiments.
+Interestingly, immune selection also offers a plausible explanation for the sites that evolve \emph{slower} than expected.
+In addition to escaping immunity via substitutions at antibody-binding footprints, Env is notorious for employing a range of more general strategies to reduce its susceptibility to antibodies.
+These strategies include shielding immunogenic regions with glycans~\citep{wei2003antibody,stewart2016trimeric} or hiding them by adopting a closed protein conformation~\citep{kwong2002hiv,guttman2015antibody,ozorowski2017open}.
+Sites that contribute to such immune-evasion strategies will be under a constraint in nature that is not present in our experiments, since the experiments do not select for immune evasion.
+%Indeed, many of the sites that evolve slower than expected appear to be involved in these general immune-evasion strategies.
+For instance, sites of N-linked glycans tend to be more conserved in nature than the experiments suggest is required by mere functional selection (Figure~\ref{fig:divsel}C), as are sites that help regulate Env's transition between open and closed conformations that have different antibody susceptibilities (Figure~\ref{fig:divsel}D).
+Therefore, we can distinguish evolutionary patterns that are shaped by simple selection for Env function from those that are due to the additional complex pressures imposed during human infections. 
 
 \section{Discussion}
 We experimentally estimated the effects of all single amino-acid changes to two Env homologs with 85\% amino-acid identity.
