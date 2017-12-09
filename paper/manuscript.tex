@@ -72,7 +72,7 @@ Here we quantify the effects on viral replication of all amino-acid mutations to
 Most mutations similarly affect both Envs, but the amino-acid preferences of a substantial minority of sites have clearly shifted.
 These shifted sites usually prefer a specific amino acid in one Env, but can tolerate many amino acids in the other.
 Surprisingly, shifts are only slightly enriched at sites that have substituted between the Envs -- and many occur at residues that do not even contact substitutions.
-Therefore, long-range epistasis can unpredictably shift Env's mutational tolerance during HIV evolution, although the evolutionary capacity of most sites is conserved between moderately diverged viral strains.
+Therefore, long-range epistasis can unpredictably shift Env's mutational tolerance during HIV evolution, although the amino-acid preferences of most sites are conserved between moderately diverged viral strains.
 \end{abstract}
 
 
@@ -533,6 +533,19 @@ For instance, sites of N-linked glycans change slower than our experiments sugge
 Therefore, we can distinguish evolutionary patterns that are shaped by simple selection for Env function from those that are due to the additional complex pressures imposed during human infections. 
 
 \section{Discussion}
+We have experimentally measured the preference for each amino acid at each site in the ectodomain of two Envs under selection for viral replication in cell culture.
+These sequence-function maps are generally consistent with prior knowledge about sites that are important for protein properties such as receptor binding or disulfide-mediated stability.
+However, the major value of these maps comes not from comparing them with prior knowledge, but from the fact that prior knowledge encompasses just a small fraction of the vast mutational space available to Env.
+Because Env evolves so rapidly, every study of this protein must be placed in an evolutionary context, and our comprehensive sequence-function maps enable this in a way that prior piecemeal studies of individual mutations cannot.
+
+But our maps come with a potentially serious caveat: each one is measured for just a single Env variant.
+The major question that our study aimed to answer is whether the maps are still useful for evolutionary questions, or whether Env's amino-acid preferences shift so rapidly that each map only applies to the specific HIV strain for which it was measured.
+This question is reminiscent of one that was grappled with in the early days of protein crystallography, when it first became possible to build maps of a protein's structure.
+Because it was not (and is still not) possible to crystallize every variant of every protein, it was necessary to determine whether sequence-structure maps could be usefully generalized among homologs.
+Fortunately for the utility of structural biology, it soon became apparent that closely homologous proteins have similar structures~\citep{chothia1986relation,sander1991database}.
+This rough generalizability of sequence-structure maps holds even for a protein as conformationally complex as Env -- for although there are many examples of mutations that alter aspects of Env's structure and dynamics~\citep{kwong2000structures,white2010molecular,almond2010structural,davenport2013isolate}, these alterations are sufficiently modest that a few structural maps have facilitated the interpretation of studies on a vast number of HIV strains.
+
+
 We experimentally estimated the effects of all single amino-acid changes to two Env homologs with 85\% amino-acid identity.
 We did so using a high-throughput technique called deep mutational scanning.
 For each homolog, this approach involved making libraries of \textit{env} with random codon mutations, selecting for mutations that supported viral replication in cell culture, and then deep sequencing the starting and ending libraries to quantify the effect of each mutation.
