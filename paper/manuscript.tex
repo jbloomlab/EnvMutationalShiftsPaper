@@ -69,8 +69,8 @@ The immediate evolutionary space accessible to HIV is largely determined by how 
 These mutational effects can shift as the virus evolves.
 However, the prevalence of such shifts remains unclear.
 Here we quantify the effects on viral replication of all amino-acid mutations to two HIV envelope (Env) proteins that differ at $>$100 residues.
-Most mutations similarly affect both Envs, but the amino-acid preferences of a substantial minority of sites have clearly shifted.
-These shifted sites usually prefer a specific amino acid in one Env, but can tolerate many amino acids in the other.
+Most mutations similarly affect both Envs, but the amino-acid preferences of a minority of sites have clearly shifted.
+These shifted sites usually prefer a specific amino acid in one Env, but tolerate many amino acids in the other.
 Surprisingly, shifts are only slightly enriched at sites that have substituted between the Envs -- and many occur at residues that do not even contact substitutions.
 Therefore, long-range epistasis can unpredictably shift Env's mutational tolerance during HIV evolution, although the amino-acid preferences of most sites are conserved between moderately diverged viral strains.
 \end{abstract}
@@ -94,12 +94,12 @@ Given that the Envs of circulating HIV strains represent a vast collection of ho
 The extent to which this is actually the case is unclear, since the few protein-wide studies of mutational shifts have examined proteins that are structurally far simpler than Env, which forms a large heavily glycosylated heterotrimeric complex that transitions through multiple conformational states~\citep{munro2014conformational,ozorowski2017open}.
 
 Here we use an improved version of a previously described deep mutational scanning strategy~\citep{haddox2016experimental} to measure the effects on viral replication of all single amino-acid mutations to two transmitted-founder virus Envs that differ by $>$100 mutations.
-By comparing these complete mutational maps, we identify sites where amino-acid preferences have shifted between the Envs.
-Most sites show no detectable shifts, but 30 sites have clearly altered their amino-acid preferences.
-These shifted sites usually strongly prefer a specific amino acid in one Env but have shifted to tolerate many amino acids in the other Env.
-The shifted sites cluster in Env's structure, but are often distant from any amino-acid substitutions that distinguish the two Envs, demonstrating the action of long-range epistasis.
+We compare these complete maps of mutational effects to identify sites that have shifted in their amino-acid preferences between the Envs.
+Most sites show no detectable shifts, but 30 sites have clearly altered their preferences.
+These shifted sites usually prefer a specific amino acid in one Env but have shifted to tolerate many amino acids in the other Env.
+The shifted sites cluster in structure, but are often distant from any amino-acid substitutions that distinguish the two Envs, demonstrating the action of long-range epistasis.
 By aggregating our measurements for both Envs, we identify sites that evolve faster or slower in nature than expected given the functional constraints measured in the lab, probably due to pressure for immune evasion.
-Overall, our work provides across-strain genotype-to-phenotype maps that inform the analysis of Env's structure and evolution.
+Overall, our work provide complete across-strain maps of mutational effects that inform the analysis of Env's evolution.
 
 \section{Results}
 
@@ -513,10 +513,10 @@ The $Q$-value indicated is the maximum of that for the two homologs.
 We determined whether each site in Env evolves faster or slower in nature than expected given three models: that evolution is purely neutral (all nonsynonymous and synonymous mutations have equivalent effects), that sites are under the protein-level constraint measured in our experiments with BG505, or that sites are under the constraint measured with BF520. 
 The first model used a standard dN/dS test~\citep[the ``FEL'' method of][]{kosakovsky2005not}, whereas the other two models performed a conceptually similar test but used ExpCM that incorporate experimental measurements as described by \citet{bloom2017identification}.
 The standard dN/dS model finds hundreds of sites evolve slower than expected under neutral evolution, and only a handful of sites evolve faster than expected under neutral evolution (Table~\ref{tab:phydms}).
-This finding is unsurprising, since it is well known that Env is under functional constraint and so has many sites that evolve non-neutrally.
+This finding is unsurprising, since it is well known that Env is under functional constraint.
 In contrast, ExpCM that test the rates of evolution relative to the experimentally measured constraints find far fewer sites that evolve slower than expected, but many more sites that evolve faster (Table~\ref{tab:phydms}). 
 
-The sites that evolve slower or faster than expected from the experiments are shown in Figure~\ref{fig:divsel}A,B, and also overlaid on the logoplots in Figures~\ref{fig:BG505prefs} and \ref{fig:BF520prefs} as the $\omega_r$ values.
+The sites that evolve slower or faster than expected from the experiments are shown in Figure~\ref{fig:divsel}A,B, and overlaid on the logoplots in Figures~\ref{fig:BG505prefs} and \ref{fig:BF520prefs} as the $\omega_r$ values.
 The identified sites are similar regardless of whether we use the experiments with BG505 or BF520 (Figure~\ref{fig:divsel}C).
 The reason the results are similar for both experimental datasets is that (as discussed above) the amino-acid preferences of \emph{most} sites are similar in both Envs, meaning that either dataset provides a reasonable approximation of the site-specific functional constraints across the clade A Envs in Figure~\ref{fig:tree}.
 
@@ -536,7 +536,7 @@ Therefore, we can distinguish evolutionary patterns that are shaped by simple se
 We have experimentally measured the preference for each amino acid at each site in the ectodomain of two Envs under selection for viral replication in cell culture.
 These amino-acid preference maps are generally consistent with prior knowledge about sites that are important for protein properties such as receptor binding or disulfide-mediated stability.
 However, the main value of these maps comes not from comparing them with prior knowledge, but from the fact that such prior knowledge encompasses just a small fraction of the vast mutational space available to Env.
-Because Env evolves so rapidly, every study of this protein must be placed in an evolutionary context, and our comprehensive amino-acid preference maps potentially enable this in a way that prior piecemeal studies of individual mutations cannot.
+Because Env evolves so rapidly, every study of this protein must be placed in an evolutionary context, and our comprehensive amino-acid preference maps potentially enable this in ways that prior piecemeal studies of mutations cannot.
 
 But our maps come with a serious caveat: each one is measured for just a single Env variant.
 The major question that our study aimed to answer is whether the maps are still useful for evolutionary questions, or whether Env's amino-acid preferences shift so rapidly that each map only applies to the specific HIV strain for which it was measured.
@@ -562,7 +562,7 @@ Going forward, it will be interesting to determine how the results of experiment
 A challenge of studying HIV is that almost everything must be simplified to make it tractable.
 Our studies are no different -- after all, we are measuring viral replication in a T-cell line in the lab, not in infected humans.
 But our experiments provide highly quantitative data that is amenable to rigorous analysis.
-Here we have shown how these data can be compared between Envs to identify sites where mutational tolerance shifts with viral genotype, or between our experiments and nature to identify sites under different pressure in the lab and in humans.
+Here we have shown how these data can be compared between Envs to identify sites where mutational tolerance shifts with viral genotype, or between experiments and nature to identify sites under different pressure in the lab and in humans.
 Future experiments that modulate selection pressures in other relevant ways should provide further insight into the forces that drive and constrain HIV's evolution.
 
 \clearpage
