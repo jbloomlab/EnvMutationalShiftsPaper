@@ -534,68 +534,38 @@ Therefore, we can distinguish evolutionary patterns that are shaped by simple se
 
 \section{Discussion}
 We have experimentally measured the preference for each amino acid at each site in the ectodomain of two Envs under selection for viral replication in cell culture.
-These sequence-function maps are generally consistent with prior knowledge about sites that are important for protein properties such as receptor binding or disulfide-mediated stability.
-However, the major value of these maps comes not from comparing them with prior knowledge, but from the fact that prior knowledge encompasses just a small fraction of the vast mutational space available to Env.
-Because Env evolves so rapidly, every study of this protein must be placed in an evolutionary context, and our comprehensive sequence-function maps enable this in a way that prior piecemeal studies of individual mutations cannot.
+These amino-acid preference maps are generally consistent with prior knowledge about sites that are important for protein properties such as receptor binding or disulfide-mediated stability.
+However, the main value of these maps comes not from comparing them with prior knowledge, but from the fact that such prior knowledge encompasses just a small fraction of the vast mutational space available to Env.
+Because Env evolves so rapidly, every study of this protein must be placed in an evolutionary context, and our comprehensive amino-acid preference maps potentially enable this in a way that prior piecemeal studies of individual mutations cannot.
 
-But our maps come with a potentially serious caveat: each one is measured for just a single Env variant.
+But our maps come with a serious caveat: each one is measured for just a single Env variant.
 The major question that our study aimed to answer is whether the maps are still useful for evolutionary questions, or whether Env's amino-acid preferences shift so rapidly that each map only applies to the specific HIV strain for which it was measured.
 This question is reminiscent of one that was grappled with in the early days of protein crystallography, when it first became possible to build maps of a protein's structure.
-Because it was not (and is still not) possible to crystallize every variant of every protein, it was necessary to determine whether sequence-structure maps could be usefully generalized among homologs.
+Because it was not (and is still not) possible to crystallize every variant of a protein, it was necessary to determine whether protein-structure maps could be usefully generalized among homologs.
 Fortunately for the utility of structural biology, it soon became apparent that closely homologous proteins have similar structures~\citep{chothia1986relation,sander1991database}.
-This rough generalizability of sequence-structure maps holds even for a protein as conformationally complex as Env -- for although there are many examples of mutations that alter aspects of Env's structure and dynamics~\citep{kwong2000structures,white2010molecular,almond2010structural,davenport2013isolate}, these alterations are sufficiently modest that a few structural maps have facilitated the interpretation of studies on a vast number of HIV strains.
+This rough generalizability of protein-structure maps holds even for a protein as conformationally complex as Env -- for although there are many examples of mutations that alter Env's structure and dynamics~\citep{kwong2000structures,white2010molecular,almond2010structural,davenport2013isolate}, these alterations are sufficiently modest that a few structural maps have facilitated the interpretation of studies on a vast number of HIV strains.
 
+Our results show that amino-acid preference maps of Env also have a useful level of conservation for many purposes.
+From a qualitative perspective, the amino-acid preferences look mostly similar between BG505 and BF520, and so provide a valuable reference for estimating which mutations are likely to be tolerated at each site.
+From an analytical perspective, a powerful use of our maps is to identify sites that evolve differently in nature than is required by the simple selection for viral replication imposed in our experiments -- and the identified sites are largely the same regardless of whether the analysis uses an amino-acid preference map from BG505 or BF520.
 
-We experimentally estimated the effects of all single amino-acid changes to two Env homologs with 85\% amino-acid identity.
-We did so using a high-throughput technique called deep mutational scanning.
-For each homolog, this approach involved making libraries of \textit{env} with random codon mutations, selecting for mutations that supported viral replication in cell culture, and then deep sequencing the starting and ending libraries to quantify the effect of each mutation.
-These experiments imposed strong purifying selection, as indicated by the near-complete depletion of mutations leading to premature stop codons.
-For each homolog, the results allowed us to estimate each site's preference for each of the 20 amino acids.
-We found that these estimates were largely repeatable between experimental replicates of the same homolog.
+Of course, from the perspective of protein evolution, the most interesting sites are the exceptions to the general conservation of amino-acid preferences.
+Consistent with studies of other proteins~\citep{natarajan2013epistasis,harms2014historical,doud2015site,starr2017pervasive}, we find a subset of sites that change markedly in which mutations they tolerate.
+Some shifted sites simply accommodate more amino acids in the more stable BG505 Env -- a type of shift that has been well-documented for other proteins~\citep{wang2002evolution,bloom2006protein,gong2013stability,kumar2017stability}.
+But interestingly, there is no strong trend for shifts to be enhanced at sites that differ between BG505 and BF520.
+Recent studies of protein evolution have focused on the idea that substitutions become ``entrenched'' as sites shift to accommodate new amino acids~\citep{pollock2012amino,shah2015contingency,bazykin2015changing,starr2017pervasive}.
+Indeed, a prior protein-wide comparison of amino-acid preferences across homologs found a significant enrichment of shifts at sites of substitutions~\citep{doud2015site}.
+But although there is some entrenchment of differences between BG505 and BF520, this is not the major factor behind the shifts in amino-acid preferences: sites that differ between BG505 and BF520 are not more shifted than other sites.
+This rather surprising result might be due to Env's exceptional conformational complexity -- mutations can cause long-range alterations in Env's conformation~\citep{kwong2000structures,white2010molecular,almond2010structural,davenport2013isolate}, so it seems plausible that they might also shift mutational tolerance at distant sites.
 
-We then compared site-specific amino-acid preferences between homologs.
-In an initial gene-wide comparison, we simply correlated the preferences between homologs across all sites.
-We expected that the differences we observed would be due to a combination of true biological differences and experimental noise.
-We quantified experimental noise by correlating the preferences between experimental replicates of the same homolog.
-When we then correlated the preferences between replicates from different homologs, we found that the correlation was nearly as high as the correlation between replicates from the same homolog, suggesting that the true preferences of each homolog are fairly well conserved.
-As a control, we compared Env's preferences with the preferences from a non-homologous protein -- influenza HA -- among sites that overlap in primary sequence of these proteins.
-As expected, the correlation in preferences between these non-homologous proteins was very low.
-This finding provided the first indication that although Env's preferences differ to some extent between homologs, they are still much more conserved than expected for two non-homologous proteins.
+Going forward, it will be interesting to determine how the results of experiments such as ours are affected by defined modifications in viral genotype or selective pressure.
+A challenge of studying HIV is that almost everything must be simplified to make it tractable.
+Our studies are no different -- after all, we are measuring viral replication in a T-cell line in the lab, not in infected humans.
+But our experiments provide highly quantitative data that is amenable to rigorous analysis.
+Here we have shown how these data can be compared between Envs to identify sites where mutational tolerance shifts with viral genotype, or between our experiments and nature to identify sites under different pressure in the lab and in humans.
+Future experiments that modulate selection pressures in other relevant ways should provide further insight into the forces that drive and constrain HIV's evolution.
 
-Next, we quantified shifts in Env's amino-acid preferences at a more site-specific level.
-We computed shifts using a metric that takes into account experimental noise.
-At each site, this metric estimates the expected shift due to the noise, as captured by experimental replicates, and then corrects for this noise when measuring the shifts between homologs.
-We found that for most sites, the shifts between homologs were small-to-intermediate in effect size, with only a few sites having large shifts.
-We used the same metric to compare Env and influenza HA at sites that overlap in primary sequence.
-As expected for two non-homologous proteins, we found that most sites had large shifts in mutational effects.
-Thus, this site-specific analysis provided additional support that the shifts observed between Env homologs were not nearly as large as shifts between non-homologous proteins.
-
-Overall, these results help elucidate the strength of epistasis in Env's long-term evolution.
-Although large shifts in mutational effects can occur during protein evolution, our results indicate that such events were rare for the Env homologs we analyzed.
-Deep mutational scanning has also been used to analyze mutational shifts between other homologs.
-One study compared two homologs of influenza's nucleoprotein with 94\% amino-acid identity~\cite{doud2015site}.
-This study found that most mutational effects were conserved.
-A lower-throughput study of nucleoprotein mutations with a variety of stability effects found that these effects were also largely conserved among homologs that ranged from 94\%-72\% amino-acid identity~\cite{ashenberg2013mutational}.
-Another deep mutational-scanning study compared three homologous TIM-barrel proteins, each with 30-40\% amino-acid identity to one another~\cite{chan2017correlation}.
-Even for these considerably divergent homologs, mutational effects were still found to be correlated between homologs at many sites.
-Thus, our findings with Env are qualitatively similar to the above studies in suggesting that although epistasis can cause mutational effects to diverge over time, it does not usually completely erase site-specific preferences.
-
-Our results also shed light on the evolutionary basis of shifts in mutational effects.
-The deep mutational scan comparing nucleoprotein homologs found that shifts were enriched at sites that differed in wildtype amino-acid sequence between homologs~\cite{doud2015site}.
-This trend might be expected if proteins quickly evolve to accommodate historical amino-acid changes, as suggested from computational modeling~\cite{pollock2012amino}.
-However, the median shift in Env's preferences was similar between sites that were the same vs. different in wildtype sequence.
-Additional comparisons will be required to determine which pattern is more typical.
-
-Future work could expand upon our findings to analyze other Env homologs and the effects of mutations on other Env phenotypes.
-In this study, we compared two homologs from subtype A.
-It is possible that mutational effects are more shifted between more divergent Envs.
-Deep mutational scanning of Env from a different subtype could address this question (our previous results for LAI are difficult to compare with BG505 and BF520, for reasons described above).
-The specific phenotype we selected for in our study was the ability of Env to support viral replication in cell culture in the \textit{absence} of immune selection (e.g., antibodies).
-However, it is of great interest to characterize the effects of mutations to Env on antibody escape, especially for antibodies being used in immunotherapies or as templates in vaccine design.
-We have previously used deep mutational scanning to comprehensively identify single amino-acid mutations that allow BF520 Env to escape a bNAb~\cite{dingens2017comprehensive}.
-This technique, when applied to two different Env homologs, could be used to comprehensively determine the extent to which antibody-escape mutations have shifted during Env evolution.
-
-
+\clearpage
 \section{Methods and Materials}
 
 \subsection{Sequence numbering}
