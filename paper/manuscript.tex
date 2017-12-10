@@ -17,6 +17,7 @@
 \usepackage{natbib}
 \usepackage{float}
 \usepackage{tikz}
+\usepackage{seqsplit}
 
 \usepackage{amsmath} % or simply amstext
 \newcommand{\angstrom}{\textup{\AA}}
@@ -568,78 +569,71 @@ Future experiments that modulate selection pressures in other relevant ways shou
 \clearpage
 \section{Methods and Materials}
 
-\subsection{Sequence numbering}
-We use the HXB2 numbering system \cite{korber1998numbering} for each Env homolog unless otherwise noted.
-We defined Env's ``variable loops'' according to \url{http://www.hiv.lanl.gov/}, but did not consider the disulfide-bonded cysteines as part of the loops.
+\subsection{Creation of codon-mutant libraries}
+Our codon mutant libraries mutagenized all sites in \textit{env} to all 64 codons, except that the signal peptide and cytoplasmic tail were not mutagenized.
+The rationale for excluding these regions is that they are not part of Env's ectodomain, and may be prone to mutations that strongly modulate Env's expression level.
 
-\subsection{Codon-mutant libraries}
-For BF520 \textit{env}, we used the codon-mutant libraries generated from a previous study \cite{dingens2017comprehensive}.
-For BG505 \textit{env}, we generated codon-mutant libraries using essentially the same methods as the previous study, but with a few modifications.
-We computationally generated the sequences of the codon-tiling primers for the PCR-mutagenesis step using the same approach as in~\cite{dingens2017comprehensive}.
-The sequences of these primers will be made available as a supplemental file upon publication of this work.
-The end primers for this mutagenesis step were: 5'-tgaaggcaaaactactggtccgtctcgagcagaagacagtggcaatgaga-3' and 5'-gctacaaatgcatataacagcgtctcattctttccctaacctcaggcca-3'.
-As with BF520, we cloned the BG505 \textit{env} libraries into the \textit{env} locus of the full-length proviral genome of HIV strain Q23 \cite{poss1999variants} -- another subtype-A transmitted/founder virus, using the same high-efficiency cloning vector used previously \cite{dingens2017comprehensive}.
-To do so, we first digested the cloning vector with BsmBI.
-We then used PCR to elongate the amplicons to include on either end 30 basepairs that are identical in sequence to the ends of the BsmBI-digested vector.
-The primers we used for this PCR were:
+The codon-mutant libraries were generated using the approach originally described in \citet{bloom2014experimentally}, with the modification of \citet{dingens2017comprehensive} to ensure more uniform primer melting temperatures.
+The computer script used to design the mutagenesis primers (along with some detailed implementation notes) is at \url{https://github.com/jbloomlab/CodonTilingPrimers}.
+For BF520, the three libraries are the same ones described by \citet{dingens2017comprehensive}.
+For BG505, we created three libraries for this study.
+The wildtype BG505 sequence used for these libraries is in Supplemental~file~\ref{suppfile:BG505}.
+The BG505 mutagenesis primers are in Supplemental~file~\ref{suppfile:BG505primers}.
+
+The end primers for the BG505 mutagenesis were: 5'-tgaaggcaaaactactggtccgtctcgagcagaagacagtggcaatgaga-3' and 5'-gctacaaatgcatataacagcgtctcattctttccctaacctcaggcca-3'.
+As with BF520, we cloned the BG505 \textit{env} libraries into the \textit{env} locus of the full-length proviral genome of HIV strain Q23 \citep[another subtype-A transmitted/founder virus;][]{poss1999variants} using the high-efficiency cloning vector described in \citet{dingens2017comprehensive}.
+For this cloning, we digested the cloning vector with BsmBI, and then used PCR to elongate the amplicons to include 30 nucleotides at each end that were identical in sequence to the ends of the BsmBI-digested vector.
+The primers for this PCR were:
 5'-agataggttaattgagagaataagagaaagagcagaagacagtggcaatgagagtgatgg-3' and 5'-ctcctggtgctgctggaggggcacgtctcattctttccctaacctcaggccatcc-3'.
 Next, we used NEBuilder HiFi DNA Assembly (NEB, E2621S) to clone the \textit{env} amplicons into the BsmBI-digested plasmids.
 We purified the assembled products using Agencourt AMPure XP beads (Beckman Coulter, A63880) using a bead-to-sample ratio of 1.5, and then transformed the purified products into Stellar electrocompetent cells (Takara, 636765).
 The transformations yielded between 1.5-3.6 million unique clones for each of the three replicate libraries, as estimated by plating 1:2,000 dilutions of the transformations.
-As before, we scraped the plated colonies and maxiprepped the plasmid DNA, but this time we did not include the 4-hour outgrowth step after the scraping step.
-For the wildtype controls, we maxiprepped three independent cultures of wildtype BG505 \textit{env} in the \textit{env} locus of the full-length Q23 proviral plasmid.
+We scraped the plated colonies and maxiprepped the plasmid DNA; unlike in \citet{dingens2017comprehensive}, we did not include a 4-hour outgrowth step after the scraping step.
+For the wildtype controls, we maxiprepped three independent cultures of wildtype BG505 \textit{env} cloned into the same Q23 proviral plasmid.
+See Figure~\ref{fig:dms_schematic}-Figure~supplement~\ref{figsupp:sanger} and Figure~\ref{fig:mutfreqs}A for information on the average mutation rate in these libraries as estimated by Sanger sequencing and deep sequencing, respectively.
 
 \subsection{Generation and passaging of viruses}
-For BF520, we analyzed the viruses generated and passaged in our previous study \cite{dingens2017comprehensive}.
-For BG505, we generated and passaged viral libraries using essentially the same methods.
-First, for each replicate, we generated mutant viruses by transfecting 293T cells in three 6-well plates with a mixture of 2 ug mutant plasmid DNA and 6 uL FuGENE 6 Transfection Reagent (Promega, E269A) and 100 uL DMEM per well.
-293T cells were seeded in D10 media (DMEM supplemented with 10\% FBS, 1\% 200 mM L-glutamine, and 1\% of a solution of 10,000 units/mL penicillin and 10,000 $\mu$g/mL streptomycin) the day before transfection with 0.5 million cells per well, such that they were approximately 50\% confluent the next day.
-In parallel, we generated wildtype viruses by transfecting one 6-well plate of 293T cells with wildtype plasmid, using the same amount of DNA and transfection reagent as above.
-At 2days post-transfection, we harvested the transfection supernatant, passed it through a 0.2$\mu$m filter, treated the supernatant with DNAse to digest residual plasmid DNA (as in~\cite{haddox2016experimental}), and froze aliquots at -80$^{\circ}$C.
-We thawed and titered aliquots using the TZM-bl assay in the presence of 10 $\mu$g/mL DEAE-dextran as described in~\cite{dingens2017comprehensive}.
+For BG505, we generated mutant virus libraries from the proviral plasmid libraries by transfecting 293T cells in three 6-well plates (so 18 wells total per library) with a per-well mixture of 2 $\mu$g plasmid DNA, 6 $\mu$l FuGENE 6 Transfection Reagent (Promega, E269A), and 100 $\mu$l DMEM.
+The 293T cells were seeded at $5\times 10^5$ cells/well in D10 media (DMEM supplemented with 10\% FBS, 1\% 200 mM L-glutamine, and 1\% of a solution of 10,000 units/mL penicillin and 10,000 $\mu$g/mL streptomycin) the day before transfection, such that they were approximately 50\% confluent at the time of transfection.
+In parallel, we generated wildtype viruses by transfecting one 6-well plate of 293T cells with each wildtype plasmid replicate.
+At 2 days post-transfection, we harvested the transfection supernatant, passed it through a 0.2 $\mu$m filter to remove cells, treated the supernatant with DNAse to digest residual plasmid DNA as in~\citet{haddox2016experimental}, and froze aliquots at -80$^{\circ}$C.
+We thawed and titered aliquots using the TZM-bl assay in the presence of 10 $\mu$g/mL DEAE-dextran as described in~\citet{dingens2017comprehensive}.
 
-Next, we conducted the initial viral passage in SupT1.CCR5 cells (obtained from Dr. James Hoxie \cite{boyd2015mutations}).
-During this passage, cells were maintained in R10 media, which has the same composition as D10 (described above), but has RPMI-1640 (GE Healthcare Life Sciences, SH30255.01) in the place of DMEM, with 10 $\mu$g/mL DEAE-dextran to enhance viral infection.
+We conducted the low MOI viral passage illustrated in Figure~\ref{fig:dms_schematic}A in SupT1.CCR5 cells~\citep[obtained from Dr. James Hoxie;][]{boyd2015mutations}.
+During this passage, cells were maintained in R10 media, which has the same composition as the D10 described above, except RPMI-1640 (GE Healthcare Life Sciences, SH30255.01) is used in the place of DMEM.
+In addition, the media contained 10 $\mu$g/mL DEAE-dextran to enhance viral infection.
 We infected cells with 4 million (for replicate 1) or 5 million (for replicates 2 and 3) TZM-bl infectious units of mutant virus at an MOI of 0.01, with cells at a starting concentration of 1 million cells/mL in vented tissue-culture flasks (Fisher Scientific, 14-826-80).
-At 1 day post-infection, we pelleted cells, aspirated the supernatant, and resuspended cell pellets in fresh media including DEAE-dextran.
-At 2 days post-infection, we doubled the volume of each culture with fresh media including DEAE-dextran.
-At 4 days post-infection, we pelleted cells, passed the virus-containing supernatant through a 0.2 $\mu$m filter, concentrated the virus $\sim$30 fold using ultracentrifugation as described in~\cite{dingens2017comprehensive}, and then froze aliquots at -80$^{\circ}$C.
-In parallel, for each replicate, we also passaged 0.2 million (for replicate 1) or 0.5 million (for replicates 2 and 3) infectious units of wildtype virus with and using the same conditions.
-We thawed and titered these aliquots using the TZM-bl assay in the presence of 10 $\mu$g/mL DEAE-dextran.
+At day 1 post-infection, we pelleted cells, aspirated the supernatant, and resuspended cell pellets in the same volume of fresh media still including the DEAE-dextran.
+At 2 days post-infection, we doubled the volume of each culture with fresh media still including DEAE-dextran.
+At 4 days post-infection, we pelleted cells, passed the viral supernatant through a 0.2 $\mu$m filter, concentrated the virus $\sim$30 fold using ultracentrifugation as described in \citet{dingens2017comprehensive}, and froze aliquots at -80$^{\circ}$C.
+In parallel, for each replicate, we also passaged $2\times 10^5$ (for replicate 1) or $5 \times 10^5$ (for replicates 2 and 3) TZM-bl infectious units of wildtype virus using the same procedure.
+To obtain final titers for our concentrated virus, we thawed one of the aliquots stored at -80$^{\circ}$C and titered using the TZM-bl assay in the presence of 10 $\mu$g/mL DEAE-dextran.
 
-We conducted a second, much shorter viral passage by infecting cells with the passage-1 viruses.
-For each virus, we infected 1 million TMZ-bl infectious units into 1 million SupT1.CCR5 cells in the presence of 100 $\mu$g/mL DEAE-dextran (a 10-fold higher concentration than to concentration we used in the TZM-bl assay to titer the virus, meaning the actual number of infectious units in this passage was probably higher).
+For the final short-duration infection illustrated in Figure~\ref{fig:dms_schematic}A, for each replicate we infected $10^6$ TZM-bl infectious units into $10^6$ SupT1.CCR5 cells in the presence of 100 $\mu$g/mL DEAE-dextran (note that this is a 10-fold higher concentration of DEAE-dextran than for the other steps, meaning that the effective MOI of infection is higher if DEAE-dextran has the expected effect of enhancing viral infection).
 Three hours post-infection, we pelleted the cells and resuspended them in fresh media without any DEAE-dextran.
-At 12 hours post-infection, we pelleted cells, washed them once with PBS, and then used a miniprep kit to harvest reverse-transcribed unintegrated viral DNA.
+At 12 hours post-infection, we pelleted cells, washed them once with PBS, and then used a miniprep kit to harvest reverse-transcribed unintegrated viral DNA \citep{haddox2016experimental}.
 
-\subsection{Generation of samples for Illumina sequencing}
-We deeply sequenced each plasmid library before selection and each viral library after the two passages, as well as the wildtype plasmids and wildtype viruses that served as controls.
-First, we generated PCR amplicons of \textit{env} using the same approach as~\cite{dingens2017comprehensive} with the primers: 5'-GAAGACAGTGGCAATGAGAGTGATGG-3' and 5'-TTCCCTAACCTCAGGCCATCC-3'.
-Next, we sequenced these amplicons using a barcoded sub-amplicon sequencing strategy to reduce the sequencing error rate, as previously described~\cite{doud2016accurate,haddox2016experimental}, dividing \textit{env} into seven amplicons.
-The primer pairs used to generate these subamplicons are as follows, where N characters represent randomized sites in the barcode region of the primer:
+The generation, passaging and deep sequencing of BF520 was done in a highly similar fashion, except that we only had a single replicate of the wildtype control.
+Note that the final passaged BF520 mutant libraries analyzed here actually correspond to the ``no-antibody'' controls described in \citet{dingens2017comprehensive}, but that study did not analyze the initial plasmid mutant libraries relative to these passaged viruses, and so was not able to provide measurements of the amino-acid preferences.
 
-\begin{itemize}
-{\footnotesize
-\item 5'-CTTTCCCTACACGACGCTCTTCCGATCTNNNNNNNNGATCTTGGGGATGATAATAATCTGTAGTGC-3' and 5'-GGAGTTCAGACGTGTGCTCTTCCGATCTNNNNNNNNGGTGACATTGGTACACTGTAGAGTAAC-3'
-\item 5'-CTTTCCCTACACGACGCTCTTCCGATCTNNNNNNNNCCATGTGTAAAGTTAACCCCTCTCTGC-3' and 5'-GGAGTTCAGACGTGTGCTCTTCCGATCTNNNNNNNNGAACTTCTTATCCTTACACTTTAGGATCGC-3'
-\item 5'-CTTTCCCTACACGACGCTCTTCCGATCTNNNNNNNNCATACATTATTGTGCCCCAGCTGG-3' and 5'-GGAGTTCAGACGTGTGCTCTTCCGATCTNNNNNNNNCAATGTGCTTGTCTTATATCCCCTATTATGTC-3'
-\item 5'-CTTTCCCTACACGACGCTCTTCCGATCTNNNNNNNNGGACAAGCATTCTATGCAACAGGG-3' and 5'-GGAGTTCAGACGTGTGCTCTTCCGATCTNNNNNNNNTGCTTTATTCTGCATGGGAGAGTTATAC-3'
-\item 5'-CTTTCCCTACACGACGCTCTTCCGATCTNNNNNNNNGTCAAATAGCACGGGGTCAAATGAC-3' and 5'-GGAGTTCAGACGTGTGCTCTTCCGATCTNNNNNNNNCCAAGGAAGACAGCTCCTATTCCAAC-3'
-\item 5'-CTTTCCCTACACGACGCTCTTCCGATCTNNNNNNNNGTGGTGGGGAGAGAAAAAAGAGC-3' and 5'-GGAGTTCAGACGTGTGCTCTTCCGATCTNNNNNNNNGTTTCTATTACTCCAACTAGAGTTCCAGGG-3'
-\item 5'-CTTTCCCTACACGACGCTCTTCCGATCTNNNNNNNNGGAAAACTCATCTGCACCACTAATGTG-3' and 5'-GGAGTTCAGACGTGTGCTCTTCCGATCTNNNNNNNNTGAGTATCCCTGCCTAACTCTATGTATTACAG-3'
-}
-\end{itemize}
+\subsection{Illumina deep sequencing}
+We deep sequenced all of the samples shown in Figure~\ref{fig:mutfreqs}A: the plasmid mutant libraries and wildtype plasmid controls, and the cDNA from the final mutant viruses and wildtype virus controls.
+In order to increase the sequence accuracy, we used a barcoded-subamplicon sequencing strategy.
+This general strategy was originally applied in the context of deep mutational scanning by \citet{wu2014high}, and the specific protocol used in our work is described in \citet{doud2016accurate} (see also \url{https://jbloomlab.github.io/dms_tools2/bcsubamp.html}).
 
-The resulting deep-sequencing data will be made available on the Sequence Read Archive upon the publication of this work.
+The primers used for BG505 are in Supplementary~file~\ref{suppfile:B505bcsubamp}.
+The primers used for BF520 are in \citet{dingens2017comprehensive}.
+The data generated by the Illumina deep sequencing are on the Sequence Read Archive under the accession numbers provided at the beginning of the Jupyter notebook in Supplementary~files~\ref{suppfile:code} and \ref{suppfile:html}.
 
 \subsection{Analysis of deep-sequencing data}
+We analyzed the deep-sequencing data using the \texttt{dms\_tools2} software package~\citep[\url{https://jbloomlab.github.io/dms_tools2/}]{bloom2015software}.
+A Jupyter notebook that performs the entire analysis including generation of most of the figures in this paper is in Supplementary~file~\ref{suppfile:code}, which also contains all necessary input data to fully reproduce the analysis.
+An HTML rendering of this notebook is in Supplementary~file~\ref{suppfile:html}.
+Citations are also due to \texttt{weblogo}~\citep{crooks2004weblogo} and \texttt{ggseqlogo}~\citep{?}, which were used in the generation of the logoplots. 
+\jdbcomment{also joypy?}
 
-We analyzed the deep-sequencing data using the \texttt{dms\_tools} software package~\cite{bloom2015software}.
-The specific code we used will be made available upon the publication of this work.
-A summary of our workflow is as follows, and involves multiple programs encoded in \texttt{dms\_tools}:
-First, we aligned sequencing reads to \textit{env} and computed site-specific codon mutation frequencies using \texttt{dms\_barcodedsubamplicons}, using \texttt{dms\_summarizealignments} to make plots summarizing these frequencies.
-Next, we inferred Env's preferences from the codon counts using \texttt{dms\_inferprefs}.
-We then used a custom script to compare these preferences between homologs.
+The Jupyter notebooks in Supplementary~files~\ref{suppfile:code} and \ref{suppfile:html} also contain numerous plots that summarize relevant aspects of the deep sequencing such as read depth, per-codon mutation frequency, mutation types, etc.
+Supplementary~file~\ref{suppfile:code} also contains text files and CSV files with all of the numerical values shown in these plots.
 
 \subsection{Alignments and phylogenetic analyses of HIV-1 {\it env} sequences}
 We made the trees in Fig \ref{ref:ch3_tree} using multiple-sequence alignments downloaded from the HIV sequence database (\url{http://www.hiv.lanl.gov/}) that we then manually curated in the following ways:
@@ -673,6 +667,7 @@ Thus, a $RMSD_{corrected}$ value near zero could indicate that a site's preferen
 We thank Michael Doud and Orr Ashenberg for computer code that formed the basis for some of the analyses.
 We thank Andrew Ward for pointing out to us that some of the sites with slower-than-expected rates of evolution are involved in Env's conformational changes upon receptor binding.
 We thank Kelly Lee for helpful input about the relative stabilities of the BG505 and BF520 Envs.
+We thank the Fred Hutch Genomics Core for performing the Illumina deep sequencing.
 \jdbcomment{add more}
 
 \bibliography{references.bib}
@@ -694,6 +689,28 @@ The Jupyter notebook downloads the deep sequencing data, processes it with the \
 An HTML rendering of the Jupyter notebook that performs the computational analysis.
 The actual notebook is in Supplementary~file~\ref{suppfile:code}, but if you just want to look at the analysis rather than run it, then you may prefer this file instead.
 In particular, the notebook contains plots detailing the deep sequencing data analysis as generated using the \texttt{dms\_tools2} software~\citep[\url{https://jbloomlab.github.io/dms_tools2/}]{bloom2015software}.
+}
+\end{suppfile}
+
+\begin{suppfile}
+\caption{
+\label{suppfile:BG505}
+The sequence of the wildtype BG505 \textit{env} used in our study is in FASTA format in the file \texttt{BG505\_env.fasta}.
+}
+\end{suppfile}
+
+\begin{suppfile}
+\caption{
+\label{suppfile:BG505primers}
+This file gives the primers used for the BG505 codon mutagenesis.
+\jdbcomment{Hugh, can you add this file?}
+}
+\end{suppfile}
+
+\begin{suppfile}
+\caption{
+\label{suppfile:B505bcsubamp}
+The primers used for the BG505 barcoded-subamplicon sequencing are in the file \texttt{BG505\_bcsubamp\_primers.txt}.
 }
 \end{suppfile}
 
