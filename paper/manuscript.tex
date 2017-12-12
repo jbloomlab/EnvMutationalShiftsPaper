@@ -127,7 +127,7 @@ The pairwise protein identity between BG505 and BF520 is 86.2\% (721 of 836 site
 \figdata{\label{figdata:mask} The 240 Env sites masked in all phylogenetic analyses because they were not mutagenized in our experiments or are poorly alignable are listed in \texttt{alignment\_mask.csv}.}
 \end{figure}
 
-We therefore selected Envs from two transmitted-founder viruses, BG505.W6M.C2.T332N and BF520.W14M.C2 (hereafter referred to as BG505 and BF520), that were isolated from HIV-infected infants shortly after mother-to-child transmission~\citep{goo2014early}.
+We therefore selected Envs from two transmitted-founder viruses, BG505.W6M.C2.T332N and BF520.W14M.C2 (hereafter referred to as BG505 and BF520), that were isolated from HIV-infected infants shortly after mother-to-child transmission~\citep{nduati2000effect,wu2006neutralization,goo2014early}.
 The BG505 Env has been extensively studied from a structural standpoint~\citep{julien2013crystal,lyumkis2013cryo,pancera2014structure,huang2014broad,sanders2015hiv,stewart2016trimeric}, and variants of this Env are being tested as a vaccine immunogens~\citep{sanders2013next,sanders2015hiv,de2015immunogenicity}.
 We used the T332N variant of BG505 Env because it has a common glycosylation site that is targeted by many anti-HIV antibodies~\citep{sanders2013next}.
 The BF520 Env was isolated from an infant who developed an early broad anti-HIV antibody response~\citep{goo2014early,simonich2016hiv}.
@@ -135,7 +135,7 @@ We have previously created comprehensive codon-mutant libraries of the BF520 Env
 
 Both BG505 and BF520 are from clade A of the major (M) group of HIV-1.
 Figure~\ref{fig:tree} shows the phylogenetic relationship among these two Envs and other clade A sequences.
-BG505 and BF520 have typical divergence for two clade A Envs: they are identical at 721 of the 836 pairwise-alignable protein sites (86.2\% identity), and 549 of the 616 sites (89.1\% identity) in the ectodomain and transmembrane domain that are alignable across clade A (Figure~\ref{fig:tree}-source~data~\ref{figdata:alignment}, Figure~\ref{fig:tree}-source~data~\ref{figdata:mask}).
+BG505 and BF520 are identical at 721 of the 836 pairwise-alignable protein sites (86.2\% identity), and 549 of the 616 sites (89.1\% identity) in the ectodomain and transmembrane domain that are alignable across clade A (Figure~\ref{fig:tree}-source~data~\ref{figdata:alignment}, Figure~\ref{fig:tree}-source~data~\ref{figdata:mask}).
 The divergence between BG505 and BF520 therefore offers ample opportunity to investigate mutational shifts during Env evolution.
 
 \subsection{Deep mutational scanning to measure the effects of all amino-acid mutations to each Env on HIV replication}
@@ -380,7 +380,7 @@ The fact that the shifted sites usually (although not always, see sites 165 and 
 However, not all of the significantly shifted sites show a simple pattern of broadening or narrowing of mutational tolerance.
 For instance, site 288 does not alter its mutational tolerance but rather flips its rather narrow amino-acid preference from phenylalanine in BG505 to leucine in BF520 (Figure~\ref{fig:prefsdist}C).
 Several other sites show similar but somewhat milder flips in which amino acids they prefer.
-In later sections, we investigate evolutionary and structural characteristics of these shifted sites -- but as is often the case for proteins as complex as Env, we are unable to rationalize many aspects of the observed sequence-function relationships, including the cause of these shifts.
+In later sections, we investigate evolutionary and structural characteristics of these shifted sites.
  
  An important caveat to the foregoing analysis is that it only identifies the 30 sites with shifts that exceed the experimental noise.
  It is possible that other sites have undergone small shifts not detectable by our experiments -- indeed, a recent study by \citet{starr2017pervasive} found that small shifts are common during the evolution of the Hsp90 protein in yeast.
@@ -544,10 +544,10 @@ The major question that our study aimed to answer is whether the maps are still 
 This question is reminiscent of one that was grappled with in the early days of protein crystallography, when it first became possible to build maps of a protein's structure.
 Because it was not (and is still not) possible to crystallize every variant of a protein, it was necessary to determine whether protein structures could be usefully generalized among homologs.
 Fortunately for the utility of structural biology, it soon became apparent that closely homologous proteins have similar structures~\citep{chothia1986relation,sander1991database}.
-This rough generalizability of protein structures holds even for a protein as conformationally complex as Env -- for although there are many examples of mutations that alter Env's structure and dynamics~\citep{kwong2000structures,white2010molecular,almond2010structural,davenport2013isolate}, these alterations are sufficiently modest that a few structural maps have facilitated the interpretation of studies on a vast number of HIV strains.
+This rough generalizability of protein structures holds even for a protein as conformationally complex as Env -- for although there are many examples of mutations that alter aspects of Env's conformation and dynamics~\citep{kwong2000structures,white2010molecular,almond2010structural,davenport2013isolate}, all characterized Env structures remain highly similar in most respects~\citep{julien2015design,pugach2015native,stewart2016trimeric,verkerke2016epitope,gristick2017x}.
 
 Our results show that amino-acid preference maps of Env also have a useful level of conservation for many purposes.
-From a qualitative perspective, the amino-acid preferences look mostly similar between BG505 and BF520, and so provide a valuable reference for estimating which mutations are likely to be tolerated at each site.
+From a qualitative perspective, the amino-acid preferences look mostly similar between BG505 and BF520, and so provide a valuable reference for estimating which mutations are likely to be tolerated at each site in diverse HIV strains.
 From an analytical perspective, a powerful use of our maps is to identify sites that evolve differently in nature than is required by the simple selection for viral replication imposed in our experiments -- and the identified sites are largely the same regardless of whether the analysis uses an amino-acid preference map from BG505 or BF520.
 
 Of course, from the perspective of protein evolution, the most interesting sites are the exceptions to the general conservation of amino-acid preferences.
@@ -679,7 +679,8 @@ We thank Michael Doud and Orr Ashenberg for computer code that formed the basis 
 We thank Andrew Ward for pointing out to us that some of the sites with slower-than-expected rates of evolution are involved in Env's conformational changes upon receptor binding.
 We thank Kelly Lee for helpful input about the relative stabilities of the BG505 and BF520 Envs.
 We thank the Fred Hutch Genomics Core for performing the Illumina deep sequencing.
-\jdbcomment{Add grants for \textit{bioRxiv} but not \textit{eLife}.}
+\jdbcomment{Add grants for \textit{bioRxiv} but not \textit{eLife}.
+ASD was supported by an NSF Graduate Research Fellowship (DGE-1256082).}
 
 \bibliography{references.bib}
 
