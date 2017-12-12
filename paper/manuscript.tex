@@ -85,11 +85,12 @@ For comparison, protein orthologs shared between humans and mice have only diver
 
 Env's rapid evolution has dire consequences for anti-HIV immunity, since it erodes the efficacy of most neutralizing antibodies~\citep{albert1990rapid,wei2003antibody,richman2003rapid}.
 Because of this public-health importance, numerous studies have experimentally characterized aspects of the ``evolutionary landscape'' that Env traverses.
-The immediate evolutionary space accessible to any given Env is defined by the effects on viral fitness of all $19 \times 856 \sim 1.6 \times 10^4$ single amino-acid mutations that can be made to a typical-length 856-residue Env. 
+The immediate evolutionary space accessible to any given Env is largely defined by the effects on viral fitness of all $19 \times 856 \sim 1.6 \times 10^4$ single amino-acid mutations that can be made to a typical-length 856-residue Env. 
 Most mutational studies have measured how just a small fraction of these mutations affect viral replication in cell culture~\citep{freed1989mutational,cordonnier1989single,olshevsky1990identification,lu2001structural,basmaciogullari2002identification,jacobs2005alanine,zwick2005anti,lynch2015hiv}, although it has recently become possible to use deep mutational scanning to measure the effects of many~\citep{al2014high,duenas2016saturation} or even all~\citep{haddox2016experimental} mutations to an Env variant.
 
 But interpreting these studies in the context of Env evolution requires addressing a fundamental question: How informative are mutational studies of a single protein variant about constraints on long-term evolution?
-During protein evolution, substitutions at one site can shift the effect of mutations at other sites~\citep{natarajan2013epistasis,gong2013stability,harms2014historical,podgornaia2015pervasive,starr2016epistasis}.
+During protein evolution, substitutions at one site can change the effect of mutations at other sites~\citep{natarajan2013epistasis,gong2013stability,harms2014historical,podgornaia2015pervasive,starr2016epistasis}.
+We will follow the nomenclature of \citet{pollock2012amino} to refer to these changes in mutational effects as ``shifts'' in a site's amino-acid preferences.
 Such shifts can accumulate as substitutions become entrenched via epistatic interactions with subsequent changes~\citep{starr2017pervasive,pollock2012amino,shah2015contingency,bazykin2015changing} -- although the magnitude of these shifts is usually limited~\citep{doud2015site,chan2017correlation,ashenberg2013mutational,risso2014mutational}.
 Given that the Envs of circulating HIV strains represent a vast collection of homologs that often differ at $>$100 residues, such shifts could make the outcome of any study highly dependent on the Env used.
 The extent to which this is actually the case is unclear, since the few protein-wide studies of mutational shifts have examined proteins that are structurally far simpler than Env, which forms a large heavily glycosylated heterotrimeric complex that transitions through multiple conformational states~\citep{munro2014conformational,ozorowski2017open}.
@@ -218,7 +219,7 @@ We then use these error-corrected frequencies to calculate the \emph{percent} of
 \figdata{\label{figdata:allprefs} Preferences for each replicate and averages are in \texttt{all\_prefs\_unscaled.zip}.}
 \end{figure}
 
-The deep mutational scanning effectively selected for functional Env as evidenced by strong purifying selection against stop codons.
+The deep mutational scanning effectively selected for functional Envs as evidenced by strong purifying selection against stop codons.
 Figure~\ref{fig:mutfreqs}A shows the average frequency of mutations across Env in the plasmid mutant libraries, the mutant viruses, and wildtype controls as determined from the deep sequencing.
 The mutant viruses show clear selection against stop codons and many nonsynonymous mutations (Figure~\ref{fig:mutfreqs}A).
 This selection is more apparent if we correct for the background error rates estimated from the wildtype controls (Figure~\ref{fig:mutfreqs}-Figure-supplement~\ref{figsupp:mutfreqs}).
@@ -233,8 +234,12 @@ Our libraries were mutagenized at 670 sites in BG505 and 662 sites in BF520, so 
 The correlations between the preferences from different experimental replicates are in Figure~\ref{fig:mutfreqs}B.
 These replicate-to-replicate correlations are substantially higher than those for the deep mutational scanning of LAI Env by \citet{haddox2016experimental}, indicating that the experimental modifications used here were beneficial.
 Because of the clear superiority of the current measurements, in this paper we do not attempt to compare to our earlier inferior LAI dataset. 
-Figure~\ref{fig:mutfreqs}B also shows that while replicates are well correlated across BG505 and BF520, the replicates for BG505 are more correlated with each other than with replicates for BF520, and vice versa.
+
+While the replicates are well correlated across all replicates for both BG505 and BF520, the replicates for BG505 are more correlated with each other than with replicates for BF520, and vice versa (Figure~\ref{fig:mutfreqs}B).
 This fact hints that there are some shifts in amino-acid preferences between the two Envs -- something that is investigated with more statistical rigor later in this paper.
+Note also that while there is a trend for the highly preferred amino acids to be more strongly preferred in BG505 than BF520 (most of the high-preference points in the gray plots in Figure~\ref{fig:mutfreqs}B fall above the diagonal), this trend does not necessarily reflect differences between the two Envs.
+Rather, there were modest differences in the stringency of selection between our deep mutational scans of BG505 and BF520 (Figure~\ref{fig:mutfreqs}-Figure-supplement~\ref{figsupp:mutfreqs} shows that purifying selection better purged stop codons in BG505).
+Later in this paper, we correct for these experimental differences by calibrating each dataset to match the stringency of selection in nature.
 
 \subsection{Amino-acid preferences of the Envs and their relationship to HIV evolution in nature}
 The most immediate question is how authentically the experimental measurements describe the actual selection on Env function in nature.
@@ -268,8 +273,8 @@ Both ExpCM's have stringency parameters $>$1 (Table~\ref{tab:phydms}) -- a findi
 We can also interpret the $\omega$ parameter.
 For standard codon substitution models, $\omega$ is the rate of fixation of nonsynonymous mutations relative to synonymous one -- and the gene-wide average $\omega$ is almost always $<$1, since purifying selection purges many functionally deleterious amino-acid mutations even for adaptively evolving proteins~\citep{murrell2015gene}.
 Indeed, Table~\ref{tab:phydms} shows that Env's gene-wide average $\omega$ is $<$1 for a standard model.
-But for ExpCM, $\omega$ is the relative rate of nonsynonymous to synonymous substitutions \emph{after} accounting for functional constraints measured in the deep mutational scanning~\citep{bloom2017identification}.
-Table~\ref{tab:phydms} shows that the ExpCM's have a gene-wide average $\omega$ that is $>$1, indicating that immune selection drives Env to fix amino-acid mutations faster than expected under a null model that only accounts for functional constraints.
+But for ExpCM's, $\omega$ is the relative rate of nonsynonymous to synonymous substitutions \emph{after} accounting for functional constraints measured in the deep mutational scanning~\citep{bloom2017identification}.
+Table~\ref{tab:phydms} shows that the ExpCM's have a gene-wide average $\omega$ that is $>$1, indicating that external selection (e.g., from immunity) drives Env to fix amino-acid mutations faster than expected under a null model that only accounts for functional constraints.
 
 \begin{figure}
 \begin{fullwidth}
@@ -333,7 +338,7 @@ However, simply comparing correlation coefficients in this way does not identify
 \includegraphics[width=1.3\textwidth]{figures/shifted_sites.pdf}
 \caption{\label{fig:prefsdist}
 Env sites with shifted amino-acid preferences between BG505 and BF520.
-{\bf (A)} Calculation of the corrected distance between the amino-acid preferences of BG505 and BF520 at five example sites.
+{\bf (A)} Calculation of the corrected distance between the amino-acid preferences of BG505 and BF520 at four example sites.
 We have triplicate measurements for each Env.
 We calculate the distance between each pair of replicate measurements, and group these into comparisons \emph{between} the two Envs and \emph{within} replicates for the same Env.
 We compute the root-mean-square distance (RMSD) for both sets of comparisons, which we denote as RMSD$_{\rm{between}}$ and RMSD$_{\rm{within}}$.
@@ -357,7 +362,7 @@ We first re-scaled the preferences from each experimental replicate by the strin
 We then identified the 659 sites in the mutagenized regions of Env that are pairwise alignable between BG505 and BF520 (Figure~\ref{fig:prefsdist}-source~data~\ref{figdata:prefsdist}).
 For each site, we calculated the shift in amino-acid preferences between Envs using an approach similar to that of \citet{doud2015site} as illustrated in Figure~\ref{fig:prefsdist}A.
 This approach calculates the magnitude of the shift after correcting for experimental noise by comparing the differences in preferences between replicates for BG505 and BF520 to the differences between replicates for the same Env.
-Figure~\ref{fig:prefsdist}A shows this calculation for a site that has not shifted (site 598, which strongly prefers cysteine in both Envs), the most shifted site (512, which shifts from being mutationally tolerant in BG505 to strongly preferring alanine in BF520), and several other sites with more intermediate behaviors.
+Figure~\ref{fig:prefsdist}A shows this calculation for a site that has not shifted (site 598, which strongly prefers cysteine in both Envs), the most shifted site (512, which shifts from being mutationally tolerant in BG505 to strongly preferring alanine in BF520), and two other sites with more intermediate behaviors.
 
 The overall distribution of shifts between BG505 and BF520 is shown in Figure~\ref{fig:prefsdist}B.
 Most sites have relatively small shifts (close to zero), although there is a long tail of sites with large shifts.
@@ -374,7 +379,7 @@ The answer to the question of how much mutational effects have shifted is theref
 We can use the null distribution to identify sites where the shifts between BG505 and BF520 are significantly larger than the noise in our experiments (Figure~\ref{fig:prefsdist}B).
 There are 30 such sites at a false discovery rate of 0.1.
 Figure~\ref{fig:prefsdist}C shows the amino-acid preferences of these significantly shifted sites for each Env.
-For the majority of shifted sites, one Env prefers a specific amino acid whereas the other Env tolerates many amino acids; for instance, see sites 512, 516, 165, 605 and 505 in Figure~\ref{fig:prefsdist}C.
+For the majority of shifted sites, one Env prefers a specific amino acid whereas the other Env tolerates many amino acids; for instance, see sites 512, 516, 599, 165, 605 and 505 in Figure~\ref{fig:prefsdist}C.
 Such broadening and narrowing of a site's mutational tolerance is often observed during protein evolution, and is frequently~\citep{wang2002evolution,bloom2006protein,gong2013stability,kumar2017stability} although not always~\citep{starr2017alternative} linked to changes in protein stability -- with a more stable protein typically being more mutationally tolerant.
 Work with engineered Env protein in the form of ``SOSIP'' trimer~\citep{binley2000recombinant,sanders2002stabilization} has shown that BG505 SOSIP is more thermostable than BF520 SOSIP~\citep{verkerke2016epitope}.
 The fact that the shifted sites usually (although not always, see sites 165 and 520 in Figure~\ref{fig:prefsdist}C) tolerate more mutations in the more stable BG505 Env is therefore consistent with the view that increased protein stability is often associated with shifts towards higher mutational tolerance.
@@ -407,13 +412,13 @@ Characteristics of significantly shifted sites.
 {\bf (A)} One monomer of the Env trimer~\citep[PDB 5FYL;][]{stewart2016trimeric} is colored from gray to orange according to the magnitude of the mutational shift at each site (orange indicates large shift).
 Sites that are significantly shifted according to Figure~\ref{fig:prefsdist}B are in spheres, and all other sites are in cartoon representation.
 {\bf (B)} 
-There is no significant difference in relative solvent accessibility of sites that have and have not undergone significant shifts.
+There is no significant difference in the relative solvent accessibility of sites that have and have not undergone significant shifts.
 The absolute solvent accessibility of each site was calculated using DSSP~\citep{kabsch1983dictionary} and normalized to a relative solvent accessibility using the absolute accessibilities from \citet{tien2013maximum}.
 {\bf (C)} 
 Sites of significant shifts are clustered in Env's structure.
 Shown is the distance of each significantly shifted and not-shifted site to the closest other shifted site.
 {\bf (D)}
-Large mutational shifts are \emph{not} strongly enriched at sites that have substituted between BG505 and BF520. 
+Large mutational shifts are \emph{not} strongly enriched at sites that have substituted between BG505 and BF520, or at sites that contact sites that have substituted. 
 The plot shows the magnitudes of the shifts among the 83 crystallographically resolved sites that have substituted between BG505 and BF520, the 234 sites that physically contact a substitution in the Env structure (any non-hydrogen atom within 3.5\angstrom), and all other sites.
 Figure~\ref{fig:shiftfeatures}-Figure~supplement~\ref{figsupp:subs_shifts} shows that there is a modest borderline-significant tendency of significantly shifted sites to have substituted.
 All panels only show the 577 sites that are resolved in the crystal structure.
@@ -485,7 +490,7 @@ Sites in Env that evolve faster or slower in nature than expected given the func
 We calculated the statistical evidence ($P$ value) that each site evolves faster ($\omega_r > 1$) or slower ($\omega_r < 1$) than expected given the experimentally measured amino-acid preferences using the method of \citet{bloom2017identification}.
 We then converted the $P$ values to $Q$ values to interpret them in the context of the false discovery rate~\citep{storey2003statistical}
 {\bf (A)}
-One monomer of the Env trimer~\citep[PDB 5FYL;][]{stewart2016trimeric} is colored from blue to red based on the strength of evidence that sites are evolving slower (blue) or faster (red) than expected given the BG505 experiments.
+One monomer of the Env trimer~\citep[PDB 5FYL;][]{stewart2016trimeric} is colored from blue to gray to red based on the strength of evidence that sites are evolving slower than expected (blue), as expected (gray) or faster than expected (red) given the BG505 experiments.
 Sites where the rate of evolution is significantly different than expected at a false discovery rate of 0.05 are shown in spheres.
 {\bf (B)}
 Sites of slower or faster than expected evolution given the BF520 experiments.
@@ -496,11 +501,11 @@ Many of the sites of slower-than-expected evolution are asparagines in N-linked 
 All sites that evolve slower than expected for both experimental datasets are in Figure~\ref{fig:divsel}-Figure~supplement~\ref{figsupp:slower}.
 {\bf (D)} 
 A large cluster of sites that evolve slower than expected is likely involved in Env's transition between open and closed conformational states.
-Gray boxes indicate sites that \citet[PDB 5VN3]{ozorowski2017open} proposed form the hydrophobic network that regulates the conformational change; blue boxes and sticks indicate sites that evolve slower than expected.
+Gray boxes indicate sites that \citet[PDB 5VN3]{ozorowski2017open} proposed form a hydrophobic network that regulates the conformational change; blue boxes and sticks indicate sites that evolve slower than expected.
 All analyses used the phylogenetic tree in Figure~\ref{fig:tree}.
 }
 \figsupp[\label{figsupp:divselRSA}Relative solvent accessibilities of sites evolving faster or slower than expected.]{
-Sites are grouped by whether they have $\omega_r > 1$ (diversifying selection) or $\omega_r < 1$ (purifying selection) at $Q < 0.05$ in \emph{both} homologs, or whether they do fall into neither of these categories.
+Sites are grouped by whether they have $\omega_r > 1$ (diversifying selection) or $\omega_r < 1$ (purifying selection) at $Q < 0.05$ in \emph{both} homologs, or whether they fall into neither of these categories.
 Relative solvent accessibilities were calculated as in Figure~\ref{fig:shiftfeatures}.
 As can be seen from these box plots with overlaid points for each site, sites of both diversifying and purifying selection tend to have higher relative solvent accessibility than other sites.
 }{\includegraphics[width=0.5\textwidth]{figures/selsites_rsa.pdf}}
@@ -558,10 +563,10 @@ Some shifted sites simply accommodate more amino acids in the more stable BG505 
 But interestingly, there is no strong trend for shifts to be enhanced at sites that differ between BG505 and BF520.
 Recent studies of protein evolution have focused on the idea that substitutions become ``entrenched'' as sites shift to accommodate new amino acids~\citep{pollock2012amino,shah2015contingency,bazykin2015changing,starr2017pervasive}.
 Indeed, a prior protein-wide comparison of amino-acid preferences across homologs found a significant enrichment of shifts at sites of substitutions~\citep{doud2015site}.
-But although there is some entrenchment of differences between BG505 and BF520, this is not the major factor behind the shifts in amino-acid preferences: sites that differ between BG505 and BF520 are not more shifted than other sites.
+But although there is some entrenchment of differences between BG505 and BF520, this is not the major factor behind the shifts in amino-acid preferences: most sites that have shifted between BG505 and BF520 actually have the same wildtype amino acid in both Envs.
 This rather surprising result might be due to Env's exceptional conformational complexity -- mutations can cause long-range alterations in Env's conformation~\citep{kwong2000structures,white2010molecular,almond2010structural,davenport2013isolate}, so it seems plausible that they might also shift mutational tolerance at distant sites.
 
-Going forward, it will be interesting to determine how the results of experiments such as ours are affected by defined modifications in viral genotype or selective pressure.
+Going forward, it will be interesting to determine how the results of experiments such as ours are affected by other defined modifications in viral genotype or selective pressure.
 A challenge of studying HIV is that almost everything must be simplified to make it tractable.
 Our studies are no different -- after all, we are measuring viral replication in a T-cell line in the lab, not in infected humans.
 But our experiments provide highly quantitative data that is amenable to rigorous analysis.
@@ -671,7 +676,7 @@ The factor of $\frac{1}{2}$ is used so that the maximum distance will always fal
 
 \subsection{Analysis of entrenchment}
 For the analysis in Figure~\ref{fig:entrenchment}, the results are presented in terms of the mutational effects rather than the amino-acid preferences. 
-If $\pi_{r,a}$ is the preference of site $r$ for amino-acid $a$ and $\pi_{r,a'}$ is the preference for amino-acid $a'$ (both re-scaled by the stringency parameters in Table~\ref{tab:phydms}), then estimated effect of the mutation from $a$ to $a'$ is simply $\log\left(\frac{\pi_{r,a'}}{\pi_{r,a}}\right)$.
+If $\pi_{r,a}$ is the preference of site $r$ for amino-acid $a$ and $\pi_{r,a'}$ is the preference for amino-acid $a'$ (both re-scaled by the stringency parameters in Table~\ref{tab:phydms}), then the estimated effect of the mutation from $a$ to $a'$ is simply $\log\left(\frac{\pi_{r,a'}}{\pi_{r,a}}\right)$.
 
 \subsection{Data and code availability}
 All code and input data required to reproduce all analyses in this paper are in Supplementary~file~\ref{suppfile:code} (see also Supplementary~file~\ref{suppfile:html}).
