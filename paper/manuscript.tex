@@ -475,17 +475,16 @@ Comparing selection in our experiments to natural selection can identify sites t
 \includegraphics[width=1.0\textwidth]{figures/omegabysite_structural_analysis/omegabysite_structural_analysis.pdf}
 \caption{\label{fig:divsel}
 Sites in Env that evolve faster or slower in nature than expected given the functional constraints measured in the lab.
-We calculated the statistical evidence ($P$ value) that each site evolves faster ($\omega_r > 1$) or slower ($\omega_r < 1$) than expected given the experimentally measured amino-acid preferences using the method of \citet{bloom2017identification}.
-We then converted the $P$ values to $Q$ values to interpret them in the context of the false discovery rate~\citep{storey2003statistical}
+We calculated the statistical evidence that each site evolves faster ($\omega_r > 1$) or slower ($\omega_r < 1$) than expected given the experimentally measured amino-acid preferences using the method of \citet{bloom2017identification}.
 {\bf (A)}
 One monomer of the Env trimer~\citep[PDB 5FYL;][]{stewart2016trimeric} is colored from blue to gray to red based on the strength of evidence that sites are evolving slower than expected (blue), as expected (gray) or faster than expected (red) given the BG505 experiments.
 Sites where the rate of evolution is significantly different than expected at a false discovery rate of 0.05 are shown in spheres.
 {\bf (B)}
 Sites of slower or faster than expected evolution given the BF520 experiments.
-For both sets of experiments, sites that evolve faster or slower than expected are often on Env's surface (Figure~\ref{fig:divsel}-Figure~supplement~\ref{figsupp:divselRSA}).
+For both Envs, sites that evolve faster or slower than expected are often on Env's surface (Figure~\ref{fig:divsel}-Figure~supplement~\ref{figsupp:divselRSA}).
 {\bf (C)}
 The results are similar regardless of whether the BG505 or BF520 experiments are used.
-Many of the sites of slower-than-expected evolution are asparagines in N-linked glycosylation motifs.
+Many of the sites of slower-than-expected evolution are asparagines in N-linked glycosylation motifs (Figure~\ref{fig:divsel}-Figure~supplement~\ref{figsupp:glycans}).
 All sites that evolve slower than expected for both experimental datasets are in Figure~\ref{fig:divsel}-Figure~supplement~\ref{figsupp:slower}.
 {\bf (D)} 
 A large cluster of sites that evolve slower than expected is likely involved in Env's transition between open and closed conformational states.
@@ -497,6 +496,12 @@ Sites are grouped by whether they have $\omega_r > 1$ (diversifying selection) o
 Relative solvent accessibilities were calculated as in Figure~\ref{fig:shiftfeatures}.
 As can be seen from these box plots with overlaid points for each site, sites of both diversifying and purifying selection tend to have higher relative solvent accessibility than other sites.
 }{\includegraphics[width=0.5\textwidth]{figures/selsites_rsa.pdf}}
+\figsupp[\label{figsupp:glycans}Amino-acid preferences and alignment frequencies for glycosylation motifs.]
+{This plot shows all sites that are N-linked glycosylation motifs in both BG505 and BF520.
+Each motif is named by the number of the asparagine, and the preferences (averaged across replicates) for each Env are shown as well as the frequencies of amino acids across the clade A alignment at each of the three positions in the motif (N-X-S/T).
+As can be seen from this plot, at many of the sites the experiments measures relatively broad mutational tolerance, but the natural Env sequences have a strongly conserved motif.
+We suspect this is because many glycans serve as as shield against immunity in nature -- a function that is not required in cell culture.}
+{\includegraphics[width=\textwidth]{figures/glycan_prefs.pdf}}
 \figsupp[\label{figsupp:slower}Amino-acid preferences and alignment frequencies of sites that evolve slower than expected.]{
 This plot shows all sites that are evolving more slowly than expected in natural sequences given the preferences measured in both Envs.
 Specifically, it shows all sites with $\omega_r < 1$ at $Q < 0.05$ for the ExpCMs for \emph{both} BG505 and BF520.
@@ -518,14 +523,15 @@ The reason the results are similar for both experimental datasets is that (as di
 
 What causes some sites to evolve faster or slower in nature than expected from the experiments?
 The answer in both cases is likely to be immune selection.
-Most of the sites of faster-than-expected evolution are on the surface of Env (Figure~\ref{fig:divsel}A,B and Figure~\ref{fig:divsel}-Figure~supplement~\ref{figsupp:slower}).
+Most of the sites of faster-than-expected evolution are on the surface of Env (Figure~\ref{fig:divsel}A,B and Figure~\ref{fig:divsel}-Figure~supplement~\ref{figsupp:divselRSA}).
 Env's escape from autologous neutralizing antibodies often involves amino-acid substitutions in surface-exposed regions~\citep{moore2009specificity}, including at many of the sites that evolve faster than expected.
 Since our deep mutational scanning did not impose antibody pressure, sites where substitutions are antibody-driven will evolve faster in nature than expected from the experiments.
+
 Interestingly, immune selection also offers a plausible explanation for the sites that evolve \emph{slower} than expected.
 In addition to escaping immunity via substitutions at antibody-binding footprints, Env is notorious for employing a range of more general strategies to reduce its susceptibility to antibodies.
 These strategies include shielding immunogenic regions with glycans~\citep{wei2003antibody,stewart2016trimeric} or hiding them by adopting a closed protein conformation~\citep{kwong2002hiv,guttman2015antibody,ozorowski2017open}.
 Sites that contribute to such general immune-evasion strategies will be under a constraint in nature that is not present in our experiments -- and indeed, such sites evolve more slowly than expected from our experiments.
-For instance, sites of N-linked glycans change slower than our experiments suggest is required by mere functional selection (Figure~\ref{fig:divsel}C), as do sites that help regulate Env's transition between open and closed conformations that have different antibody susceptibilities (Figure~\ref{fig:divsel}D).
+For instance, sites of N-linked glycans change slower in nature than our experiments suggest is required by mere functional selection (Figure~\ref{fig:divsel}C and Figure~\ref{fig:divsel}-Figure~supplement~\ref{figsupp:glycans}), as do sites that help regulate Env's transition between open and closed conformations that have different antibody susceptibilities (Figure~\ref{fig:divsel}D).
 Therefore, we can distinguish evolutionary patterns that are shaped by simple selection for Env function from those that are due to the additional complex pressures imposed during human infections. 
 
 \section{Discussion}
