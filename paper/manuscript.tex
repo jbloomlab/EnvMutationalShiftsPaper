@@ -90,7 +90,7 @@ Most mutational studies have measured how just a small number of these mutations
 
 But interpreting these studies in the context of Env evolution requires addressing a fundamental question: How informative are mutational studies of a single protein variant about constraints on long-term evolution?
 During protein evolution, substitutions at one site can change the effect of mutations at other sites~\citep{natarajan2013epistasis,gong2013stability,harms2014historical,podgornaia2015pervasive,starr2016epistasis}.
-We will follow the nomenclature of \citet{pollock2012amino} to refer to these changes in mutational effects as ``shifts'' in a site's amino-acid preferences.
+We will follow the nomenclature of \citet{pollock2012amino} to refer to these changes in mutational effects as \emph{shifts} in a site's amino-acid preferences.
 Such shifts can accumulate as substitutions become entrenched via epistatic interactions with subsequent changes~\citep{starr2017pervasive,pollock2012amino,shah2015contingency,bazykin2015changing} -- although the magnitude of these shifts is usually limited~\citep{doud2015site,chan2017correlation,ashenberg2013mutational,risso2014mutational}.
 Given that the Envs of circulating HIV strains represent a vast collection of homologs that often differ at $>$100 residues, such shifts could make the outcome of any study highly dependent on the Env used.
 The extent to which this is actually the case is unclear, since the few protein-wide studies of mutational shifts have examined proteins that are structurally far simpler than Env, which forms a large heavily glycosylated heterotrimeric complex that transitions through multiple conformational states~\citep{munro2014conformational,ozorowski2017open}.
@@ -105,7 +105,7 @@ Overall, our work provide complete across-strain maps of mutational effects that
 
 \section{Results}
 
-\subsection{Two Env homologs from clade A transmitted-founder viruses}
+\subsection{Two Envs from clade A transmitted-founder viruses}
 The viruses most relevant to HIV's long-term evolution are those which are transmitted from human-to-human.
 However, the only prior work that has measured how all Env amino-acid mutations affect HIV replication is a study by some of us~\citep{haddox2016experimental} that used a late-stage lab-passaged CXCR4-tropic virus~\citep[LAI;][]{peden1991changes}.
 The properties of Env can vary substantially between such late-stage viruses and the transmitted-founder viruses relevant to HIV's long-term evolution~\citep{sagar2006human,wilen2011phenotypic,parrish2013phenotypic,ronen2015hiv}.
@@ -141,10 +141,10 @@ In our experiments, we analyze only the ectodomain and transmembrane domain of E
 In these regions of Env, BG505 and BF520 are identical at 549 of the 616 sites (89.1\% identity) that are alignable across clade A Envs (Figure~\ref{fig:tree}-source~data~\ref{figdata:alignment}, Figure~\ref{fig:tree}-source~data~\ref{figdata:mask}).
 The divergence between BG505 and BF520 therefore offers ample opportunity to investigate mutational shifts during Env evolution.
 
-\subsection{Deep mutational scanning to measure the effects of all amino-acid mutations to each Env on HIV replication}
+\subsection{Deep mutational scanning of each Env}
 We have previously described a deep mutational scanning strategy for measuring how all amino-acid mutations to Env affect HIV replication in cell culture, and applied this strategy to the late-stage lab-adapted LAI strain~\citep{haddox2016experimental}.
 Here we made several modifications to this earlier strategy to apply it to transmitted-founder Envs and to reduce the experimental noise. 
-This last consideration is especially important when comparing mutational effects between Envs, since it is only possible to reliably detect differences that exceed the magnitude of the experimental noise. 
+This last consideration is especially important when comparing Envs, since it is only possible to reliably detect differences that exceed the magnitude of the experimental noise. 
 Our modified the deep mutational scanning strategy is in Figure~\ref{fig:dms_schematic}A.
 This approach had the following substantive changes: we used SupT1 cells expressing CCR5 to support replication of viruses with transmitted-founder Envs, we used more virions for the first passage ($\ge 3 \times 10^6$ versus $5\times 10^5$ infectious units per library) to avoid bottlenecking library diversity, and rather than performing a full second passage we just did a short high-MOI infection to enable recovery of \textit{env} genes from infectious virions without bottlenecking (Figure~\ref{fig:dms_schematic}A).
 We performed this deep mutational scanning in full biological triplicate for both BG505 and BF520 (Figure~\ref{fig:dms_schematic}B).
@@ -234,7 +234,7 @@ These replicate-to-replicate correlations are substantially higher than those fo
 
 While the replicates are well correlated across all replicates for both BG505 and BF520, the replicates for BG505 are more correlated with each other than with replicates for BF520, and vice versa (Figure~\ref{fig:mutfreqs}B, compare red and blue versus gray plots).
 This fact hints that there are some shifts in amino-acid preferences between the two Envs -- something that is investigated with more statistical rigor later in this paper.
-Note also that there is a trend for highly preferred amino acids to be more strongly preferred in BG505 than BF520 (most high-preference points in the gray plots in Figure~\ref{fig:mutfreqs}B fall above the diagonal); however, this trend does not necessarily reflect differences between the two Envs.
+Note also that there is a trend for highly preferred amino acids to be more strongly preferred in BG505 than BF520 (most high-preference points in the gray plots in Figure~\ref{fig:mutfreqs}B fall above the diagonal); however, this trend does not necessarily reflect differences between the Envs.
 Rather, there were modest differences in the stringency of selection between our deep mutational scans of BG505 and BF520 (Figure~\ref{fig:mutfreqs}-Figure-supplement~\ref{figsupp:mutfreqs} shows that purifying selection better purged stop codons in BG505).
 In the next section, we correct for these experimental differences by calibrating each dataset to match the stringency of selection in nature.
 
@@ -307,7 +307,7 @@ This figure is the same as Figure~\ref{fig:BG505prefs} except that it shows the 
 
 A more qualitative way to assess if the deep mutational scanning authentically describes selection on Env function is to visually compare the measurements with existing knowledge.
 Figures~\ref{fig:BG505prefs} and \ref{fig:BF520prefs} show the across-replicate average of the amino-acid preferences for each Env after re-scaling by the stringency parameters in Table~\ref{tab:phydms}.
-Note that throughout the rest of this paper, we use preferences re-scaled by these stringency parameters, with the re-scaling done as described in \citet{hilton2017phydms}.
+(Note that throughout the rest of this paper, we use preferences re-scaled by these stringency parameters.)
 At sites of known functional importance, these preferences are usually consistent with prior knowledge.
 For instance, residues T257, D368, E370, W427, and D457 are important for Env binding to CD4~\citep{olshevsky1990identification}, and all these amino acids are highly preferred in our deep mutational scanning (Figures~\ref{fig:BG505prefs} and \ref{fig:BF520prefs}).
 Likewise, Env has 10 disulfide bonds (linking sites 54-74, 119-205, 126-196, 131-157, 218-247, 228-239, 296-331, 378-445, 385-418, and 598-604), most of which are important for function~\citep{van2008only} -- and the cysteines at these sites are highly preferred in our deep mutational scanning.
@@ -493,15 +493,15 @@ Gray boxes indicate sites that \citet[PDB 5VN3]{ozorowski2017open} proposed form
 All analyses used the phylogenetic tree in Figure~\ref{fig:tree}.
 }
 \figsupp[\label{figsupp:divselRSA}Relative solvent accessibilities of sites evolving faster or slower than expected.]{
-Sites are grouped by whether they have $\omega_r > 1$ (diversifying selection) or $\omega_r < 1$ (purifying selection) at $Q < 0.05$ in \emph{both} homologs, or whether they fall into neither of these categories.
+Sites are grouped by whether they have $\omega_r > 1$ (diversifying selection) or $\omega_r < 1$ (purifying selection) at $Q < 0.05$ in \emph{both} Envs, or whether they fall into neither of these categories.
 Relative solvent accessibilities were calculated as in Figure~\ref{fig:shiftfeatures}.
 As can be seen from these box plots with overlaid points for each site, sites of both diversifying and purifying selection tend to have higher relative solvent accessibility than other sites.
 }{\includegraphics[width=0.5\textwidth]{figures/selsites_rsa.pdf}}
 \figsupp[\label{figsupp:slower}Amino-acid preferences and alignment frequencies of sites that evolve slower than expected.]{
-This plot shows all sites that are evolving more slowly than expected in natural sequences given the preferences measured in both homologs.
+This plot shows all sites that are evolving more slowly than expected in natural sequences given the preferences measured in both Envs.
 Specifically, it shows all sites with $\omega_r < 1$ at $Q < 0.05$ for the ExpCMs for \emph{both} BG505 and BF520.
-For each site, the plots show the preferences averaged across replicates and re-scaled for each homolog, as well as the frequencies of amino acids in the clade A Env alignment. 
-The $Q$-value indicated is the maximum of that for the two homologs.
+For each site, the plots show the preferences averaged across replicates and re-scaled for each Env, as well as the frequencies of amino acids in the clade A Env alignment. 
+The $Q$-value indicated is the maximum of that for the two Envs.
 }{\includegraphics[width=\textwidth]{figures/purifying_selsites.pdf}}
 \figdata{The $\omega_r$ and $Q$-values are in \texttt{merged\_omegabysite.csv}.}
 \end{figure}
