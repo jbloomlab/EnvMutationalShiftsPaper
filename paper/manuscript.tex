@@ -51,7 +51,7 @@
 \affil[1]{Basic Sciences Division and Computational Biology Program, Fred Hutchinson Cancer Research Center, Seattle, WA} 
 \affil[2]{Molecular and Cellular Biology PhD program, University of Washington, Seattle, WA}
 \affil[3]{Department of Genome Sciences, University of Washington, Seattle, WA}
-\affil[4]{Human Biology Division, Fred Hutchinson Cancer Research Center, Seattle, WA}
+\affil[4]{Human Biology Division and Epidemiology Program, Fred Hutchinson Cancer Research Center, Seattle, WA}
 \contrib[\authfn{1}]{These authors contributed equally to this work}
 
 \corr{jbloom@fredhutch.org}{JDB}
@@ -68,7 +68,7 @@
 \begin{abstract}
 The immediate evolutionary space accessible to HIV is largely determined by how single amino-acid mutations affect fitness.
 These mutational effects can shift as the virus evolves.
-However, the prevalence of such shifts remains unclear.
+However, the prevalence of such shifts in mutational effects remains unclear.
 Here we quantify the effects on viral replication of all amino-acid mutations to two HIV envelope (Env) proteins that differ at $>$100 residues.
 Most mutations similarly affect both Envs, but the amino-acid preferences of a minority of sites have clearly shifted.
 These shifted sites usually prefer a specific amino acid in one Env, but tolerate many amino acids in the other.
@@ -83,10 +83,10 @@ The major group of HIV-1 that is responsible for the current pandemic originated
 The descendants of this virus have evolved so rapidly that their Envs now have as little as 65\% protein identity~\citep{lynch2009appreciating}.
 For comparison, protein orthologs shared between humans and mice have only diverged to a median identity of 78\% over 90 million years~\citep{waterston2002initial,hedges2006timetree}.
 
-Env's rapid evolution has dire consequences for anti-HIV immunity, since it erodes the efficacy of most neutralizing antibodies~\citep{albert1990rapid,wei2003antibody,richman2003rapid}.
+Env's rapid evolution has dire consequences for anti-HIV immunity, since it erodes the efficacy of most neutralizing antibodies~\citep{albert1990rapid,wei2003antibody,richman2003rapid,burton2005antibody}.
 Because of this public-health importance, numerous studies have experimentally characterized aspects of the ``evolutionary landscape'' that Env traverses.
-The immediate evolutionary space accessible to any given Env is largely defined by the effects on viral fitness of all $19 \times 856 \sim 1.6 \times 10^4$ single amino-acid mutations that can be made to a typical-length 856-residue Env. 
-Most mutational studies have measured how just a small fraction of these mutations affect viral replication in cell culture~\citep{freed1989mutational,cordonnier1989single,olshevsky1990identification,lu2001structural,basmaciogullari2002identification,jacobs2005alanine,zwick2005anti,lynch2015hiv}, although it has recently become possible to use deep mutational scanning to measure the effects of many~\citep{al2014high,duenas2016saturation} or even all~\citep{haddox2016experimental} mutations to an Env variant.
+The immediate evolutionary space accessible to any given Env is largely defined by the effects on viral fitness of all single amino-acid mutations to Env.
+Most mutational studies have measured how just a small number of these mutations affect viral replication in cell culture, although it has recently become possible to use deep mutational scanning to measure the effects of many~\citep{al2014high,duenas2016saturation} or even all~\citep{haddox2016experimental} single amino-acid mutations mutations to an Env variant.
 
 But interpreting these studies in the context of Env evolution requires addressing a fundamental question: How informative are mutational studies of a single protein variant about constraints on long-term evolution?
 During protein evolution, substitutions at one site can change the effect of mutations at other sites~\citep{natarajan2013epistasis,gong2013stability,harms2014historical,podgornaia2015pervasive,starr2016epistasis}.
@@ -108,18 +108,18 @@ Overall, our work provide complete across-strain maps of mutational effects that
 \subsection{Two Env homologs from clade A transmitted-founder viruses}
 The viruses most relevant to HIV's long-term evolution are those which are transmitted from human-to-human.
 However, the only prior work that has measured how all Env amino-acid mutations affect HIV replication is a study by some of us~\citep{haddox2016experimental} that used a late-stage lab-passaged CXCR4-tropic virus~\citep[LAI;][]{peden1991changes}.
-The properties of Env can vary substantially between such late-stage viruses and the transmitted-founder viruses relevant to HIV's long-term evolution~\citep{sagar2006human,wilen2011phenotypic,parrish2013phenotypic}.
+The properties of Env can vary substantially between such late-stage viruses and the transmitted-founder viruses relevant to HIV's long-term evolution~\citep{sagar2006human,wilen2011phenotypic,parrish2013phenotypic,ronen2015hiv}.
 
 \begin{figure}
-\centerline{\includegraphics[clip=true, trim= 0in 0in 1in 0in, angle=-90, width=0.85\textwidth]{figures/tree_plot.pdf}}
+\centerline{\includegraphics[clip=true, trim= 1in 0in 1.4in 0in, angle=-90, width=0.85\textwidth]{figures/tree_plot.pdf}}
 \caption{\label{fig:tree}
 Phylogenetic tree showing the relationship of BG505 and BF520 to other clade A Envs.
 The tree shows the 69 Envs in the alignment in Figure~\ref{fig:tree}-source~data~\ref{figdata:alignment}, which is a subsample of clade A sequences from the group M alignment in the Los Alamos HIV sequence database (\url{http://www.hiv.lanl.gov}).
-Sites not mutagenized in our experiments (the signal peptide and cytoplasmic tail) or that are poorly alignable (mostly sites in the variable loops) were masked as indicated in Figure~\ref{fig:tree}-source~data~\ref{figdata:mask}, leaving 616 alignable sites.
-The pairwise identity of BG505 and BF520 to the other sequences at these alignable sites is shown in Figure~\ref{fig:tree}-Figure~supplement~\ref{figsupp:identity}.
-The tree topology was inferred using \texttt{RAxML}~\citep{stamatakis2014raxml} under the GTRCAT model of nucleotide substitution, and branch lengths were optimized under the M0 version of the Goldman-Yang model~\citep{yang2000codon} using \texttt{phydms}~\citep{hilton2017phydms}.
+Sites not mutagenized in our experiments (the signal peptide and cytoplasmic tail) or that are poorly alignable were masked as indicated in Figure~\ref{fig:tree}-source~data~\ref{figdata:mask}, leaving 616 alignable sites.
+The pairwise identity of BG505 and BF520 to other sequences at alignable sites is in Figure~\ref{fig:tree}-Figure~supplement~\ref{figsupp:identity}.
+The tree topology was inferred using \texttt{RAxML}~\citep{stamatakis2014raxml} under the GTRCAT model of nucleotide substitution, and branch lengths were optimized under the M0 Goldman-Yang model~\citep{yang2000codon} using \texttt{phydms}~\citep{hilton2017phydms}.
 }
-\figsupp[\label{figsupp:identity}  Pairwise identity of all Env sequences in our clade A alignment to BG505 and BF520 after masking poorly alignable or non-mutagenized sites.]
+\figsupp[\label{figsupp:identity}  Pairwise identity of all Env sequences to BG505 and BF520.]
 {The histograms show the pairwise amino-acid identity of each Env to all other sequences in the clade A alignment in Figure~\ref{fig:tree}-source~data~\ref{figdata:alignment} after masking the sites delineated in Figure~\ref{fig:tree}-source~data~\ref{figdata:mask}.
 There are 616 non-masked sites.
 The pairwise protein identity between BG505 and BF520 is 86.2\% (721 of 836 sites identical) when considering \emph{all} sites, and 89.1\% (549 of 616 sites identical) when considering just the non-masked sites.}
@@ -142,10 +142,13 @@ In these regions of Env, BG505 and BF520 are identical at 549 of the 616 sites (
 The divergence between BG505 and BF520 therefore offers ample opportunity to investigate mutational shifts during Env evolution.
 
 \subsection{Deep mutational scanning to measure the effects of all amino-acid mutations to each Env on HIV replication}
-We have previously described a deep mutational scanning strategy for measuring how all amino-acid mutations to Env affect HIV replication in cell culture, and applied this strategy to the LAI strain~\citep{haddox2016experimental}.
-In addition to using a late-stage lab-adapted HIV strain, that study had another shortcoming: the measurements were quite noisy.
-Specifically, the Pearson correlation coefficients between measurements of mutational effects from independent biological replicates were in the range of $R = 0.45$ to $0.50$~\citep{haddox2016experimental}.
-This noise is a problem when trying to identify differences in mutational effects between Envs, since it is only possible to reliably detect differences that exceed the magnitude of the experimental noise. 
+We have previously described a deep mutational scanning strategy for measuring how all amino-acid mutations to Env affect HIV replication in cell culture, and applied this strategy to the late-stage lab-adapted LAI strain~\citep{haddox2016experimental}.
+Here we made several modifications to this earlier strategy to apply it to transmitted-founder Envs and to reduce the experimental noise. 
+This last consideration is especially important when comparing mutational effects between Envs, since it is only possible to reliably detect differences that exceed the magnitude of the experimental noise. 
+Our modified the deep mutational scanning strategy is in Figure~\ref{fig:dms_schematic}A.
+This approach had the following substantive changes: we used SupT1 cells expressing CCR5 to support replication of viruses with transmitted-founder Envs, we used more virions for the first passage ($\ge 3 \times 10^6$ versus $5\times 10^5$ infectious units per library) to avoid bottlenecking library diversity, and rather than performing a full second passage we just did a short high-MOI infection to enable recovery of \textit{env} genes from infectious virions without bottlenecking (Figure~\ref{fig:dms_schematic}A).
+We performed this deep mutational scanning in full biological triplicate for both BG505 and BF520 (Figure~\ref{fig:dms_schematic}B).
+Our libraries encompassed all codon mutations to all sites in Env except for the signal peptide and cytoplasmic tail.
 
 \begin{figure}
 \centerline{\includegraphics[width=0.75\textwidth]{figures/dms_schematic/dms_schematic.pdf}}
@@ -175,11 +178,6 @@ The observed distribution is close to the expected distribution.
 Comparable data for the BF520 libraries is provided in \citet{dingens2017comprehensive}.
 }{\includegraphics[width=\textwidth]{figures/sanger_sequencing_supp/sanger_sequencing_supp.pdf}}
 \end{figure}
-
-We therefore modified the deep mutational scanning strategy of \citet{haddox2016experimental} to yield the approach in Figure~\ref{fig:dms_schematic}A.
-This approach had the following substantive changes: we used SupT1 cells expressing CCR5 to support replication of viruses with transmitted-founder Envs, we used more virions for the first passage ($\ge 3 \times 10^6$ versus $5\times 10^5$ infectious units per library) to avoid bottlenecking library diversity, and rather than performing a full second passage we just did a short high-MOI infection to enable recovery of \textit{env} genes from infectious virions without bottlenecking (Figure~\ref{fig:dms_schematic}A).
-We performed this deep mutational scanning in full biological triplicate for both BG505 and BF520 (Figure~\ref{fig:dms_schematic}B).
-Our deep mutational scanning libraries encompassed all codon mutations to all sites in Env except for the signal peptide and cytoplasmic tail.
 
 \begin{figure}
 \begin{minipage}[t]{0.34\textwidth}
@@ -232,16 +230,15 @@ We used the deep mutational scanning data to estimate the preference of each sit
 As graphically illustrated in Figure~\ref{fig:dms_schematic}A, the preferences for each site are normalized to sum to one.
 Our libraries were mutagenized at 670 sites in BG505 and 662 sites in BF520, so $670 \times 20 = 13,400$ and $662 \times 20 = 13,240$ preferences were estimated for each Env, respectively.
 The correlations between the preferences from different experimental replicates are in Figure~\ref{fig:mutfreqs}B.
-These replicate-to-replicate correlations are substantially higher than those for the deep mutational scanning of LAI Env by \citet{haddox2016experimental}, indicating that the experimental modifications used here were beneficial.
-Because of the clear superiority of the current measurements, in this paper we do not attempt to compare to our earlier inferior LAI dataset. 
+These replicate-to-replicate correlations are substantially higher than those for the deep mutational scanning of LAI Env by \citet{haddox2016experimental}, which had replicate-to-replicate Pearson correlations of only $R = 0.45$ to $0.50$. 
 
-While the replicates are well correlated across all replicates for both BG505 and BF520, the replicates for BG505 are more correlated with each other than with replicates for BF520, and vice versa (Figure~\ref{fig:mutfreqs}B).
+While the replicates are well correlated across all replicates for both BG505 and BF520, the replicates for BG505 are more correlated with each other than with replicates for BF520, and vice versa (Figure~\ref{fig:mutfreqs}B, compare red and blue versus gray plots).
 This fact hints that there are some shifts in amino-acid preferences between the two Envs -- something that is investigated with more statistical rigor later in this paper.
-Note also that while there is a trend for the highly preferred amino acids to be more strongly preferred in BG505 than BF520 (most of the high-preference points in the gray plots in Figure~\ref{fig:mutfreqs}B fall above the diagonal), this trend does not necessarily reflect differences between the two Envs.
+Note also that there is a trend for highly preferred amino acids to be more strongly preferred in BG505 than BF520 (most high-preference points in the gray plots in Figure~\ref{fig:mutfreqs}B fall above the diagonal); however, this trend does not necessarily reflect differences between the two Envs.
 Rather, there were modest differences in the stringency of selection between our deep mutational scans of BG505 and BF520 (Figure~\ref{fig:mutfreqs}-Figure-supplement~\ref{figsupp:mutfreqs} shows that purifying selection better purged stop codons in BG505).
-Later in this paper, we correct for these experimental differences by calibrating each dataset to match the stringency of selection in nature.
+In the next section, we correct for these experimental differences by calibrating each dataset to match the stringency of selection in nature.
 
-\subsection{Amino-acid preferences of the Envs and their relationship to HIV evolution in nature}
+\subsection{Amino-acid preferences of the Envs and their relationship to HIV evolution}
 The most immediate question is how authentically the experimental measurements describe the actual selection on Env function in nature.
 Direct comparisons between experimentally measured amino-acid preferences and amino-acid frequencies in natural sequences are confounded by the fact that the natural sequences are evolutionarily related.
 This problem can be overcome by making the comparison in a phylogenetic context.
@@ -319,11 +316,9 @@ For instance, Env has five variable loops that mostly evolve under weak constrai
 It is beyond the scope of this paper to catalog associations between our measurements and all other prior mutational studies of Env, but we anticipate that the complete maps of mutational effects in Figures~\ref{fig:BG505prefs} and \ref{fig:BF520prefs} will be useful for future sequence-structure-function studies.
 
 \subsection{Shifts in amino-acid preferences between BG505 and BF520}
-The most fundamental question that we seek to address is how similar the effects of mutations are between the two Envs.
-We can get some hint simply by examining Figure~\ref{fig:mutfreqs}B, which shows the correlations among the amino-acid preferences measured for all experimental replicates for both BG505 and BF520.
-All replicates are strongly correlated with each other regardless of which Env was used, indicating that many aspects of the preferences are conserved between BG505 and BF520.
-But the correlations between replicate measurements for the same Env are always greater than or equal to those for replicate measurements on different Envs, suggesting at least some shifts in preferences between BG505 and BF520.
-However, simply comparing correlation coefficients in this way does not identify specific sites where mutational effects have shifted, nor does it quantify the magnitude of any shifts.
+The most fundamental question that we seek to address is how similar the amino-acid preferences are between the two Envs.
+We have already noted that Figure~\ref{fig:mutfreqs}B shows that the preferences are more correlated for replicate measurements on the same Env than for replicate measurements on different Envs.
+However, simply comparing correlation coefficients does not identify specific sites where mutational effects have shifted, nor does it quantify the magnitude of any shifts.
 
 \begin{figure}
 \begin{fullwidth}
@@ -380,20 +375,13 @@ We can use the null distribution to identify sites where the shifts between BG50
 There are 30 such sites at a false discovery rate of 0.1.
 Figure~\ref{fig:prefsdist}C shows the amino-acid preferences of these significantly shifted sites for each Env.
 For the majority of shifted sites, one Env prefers a specific amino acid whereas the other Env tolerates many amino acids; for instance, see sites 512, 516, 599, 165, 605 and 505 in Figure~\ref{fig:prefsdist}C.
-Such broadening and narrowing of a site's mutational tolerance is often observed during protein evolution, and is frequently~\citep{wang2002evolution,bloom2006protein,gong2013stability,kumar2017stability} although not always~\citep{starr2017alternative} linked to changes in protein stability -- with a more stable protein typically being more mutationally tolerant.
+Such broadening and narrowing of a site's mutational tolerance is frequently linked to changes in protein stability, with a more stable protein typically being more mutationally tolerant~\citep{wang2002evolution,bloom2006protein,gong2013stability,kumar2017stability}.
 Work with engineered Env protein in the form of ``SOSIP'' trimer~\citep{binley2000recombinant,sanders2002stabilization} has shown that BG505 SOSIP is more thermostable than BF520 SOSIP~\citep{verkerke2016epitope}.
-The fact that the shifted sites usually (although not always, see sites 165 and 520 in Figure~\ref{fig:prefsdist}C) tolerate more mutations in the more stable BG505 Env is therefore consistent with the view that increased protein stability is often associated with shifts towards higher mutational tolerance.
+Consistent with this fact, sites with altered mutational tolerance are often (although not always, see sites 165 and 520 in Figure~\ref{fig:prefsdist}C) more mutationally tolerant in BG505.
 
 However, not all of the significantly shifted sites show a simple pattern of broadening or narrowing of mutational tolerance.
 For instance, site 288 does not alter its mutational tolerance but rather flips its rather narrow amino-acid preference from phenylalanine in BG505 to leucine in BF520 (Figure~\ref{fig:prefsdist}C).
 Several other sites show similar but somewhat milder flips in which amino acids they prefer.
-In later sections, we investigate evolutionary and structural characteristics of these shifted sites.
- 
- An important caveat to the foregoing analysis is that it only identifies the 30 sites with shifts that exceed the experimental noise.
- It is possible that other sites have undergone small shifts not detectable by our experiments -- indeed, a recent study by \citet{starr2017pervasive} found that small shifts are common during the evolution of the Hsp90 protein in yeast.
- However, it is not technically feasible to experimentally measure the fitness effects of mutations to HIV with the same precision as for model organisms such as yeast.
-Therefore, we can only conclude that 30 Env sites have undergone \emph{detectable} shifts in amino-acid preferences between BG505 and BF520.
-It is possible that more sensitive experiments would find additional small shifts. 
 
 \subsection{Structural and evolutionary properties of shifted sites}
 
@@ -478,7 +466,7 @@ But given that many of these shifts occur at sites that do not even differ betwe
 
 
 \subsection{Comparing selection in the lab to natural selection}
-Our experiments measure the effects of mutations on viral replication in a T-cell line in the lab.
+Our experiments measure the effects of mutations on multi-cycle viral replication in a T-cell line in the lab.
 But HIV actually evolves in humans, where additional selection pressures on Env are undoubtedly present.
 For instance, antibody pressure might increase the rate of evolution at some sites~\citep{albert1990rapid,wei2003antibody,richman2003rapid}, whereas pressure to mask certain epitopes~\citep{kwong2002hiv} might add constraint at other sites. 
 Comparing selection in our experiments to natural selection can identify sites that are under such additional pressures during HIV's actual evolution in humans.
@@ -541,12 +529,13 @@ For instance, sites of N-linked glycans change slower than our experiments sugge
 Therefore, we can distinguish evolutionary patterns that are shaped by simple selection for Env function from those that are due to the additional complex pressures imposed during human infections. 
 
 \section{Discussion}
-We have experimentally measured the preference for each amino acid at each site in the ectodomain of two Envs under selection for viral replication in cell culture.
+We have experimentally measured the preference for each amino acid at each site in the ectodomain of two Envs under selection for multi-cycle viral replication in cell culture.
 These amino-acid preference maps are generally consistent with prior knowledge about sites that are important for protein properties such as receptor binding or disulfide-mediated stability.
-However, the main value of these maps comes not from comparing them with prior knowledge, but from the fact that such prior knowledge encompasses just a small fraction of the vast mutational space available to Env.
+However, the main value of these maps comes not from comparing them with prior knowledge, which serves to simply validate the approach.
+The main value comes from the fact that such prior knowledge encompasses just a small fraction of the vast mutational space available to Env.
 Because Env evolves so rapidly, every study of this protein must be placed in an evolutionary context, and our comprehensive amino-acid preference maps potentially enable this in ways that prior piecemeal studies of mutations cannot.
 
-But our maps come with a serious caveat: each one is measured for just a single Env variant.
+But these maps come with a potentially serious caveat: each one is measured for just a single Env variant.
 The major question that our study aimed to answer is whether the maps are still useful for evolutionary questions, or whether Env's amino-acid preferences shift so rapidly that each map only applies to the specific HIV strain for which it was measured.
 This question is reminiscent of one that was grappled with in the early days of protein crystallography, when it first became possible to build maps of a protein's structure.
 Because it was not (and is still not) possible to crystallize every variant of a protein, it was necessary to determine whether protein structures could be usefully generalized among homologs.
@@ -562,9 +551,9 @@ Consistent with studies of other proteins~\citep{natarajan2013epistasis,harms201
 Some shifted sites simply accommodate more amino acids in the more stable BG505 Env -- a type of shift that has been well-documented for other proteins~\citep{wang2002evolution,bloom2006protein,gong2013stability,kumar2017stability}.
 But interestingly, there is no strong trend for shifts to be enhanced at sites that differ between BG505 and BF520.
 Recent studies of protein evolution have focused on the idea that substitutions become ``entrenched'' as sites shift to accommodate new amino acids~\citep{pollock2012amino,shah2015contingency,bazykin2015changing,starr2017pervasive}.
-Indeed, a prior protein-wide comparison of amino-acid preferences across homologs found a significant enrichment of shifts at sites of substitutions~\citep{doud2015site}.
+Indeed, a prior protein-wide comparison of amino-acid preferences across homologs of influenza nucleoprotein found a significant enrichment of shifts at sites of substitutions~\citep{doud2015site}.
 But although there is some entrenchment of differences between BG505 and BF520, this is not the major factor behind the shifts in amino-acid preferences: most sites that have shifted between BG505 and BF520 actually have the same wildtype amino acid in both Envs.
-This rather surprising result might be due to Env's exceptional conformational complexity -- mutations can cause long-range alterations in Env's conformation~\citep{kwong2000structures,white2010molecular,almond2010structural,davenport2013isolate}, so it seems plausible that they might also shift mutational tolerance at distant sites.
+This rather surprising result might be due to Env's exceptional conformational complexity -- mutations can cause long-range alterations in Env's conformation~\citep{kwong2000structures,white2010molecular,almond2010structural,davenport2013isolate}, so it seems plausible that they might also shift mutational tolerance at distant sites. 
 
 Going forward, it will be interesting to determine how the results of experiments such as ours are affected by other defined modifications in viral genotype or selective pressure.
 A challenge of studying HIV is that almost everything must be simplified to make it tractable.
@@ -691,7 +680,7 @@ This work was supported by the following grants from the NIH: DP1-DA039543 from 
 The work was also supported in part by a Collaboration for AIDS Vaccine Discovery Grant (OPP1111923).
 The research of JDB is supported in part by a Faculty Scholar Grant from the Howard Hughes Medical Institute and the Simons Foundation.
 HKH was supported by a Cell and Molecular Biology Training Grant (T32GM007270) from the NIGMS of the NIH.
-ASD was supported by an NSF Graduate Research Fellowship (DGE-1256082).}
+ASD was supported by an NSF Graduate Research Fellowship (DGE-1256082).
 
 \bibliography{references.bib}
 
