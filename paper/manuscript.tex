@@ -37,6 +37,7 @@
 \setcounter{totalnumber}{20}
 
 \newcommand{\jdbcomment}[1]{\emph{\color{red} [#1]}}
+\newcommand{\hhcomment}[1]{\emph{\color{blue} [#1]}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% ARTICLE SETUP
@@ -156,7 +157,7 @@ Our libraries encompassed all codon mutations to all sites in Env except for the
 \caption{\label{fig:dms_schematic}
 Deep mutational scanning workflow.
 {\bf (A)} We made libraries of proviral HIV plasmids with random codon-level mutations in the \textit{env} gene.
-The number of mutations per gene followed a roughly Poisson distribution with a mean between 1 and 1.5 (Figure~\ref{fig:dms_schematic}-Figure~supplement~\ref{figsupp:sanger}).
+The number of mutations per gene approximately followed a Poisson distribution with a mean between 1 and 1.5 (Figure~\ref{fig:dms_schematic}-Figure~supplement~\ref{figsupp:sanger}).
 We transfected the plasmids into 293T cells to generate mutant viruses, which lack a genotype-phenotype link since cells are multiply transfected.
 To establish a genotype-phenotype link and select for Env variants that support HIV growth, we passaged the libraries in SupT1.CCR5 cells for four days at a low multiplicity of infection (MOI) of 0.01.
 To isolate the \textit{env} genes from only viruses that encoded a functional Env protein, we infected the passaged libraries into SupT1.CCR5 cells at high MOI and harvested reverse-transcribed non-integrated viral DNA after 12 hours.
@@ -200,7 +201,7 @@ The deep mutational scanning selects for functional Envs and yields measurements
 {\bf (A)}
 The average per-codon mutation frequency when sequencing plasmids encoding wildtype Env (\emph{DNA}), plasmid mutant libraries (\emph{mutDNA}), mutant viruses after the final infection (\emph{mutvirus}), and virus generated from wildtype plasmids (\emph{virus}).
 Mutations are categorized as nonsynonymous, synonymous, or stop codon. 
-The \emph{DNA} samples show that sequencing errors are rare, and the \emph{virus} samples show that viral replication and reverse-transcription errors are well below the frequency of mutations in the \emph{mutDNA} samples.
+The \emph{DNA} samples show that sequencing errors are rare, and the \emph{virus} samples show that viral-replication errors are well below the frequency of mutations in the \emph{mutDNA} samples.
 Comparing the \emph{mutvirus} to \emph{mutDNA} shows clear purifying selection against stop codons and some nonsynonymous mutations, particularly after subtracting the background error rates given by the \emph{virus} and \emph{DNA} samples (Figure~\ref{fig:mutfreqs}-Figure~supplement~\ref{figsupp:mutfreqs}).
 More extensive plots from the analysis of the deep sequencing data are in Supplementary~files~\ref{suppfile:code} and \ref{suppfile:html}.
 {\bf (B)}
@@ -269,7 +270,7 @@ ExpCM's have a stringency parameter that relates selection in the experiments to
 A stringency parameter $>$1 indicates that natural selection prefers the same amino acids as the experiments, but with greater stringency~\citep{hilton2017phydms}.
 Both ExpCM's have stringency parameters $>$1 (Table~\ref{tab:phydms}) -- a finding that makes sense, since the stop-codon analysis in the previous section suggests that the experimental selections are more lax than natural selection on HIV.
 We can also interpret the $\omega$ parameter.
-For standard codon substitution models, $\omega$ is the rate of fixation of nonsynonymous mutations relative to synonymous one -- and the gene-wide average $\omega$ is almost always $<$1, since purifying selection purges many functionally deleterious amino-acid mutations even for adaptively evolving proteins~\citep{murrell2015gene}.
+For standard codon substitution models, $\omega$ is the rate of fixation of nonsynonymous mutations relative to synonymous ones -- and the gene-wide average $\omega$ is almost always $<$1, since purifying selection purges many functionally deleterious amino-acid mutations even for adaptively evolving proteins~\citep{murrell2015gene}.
 Indeed, Table~\ref{tab:phydms} shows that Env's gene-wide average $\omega$ is $<$1 for a standard model.
 But for ExpCM's, $\omega$ is the relative rate of nonsynonymous to synonymous substitutions \emph{after} accounting for functional constraints measured in the deep mutational scanning~\citep{bloom2017identification}.
 Table~\ref{tab:phydms} shows that the ExpCM's have a gene-wide average $\omega$ that is $>$1, indicating that external selection (e.g., from immunity) drives Env to fix amino-acid mutations faster than expected under a null model that only accounts for functional constraints.
@@ -314,6 +315,7 @@ For instance, residues T257, D368, E370, W427, and D457 are important for Env bi
 Likewise, Env has 10 disulfide bonds (linking sites 54-74, 119-205, 126-196, 131-157, 218-247, 228-239, 296-331, 378-445, 385-418, and 598-604), most of which are important for function~\citep{van2008only} -- and the cysteines at these sites are highly preferred in our deep mutational scanning.
 The deep mutational scanning is also consistent with prior knowledge about sites that are tolerant of mutations.
 For instance, Env has five variable loops that mostly evolve under weak constraint in nature~\citep{starcich1986identification,zolla2010structure} -- and most sites in these loops are mutationally tolerant in our deep mutational scanning (see sites indicated by gray overlay bars in Figures~\ref{fig:BG505prefs} and \ref{fig:BF520prefs}, such as 132 to 195).
+It is beyond the scope of this paper to catalog associations between our measurements and all other prior mutational studies of Env, but the concordance of our findings with the above mutational studies, and the fact that our data improve phylogenetic models of Env's natural evolution, suggest that our measurements authentically describe functional selection on Env.
 
 \subsection{Shifts in amino-acid preferences between BG505 and BF520}
 The most fundamental question that we seek to address is how similar the amino-acid preferences are between the two Envs.
@@ -381,7 +383,7 @@ Consistent with this fact, sites with altered mutational tolerance are often (al
 
 However, not all of the significantly shifted sites show a simple pattern of broadening or narrowing of mutational tolerance.
 For instance, site 288 does not alter its mutational tolerance but rather flips its rather narrow amino-acid preference from phenylalanine in BG505 to leucine in BF520 (Figure~\ref{fig:prefsdist}C).
-Several other sites show similar but somewhat milder flips in which amino acids they prefer.
+Thus, there is variation in both the extent and types of shifts observed.
 
 \subsection{Structural and evolutionary properties of shifted sites}
 
@@ -407,7 +409,7 @@ Sites of significant shifts are clustered in Env's structure.
 Shown is the distance of each significantly shifted and not-shifted site to the closest other shifted site.
 {\bf (D)}
 Large mutational shifts are \emph{not} strongly enriched at sites that have substituted between BG505 and BF520, or at sites that contact sites that have substituted. 
-The plot shows the magnitudes of the shifts among the 83 crystallographically resolved sites that have substituted between BG505 and BF520, the 234 sites that physically contact a substitution in the Env structure (any non-hydrogen atom within 3.5\angstrom), and all other sites.
+The plot shows the magnitudes of the shifts among the 83 crystallographically resolved sites that have substituted between BG505 and BF520, the 234 non-substituted sites that physically contact a substitution in the Env structure (any non-hydrogen atom within 3.5\angstrom), and all other sites.
 Figure~\ref{fig:shiftfeatures}-Figure~supplement~\ref{figsupp:subs_shifts} shows that there is a modest borderline-significant tendency of significantly shifted sites to have substituted.
 All panels only show the 577 sites that are resolved in the crystal structure.
 Of the 30 significantly shifted sites in Figure~\ref{fig:prefsdist}B, only 28 are crystallographically resolved.
@@ -476,11 +478,11 @@ Comparing selection in our experiments to natural selection can identify sites t
 Sites in Env that evolve faster or slower in nature than expected given the functional constraints measured in the lab.
 We calculated the statistical evidence that each site evolves faster ($\omega_r > 1$) or slower ($\omega_r < 1$) than expected given the experimentally measured amino-acid preferences using the method of \citet{bloom2017identification}.
 {\bf (A)}
-One monomer of the Env trimer~\citep[PDB 5FYL;][]{stewart2016trimeric} is colored from blue to gray to red based on the strength of evidence that sites are evolving slower than expected (blue), as expected (gray) or faster than expected (red) given the BG505 experiments.
+One monomer of the Env trimer~\citep[PDB 5FYL;][]{stewart2016trimeric} is colored from blue to gray to red based on the strength of evidence that sites evolve slower than expected (blue), as expected (gray) or faster than expected (red) given the BG505 experiments.
 Sites where the rate of evolution is significantly different than expected at a false discovery rate of 0.05 are shown in spheres.
 {\bf (B)}
-Sites of slower or faster than expected evolution given the BF520 experiments.
-For both Envs, sites that evolve faster or slower than expected are often on Env's surface (Figure~\ref{fig:divsel}-Figure~supplement~\ref{figsupp:divselRSA}).
+Like (A) but using the data from the BF520 experiments.
+For both Envs, sites that evolve significantly slower or faster than expected are often on Env's surface (Figure~\ref{fig:divsel}-Figure~supplement~\ref{figsupp:divselRSA}).
 {\bf (C)}
 The results are similar regardless of whether the BG505 or BF520 experiments are used.
 Many of the sites of slower-than-expected evolution are asparagines in N-linked glycosylation motifs (Figure~\ref{fig:divsel}-Figure~supplement~\ref{figsupp:glycans}).
@@ -497,9 +499,9 @@ As can be seen from these box plots with overlaid points for each site, sites of
 }{\includegraphics[width=0.5\textwidth]{figures/selsites_rsa.pdf}}
 \figsupp[\label{figsupp:glycans}Amino-acid preferences and alignment frequencies for glycosylation motifs.]
 {This plot shows all sites that are N-linked glycosylation motifs in both BG505 and BF520.
-Each motif is named by the number of the asparagine, and the preferences (averaged across replicates) for each Env are shown as well as the frequencies of amino acids across the clade A alignment at each of the three positions in the motif (N-X-S/T).
-As can be seen from this plot, at many of the sites the experiments measures relatively broad mutational tolerance, but the natural Env sequences have a strongly conserved motif.
-We suspect this is because many glycans serve as as shield against immunity in nature -- a function that is not required in cell culture.}
+Each motif is named by the residue number of the asparagine, and the preferences (averaged across replicates) for each Env are shown as well as the frequencies of amino acids across the clade A alignment at each of the three positions in the motif (N-X-S/T).
+As can be seen from this plot, the experiments measure relatively broad mutational tolerance at many sites where the natural Env sequences have a strongly conserved motif.
+We suspect this is because many glycans serve as a shield against immunity in nature -- a function that is not required in cell culture.}
 {\includegraphics[width=\textwidth]{figures/glycan_prefs.pdf}}
 \figsupp[\label{figsupp:slower}Amino-acid preferences and alignment frequencies of sites that evolve slower than expected.]{
 This plot shows all sites that are evolving more slowly than expected in natural sequences given the preferences measured in both Envs.
@@ -511,14 +513,14 @@ The $Q$-value indicated is the maximum of that for the two Envs.
 \end{figure}
 
 We determined whether each site in Env evolves faster or slower in nature than expected given three models: that evolution is purely neutral (all nonsynonymous and synonymous mutations have equivalent effects), that sites are under the protein-level constraint measured in our experiments with BG505, or that sites are under the constraint measured with BF520. 
-The first model used a standard dN/dS test~\citep[the ``FEL'' method of][]{kosakovsky2005not}, whereas the other two models performed a conceptually similar test but used ExpCM that incorporate experimental measurements as described by \citet{bloom2017identification}.
+The first model used a standard dN/dS test~\citep[the ``FEL'' method of][]{kosakovsky2005not}, whereas the other two models performed a conceptually similar test but used ExpCM's that incorporate experimental measurements as described by \citet{bloom2017identification}.
 The standard dN/dS model finds hundreds of sites that evolve slower than expected under neutral evolution (Table~\ref{tab:phydms}, $\omega_r < 1$), and only a handful of sites that evolve faster than expected under neutral evolution (Table~\ref{tab:phydms}, $\omega_r > 1$).
 This finding is unsurprising, since it is well known that Env is under functional constraint.
-In contrast, ExpCM that test the rates of evolution relative to the experimentally measured constraints find far fewer sites that evolve slower than expected, but many more sites that evolve faster (Table~\ref{tab:phydms}). 
+In contrast, ExpCM's that test the rates of evolution relative to the experimentally measured constraints find far fewer sites that evolve slower than expected, but many more sites that evolve faster (Table~\ref{tab:phydms}). 
 
 The sites that evolve slower or faster than expected from the experiments are shown in Figure~\ref{fig:divsel}A,B, and overlaid on the logoplots in Figures~\ref{fig:BG505prefs} and \ref{fig:BF520prefs} as the $\omega_r$ values.
 The identified sites are similar regardless of whether we use the experiments with BG505 or BF520 (Figure~\ref{fig:divsel}C).
-The reason the results are similar for both experimental datasets is that (as discussed above) the amino-acid preferences of \emph{most} sites are similar in both Envs, meaning that either dataset provides a reasonable approximation of the site-specific functional constraints across the clade A Envs in Figure~\ref{fig:tree}.
+The reason the results are similar for both experimental datasets is that (as discussed above) the amino-acid preferences of \emph{most} sites are similar in both Envs, suggesting that either dataset provides a reasonable approximation of the site-specific functional constraints across the clade A Envs in Figure~\ref{fig:tree}.
 
 What causes some sites to evolve faster or slower in nature than expected from the experiments?
 The answer in both cases is likely to be immune selection.
@@ -537,10 +539,9 @@ Similarly, a network of sites that help regulate Env's transition between open a
 Therefore, we can distinguish evolutionary patterns that are shaped by simple selection for Env function from those that are due to the additional complex pressures imposed during human infections. 
 
 \section{Discussion}
-We have experimentally measured the preference for each amino acid at each site in the ectodomain of two Envs under selection for viral growth in cell culture.
+We have experimentally measured the preference for each amino acid at each site in the ectodomain and transmembrane domain of two Envs under selection for viral growth in cell culture.
 These amino-acid preference maps are generally consistent with prior knowledge about sites that are important for protein properties such as receptor binding or disulfide-mediated stability.
-However, the main value of these maps comes not from comparing them with prior knowledge, which serves to simply validate the approach.
-The main value comes from the fact that such prior knowledge encompasses just a small fraction of the vast mutational space available to Env.
+However, the main value of these maps comes not from comparing them with prior knowledge, but from the fact that such prior knowledge encompasses just a small fraction of the vast mutational space available to Env.
 Because Env evolves so rapidly, every study of this protein must be placed in an evolutionary context, and our comprehensive amino-acid preference maps potentially enable this in ways that prior piecemeal studies of mutations cannot.
 
 But these maps come with a potentially serious caveat: each one is measured for just a single Env variant.
@@ -552,6 +553,7 @@ This rough generalizability of protein structures holds even for a protein as co
 
 Our results show that amino-acid preference maps of Env also have a useful level of conservation for many purposes.
 From a qualitative perspective, the amino-acid preferences look mostly similar between BG505 and BF520, and so provide a valuable reference for estimating which mutations are likely to be tolerated at each site in diverse HIV strains.
+Indeed, we anticipate that the complete maps of mutational effects in Figures~\ref{fig:BG505prefs} and \ref{fig:BF520prefs} will be useful for future sequence-structure-function studies.
 From an analytical perspective, a powerful use of our maps is to identify sites that evolve differently in nature than is required by the simple selection for viral growth imposed in our experiments -- and the identified sites are largely the same regardless of whether the analysis uses an amino-acid preference map from BG505 or BF520.
 
 Of course, from the perspective of protein evolution, the most interesting sites are the exceptions to the general conservation of amino-acid preferences.
