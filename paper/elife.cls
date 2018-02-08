@@ -3,7 +3,7 @@
 % Created by Overleaf (writeLaTeX).
 %
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{elife}[2017/07/04, v1.4]
+\ProvidesClass{elife}[2017/09/21, v1.5]
 
 \RequirePackage[english]{babel}
 
@@ -154,7 +154,7 @@
 \fancyhf{}
 \chead{%
 \setlength{\fboxsep}{3pt}
-%\colorbox{eLifeMediumGrey}{\begin{minipage}{\headwidth}\centering\color{white} Manuscript submitted to eLife\end{minipage}}%
+\colorbox{eLifeMediumGrey}{\begin{minipage}{\headwidth}\centering\color{white} Manuscript submitted to eLife\end{minipage}}%
 }
 
 % Footers
@@ -233,7 +233,7 @@
 % custom title page 
 %
 \renewcommand{\Authfont}{\bfseries\large\raggedright}
-\renewcommand{\Affilfont}{\mdseries\normalsize\raggedright}
+\renewcommand{\Affilfont}{\mdseries\large\raggedright}
 \renewcommand{\Authands}{, }
 \setlength{\affilsep}{16pt}
 \renewcommand{\AB@affilsepx}{; \protect\Affilfont}
@@ -253,7 +253,7 @@
 
 \renewcommand{\maketitle}{%
   \vskip36pt%
-  {\color{eLifeDarkBlue}\raggedright\bfseries\fontsize{20}{24}\selectfont \@title\par}%
+  {\color{eLifeDarkBlue}\raggedright\bfseries\fontsize{22}{27}\selectfont \@title\par}%
   \vskip16pt
   {\@author\par}
   \vskip8pt
@@ -333,7 +333,7 @@
     \refstepcounter{figsupp}%
     {%
     \ifstrequal{#1}{none}{}{%
-      \small\textbf{Figure~\thefigure--Figure supplement \arabic{figsupp}.} \ifstrempty{#1}{#2}{#1}}\par}
+      \small\textbf{Figure~\thefigure--Figure supplement \arabic{figsupp}.} \ifstrempty{#1}{#2}{#1}}}\par
     \addtostream{suppinfo}{%
       \noindent\protect\begin{minipage}{\linewidth}
       \protect #3\noexpand\par
@@ -386,6 +386,11 @@
 
 % Other desired commands
 \renewcommand{\equationautorefname}{Eq.}
+%% Added autoref support for \figsupp
+\newcommand{\figsuppautorefname}{Figure Supplement}
+\newcommand{\FIGSUPP}[2][]{%
+  \ifstrequal{#1}{}{}{\autoref{fig:#1}--}\autoref{figsupp:#2}%
+}
 \newcommand{\FIG}[1]{\autoref{fig:#1}}
 \newcommand{\TABLE}[1]{\autoref{tab:#1}}
 \newcommand{\EQ}[1]{\autoref{eq:#1}}

@@ -1,5 +1,2 @@
 .*
 !.gitignore
-manuscript.*
-*.aux
-!manuscript.tex
