@@ -1,0 +1,130 @@
+\documentclass[11pt, oneside]{article}   	% use "amsart" instead of "article" for AMSLaTeX format
+\usepackage{geometry}                		% See geometry.pdf to learn the layout options. There are lots.
+\geometry{letterpaper}                   		% ... or a4paper or a5paper or ... 
+\usepackage{color}
+\usepackage[parfill]{parskip}    		% Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{graphicx}				% Use pdf, png, jpg, or eps§ with pdflatex; use eps in DVI mode
+								% TeX will automatically convert eps --> pdf in pdflatex		
+\usepackage{amssymb}
+
+
+
+\title{Response to reviews of ``Mapping mutational effects along the evolutionary landscape of HIV envelope'' for \textit{eLife}}
+\author{Hugh K. Haddox, Adam S. Dingens, Sarah K. Hilton, Julie Overbaugh, and Jesse D. Bloom}
+
+\begin{document}
+\maketitle
+
+\emph{Below, the original comments {\color{blue} are in blue}, and our responses are in black.}
+
+\color{blue}
+
+\section*{SUMMARY} 
+
+Information on the possible amino acid trajectories of the rapidly evolving HIV envelope protein has long been limited. In this manuscript, you extend previous work from your lab analyzing the mutational landscape of the HIV-1 Env gene during in vitro viral replication. The work focuses on two clade A transmitter founder viruses, BG505 and BF520, which differ by more than 100 mutations. A deep mutational scanning approach is used to identify the permitted mutations at each residue of Env. Of particular interest is how amino acid preferences differ for these two proteins. A set of 30 sites with clear shifts in amino acid preference are identified. These data are compared to known mutational constraints on Env and to one another, and sources for the shifts in mutant affects are proposed by eliminating many scenarios. The results offer a body of knowledge useful for identifying i) residues and networks that are critical for basic function and ii) hot spots for evolvability or immune pressure. The analysis has been performed to a high standard (though some clarifications are necessary; see minor comments), and the openness of the data is a great service to the community. The paper represents a significant contribution towards understanding the structure-function relationship of HIV envelope. Therefore, the paper is likely to be accepted for publication if the following points are adequately addressed. 
+
+{\color{black}
+Thanks for the excellent summary of our work.
+We appreciate the favorable evaluation of the rigor of the work and the importance of the data.
+The comments below are extremely helpful, and we have revised the manuscript in line with these suggestions.
+These revisions have further strengthened the manuscript.
+}
+
+\section*{ESSENTIAL REVISIONS} 
+
+1. How are mutations that strongly modulate Env's expression level taken into account? 
+
+{\color{red}
+The best I can think of here is just to explain our rationale for excluding signal peptide and cytoplasmic tail. 
+I don't think we have a way of addressing this comment beyond that?
+Hugh and Adam, do you have additional ideas?
+}
+
+2. Only the native, pre-fusion Env trimer is used to calculate proximity of substituted and shifted residues. It is possible that substitution-shift colocalization may be detected in other conformations of Env as it undergoes structural rearrangement to mediate fusion, as opposed to acting through longer-range allostery in the pre-fusion conformation. Another well-characterized structure that should be considered is the post-fusion six-helix bundle of gp41. 
+
+{\color{red}
+This is a really good suggestion.
+Hugh, are you able to add analysis with this and any other relevant conformations that are substantially different?
+We should think about whether these would be added just as analyses, or whether we'd also show such a structure.
+}
+
+3. Overall, it is found that the shifted sites tend to cluster together, but they are not necessarily the same as the sites with substitutions between the two Envs or ones that contact them. This analysis is not pursued in great detail, however, leaving the reasons why shifted sites tend to cluster together unexplained. Given that the authors also observe some evidence of entrenchment of substitutions between the Envs, is it possible that interactions between the shifted sites themselves are important? This question could be explored through a more detailed examination of the structure. 
+
+{\color{red}
+Seems like this might be best examined by looking carefully at some of the clusters?
+I'm not sure how to do it with a statistical analysis.
+Hugh and Adam---do you have any thoughts on this?
+}
+
+\section*{MINOR POINTS}
+
+1. Readers may miss the rationale for excluding the signal peptide and cytoplasmic tail if it is only found in the Methods. 
+
+{\color{red}Yes, we should move this up. Will be done in context of answering essential revision 1, and then we can describe change here.}
+
+2. Page 3: When referring to the modifications made in this paper versus the previous publication, it is not clear whether the cell type difference was expression of CCR5 or use of a new cell line altogether. 
+
+{\color{red}
+Easy to fix.
+}
+
+3. Page 6: The dN/dS parameter is introduced, but its meaning in the two different models is only described in the next paragraph. Noting that a description follows may help readers. 
+
+{\color{red}
+Easy to fix.}
+
+4. The color scheme of structures in Fig 7a, 9a is difficult to discern. Higher contrast colors please. 
+
+{\color{red}
+Hugh, can you do this?}
+
+5. The methodology used here was previously developed in your group, which would benefit from a short description in the main text. For example, how exactly is $\omega$ defined, what is the stringency parameter, can the use of $\omega$ be motivated, how is $\omega_r$ defined and motivated etc? What are the assumptions in using these measures? We think this is necessary for a stand-alone paper aimed at a broad audience. All the details of the method should not be repeated, but an intuitive summary in the main text would be helpful. 
+
+{\color{red}
+This is easy to do. Maybe Jesse should do this?}
+
+6. With the current version 2.2.0 of dms\_tools2 installed via pip today (January 19, 2018), the included iPython notebook throws an error. Error text is below: 
+\begin{verbatim}
+--------------------------------------------------------------------------- 
+ModuleNotFoundError Traceback (most recent call last) 
+in <module>() 
+36 import dms_tools2.dssp 
+37 import dms_tools2.compareprefs 
+---> 38 import dms_tools2.protstruct 
+39 import dms_tools2.rplot 
+40 print(dms_tools2.rplot.versionInfo()) 
+
+ModuleNotFoundError: No module named 'dms_tools2.protstruct'
+\end{verbatim}
+
+{\color{red}
+This is now fixed by the latest version.}
+
+7. It might be helpful to increase the transparency on the points in Figure 3B, because at the current level it's impossible to resolve any detail in the blob near zero. 
+
+{\color{red}
+Not sure if this will work in practice because then other points become to sparse. 
+Jesse can also make contour plots to show as supplement.}
+
+8. In Figure 4, it's not clear why the p-value for $\omega$ greater/less than one is used for shading rather than the estimated $\omega$ itself. 
+{\color{red}
+Jesse can add explanation here.}
+
+9. What is the rationale for rescaling amino acid preferences by the stringency parameter before comparing them? Based on (Hilton et al., 2017), my understanding is that only the amino acid preferences are measured directly. The stringency parameter appears to be based on a phylogenetic model fit. This rescaling would emphasize differences in the basic ordering of amino acid preferences over differences of intensity, but the latter would seem to also be important. 
+{\color{red}
+Jesse can respond to this. I suppose we could also repeat all with un-rescaled if we wanted.}
+
+10. In the text (p8, bottom) it is stated that the amino acid preferences are rescaled for comparison. But this is not mentioned in Figure 6 or described clearly in the Methods (p18, bottom). For the sake of clarity, it would be helpful to introduce new notation for rescaled preferences and indicate clearly where they are used. 
+{\color{red}
+We can do this.}
+
+11. In the discussion it is noted that: "But although there is some entrenchment of differences between BG505 and BF520, this is not the major factor behind the shifts in amino-acid preferences: most sites that have shifted between BG505 and BF520 actually have the same wildtype amino acid in both Envs." Does wildtype refer to the amino acids in the actual BG505 and BF520 sequences? The most preferred amino acid is the same in only 12/30 cases, based on Figure 6C. 
+{\color{red}
+Yes, it refers to wildtype. I suppose we could modify to show wildtype in plot, but not sure if that is needed.}
+
+12. A body of computational work that has been done to infer the effects of epistasis on HIV proteins (including ENV) is not adequately referenced. (Posted 5th Feb 2018) 
+{\color{red}
+This includes the new Arup Chakroborty paper. Others?}
+
+
+\end{document}  
