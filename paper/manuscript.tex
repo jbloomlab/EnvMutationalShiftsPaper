@@ -210,6 +210,7 @@ Correlations between replicates in the measured preferences of each site in Env 
 Blue indicates replicate measurements on BF520, red indicates replicate measurements on BG505, and gray indicates across-Env measurements of BF520 versus BG505.
 $R$ is the Pearson correlation coefficient. 
 The numerical values for the preferences are in \FIG{mutfreqs}-source~data~\ref{figdata:allprefs}.
+\FIGSUPP[mutfreqs]{contour} shows the correlations using contour rather than scatter plots.
 }
 \figsupp[\label{figsupp:mutfreqs} Numerical frequencies of mutations.]
 {This table gives the average frequencies of nonsynonymous, synonymous, and stop-codon mutations as plotted in \FIG{mutfreqs}.
@@ -217,6 +218,12 @@ Note that there is only one \emph{DNA} sample for BF520, so that same sample is 
 We calculate the error-corrected \emph{pre}-selection mutation frequency as the \emph{mutDNA} frequency minus the \emph{DNA} frequency, and the error-corrected \emph{post}-selection mutation frequency as the \emph{mutvirus} frequency minus the \emph{virus} frequency.
 We then use these error-corrected frequencies to calculate the \emph{percent} of mutations remaining after selection for each replicate and type of mutation.}
 {\input{figures/avgmutfreqs}}
+\figsupp[\label{figsupp:contour} Correlations plotted on a contour rather than a scatter plot.]
+{
+This figure shows the same data as in \FIG{mutfreqs}B except that it shows KDE contour plots rather than points.
+As is obvious from this representation, the vast majority of the points fall near the origin (very low preference in both replicates), and most of the correlation signal is therefore due to the relatively modest number of amino acids that have high preference at any given site.
+This is expected, since most amino acid mutations at most sites will be strongly deleterious, and so have low preference.
+}{\includegraphics[width=\textwidth]{figures/allprefscorr_contour.pdf}}
 \figdata{\label{figdata:allprefs} Preferences for each replicate and averages are in \texttt{all\_prefs\_unscaled.zip}.}
 \end{figure}
 
