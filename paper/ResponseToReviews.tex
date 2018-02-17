@@ -120,8 +120,17 @@ Therefore, we have elected to keep the original Figure 3B (scatter plot) while a
 }
 
 8. In Figure 4, it's not clear why the p-value for $\omega$ greater/less than one is used for shading rather than the estimated $\omega$ itself. 
-{\color{red}
-Jesse can add explanation here.}
+
+{\color{black}
+We have added text in the legend of Figure 4 to explain this.
+Briefly, for individual sites, the point estimates of dN/dS values (or $\omega_r$) are not reliable when using a FEL framework for the reasons described in Pond et al (2015) and Murrell et al (2012).
+
+Here is the basic intuition. 
+Imagine two sites: one has 3 nonsynonymous substitutions and 0 synonymous substitutions, while the other has 20 nonsynonymous substitutions and 2 synonymous substitutons.
+If we just calculated $\omega_r$, we would get a value of infinity for the first site and 10 for the second site.
+But in reality, we think there is substantially stronger evidence for diversifying selection at the second site, since there are many more nonsynonymous substitutions.
+In an FEL framework, we assess the statistical evidence that $\omega_r \ne 1$, and find much more evidence for the second site.
+This increased evidence is manifested by the larger $P$-value rather than the value of $\omega_r$ itself.}
 
 9. What is the rationale for rescaling amino acid preferences by the stringency parameter before comparing them? Based on (Hilton et al., 2017), my understanding is that only the amino acid preferences are measured directly. The stringency parameter appears to be based on a phylogenetic model fit. This rescaling would emphasize differences in the basic ordering of amino acid preferences over differences of intensity, but the latter would seem to also be important. 
 {\color{red}
