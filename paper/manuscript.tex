@@ -684,10 +684,10 @@ Of course, we have done our best to perform the experiments for BG505 and BF520 
 This can be seen in \FIGSUPP[mutfreqs]{mutfreqs}, which shows that stop codons were more depleted for BG505 than BF520, indicating that selection in our experiments was more stringent for BG505.
 
 How should we best re-scale the preferences?
-It turns out that raising them to a power is the best approach.
-To see that, imagine a mutation that is depleted 3-fold after 2 rounds of viral growth. 
+Raising them to a power is a sensible approach.
+To see why, imagine a mutation that is depleted 3-fold after 2 rounds of viral growth. 
 If our experiment instead allowed $2^2 = 4$ rounds of viral growth, then the mutation would be depleted $3^2 = 9$-fold.
-More generally, if a mutation is enriched in frequency by $\phi$-fold after $n$ rounds of viral growth, then it will be enriched in frequency by $\phi^{\beta}$-fold after $\beta n$ rounds of viral growth.
+More generally, if a mutation is enriched in frequency by $\phi$-fold after $n$ rounds of viral growth, then it will be enriched in frequency by $\phi^{\beta}$-fold after $\beta \times n$ rounds of viral growth.
 Since the amino-acid preferences are conceptually equivalent to the re-normalized enrichments of mutations~\cite[][\url{https://jbloomlab.github.io/dms_tools2/prefs.html}]{bloom2015software}, it therefore makes sense that the re-scaled preference $\pi_{r,a}$ for amino-acid $a$ at site $r$ should be related to the directly measured preference $\hat{\pi}_{r,a}$ by $\pi_{r,a} \propto \left(\hat{\pi}_{r,a}\right)^{\beta}$.
 And indeed, this is exactly the re-scaling scheme described in \citet{hilton2017phydms} that we use to re-scale our preferences for BG505 and BF520.
 
