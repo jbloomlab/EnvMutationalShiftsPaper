@@ -652,7 +652,7 @@ Citations are also owed to \texttt{weblogo}~\citep[][\url{http://weblogo.threepl
 A basic description of the process used to generate the clade A sequence alignment in \FIG{tree}-source~data~\ref{figdata:alignment}, the alignment mask in \FIG{tree}-source~data~\ref{figdata:mask}, and the phylogenetic tree in \FIG{tree} are provided in the legend to that figure.
 An algorithmic description of how the alignment and tree were generated are in Supplementary~files~\ref{suppfile:code} and \ref{suppfile:html}.
 
-For fitting of the phylogenetic substitution models, we used \texttt{phydms}~\citep[][\url{http://jbloomlab.github.io/phydms/}]{hilton2017phydms} to optimize the substitution model parameters and branch lengths on the fixed tree topology in \FIG{tree}.
+For fitting of the phylogenetic substitution models, we used \texttt{phydms}~\citep[][\url{http://jbloomlab.github.io/phydms/}, version 2.2.1]{hilton2017phydms} to optimize the substitution model parameters and branch lengths on the fixed tree topology in \FIG{tree}.
 The Goldman-Yang (or YNGKP) model used in \TABLE{phydms} is the M5 variant described by \citet{yang2000codon}, with the equilibrium codon frequencies determined empirically using the CF3x4 method~\citep{pond2010correcting}.
 For the ExpCM shown in \TABLE{phydms}, we extended the models with empirical nucleotide frequencies described in \citet{hilton2017phydms} to also allow $\omega$ to be drawn from discrete gamma-distributed categories exactly as for the M5 model.
 These ExpCM with gamma-distributed $\omega$ were implemented in \texttt{phydms} using the equations provided by \citet{yang1994maximum} (see also \url{http://jbloomlab.github.io/phydms/implementation.html#models-with-a-gamma-distributed-model-parameter}).
