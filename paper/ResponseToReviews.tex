@@ -4,7 +4,10 @@
 \usepackage{color}
 \usepackage[parfill]{parskip}    		% Activate to begin paragraphs with an empty line rather than an indent
 \usepackage{graphicx}				% Use pdf, png, jpg, or eps§ with pdflatex; use eps in DVI mode
-								% TeX will automatically convert eps --> pdf in pdflatex		
+								% TeX will automatically convert eps --> pdf in pdflatex	
+								
+\usepackage{hyperref}
+	
 \usepackage{amssymb}
 
 
@@ -97,8 +100,13 @@ in <module>()
 ModuleNotFoundError: No module named 'dms_tools2.protstruct'
 \end{verbatim}
 
-{\color{red}
-This is now fixed by the latest version.}
+{\color{black}
+This is now fixed.
+Previously we were running the analysis with a developmental version of \texttt{dms\_tools2} (version 2.2.dev1) that was not yet on \texttt{PyPI}.
+Now the analysis uses a stable version (2.2.4) that is on \texttt{PyPI} and installable with \texttt{pip}.
+Therefore, the analysis should now work if \texttt{dms\_tools2} is installed with \texttt{rplot} as described here: \url{https://jbloomlab.github.io/dms_tools2/installation.html#installing-the-rplot-module}.
+Note that some other external Python packages are also needed as indicated by the imports at the beginning of the iPython notebook.
+}
 
 7. It might be helpful to increase the transparency on the points in Figure 3B, because at the current level it's impossible to resolve any detail in the blob near zero. 
 
@@ -124,8 +132,13 @@ Jesse can respond to this. I suppose we could also repeat all with un-rescaled i
 We can do this.}
 
 11. In the discussion it is noted that: "But although there is some entrenchment of differences between BG505 and BF520, this is not the major factor behind the shifts in amino-acid preferences: most sites that have shifted between BG505 and BF520 actually have the same wildtype amino acid in both Envs." Does wildtype refer to the amino acids in the actual BG505 and BF520 sequences? The most preferred amino acid is the same in only 12/30 cases, based on Figure 6C. 
-{\color{red}
-Yes, it refers to wildtype. I suppose we could modify to show wildtype in plot, but not sure if that is needed.}
+
+{\color{black}
+This was unclear in the original manuscript.
+We have updated Figure 6C to also show the wildtype amino acid at each site.
+This makes it clear that even though the most preferred amino acid is only the same in 12/30 cases, the wildtype amino acid is the same in 18/30 sequences.
+This is because although the wildtype is always among the most preferred amino acid, it is not always the most preferred one.
+We have updated the sentence in the Discussion to explain this, and also to say the ``majority of sites'' rather than ``most sites'' since the former probably is a more accurate description of 18/30.}
 
 12. A body of computational work that has been done to infer the effects of epistasis on HIV proteins (including ENV) is not adequately referenced. 
 {\color{red}
