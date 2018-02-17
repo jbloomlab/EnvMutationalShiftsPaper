@@ -315,9 +315,12 @@ This figure is the same as \FIG{BG505prefs} except that it shows the data for BF
 \end{fullwidth}
 \end{figure}
 
-A more qualitative way to assess if the deep mutational scanning authentically describes selection on Env function is to visually compare the measurements with existing knowledge.
-\FIG{BG505prefs} and \FIG{BF520prefs} show the across-replicate average of the amino-acid preferences for each Env after re-scaling by the stringency parameters in \TABLE{phydms}.
-(Note that throughout the rest of this paper, we use preferences re-scaled by these stringency parameters.)
+For the entire rest of the paper, we use the experimentally measured preferences re-scaled by the stringency parameters in \TABLE{phydms}.
+The reason we do this is to distinguish genuine differences between the two Envs from mere variation in the strength of selection between the two sets of experiments.
+Re-scaling both sets of preferences to optimally describe Env evolution in nature is a principled way to standardize the measurements; see \citet{hilton2017phydms} and the Methods section entitled ``Re-scaling the preferences'' for a more detailed explanation.
+
+A qualitative way to assess if the deep mutational scanning authentically describes selection on Env function is to visually compare the measurements with existing knowledge.
+\FIG{BG505prefs} and \FIG{BF520prefs} show the re-scaled across-replicate average of the amino-acid preferences for each Env.
 At sites of known functional importance, these preferences are usually consistent with prior knowledge.
 For instance, residues T257, D368, E370, W427, and D457 are important for Env binding to CD4~\citep{olshevsky1990identification}, and all these amino acids are highly preferred in our deep mutational scanning (\FIG{BG505prefs} and \FIG{BF520prefs}).
 Likewise, Env has 10 disulfide bonds (linking sites 54-74, 119-205, 126-196, 131-157, 218-247, 228-239, 296-331, 378-445, 385-418, and 598-604), most of which are important for function~\citep{van2008only} -- and the cysteines at these sites are highly preferred in our deep mutational scanning.
@@ -343,6 +346,7 @@ However, simply comparing correlation coefficients does not identify specific si
 \includegraphics[width=1.3\textwidth]{figures/shifted_sites.pdf}
 \caption{\label{fig:prefsdist}
 Env sites with shifted amino-acid preferences between BG505 and BF520.
+Note that the preferences have been re-scaled using the stringency parameters in \TABLE{phydms} to enable direct comparison across Envs.
 {\bf (A)} Calculation of the corrected distance between the amino-acid preferences of BG505 and BF520 at four example sites.
 We have triplicate measurements for each Env.
 We calculate the distance between each pair of replicate measurements, and group these into comparisons \emph{between} the two Envs and \emph{within} replicates for the same Env.
@@ -670,13 +674,39 @@ For the Q-values and false discovery rate testing, we considered the tests for $
 
 Supplementary~files~\ref{suppfile:code} and \ref{suppfile:html} contains the code that runs \texttt{phydms} to reproduce all of these analyses.
 
+\subsection{Re-scaling the preferences}
+The amino-acid preferences that are directly extracted from the deep sequencing data essentially give the enrichment / depletion of each mutation, normalized to sum to one at each site~\cite[][\url{https://jbloomlab.github.io/dms_tools2/prefs.html}]{bloom2015software}.
+However, the extent that any mutation is enriched or depleted is a combination of two factors: the inherent effect of that mutation, and the ``stringency'' of the experimental selection.
+For instance, if the selection is weak, then deleterious mutations will only be slightly depleted; conversely, if selection is strong, then deleterious mutations will be greatly depleted.
+The fact that the preferences depend on the stringency of the experimental selection is important if we want to compare results between Envs.
+The reason is that our goal is to identify differences in the inherent effects of mutations between Envs, not simply find differences due to variation in experimental stringency.
+Of course, we have done our best to perform the experiments for BG505 and BF520 equivalently, but because these are different viruses with different growth rates, it is impossible to exactly match the experimental stringencies.
+This can be seen in \FIGSUPP[mutfreqs]{mutfreqs}, which shows that stop codons were more depleted for BG505 than BF520, indicating that selection in our experiments was more stringent for BG505.
+
+How should we best re-scale the preferences?
+It turns out that raising them to a power is the best approach.
+To see that, imagine a mutation that is depleted 3-fold after 2 rounds of viral growth. 
+If our experiment instead allowed $2^2 = 4$ rounds of viral growth, then the mutation would be depleted $3^2 = 9$-fold.
+More generally, if a mutation is enriched in frequency by $\phi$-fold after $n$ rounds of viral growth, then it will be enriched in frequency by $\phi^{\beta}$-fold after $\beta n$ rounds of viral growth.
+Since the amino-acid preferences are conceptually equivalent to the re-normalized enrichments of mutations~\cite[][\url{https://jbloomlab.github.io/dms_tools2/prefs.html}]{bloom2015software}, it therefore makes sense that the re-scaled preference $\pi_{r,a}$ for amino-acid $a$ at site $r$ should be related to the directly measured preference $\hat{\pi}_{r,a}$ by $\pi_{r,a} \propto \left(\hat{\pi}_{r,a}\right)^{\beta}$.
+And indeed, this is exactly the re-scaling scheme described in \citet{hilton2017phydms} that we use to re-scale our preferences for BG505 and BF520.
+
+The last point is how to choose the re-scaling parameter $\beta$ for each Env.
+It turns out that the features that we have described above for our experiments are also a feature of natural evolution: the expected frequency of a substitution during evolution depends not only on the inherent fitness effect of that mutation, but also on the effective population size, which is conceptually somewhat similar to the stringency of selection.
+It turns out that in a mutation-selection phylogenetic model of evolution, if the amino-acid preferences are taken to represent the ``fitness effects'' of mutations, then the exponential scaling parameter $\beta$ is proportional to the effective population size~\citep{halpern1998evolutionary,mccandlish2014modeling,bloom2014informed}.
+Therefore, fitting the $\beta$ parameter using a phylogenetic approach enables standardization of the preferences for the two Envs, and re-scales the preferences so that they best match with the actual stringency of selection observed in nature~\citep{hilton2017phydms}.
+
+Note that in practice this re-scaling scheme is roughly equivalent to a more heuristic approach that has been used by \citet{gray2017analysis} and others.
+In this heuristic approach, the log-transformed enrichment ratios from different experiments are adjusted so that the distributions have equal spreads.
+Since multiplying log-transformed enrichment ratios is equivalent to exponentiating amino-acid preferences, these two re-scaling procedures apply the same mathematical transformation.
+
 \subsection{Identifying sites of shifted amino-acid preference}
 When identifying shifts in amino-acid preferences between the two Envs, we needed a way to quantify differences between the Envs while accounting for the fact that our measurements are noisy.
 The approach we use is based closely on that of \citet{doud2015site}, and is illustrated graphically in \FIG{prefsdist}A.
 The RMSD$_{\rm{corrected}}$ value is our measure of the magnitude of the shift.
 \FIG{prefsdist}A, its legend, and the associated text completely explains these calculations with the following exception: they do not detail how the ``distance'' between any two preference measurements was calculated. 
 The distance between preferences at each site was simply defined as half of the sum of absolute value of the difference between preferences for each amino acid.
-Specifically, for a given site $r$, let $\pi_{r,a}^{i}$ be the preference for amino-acid $a$ in homolog $i$ (e.g., BG505) and let $\pi_{r,a}^{j}$ be the preference for that same amino acid in homolog $j$ (e.g., BF520). 
+Specifically, for a given site $r$, let $\pi_{r,a}^{i}$ be the re-scaled preference for amino-acid $a$ in homolog $i$ (e.g., BG505) and let $\pi_{r,a}^{j}$ be the re-scaled preference for that same amino acid in homolog $j$ (e.g., BF520). 
 Then the distance between the homologs at this site is simply $D_{r}^{i,j} = \frac{1}{2}\sum_{a}|\pi_{r,a}^{i}-\pi_{r,a}^{j}|$.
 The factor of $\frac{1}{2}$ is used so that the maximum distance will always fall between zero and one.
 

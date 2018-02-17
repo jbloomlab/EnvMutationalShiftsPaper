@@ -133,12 +133,34 @@ In an FEL framework, we assess the statistical evidence that $\omega_r \ne 1$, a
 This increased evidence is manifested by the larger $P$-value rather than the value of $\omega_r$ itself.}
 
 9. What is the rationale for rescaling amino acid preferences by the stringency parameter before comparing them? Based on (Hilton et al., 2017), my understanding is that only the amino acid preferences are measured directly. The stringency parameter appears to be based on a phylogenetic model fit. This rescaling would emphasize differences in the basic ordering of amino acid preferences over differences of intensity, but the latter would seem to also be important. 
-{\color{red}
-Jesse can respond to this. I suppose we could also repeat all with un-rescaled if we wanted.}
+
+{\color{black}
+In this comment and the one immediately below (\#10), the reviewers point out the need to both justify why the preferences were re-scaled, and to clearly explain that this was done.
+
+In the Results section where we first discuss the re-scaling, we have now added an entire paragraph that discusses this fact:
+\begin{quote}
+\textsl{For the entire rest of the paper, we use the experimentally measured preferences re-scaled by the stringency parameters in Table 1.
+The reason we do this is to distinguish genuine differences between the two Envs from mere variation in the strength of selection between the two sets of experiments.
+Re-scaling both sets of preferences to optimally describe Env evolution in nature is a principled way to standardize the measurements; see Hilton et al (2017) and the Methods section entitled ``Re-scaling the preferences'' for a more detailed explanation.}
+\end{quote}
+At other key points (such as Figure 6 and the bottom of page 18 in the original manuscript) we now also emphasize the fact that the re-scaled preferences are used.
+
+The detailed justification for re-scaling is provided in the new Methods section entitled ``Re-scaling the preferences.''
+Briefly, the preferences themselves are calculated from the enrichment of mutations after selection.
+But the extent of enrichment is a function of how the experiment was performed (e.g., how long the selection was performed) as well as the inherent effects of the mutations. 
+For instance, let's say a given mutation is depleted 3-fold after 2 rounds of viral replication. 
+Then if we instead allowed $2^2 = 4$ rounds of viral replication, then we would expect the mutation to be depleted $3^2 = 9$-fold.
+Although we did our best to standardize the experiments with the two different Envs (BG505 and BF520), it is impossible to completely standardize experiments with different viruses since they grow at different inherent rates.
+Therefore, we need some method to ensure that we have put the measurements for the two Envs on the same ``scale.''
+Re-scaling by the stringency parameter is a principled way to do this.
+See the new Methods section ``Re-scaling the preferences'' for a justification of why this is a principled approach.
+}
 
 10. In the text (p8, bottom) it is stated that the amino acid preferences are rescaled for comparison. But this is not mentioned in Figure 6 or described clearly in the Methods (p18, bottom). For the sake of clarity, it would be helpful to introduce new notation for rescaled preferences and indicate clearly where they are used. 
-{\color{red}
-We can do this.}
+
+{\color{black}
+This is an important point that we have addressed.
+Se our response to comment \#9 immediately above for a description of the changes that we have made.}
 
 11. In the discussion it is noted that: "But although there is some entrenchment of differences between BG505 and BF520, this is not the major factor behind the shifts in amino-acid preferences: most sites that have shifted between BG505 and BF520 actually have the same wildtype amino acid in both Envs." Does wildtype refer to the amino acids in the actual BG505 and BF520 sequences? The most preferred amino acid is the same in only 12/30 cases, based on Figure 6C. 
 
