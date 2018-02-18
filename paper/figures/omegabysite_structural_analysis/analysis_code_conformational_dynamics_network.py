@@ -18,9 +18,11 @@ cmd.delete('all')
 cmd.fetch(structure) #, type='pdb1')
 
 # Remove non-Env chains
-# gp41 = chain A
-# gp120 = chain G
-cmd.remove ('c;C,H,I,J,K,L,M,N')
+# gp41 = chain A, B, D
+# gp120 = chain G, I, J
+# CD4 = chains C, E, F
+# 17b = chains H, K, M and L, N, O
+cmd.remove ('c;C,E,F,H,K,M,L,N,O,I,J,B,D')
 #cmd.symexp(structure, structure, structure, 3) # generate symmetry partners based on crystal structure
 
 # Tweak initial display and color of Env monomers

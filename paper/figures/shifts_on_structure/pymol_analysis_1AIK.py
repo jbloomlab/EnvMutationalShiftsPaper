@@ -1,19 +1,13 @@
 """
-This script is for analyzing RMSD_corrected values in PyMOL
+This is a PyMOL script for analyzing shifts in preferences on the structure 1AIK
 
-It colors the structure of Env according to site-specific
-RMSD_corrected values on a color scale from grey to orange,
-with sites with significant RMSD_corrected values shown in
-spheres.
-
-When `take_pictures` is set to true, this script generates pictures
-of Env: `Env_pymol_face1.png` and `Env_pymol_face2.png`, which are
-rotated 120 degrees relative to one another.
+This script is similar to `pymol_analysis_5FYL.py`, but performs the analysis on
+the structure 1AIK instead of 5FYL.
 
 This script intended to be run in the PyMOL terminal as:
-    run pymol_analysis_code.py
+    run pymol_analysis_1AIK.py
 
-Hugh Haddox, November-27-2017
+Hugh Haddox, February-17-2018
 """
 
 # Imports
@@ -21,24 +15,21 @@ import pymol
 from pymol import cmd
 
 # Fetch structure
-structure = '5fyl'
+structure = '1AIK'
 cmd.reinitialize()
 cmd.delete('all')
 cmd.fetch(structure) #, type='pdb1')
 
-# Remove non-Env chains
-# gp41 = chain B
-# gp120 = chain G
-# 35O22 = chains D and E
-# PGT122 = chains H and L
-cmd.remove ('c;D,E,H,L,U,V')
-cmd.symexp(structure, structure, structure, 3) # generate symmetry partners based on crystal structure
+# Generate symmetry partners based on crystal structure, using a distance of
+# 1.9 since this reproduces the timer without segments from any other adjacent
+# monomers in the crystal structure
+cmd.symexp(structure, structure, structure, 1.9)
 
 # Tweak initial display and color of Env monomers
 cmd.hide('everything')
 cmd.bg_color('white')
 cmd.show('cartoon')
-cmd.color('grey90')
+cmd.color('grey40')
 #cmd.color('grey20', structure)
 cmd.set('cartoon_transparency', '0.5')
 cmd.set('cartoon_transparency', '0', structure)
@@ -76,22 +67,24 @@ print "max: {0}".format(max_RMSD)
 sites_with_data = RMSD_dict.keys()
 sites_not_in_structure = []
 for site in sites_with_data:
-    print(site, RMSD_dict[site])
+    #print(site, RMSD_dict[site])
     cmd.alter("{0} and resi {1}".format(structure, site),
                 "b = {0}".format(RMSD_dict[site]))
     if site not in unique_sites_in_structure:
     	sites_not_in_structure.append(site)
-cmd.spectrum('b', 'grey_orange', structure, minimum=min_RMSD, maximum=max_RMSD)
+color_scheme = 'white_red'
+cmd.spectrum('b', color_scheme, structure, minimum=min_RMSD, maximum=max_RMSD)
 print ("\nSites with data not in structure: {0}".format(
                                 ', '.join(sites_not_in_structure)))
 print ("Sites with significant shifts not in structure: {0}".format(
                                 ', '.join(s for s in sig_sites
                                             if s in sites_not_in_structure)))
 
-# Color residues lacking data white
+# Color residues lacking data black
 sites_lacking_data = [site for site in unique_sites_in_structure if site not in sites_with_data]
-print ("\nThe following sites in the structure, but lacking data will be colored white: {0}".format(', '.join(sites_lacking_data)))
-cmd.color('white', '{0} and resi {1}'.format(structure, '+'.join(sites_lacking_data)))
+if len(sites_lacking_data) > 0:
+    print ("\nThe following sites in the structure, but lacking data will be colored white: {0}".format(', '.join(sites_lacking_data)))
+    cmd.color('black', '{0} and resi {1}'.format(structure, '+'.join(sites_lacking_data)))
 
 # Show significant sites as spheres
 print ("\nThere are {0} sites with significant RMSD corrected values".format(len(sig_sites)))
@@ -99,20 +92,18 @@ print (', '.join(sig_sites))
 cmd.select('sig_RMSDcorrected', '{0} and resi {1}'.format(structure, '+'.join(sig_sites)))
 cmd.show('spheres', 'sig_RMSDcorrected')
 
+# Report how many significant sites are in the structure
+sig_site_in_structure = [site for site in sig_sites if site in unique_sites_in_structure]
+print ("\nOf the significant sites, {0} of them are in the structure".format(len(sig_site_in_structure)))
+
 # Take a pictures of Env rotated 120 degrees relative to one another
-cmd.set_view ("""\
-     0.413237274,    0.018612767,   -0.910427451,\
-     0.910516560,    0.006436472,    0.413409144,\
-     0.013554142,   -0.999800861,   -0.014289021,\
-    -0.000450239,   -0.000266090, -364.028167725,\
-    64.596366882,   39.767127991,   -5.709826946,\
-   224.197448730,  503.894958496,  -20.000000000""")
-take_pictures = True
+#cmd.set_view ()
+take_pictures = False
 if take_pictures:
 	cmd.bg_color('white')
-	cmd.png('Env_pymol_face1.png', width=1000, dpi=1000, ray=1)
+	cmd.png('{0}_pymol_face1.png'.format(structure), width=1000, dpi=1000, ray=1)
 	cmd.rotate('y', '120')
-	cmd.png('Env_pymol_face2.png', width=1000, dpi=1000, ray=1)
+	cmd.png('{0}_pymol_face2.png'.format(structure), width=1000, dpi=1000, ray=1)
 
 # Annotations of structural features
 # gp120 and gp41
