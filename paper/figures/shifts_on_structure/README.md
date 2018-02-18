@@ -18,6 +18,14 @@ This directory has multiple `PyMOL` scripts for visualizing shifts in amino-acid
 
     run {script_name}
 
+## Results
+
 ## To do
+
+* Eye check the RSA values on the structure
+
+* Make sure that there aren't any shifted sites that occur within the six-helix bundle
+
+* Edit the README in the repo to explain how the 5VN3 structure was curated.
 
 * Analyze clusters. Is there any structural significance? E.g., what about the cluster of residues at the trimer apex of `5VN3`? Could sites be involved in co-receptor interface, or the conformational change induced by receptor binding?
