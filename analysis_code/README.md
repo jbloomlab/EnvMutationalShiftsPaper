@@ -35,7 +35,7 @@ Specifically, this subdirectory includes the following files:
 
   * A breakdown of Env into regions (*gp41*, *gp120 variable loops*, *gp120 other regions*) in HXB2 nubmering is in [./data/Env_regions.csv](./data/Env_regions.csv). The variable loop definitions are the [ones provided by the Los Alamos database](https://www.hiv.lanl.gov/content/sequence/VAR_REG_CHAR/variable_region_characterization_explanation.html). The gp41 definition is also the one provided at that site.
 
-  * Files used for calculating the solvent accessibility of Env using [dssp](http://swift.cmbi.ru.nl/gv/dssp/). We calculated solvent accessibility on two Env trimers: [PDB 5FYL](http://www.rcsb.org/pdb/explore.do?structureId=5fyl), which is the "closed" pre-fusion BG505 trimer, and [PDB 5VN3](https://www.rcsb.org/structure/5vn3), which is stabilized in an intermediate receptor-bound state. Specifically:
+  * Files used for calculating the solvent accessibility of Env using [dssp](http://swift.cmbi.ru.nl/gv/dssp/). We calculated solvent accessibility on two Env trimers: [PDB 5FYL](http://www.rcsb.org/pdb/explore.do?structureId=5fyl), which is the "closed" pre-fusion BG505 trimer, and [PDB 5VN3](https://www.rcsb.org/structure/5vn3), which is stabilized in the CD4-bound state. Specifically:
 
     1. Both structures were downloaded from the PDB.
 
