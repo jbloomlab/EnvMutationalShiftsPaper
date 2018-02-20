@@ -10,7 +10,7 @@ When `take_pictures` is set to true, this script generates pictures of Env:
 relative to one another.
 
 This script intended to be run in the PyMOL terminal as:
-    run pymol_analysis_5FYL.py
+	run pymol_analysis_5FYL.py
 
 Hugh Haddox, November-27-2017
 """
@@ -58,14 +58,14 @@ for site in sites_in_structure:
 RMSD_dict = {}
 sig_dict = {}
 with open('../BG505_to_BF520_prefs_dist.csv') as f:
-    lines = f.readlines()[1:]
-    for line in lines:
-        elements = line.split(',')
-        site = elements[0]
-        RMSDcorrected = elements[1]
-        significant_shift = elements[6]
-        RMSD_dict[site] = float(RMSDcorrected)
-        sig_dict[site] = significant_shift
+	lines = f.readlines()[1:]
+	for line in lines:
+		elements = line.split(',')
+		site = elements[0]
+		RMSDcorrected = elements[1]
+		significant_shift = elements[6]
+		RMSD_dict[site] = float(RMSDcorrected)
+		sig_dict[site] = significant_shift
 sig_sites = [site for site in sig_dict if sig_dict[site]=='True']
 min_RMSD = min(RMSD_dict.values())
 max_RMSD = max(RMSD_dict.values())
@@ -77,18 +77,18 @@ print "max: {0}".format(max_RMSD)
 sites_with_data = RMSD_dict.keys()
 sites_not_in_structure = []
 for site in sites_with_data:
-    #print(site, RMSD_dict[site])
-    cmd.alter("{0} and resi {1}".format(structure, site),
-                "b = {0}".format(RMSD_dict[site]))
-    if site not in unique_sites_in_structure:
-    	sites_not_in_structure.append(site)
+	#print(site, RMSD_dict[site])
+	cmd.alter("{0} and resi {1}".format(structure, site),
+				"b = {0}".format(RMSD_dict[site]))
+	if site not in unique_sites_in_structure:
+		sites_not_in_structure.append(site)
 color_scheme = 'white_red'
 cmd.spectrum('b', color_scheme, structure, minimum=min_RMSD, maximum=max_RMSD)
 print ("\nSites with data not in structure: {0}".format(
-                                ', '.join(sites_not_in_structure)))
+								', '.join(sites_not_in_structure)))
 print ("Sites with significant shifts not in structure: {0}".format(
-                                ', '.join(s for s in sig_sites
-                                            if s in sites_not_in_structure)))
+								', '.join(s for s in sig_sites
+											if s in sites_not_in_structure)))
 
 # Color residues lacking data black
 sites_lacking_data = [site for site in unique_sites_in_structure if site not in sites_with_data]
@@ -107,10 +107,10 @@ print ("\nOf the significant sites, {0} of them are in the structure".format(len
 
 # Take a pictures of Env rotated 120 degrees relative to one another
 cmd.set_view ("""\
-     0.606518745,   -0.016123615,    0.794892550,\
-     0.760999739,    0.301236391,   -0.574545264,\
-    -0.230190367,    0.953389049,    0.194983304,\
-     0.000000000,    0.000000000, -364.900909424,\
+	 0.606518745,   -0.016123615,    0.794892550,\
+	 0.760999739,    0.301236391,   -0.574545264,\
+	-0.230190367,    0.953389049,    0.194983304,\
+	 0.000000000,    0.000000000, -364.900909424,\
    165.407760620,  160.255493164,  155.138549805,\
    225.052154541,  504.749664307,  -20.000000000 """)
 
@@ -124,15 +124,17 @@ if take_pictures:
 # Identify sites that have substituted
 substituted_sites = []
 with open('../BG505_to_BF520_prefs_dist.csv') as f:
-	lines = f.readlines())[1:]
+	lines = f.readlines()[1:]
 	for line in lines:
-		 (site, RMSDcorrected, RMSDbetween,RMSDwithin,
-		 BG505, BF520, significant_shift, substituted) = line.split(',')[:8]
-		 if substituted == 'TRUE':
-			 substituted_sites.append(site)
-print("There are {0} substituted sites:")
-print(", ".join(substituted_sites))
+		(site, RMSDcorrected, RMSDbetween,RMSDwithin, BG505, BF520, significant_shift, substituted) = line.split(',')[:8]
+		if substituted == 'True':
+			substituted_sites.append(site)
+substituted_sites = list(set(substituted_sites)) # for some reason, this is needed to handle duplicates
 cmd.select('subs', structure + ' and resi ' + '+'.join(substituted_sites))
+print("\nThere are {0} substituted sites:".format(len(substituted_sites)))
+print(', '.join(substituted_sites))
+subs_in_structure = [site for site in substituted_sites if site in unique_sites_in_structure]
+print ("\nOf the substituted sites, {0} of them are in the structure".format(len(subs_in_structure)))
 
 # Annotations of structural features
 # gp120 and gp41
