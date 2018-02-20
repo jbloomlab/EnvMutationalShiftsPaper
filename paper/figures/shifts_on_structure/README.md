@@ -10,7 +10,9 @@ We will examine these shifts in context of multiple different Env conformations,
 
 * `5VN3`: Obtained via cryo-electron microscopy by [(Ozorowski et al, 2017, Nature)](https://doi.org/10.1038/nature23010), this structure shows the B41 Env in complex with CD4 and 17b, stabilized in a receptor-bound state. As above, we will remove both CD4 and 17b in our analysis so as to better visualize the shifts on this structure.
 
-* `1AIK`: Crystalized by [(Chan et al, 1997, Cell)](https://www.sciencedirect.com/science/article/pii/S0092867400802056), this structure shows the post-fusion six-helix bundle. Only the gp41 helices that take part in this bundle were resolved. The rest of Env is not included.
+* `1AIK`: Crystalized by [(Chan et al, 1997, Cell)](https://www.sciencedirect.com/science/article/pii/S0092867400802056), this structure shows the post-fusion six-helix bundle. Only the gp41 helices that take part in this bundle were resolved (546-581 and 628-661). The rest of Env is not included. It turns out that none of the sites that we identify to have significant shifts in amino-acid preference are located within the six-helix bundle resolved in this structure. Note: there is also a more recent structure by [(Buzon et al, 2010, PLoS Pathogens)](https://doi.org/10.1371/journal.ppat.1000880) (`2X7R`) that includes additional adjacent residues (531-581 and 629-681). But even then, this structure only contains a single significantly shifted site (542).
+
+* `1ENV`: this structure has three significantly shifted sites: 582, 583, 587
 
 ## Mapping shifts onto these structures using `PyMOL`
 
@@ -21,11 +23,5 @@ This directory has multiple `PyMOL` scripts for visualizing shifts in amino-acid
 ## Results
 
 ## To do
-
-* Eye check the RSA values on the structure
-
-* Make sure that there aren't any shifted sites that occur within the six-helix bundle
-
-* Edit the README in the repo to explain how the 5VN3 structure was curated.
 
 * Analyze clusters. Is there any structural significance? E.g., what about the cluster of residues at the trimer apex of `5VN3`? Could sites be involved in co-receptor interface, or the conformational change induced by receptor binding?
