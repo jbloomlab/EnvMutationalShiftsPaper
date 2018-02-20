@@ -339,7 +339,7 @@ However, simply comparing correlation coefficients does not identify specific si
 \hspace{0.01\textwidth} 
 \includegraphics[width=0.58\textwidth]{figures/prefs_distance/prefs_distance.pdf}
 \hspace{0.03\textwidth}
-\includegraphics[clip=true, trim=0in 0in 0in 1.2in, width=0.68\textwidth]{figures/distance_distribution.pdf}
+\includegraphics[clip=true, trim=0in 0in 0in 0.4in, width=0.65\textwidth]{figures/distance_distribution.pdf}
 \vspace{0.15in}
 \\ 
 {\bf \Large C} \\
@@ -401,15 +401,15 @@ Thus, there is variation in both the extent and types of shifts observed.
 \subsection{Structural and evolutionary properties of shifted sites}
 
 \begin{figure}
-{\bf \Large A} \\
-\includegraphics[width=0.8\textwidth]{figures/shifts_on_structure/shifts_on_structure.pdf}
+{\bf \Large A} \hspace{0.6\textwidth} {\bf \Large B}  \\
+\includegraphics[width=0.57\textwidth]{figures/shifts_on_structure/shifts_on_structure.pdf}
+\hspace{0.06\textwidth}
+\includegraphics[width=0.32\textwidth]{figures/rsa_vs_shifts.pdf}
 \\
-{\bf \Large B} \hspace{0.28\textwidth} {\bf \Large C} \hspace{0.28\textwidth} {\bf \Large D} \\
-\includegraphics[width=0.28\textwidth]{figures/rsa_vs_shifts.pdf}
-\hspace{0.01\textwidth}
-\includegraphics[width=0.28\textwidth]{figures/shifts_proximity.pdf}
-\hspace{0.01\textwidth}
-\includegraphics[width=0.4\textwidth]{figures/conservation_vs_shifts.pdf} 
+ {\bf \Large C} \hspace{0.45\textwidth} {\bf \Large D} \\
+\includegraphics[width=0.45\textwidth]{figures/shifts_proximity.pdf}
+\hspace{0.02\textwidth}
+\includegraphics[width=0.53\textwidth]{figures/conservation_vs_shifts.pdf} 
 \caption{\label{fig:shiftfeatures}
 Characteristics of significantly shifted sites.
 {\bf (A)} One monomer of the Env trimer~\citep[PDB 5FYL;][]{stewart2016trimeric} is colored from white to red according to the magnitude of the mutational shift at each site (red indicates large shift).
@@ -452,7 +452,7 @@ On the other hand, Env is extremely complex and conformationally dynamic~\citep{
 \subsection{Entrenchment of substitutions modestly contributes to mutational shifts}
 
 \begin{figure}
-\centerline{\includegraphics[clip=true, trim=0in 0in 0in 0.7in, width=0.68\textwidth]{figures/entrenchment.pdf}}
+\centerline{\includegraphics[clip=true, trim=0in 0in 0in 0in, width=0.68\textwidth]{figures/entrenchment.pdf}}
 \caption{\label{fig:entrenchment}
 Entrenchment of substitutions during Env evolution.
 There are 12,521 possible amino-acid mutations at the 659 mutagenized sites alignable between BG505 and BF520.
@@ -510,7 +510,7 @@ All analyses used the phylogenetic tree in \FIG{tree}.
 Sites are grouped by whether they have $\omega_r > 1$ (diversifying selection) or $\omega_r < 1$ (purifying selection) at $Q < 0.05$ in \emph{both} Envs, or whether they fall into neither of these categories.
 Relative solvent accessibilities were calculated as in \FIG{shiftfeatures}.
 As can be seen from these box plots with overlaid points for each site, sites of both diversifying and purifying selection tend to have higher relative solvent accessibility than other sites.
-}{\includegraphics[width=0.5\textwidth]{figures/selsites_rsa.pdf}}
+}{\includegraphics[width=\textwidth]{figures/selsites_rsa.pdf}}
 \figsupp[\label{figsupp:glycans}Amino-acid preferences and alignment frequencies for glycosylation motifs.]
 {This plot shows all sites that are N-linked glycosylation motifs in both BG505 and BF520.
 Each motif is named by the residue number of the asparagine, and the preferences (averaged across replicates) for each Env are shown as well as the frequencies of amino acids across the clade A alignment at each of the three positions in the motif (N-X-S/T).
