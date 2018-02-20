@@ -107,18 +107,32 @@ print ("\nOf the significant sites, {0} of them are in the structure".format(len
 
 # Take a pictures of Env rotated 120 degrees relative to one another
 cmd.set_view ("""\
-     0.413237274,    0.018612767,   -0.910427451,\
-     0.910516560,    0.006436472,    0.413409144,\
-     0.013554142,   -0.999800861,   -0.014289021,\
-    -0.000450239,   -0.000266090, -364.028167725,\
-    64.596366882,   39.767127991,   -5.709826946,\
-   224.197448730,  503.894958496,  -20.000000000""")
+     0.606518745,   -0.016123615,    0.794892550,\
+     0.760999739,    0.301236391,   -0.574545264,\
+    -0.230190367,    0.953389049,    0.194983304,\
+     0.000000000,    0.000000000, -364.900909424,\
+   165.407760620,  160.255493164,  155.138549805,\
+   225.052154541,  504.749664307,  -20.000000000 """)
+
 take_pictures = False
 if take_pictures:
 	cmd.bg_color('white')
 	cmd.png('{0}_pymol_face1.png'.format(structure), width=1000, dpi=1000, ray=1)
 	cmd.rotate('y', '120')
 	cmd.png('{0}_pymol_face2.png'.format(structure), width=1000, dpi=1000, ray=1)
+
+# Identify sites that have substituted
+substituted_sites = []
+with open('../BG505_to_BF520_prefs_dist.csv') as f:
+	lines = f.readlines())[1:]
+	for line in lines:
+		 (site, RMSDcorrected, RMSDbetween,RMSDwithin,
+		 BG505, BF520, significant_shift, substituted) = line.split(',')[:8]
+		 if substituted == 'TRUE':
+			 substituted_sites.append(site)
+print("There are {0} substituted sites:")
+print(", ".join(substituted_sites))
+cmd.select('subs', structure + ' and resi ' + '+'.join(substituted_sites))
 
 # Annotations of structural features
 # gp120 and gp41

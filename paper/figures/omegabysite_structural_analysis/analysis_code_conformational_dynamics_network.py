@@ -29,7 +29,7 @@ cmd.remove ('c;C,E,F,H,K,M,L,N,O,I,J,B,D')
 cmd.hide('everything')
 cmd.bg_color('white')
 cmd.show('cartoon')
-cmd.color('grey90')
+cmd.color('grey40')
 #cmd.color('grey20', structure)
 cmd.set('cartoon_transparency', '0.5')
 cmd.set('cartoon_transparency', '0', structure)
@@ -54,7 +54,7 @@ for h in homologs:
 	with open('../merged_omegabysite.csv') as f:
 		lines = f.readlines()[1:]
 		for line in lines:
-			(site, omega, P, dLnL, Q, Env, log10P, log10Pdir) = line.strip().split(',')
+			(site, omega, P, dLnL, Q, Env, log10P, log10Pdir, N_glycans) = line.strip().split(',')
 			omega_d[Env][site] = float(log10Pdir)
 			if float(Q) < Q_cutoff and float(omega) < 1.0:
 				sites_sig_slow[Env].append(site)
@@ -77,7 +77,7 @@ for site in sites_with_data:
     cmd.alter("{0} and resi {1}".format(structure, site), "b = {0}".format(avg_log10P_dir))
     if site not in unique_sites_in_structure:
     	sites_not_in_structure.append(site)
-cmd.spectrum('b', 'red_grey_blue', structure, minimum = min_omega, maximum = max_omega)
+cmd.spectrum('b', 'blue_white_red', structure, minimum = min_omega, maximum = max_omega)
 print ("\nSites with data not in structure: {0}".format(', '.join(sites_not_in_structure)))
 
 # Color residues lacking data white
