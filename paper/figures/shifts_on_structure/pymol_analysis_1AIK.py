@@ -105,6 +105,22 @@ if take_pictures:
 	cmd.rotate('y', '120')
 	cmd.png('{0}_pymol_face2.png'.format(structure), width=1000, dpi=1000, ray=1)
 
+# Identify sites that have substituted
+substituted_sites = []
+with open('../BG505_to_BF520_prefs_dist.csv') as f:
+	lines = f.readlines()[1:]
+	for line in lines:
+		(site, RMSDcorrected, RMSDbetween,RMSDwithin, BG505, BF520, significant_shift, substituted) = line.split(',')[:8]
+		if substituted == 'True':
+			substituted_sites.append(site)
+substituted_sites = list(set(substituted_sites)) # for some reason, this is needed to handle duplicates
+cmd.select('subs', structure + ' and resi ' + '+'.join(substituted_sites))
+print("\nThere are {0} substituted sites:".format(len(substituted_sites)))
+print(', '.join(substituted_sites))
+subs_in_structure = [site for site in substituted_sites if site in unique_sites_in_structure]
+print ("\nOf the substituted sites, {0} of them are in the structure".format(len(subs_in_structure)))
+print(' ,'.join(subs_in_structure))
+
 # Annotations of structural features
 # gp120 and gp41
 cmd.select('gp120', structure + ' and resi 31-511')
