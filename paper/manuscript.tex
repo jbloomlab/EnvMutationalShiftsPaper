@@ -251,9 +251,14 @@ In the next section, we correct for these experimental differences by calibratin
 \subsection{Amino-acid preferences of the Envs and their relationship to HIV evolution}
 The most immediate question is how authentically the experimental measurements describe the actual selection on Env function in nature.
 Direct comparisons between experimentally measured amino-acid preferences and amino-acid frequencies in natural sequences are confounded by the fact that the natural sequences are evolutionarily related.
-This problem can be overcome by making the comparison in a phylogenetic context.
-Specifically, we used our deep mutational scanning data to construct experimentally informed codon models (ExpCM's) for Env evolution~\citep{hilton2017phydms}.
-Importantly, since we expect many sites in Env to be under diversifying selection from immunity, we extended the ExpCM's to draw the relative dN/dS parameter ($\omega$) from a gamma distribution as is commonly done for codon-substitution models~\citep{yang2000codon}.
+This problem can be overcome by making the comparison in a phylogenetic context to account for the evolutionary relationships among sequences.
+
+Specifically, we used our deep mutational scanning data to construct experimentally informed codon models (ExpCM's) for Env's evolution.
+An ExpCM is a phylogenetic substitution model that incorporates the functional constraints measured in a deep mutational scanning experiment~\citep{hilton2017phydms}.
+If the experiment captures much of the actual evolutionary constraint on a gene, then an ExpCM will describe the gene's natural evolution better than a standard phylogenetic codon substitution model.
+The reason is that standard codon substitution models~\citep[such as the commonly used Goldman-Yang style models;][]{yang2000codon} only model functional constraint via a parameter that represents the rate of fixation of nonsynonymous protein-altering mutations relative to synonymous ones; this parameter is called dN/dS or $\omega$.
+In contrast, an ExpCM accounts for the site-specific functional constraints measured in the deep mutational scan, and then additionally adds an $\omega$ parameter that now represents the relative rate of nonsynonymous to synonymous substitutions after accounting for these functional constraints~\citep{bloom2017identification,hilton2017phydms}.
+Importantly, since we expect some sites in Env to be under diversifying selection from immunity, we extended the ExpCM's described in \citet{hilton2017phydms} to draw $\omega$ from a gamma distribution as is commonly done for codon-substitution models~\citep{yang2000codon}.
 
 \begin{table}
 \begin{fullwidth}
@@ -264,7 +269,7 @@ Shown are the results of maximum likelihood fitting of substitution models to th
 Experimentally informed codon models~\citep[ExpCM,][]{hilton2017phydms} utilizing the across-replicate average of the deep mutational scanning describe Env's natural evolution far better than a standard codon substitution model~\citep[the M5 model of][]{yang2000codon} as judged by comparing the Akaike information criteria~\citep[$\Delta$AIC,][]{posada2004model}.
 Both ExpCM models have a stringency parameter $>$1.
 All models draw $\omega$ from a gamma distribution, and the table shows the mean ($\overline{\omega}$) and shape parameters ($\omega_{\alpha}$ and $\omega_{\beta}$) of this distribution.
-The last two columns show the number of sites evolving faster ($\omega_r > 1$) or slower ($\omega_r < 1$) than expected at a false discovery rate of 0.05, as determined using the approach in \citet{bloom2017identification}.
+The last two columns show the number of sites evolving faster ($\omega_r > 1$) or slower ($\omega_r < 1$) than expected at a false discovery rate of 0.05, as determined using the approach in \citet{bloom2017identification} (see also the last section of the Results).
 Analyses were performed using \texttt{phydms} (\url{http://jbloomlab.github.io/phydms/}).
 \TABLE{phydms}-source-data~\ref{tabledata:phydms} shows the results for additional substitution models.
 }
@@ -272,16 +277,18 @@ Analyses were performed using \texttt{phydms} (\url{http://jbloomlab.github.io/p
 \end{fullwidth}
 \end{table}
 
-\TABLE{phydms} shows that phylogenetic models informed by the deep mutational scanning of either BG505 or BF520 describe the natural evolution of Env vastly better than a standard codon substitution model.
-In addition to simply comparing model fits, we can interpret the model parameters.
-ExpCM's have a stringency parameter that relates selection in the experiments to that in nature.
-A stringency parameter $>$1 indicates that natural selection prefers the same amino acids as the experiments, but with greater stringency~\citep{hilton2017phydms}.
-Both ExpCM's have stringency parameters $>$1 (\TABLE{phydms}) -- a finding that makes sense, since the stop-codon analysis in the previous section suggests that the experimental selections are more lax than natural selection on HIV.
-We can also interpret the $\omega$ parameter.
-For standard codon substitution models, $\omega$ is the rate of fixation of nonsynonymous mutations relative to synonymous ones -- and the gene-wide average $\omega$ is almost always $<$1, since purifying selection purges many functionally deleterious amino-acid mutations even for adaptively evolving proteins~\citep{murrell2015gene}.
+\TABLE{phydms} shows that ExpCM's informed by the deep mutational scanning of either BG505 or BF520 describe the natural evolution of Env vastly better than a standard codon substitution model.
+In addition to the improved fit of the ExpCM's, we can also interpret the $\omega$ parameter.
+Recall that for standard codon substitution models, $\omega$ is simply the rate of fixation of nonsynonymous mutations relative to synonymous ones.
+For such models, the gene-wide average $\omega$ is almost always $<$1, since purifying selection purges many functionally deleterious amino-acid mutations even for adaptively evolving proteins~\citep{murrell2015gene}.
 Indeed, \TABLE{phydms} shows that Env's gene-wide average $\omega$ is $<$1 for a standard model.
 But for ExpCM's, $\omega$ is the relative rate of nonsynonymous to synonymous substitutions \emph{after} accounting for functional constraints measured in the deep mutational scanning~\citep{bloom2017identification}.
-\TABLE{phydms} shows that the ExpCM's have a gene-wide average $\omega$ that is $>$1, indicating that external selection (e.g., from immunity) drives Env to fix amino-acid mutations faster than expected under a null model that only accounts for functional constraints.
+But for ExpCM's, the gene-wide average $\omega$ is $>$1 (\TABLE{phydms}), indicating that external selection (e.g., from immunity) drives Env to fix amino-acid mutations faster than expected under a null model that only accounts for functional constraints on the protein.
+
+ExpCM's also have a stringency parameter that relates selection in the experiments to that in nature.
+Essentially, this experiment indicates how strongly natural selection prefers the amino acids that are preferred in the deep mutational scanning~\citep{hilton2017phydms}
+A stringency parameter $>$1 indicates that natural selection prefers the same amino acids as the experiments, but with greater stringency.
+Both ExpCM's have stringency parameters $>$1 (\TABLE{phydms}) -- a finding that makes sense, since the stop-codon analysis in the previous section suggests that the experimental selections are more lax than natural selection on HIV.
 
 \begin{figure}
 \begin{fullwidth}
@@ -290,7 +297,7 @@ But for ExpCM's, $\omega$ is the relative rate of nonsynonymous to synonymous su
 Amino-acid preferences for the BG505 Env.
 At each site, the height of the letter is proportional for that site's preference for that amino acid.
 The top color bar indicates the region of Env (gp120 variable loop, gp120 not variable loop, or gp41).
-The lower color bar indicates the evidence that the site evolves faster ($\omega_r > 1$) or slower ($\omega_r < 1$) than expected given the experiments~\citep[see][]{bloom2017identification}; we report the $P$-value for $\omega_r \ne 1$ rather than the value of $\omega_r$ itself since point estimates of these values are unreliable for individual sites due to low numbers of observations~\citep{kosakovsky2005not,murrell2012detecting}.
+The lower color bar indicates the evidence that the site evolves faster ($\omega_r > 1$) or slower ($\omega_r < 1$) than expected given the experiments~\citep[see the last section of the Results and][]{bloom2017identification}; we report the $P$-value for $\omega_r \ne 1$ rather than the value of $\omega_r$ itself since point estimates of these values are unreliable for individual sites due to low numbers of observations~\citep{kosakovsky2005not,murrell2012detecting}.
 The letters above the logos indicate the wildtype amino acid in BG505.
 Sites are numbered using the HXB2 scheme~\citep{korber1998numbering}).
 This logo plot shows the site-specific amino-acid preferences for BG505 after averaging the replicates and re-scaling by the stringency parameter in \TABLE{phydms}.
@@ -541,7 +548,9 @@ The $Q$-value indicated is the maximum of that for the two Envs.
 \end{figure}
 
 We determined whether each site in Env evolves faster or slower in nature than expected given three models: that evolution is purely neutral (all nonsynonymous and synonymous mutations have equivalent effects), that sites are under the protein-level constraint measured in our experiments with BG505, or that sites are under the constraint measured with BF520. 
-The first model used a standard dN/dS test~\citep[the ``FEL'' method of][]{kosakovsky2005not}, whereas the other two models performed a conceptually similar test but used ExpCM's that incorporate experimental measurements as described by \citet{bloom2017identification}.
+The first model used a standard dN/dS test~\citep[the ``FEL'' method of][]{kosakovsky2005not}, whereas the other two models are conceptually similar but account for the experimentally measured amino-acid preferences as described by \citet{bloom2017identification}.
+All three models test if individual sites evolve faster or slower than expected, but they ``expect'' different things: the dN/dS model expects nonsynonymous and synonymous mutations fix at the same rate, while the ExpCM expects the rate at a site to depend on the experimentally measured functional constraints.
+In all cases, the evidence that a site $r$ evolves differently than expected is statistically summarized by the $P$-value that $\omega_r$ is $>$ or $<$ 1.
 The standard dN/dS model finds hundreds of sites that evolve slower than expected under neutral evolution (\TABLE{phydms}, $\omega_r < 1$), and only a handful of sites that evolve faster than expected under neutral evolution (\TABLE{phydms}, $\omega_r > 1$).
 This finding is unsurprising, since it is well known that Env is under functional constraint.
 In contrast, ExpCM's that test the rates of evolution relative to the experimentally measured constraints find far fewer sites that evolve slower than expected, but many more sites that evolve faster (\TABLE{phydms}). 
