@@ -96,7 +96,8 @@ We will follow the nomenclature of \citet{pollock2012amino} to refer to these ch
 Such shifts can accumulate as substitutions become entrenched via epistatic interactions with subsequent changes~\citep{starr2017pervasive,pollock2012amino,shah2015contingency,bazykin2015changing} -- although the magnitude of these shifts is usually limited~\citep{doud2015site,chan2017correlation,ashenberg2013mutational,risso2014mutational}.
 
 Given that the Envs of circulating HIV strains represent a vast collection of homologs that often differ at $>$100 residues, shifts in amino-acid preferences could make the outcome of any study highly dependent on the Env used.
-The extent to which this is actually the case is unclear, since the few protein-wide studies of such shifts have examined proteins that are structurally far simpler than Env, which forms a large heavily glycosylated heterotrimeric complex that transitions through multiple conformational states~\citep{munro2014conformational,ozorowski2017open}.
+Indeed, epistasis among a few combinations of Env mutations has been experimentally demonstrated~\citep{da2010fitness}, and epistatic fitness landscapes have been computationally inferred for a variety of HIV proteins~\citep{kouyos2012exploring,ferguson2013translating,mann2014fitness,barton2015scaling} including Env~\citep{louie2018fitness}. 
+However, the only protein-wide experimental studies of how amino-acid preferences shift during evolution have examined proteins that are structurally far simpler than Env, which forms a large heavily glycosylated heterotrimeric complex that transitions through multiple conformational states~\citep{munro2014conformational,ozorowski2017open}.
 
 Here we use an improved version of a previously described deep mutational scanning strategy~\citep{haddox2016experimental} to measure the effects on viral growth of all single amino-acid mutations to two transmitted-founder virus Envs that differ by $>$100 mutations.
 We compare these complete maps of mutational effects to identify sites that have shifted in their amino-acid preferences between the Envs.
@@ -602,6 +603,7 @@ Recent studies of protein evolution have focused on the idea that substitutions 
 Indeed, a prior protein-wide comparison of amino-acid preferences across homologs of influenza nucleoprotein found a significant enrichment of shifts at sites of substitutions~\citep{doud2015site}.
 But although there is some entrenchment of differences between BG505 and BF520, this is not the major factor behind the shifts in amino-acid preferences: the majority of sites that have shifted between BG505 and BF520 actually have the same wildtype amino acid in both Envs even though the preferences have shifted.
 This rather surprising result might be due to Env's exceptional conformational complexity -- mutations can cause long-range alterations in Env's conformation~\citep{kwong2000structures,white2010molecular,almond2010structural,davenport2013isolate}, so it seems plausible that they might also shift mutational tolerance at distant sites. 
+Regardless of the exact mechanism, our large-scale datasets of mutational effects in multiple viral strains should be useful for efforts to computationally parameterize ``fitness landscapes'' of Env~\citep{kouyos2012exploring,ferguson2013translating,mann2014fitness,barton2015scaling,louie2018fitness}.
 
 Our experiments provide highly quantitative data on the mutational tolerance of Env under selection for viral growth in cell culture.
 These data are amenable to rigorous functional and evolutionary analyses.
