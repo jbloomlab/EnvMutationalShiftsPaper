@@ -256,8 +256,8 @@ This problem can be overcome by making the comparison in a phylogenetic context 
 Specifically, we used our deep mutational scanning data to construct experimentally informed codon models (ExpCM's) for Env's evolution.
 An ExpCM is a phylogenetic substitution model that incorporates the functional constraints measured in a deep mutational scanning experiment~\citep{hilton2017phydms}.
 If the experiment captures much of the actual evolutionary constraint on a gene, then an ExpCM will describe the gene's natural evolution better than a standard phylogenetic codon substitution model.
-The reason is that standard codon substitution models~\citep[such as the commonly used Goldman-Yang style models;][]{yang2000codon} only model functional constraint via a parameter that represents the rate of fixation of nonsynonymous protein-altering mutations relative to synonymous ones; this parameter is called dN/dS or $\omega$.
-In contrast, an ExpCM accounts for the site-specific functional constraints measured in the deep mutational scan, and then additionally adds an $\omega$ parameter that now represents the relative rate of nonsynonymous to synonymous substitutions after accounting for these functional constraints~\citep{bloom2017identification,hilton2017phydms}.
+The reason is that standard codon substitution models~\citep[such as the commonly used Goldman-Yang style models;][]{yang2000codon} only model functional constraint via a single parameter that represents the rate of fixation of nonsynonymous protein-altering mutations relative to synonymous ones; this parameter is called dN/dS or $\omega$.
+In contrast, an ExpCM accounts for the preference of each site for each of the 20 amino acids under the functional selection in the deep mutational scan, and then additionally adds an $\omega$ parameter that represents the relative rate of nonsynonymous to synonymous substitutions after accounting for these functional constraints~\citep{bloom2017identification,hilton2017phydms}.
 Importantly, since we expect some sites in Env to be under diversifying selection from immunity, we extended the ExpCM's described in \citet{hilton2017phydms} to draw $\omega$ from a gamma distribution as is commonly done for codon-substitution models~\citep{yang2000codon}.
 
 \begin{table}
@@ -297,9 +297,10 @@ Both ExpCM's have stringency parameters $>$1 (\TABLE{phydms}) -- a finding that 
 Amino-acid preferences for the BG505 Env.
 At each site, the height of the letter is proportional for that site's preference for that amino acid.
 The top color bar indicates the region of Env (gp120 variable loop, gp120 not variable loop, or gp41).
-The lower color bar indicates the evidence that the site evolves faster ($\omega_r > 1$) or slower ($\omega_r < 1$) than expected given the experiments~\citep[see the last section of the Results and][]{bloom2017identification}; we report the $P$-value for $\omega_r \ne 1$ rather than the value of $\omega_r$ itself since point estimates of these values are unreliable for individual sites due to low numbers of observations~\citep{kosakovsky2005not,murrell2012detecting}.
+The lower color bar indicates the evidence that the site evolves faster ($\omega_r > 1$) or slower ($\omega_r < 1$) than expected given the experiments~\citep[see the last section of the Results and][]{bloom2017identification}.
+We report the $P$-value for $\omega_r \ne 1$ rather than the value of $\omega_r$ itself since point estimates of $\omega_r$ are unreliable for individual sites due to low numbers of observations, making the $P$-value a better indicator of the strength of the statistical evidence for faster or slower than expected evolution~\citep{kosakovsky2005not,murrell2012detecting}.
 The letters above the logos indicate the wildtype amino acid in BG505.
-Sites are numbered using the HXB2 scheme~\citep{korber1998numbering}).
+Sites are numbered using the HXB2 scheme~\citep{korber1998numbering}.
 This logo plot shows the site-specific amino-acid preferences for BG505 after averaging the replicates and re-scaling by the stringency parameter in \TABLE{phydms}.
 The figure was generated using \texttt{dms\_tools2}~\citep[\url{https://jbloomlab.github.io/dms_tools2/}]{bloom2015software}, which in turn utilizes \texttt{weblogo}~\citep{crooks2004weblogo}.
 }
@@ -694,6 +695,7 @@ Note how for these Env alignments, using a gamma-distributed $\omega$ is very im
 
 For detection of sites with faster or slower than expected evolution, we used the approach in \citet{bloom2017identification}, which is exactly modeled on the FEL approach of \citet{kosakovsky2005not} but extended to ExpCM.
 This approach estimates a $P$-value that $\omega_r$ is not equal to one for each site $r$ using a likelihood-ratio test.
+The actual point estimates of $\omega_r$ are unreliable for individual sites due to the limited number of observations, so we report the $P$-value that $\omega_r$ is not equal to one, which is a better indication of the strength of the statistical evidence for faster or slower than expected evolution~\citep{kosakovsky2005not,murrell2012detecting}.
 For the Q-values and false discovery rate testing, we considered the tests for $\omega_r > 1$ and $\omega_r < 1$ separately.
 
 Supplementary~files~\ref{suppfile:code} and \ref{suppfile:html} contains the code that runs \texttt{phydms} to reproduce all of these analyses.
