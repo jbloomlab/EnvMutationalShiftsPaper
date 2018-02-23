@@ -82,10 +82,10 @@ print ("Sites with significant shifts not in structure: {0}".format(
 											if s in sites_not_in_structure)))
 
 # Color residues lacking data black
-sites_lacking_data = [site for site in unique_sites_in_structure if site not in sites_with_data]
-if len(sites_lacking_data) > 0:
-	print ("\nThe following sites in the structure, but lacking data will be colored white: {0}".format(', '.join(sites_lacking_data)))
-	cmd.color('black', '{0} and resi {1}'.format(structure, '+'.join(sites_lacking_data)))
+#sites_lacking_data = [site for site in unique_sites_in_structure if site not in sites_with_data]
+#if len(sites_lacking_data) > 0:
+#	print ("\nThe following sites in the structure, but lacking data will be colored black: {0}".format(', '.join(sites_lacking_data)))
+#	cmd.color('black', '{0} and resi {1}'.format(structure, '+'.join(sites_lacking_data)))
 
 # Show significant sites as spheres
 print ("\nThere are {0} sites with significant RMSD corrected values".format(len(sig_sites)))
