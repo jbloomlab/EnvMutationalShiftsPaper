@@ -141,8 +141,10 @@ We have previously created comprehensive codon-mutant libraries of the BF520 Env
 Both BG505 and BF520 are from clade A of the major (M) group of HIV-1.
 \FIG{tree} shows the phylogenetic relationship among these two Envs and other clade A sequences.
 BG505 and BF520 are identical at 721 of the 836 pairwise-alignable protein sites (86.2\% identity).
-In our experiments, we analyze only the ectodomain and transmembrane domain of Env (we exclude the signal peptide and cytoplasmic tail).
-In these regions of Env, BG505 and BF520 are identical at 549 of the 616 sites (89.1\% identity) that are alignable across clade A Envs (\FIG{tree}-source~data~\ref{figdata:alignment}, \FIG{tree}-source~data~\ref{figdata:mask}).
+However, in our experiments we mutagenized only the ectodomain and transmembrane domain of Env, and excluded the signal peptide and cytoplasmic tail.
+The reason is that we measure how Env mutations affect viral growth, which is influenced both by the functionality of Env protein molecules and their expression level.
+Mutations in the signal peptide and cytoplasmic tail commonly affect Env expression level~\citep{chakrabarti1989cytoplasmic,yuste2004modulation,li1994control}, so we excluded these regions with the goal of reducing the degree to which we simply identified mutations that affected Env expression.
+In the ectodomain and transmembrane domains of Env, BG505 and BF520 are identical at 549 of the 616 sites (89.1\% identity) that are alignable across clade A Envs (\FIG{tree}-source~data~\ref{figdata:alignment}, \FIG{tree}-source~data~\ref{figdata:mask}).
 The divergence between BG505 and BF520 therefore offers ample opportunity to investigate mutational shifts during Env evolution.
 
 \subsection{Deep mutational scanning of each Env}
@@ -402,6 +404,8 @@ For the majority of shifted sites, one Env prefers a specific amino acid whereas
 Such broadening and narrowing of a site's mutational tolerance is frequently linked to changes in protein stability, with a more stable protein typically being more mutationally tolerant~\citep{wang2002evolution,bloom2006protein,gong2013stability,kumar2017stability}.
 Work with engineered Env protein in the form of ``SOSIP'' trimer~\citep{binley2000recombinant,sanders2002stabilization} has shown that BG505 SOSIP is more thermostable than BF520 SOSIP~\citep{verkerke2016epitope}.
 Consistent with this fact, sites with altered mutational tolerance are often (although not always, see sites 165 and 520 in \FIG{prefsdist}C) more mutationally tolerant in BG505.
+Differences in Env's expression level might also contribute to a general broadening or narrowing of tolerance to subsequent mutations.
+Because our experiments select for viral growth---which is affected by both Env function and expression---it is possible that some of the shifts are due to epistatic mutational effects on expression rather than function.
 
 However, not all of the significantly shifted sites show a simple pattern of broadening or narrowing of mutational tolerance.
 For instance, site 288 does not alter its mutational tolerance but rather flips its rather narrow amino-acid preference from phenylalanine in BG505 to leucine in BF520 (\FIG{prefsdist}C).
@@ -615,7 +619,7 @@ Future experiments that modulate selection pressures in other relevant ways shou
 
 \subsection{Creation of codon-mutant libraries}
 Our codon mutant libraries mutagenized all sites in \textit{env} to all 64 codons, except that the signal peptide and cytoplasmic tail were not mutagenized.
-The rationale for excluding these regions is that they are not part of Env's ectodomain, and may be prone to mutations that strongly modulate Env's expression level.
+The rationale for excluding these regions is that they are not part of Env's ectodomain, and are prone to mutations that strongly modulate Env's expression level~\citep{chakrabarti1989cytoplasmic,yuste2004modulation,li1994control}.
 
 The codon-mutant libraries were generated using the approach originally described in \citet{bloom2014experimentally}, with the modification of \citet{dingens2017comprehensive} to ensure more uniform primer melting temperatures.
 The computer script used to design the mutagenesis primers (along with some detailed implementation notes) is at \url{https://github.com/jbloomlab/CodonTilingPrimers}.

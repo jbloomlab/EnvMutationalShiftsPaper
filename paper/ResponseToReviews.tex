@@ -37,10 +37,31 @@ These revisions have further strengthened the manuscript.
 
 1. How are mutations that strongly modulate Env's expression level taken into account? 
 
-{\color{red}
-The best I can think of here is just to explain our rationale for excluding signal peptide and cytoplasmic tail. 
-I don't think we have a way of addressing this comment beyond that?
-Hugh and Adam, do you have additional ideas?
+{\color{black}
+This is an important point.
+Our experiments directly measure how mutations affect viral growth.
+This approach has many advantages over simple surface display approaches, since it is more relevant to the true function of Env.
+However, a caveat is that viral growth is a convolution of Env function and expression, so our experiments cannot separate these two phenotypes.
+
+We have taken steps to limit simply finding mutations affect expression.
+We have done this by \emph{not} mutagenizing the signal peptide and cytoplasmic tail, which are the most common sites of mutations that affect expression levels.
+
+We have added text to make this point clearly, and emphasize the associated caveats.
+When we first describe the deep mutational scanning approach, we now say:
+\begin{quote}
+\textsl{
+However, in our experiments we mutagenized only the ectodomain and transmembrane domain of Env, and excluded the signal peptide and cytoplasmic tail.
+The reason is that we measure how Env mutations affect viral growth, which is influenced both by the functionality of Env protein molecules and their expression level.
+Mutations in the signal peptide and cytoplasmic tail commonly affect Env expression level (Chakrabarti et al, 1989; Yuste et al, 2004; Li et al, 1994), so we excluded these regions with the goal of reducing the degree to which we simply identified mutations that affected Env expression.
+}
+\end{quote}
+Then when we describe the results, we clearly emphasize how expression level (like Env protein stability, which was already discussed) could have general effects on the results:
+\begin{quote}
+\textsl{
+Differences in Env's expression level might also contribute to a general broadening or narrowing of tolerance to subsequent mutations.
+Because our experiments select for viral growth---which is affected by both Env function and expression---it is possible that some of the shifts are due to epistatic mutational effects on expression rather than function.
+}
+\end{quote}
 }
 
 2. Only the native, pre-fusion Env trimer is used to calculate proximity of substituted and shifted residues. It is possible that substitution-shift colocalization may be detected in other conformations of Env as it undergoes structural rearrangement to mediate fusion, as opposed to acting through longer-range allostery in the pre-fusion conformation. Another well-characterized structure that should be considered is the post-fusion six-helix bundle of gp41. 
@@ -65,7 +86,9 @@ Hugh and Adam---do you have any thoughts on this?
 
 1. Readers may miss the rationale for excluding the signal peptide and cytoplasmic tail if it is only found in the Methods. 
 
-{\color{red}Yes, we should move this up. Will be done in context of answering essential revision 1, and then we can describe change here.}
+{\color{black}
+This is a good suggestion.
+We now also explain this rationale in the first part of the Results as discussed in the response to Major Point \#1 above.}
 
 2. Page 3: When referring to the modifications made in this paper versus the previous publication, it is not clear whether the cell type difference was expression of CCR5 or use of a new cell line altogether. 
 
