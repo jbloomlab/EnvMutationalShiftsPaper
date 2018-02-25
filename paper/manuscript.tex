@@ -432,18 +432,18 @@ There is no significant difference in the relative solvent accessibility of site
 This observation holds for both the pre-fusion Env trimer in (A) and the CD4-bound Env trimer~\citep[PDB 5VN3;][]{ozorowski2017open}.
 The absolute solvent accessibility of each site was calculated using DSSP~\citep{kabsch1983dictionary} and normalized to a relative solvent accessibility using the absolute accessibilities from \citet{tien2013maximum}.
 {\bf (C)} 
-Sites of significant shifts are clustered in the structures of both the closed pre-fusion Env trimer and the CD4-bound Env trimer.
+Sites of significant shifts are clustered in the structures of both the closed and open Env trimers.
 The left two plots show the distance of each significantly shifted and not-shifted site to the closest other shifted site in the indicated structure.
-The right-most plot shows the minimum distance across both structures.
+The right-most plot shows the minimum distance across both the closed and open conformations.
 The trend for shifts to cluster becomes stronger when considering the minimum distance, indicating that multiple conformations may shape this trend.
 {\bf (D)}
 Large mutational shifts are \emph{not} strongly enriched at sites that have substituted between BG505 and BF520, or at sites that contact sites that have substituted. 
-The left-most plot shows the magnitudes of the shifts in context of the closed pre-fusion state among the 83 crystallographically resolved sites that have substituted between BG505 and BF520, the 204 non-substituted sites that physically contact a substitution in the Env structure (any non-hydrogen atom within 3.5\angstrom), and all other sites.
-The center plot shows these magnitudes in context of the CD4-bound state, while the right-most plot shows these magnitudes when considering both structures, with the relative number of sites in each category shown in parentheses.
-In the right-most plot, non-substituted sites are considered to be contacting a substitution if they do so in at least one structure.
+The left-most plot shows the magnitudes of the shifts in context of the closed conformation of Env among the 83 crystallographically resolved sites that have substituted between BG505 and BF520, the 204 non-substituted sites that physically contact a substitution in this structure (any non-hydrogen atom within 3.5\angstrom), and all other sites.
+The center plot shows these magnitudes in context of the open conformation, while the right-most plot shows these magnitudes when considering both the closed and open conformations, with the relative number of sites in each category shown in parentheses.
+In the right-most plot, non-substituted sites are considered to be contacting a substitution if they do so in at least one structural context.
 \FIGSUPP[shiftfeatures]{subs_shifts} shows that there is a modest borderline-significant tendency of significantly shifted sites to have substituted.
-All panels only show the 577 sites that are resolved in the crystal structure.
-Of the 30 significantly shifted sites in \FIG{prefsdist}B, only 28 are crystallographically resolved.
+All panels only show the 577 and 520 sites that are resolved in the structures of the closed and open conformations, repectively.
+Of the 30 significantly shifted sites in \FIG{prefsdist}B, only 28 and 27 are structurally resolved in the closed and open conformations, respectively.
 Structural distances and solvent accessibilities were calculated using all monomers in the trimer.
 $P$ values were calculated using the Mann-Whitney $U$ test.
 }
@@ -451,7 +451,21 @@ $P$ values were calculated using the Mann-Whitney $U$ test.
 {The sites of significant shifts as determined in \FIG{prefsdist}B are somewhat more likely to be among the sites that have substituted between BG505 and BF520.
 However, this association is only borderline statistically significant, with $P = 0.055$ using a Fisher's exact test.}
 {\input{figures/shifts_vs_subs_table}}
-\figsupp[\label{figsupp:shifts_on_six_helix_bundlel}Clusters of shifted and substituted sites in context of different conformations of Env.]
+
+\figsupp[\label{figsupp:shifts_on_six_helix_bundlel}Cluster of shifted and substituted sites in context of the post-fusion six-helix bundle of Env.]
+{
+The left-most panel shows the six-helix bundle of Env~\citep[PDB 1ENV;][]{weissenhorn1997atomic}, focusing on the central three helices, each of which is derived from a different Env monomer and which pack together to form the bundle's core.
+There are $\sim$80 residues per monomer that are resolved in this structure, including four significantly shifted sites and five substituted sites.
+Of these, three of the shifted sites (582, 583, and 587) and one substituted site (588) form a cluster at one end of the bundle.
+We show the side chains for each of these sites colored according to whether the site has shifted (red) or substituted (yellow).
+We wondered whether this cluster was unique to the six-helix bundle, but found that it is also present in roughly the same structural arrangement in both the closed pre-fusion conformation (center panel) and the open CD4-bound conformation (right panel; note that some of the surrounding residues in both the closed and open structures have been hidden for the sake of clarity).
+As shown in \FIG{prefsdist}C, each of the shifted sites are more tolerant of mutations in BG505 than in BF520, indicating they are of greater structural and functional importance in BF520.
+The two shifted sites that point inward towards the bundle's core (583 and 587) may be important for packing.
+Based on these structures, it is difficult to discern if or how the substituted site may impact the preferences at the shifted sites nearby.
+}
+{\includegraphics[width=\textwidth]{figures/shifts_on_structure/six_helix_bundle_cluster.pdf}}
+
+\figsupp[\label{figsupp:shifted_site_clusters}Clusters of shifted and substituted sites in context of different conformations of Env.]
 {This figure gives a fine-grained view of three clusters of shifted sites in context of different conformations of Env.
 In each structure, we only show side chains for shifted sites or other sites of interest, such as substituted sites.
 Side chains are colored differently according to the key.
@@ -474,31 +488,35 @@ In contrast to panel (A), only a few of the shifted sites are adjacent to substi
 This trend is found in both the closed and open conformations, suggesting that the shifts may be primarily due to long-range epistatic interactions.
 Such long-range interactions seem especially plausible in this region given that it is dynamic over a large swath or residues.
 Indeed, one of the shifted sites (69) overlaps with the hydrophobic network, and mutations at another (64) have been shown to modulate the relative stability of the open and closed conformations~\cite{de2015immunogenicity}.
-{\bf (C)}
-This panel shows a cluster of shifted sites in context of a three-helix bundle in Env, each helix of which is derived from a different monomer and which pack together to form an inter-monomer core.
-These helices form the core of the post-fusion six-helix bundle shown on the right~\citep[PDB 1ENV;][]{weissenhorn1997atomic}, but are also present in a similar conformation in the closed pre-fusion state and the open CD4-bound state.
-These sites are symmetric around the axis of the bundle in an arrangement that is largely similar among the different structures.
-In the open conformation, one of these sites (582) is in close proximity to another site that has both shifted and substituted (520), which could account for site 582's shift in preference.
-Two of the shifted sites (583 and 587) pack in the bundle's core, suggesting that the packing of residues in this region may differ between homologs.
-However, unlike panel (A), where we observed a similar phenomenon, there are no substituted sites that also pack in a nearby location.
-Thus, aside from site 582, it is difficult to say from a structural standpoint why these sites may have shifted.
 }
 {\includegraphics[width=\textwidth]{figures/shifts_on_structure/clusters_on_structure.pdf}}
 \end{figure}
 
 What distinguishes the sites that have undergone significant shifts?
-\FIG{shiftfeatures}A shows the locations of the shifted sites on the crystal structure of Env.
-There is no visually obvious tendency for shifted sites to preferentially be on Env's surface or in its core, and a statistical analysis (\FIG{shiftfeatures}B) finds no association between a site's relative solvent accessibility and whether its amino-acid preferences have shifted.
-However, \FIG{shiftfeatures}A does suggest that the sites of significant shifts tend to cluster in Env's structure, and a statistical analysis confirms that this is the case (\FIG{shiftfeatures}C).
+First, we analyzed the distribution of shifted sites in context of Env's three-dimensional structure.
+Env's structure is highly conformationally dynamic and undergoes large changes upon receptor binding and membrane fusion.
+In an effort to account for these dynamics, we examined multiple conformational states of Env, including: the closed pre-fusion state~\cite{julien2013crystal,pancera2014structure,stewart2016trimeric}, the open CD4-bound state~\cite{pancera2010structure,ozorowski2017open}, and the post-fusion six-helix bundle~\cite{weissenhorn1997atomic,chan1997core,tan1997atomic}.
+\FIG{shiftfeatures}A shows the locations of the shifted sites on the crystal structure of Env in the closed pre-fusion state.
+There is no visually obvious tendency for shifted sites to preferentially be on Env's surface or in its core, and statistical analysis of both the closed and open states of Env (\FIG{shiftfeatures}B) finds no association between a site's relative solvent accessibility and whether its amino-acid preferences have shifted.
+However, \FIG{shiftfeatures}A does suggest that the sites of significant shifts tend to cluster in Env's structure, and a statistical analysis confirms that this is the case for both the closed and open states (\FIG{shiftfeatures}C).
 Therefore, the factors that drive shifts in Env's mutational tolerance often affect physically interacting clusters of residues in a coordinated fashion.
+Moreover, these factors are present in multiple conformations of Env.
+We also investigated the distribution of shifted sites in context of the post-fusion six-helix bundle.
+However, only $\sim$80 residues are resolved in this structure, and of these sites, only four have shifted amino-acid preferences.
+This low number of sites does not lend itself to statistical analysis, but a qualitative analysis of these sites on the structure revealed that three of the four shifted sites cluster at one end of the helical bundle (\FIGSUPP[shiftfeatures]{shifts_on_six_helix_bundlel}).
 
 An obvious hypothesis is that strongly shifted sites have substituted between BG505 and BF520, or physically contact such substitutions.
 According to this hypothesis, substitutions would alter the local physicochemical environment of the substituted site and its neighbors, thereby shifting the amino-acid preferences of sites in the physical cluster.
-But surprisingly, the typical magnitude of shifts is not significantly larger at sites that have substituted, or at sites that contact sites that have experienced substitutions (\FIG{shiftfeatures}C).
+But surprisingly, for both the closed and open conformations, the typical magnitude of shifts is not significantly larger at sites that have substituted, or at sites that contact sites that have experienced substitutions (\FIG{shiftfeatures}D).
+In the case of the six-helix bundle, there are a total of five structurally resolved substituted sites, one of which is adjacent to the cluster of shifted sites (\FIGSUPP[shiftfeatures]{shifts_on_six_helix_bundlel}).
+The number of resolved shifted and substituted sites in this structure is too low for to perform the same statistical analysis as in \FIG{shiftfeatures}D.
+However, we found that the cluster of shifted and substituted sites in the six-helix bundle is also present in the closed and open states (\FIGSUPP[shiftfeatures]{shifts_on_six_helix_bundlel}).
+Thus, this cluster is already well-accounted for by other states.
+
 There is a borderline trend for the significantly shifted sites to be more likely to have substituted between BG505 and BF520 (\FIGSUPP[shiftfeatures]{subs_shifts}), but most shifted sites have not substituted (only 8 of the 30 shifted sites differ in amino-acid identity between the two Envs).
 The lack of strong enrichment in shifts at substituted sites contrasts with previous protein-wide experimental~\citep{doud2015site} and simulation-based~\citep{pollock2012amino,shah2015contingency} studies of shifting amino-acid preferences, which found that shifts were dramatically more pronounced at sites of substitutions.
 The difference may arise because these earlier studies examined proteins that are fairly conformationally static (absolutely so in the case of the simulations).
-On the other hand, Env is extremely complex and conformationally dynamic~\citep{munro2014conformational,ozorowski2017open}, which may increase the opportunities for long-range epistasis to enable substitutions at one site to shift the amino-acid preferences of distant sites.
+On the other hand, as stated above, Env is extremely complex and conformationally dynamic~\citep{munro2014conformational,ozorowski2017open}, which may increase the opportunities for long-range epistasis to enable substitutions at one site to shift the amino-acid preferences of distant sites.
 
 \subsection{Entrenchment of substitutions modestly contributes to mutational shifts}
 
