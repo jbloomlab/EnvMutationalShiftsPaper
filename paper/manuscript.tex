@@ -96,7 +96,8 @@ We will follow the nomenclature of \citet{pollock2012amino} to refer to these ch
 Such shifts can accumulate as substitutions become entrenched via epistatic interactions with subsequent changes~\citep{starr2017pervasive,pollock2012amino,shah2015contingency,bazykin2015changing} -- although the magnitude of these shifts is usually limited~\citep{doud2015site,chan2017correlation,ashenberg2013mutational,risso2014mutational}.
 
 Given that the Envs of circulating HIV strains represent a vast collection of homologs that often differ at $>$100 residues, shifts in amino-acid preferences could make the outcome of any study highly dependent on the Env used.
-The extent to which this is actually the case is unclear, since the few protein-wide studies of such shifts have examined proteins that are structurally far simpler than Env, which forms a large heavily glycosylated heterotrimeric complex that transitions through multiple conformational states~\citep{munro2014conformational,ozorowski2017open}.
+Indeed, epistasis among a few combinations of Env mutations has been experimentally demonstrated~\citep{da2010fitness}, and epistatic fitness landscapes have been computationally inferred for a variety of HIV proteins~\citep{kouyos2012exploring,ferguson2013translating,mann2014fitness,barton2015scaling} including Env~\citep{louie2018fitness}. 
+However, the only protein-wide experimental studies of how amino-acid preferences shift during evolution have examined proteins that are structurally far simpler than Env, which forms a large heavily glycosylated heterotrimeric complex that transitions through multiple conformational states~\citep{munro2014conformational,ozorowski2017open}.
 
 Here we use an improved version of a previously described deep mutational scanning strategy~\citep{haddox2016experimental} to measure the effects on viral growth of all single amino-acid mutations to two transmitted-founder virus Envs that differ by $>$100 mutations.
 We compare these complete maps of mutational effects to identify sites that have shifted in their amino-acid preferences between the Envs.
@@ -140,8 +141,10 @@ We have previously created comprehensive codon-mutant libraries of the BF520 Env
 Both BG505 and BF520 are from clade A of the major (M) group of HIV-1.
 \FIG{tree} shows the phylogenetic relationship among these two Envs and other clade A sequences.
 BG505 and BF520 are identical at 721 of the 836 pairwise-alignable protein sites (86.2\% identity).
-In our experiments, we analyze only the ectodomain and transmembrane domain of Env (we exclude the signal peptide and cytoplasmic tail).
-In these regions of Env, BG505 and BF520 are identical at 549 of the 616 sites (89.1\% identity) that are alignable across clade A Envs (\FIG{tree}-source~data~\ref{figdata:alignment}, \FIG{tree}-source~data~\ref{figdata:mask}).
+However, in our experiments we mutagenized only the ectodomain and transmembrane domain of Env, and excluded the signal peptide and cytoplasmic tail.
+The reason is that we measure how Env mutations affect viral growth, which is influenced both by the functionality of Env protein molecules and their expression level.
+Mutations in the signal peptide and cytoplasmic tail commonly affect Env expression level~\citep{chakrabarti1989cytoplasmic,yuste2004modulation,li1994control}, so we excluded these regions with the goal of reducing the degree to which we simply identified mutations that affected Env expression.
+In the ectodomain and transmembrane domains of Env, BG505 and BF520 are identical at 549 of the 616 sites (89.1\% identity) that are alignable across clade A Envs (\FIG{tree}-source~data~\ref{figdata:alignment}, \FIG{tree}-source~data~\ref{figdata:mask}).
 The divergence between BG505 and BF520 therefore offers ample opportunity to investigate mutational shifts during Env evolution.
 
 \subsection{Deep mutational scanning of each Env}
@@ -256,8 +259,8 @@ This problem can be overcome by making the comparison in a phylogenetic context 
 Specifically, we used our deep mutational scanning data to construct experimentally informed codon models (ExpCM's) for Env's evolution.
 An ExpCM is a phylogenetic substitution model that incorporates the functional constraints measured in a deep mutational scanning experiment~\citep{hilton2017phydms}.
 If the experiment captures much of the actual evolutionary constraint on a gene, then an ExpCM will describe the gene's natural evolution better than a standard phylogenetic codon substitution model.
-The reason is that standard codon substitution models~\citep[such as the commonly used Goldman-Yang style models;][]{yang2000codon} only model functional constraint via a parameter that represents the rate of fixation of nonsynonymous protein-altering mutations relative to synonymous ones; this parameter is called dN/dS or $\omega$.
-In contrast, an ExpCM accounts for the site-specific functional constraints measured in the deep mutational scan, and then additionally adds an $\omega$ parameter that now represents the relative rate of nonsynonymous to synonymous substitutions after accounting for these functional constraints~\citep{bloom2017identification,hilton2017phydms}.
+The reason is that standard codon substitution models~\citep[such as the commonly used Goldman-Yang style models;][]{yang2000codon} only model functional constraint via a single parameter that represents the rate of fixation of nonsynonymous protein-altering mutations relative to synonymous ones; this parameter is called dN/dS or $\omega$.
+In contrast, an ExpCM accounts for the preference of each site for each of the 20 amino acids under the functional selection in the deep mutational scan, and then additionally adds an $\omega$ parameter that represents the relative rate of nonsynonymous to synonymous substitutions after accounting for these functional constraints~\citep{bloom2017identification,hilton2017phydms}.
 Importantly, since we expect some sites in Env to be under diversifying selection from immunity, we extended the ExpCM's described in \citet{hilton2017phydms} to draw $\omega$ from a gamma distribution as is commonly done for codon-substitution models~\citep{yang2000codon}.
 
 \begin{table}
@@ -297,9 +300,10 @@ Both ExpCM's have stringency parameters $>$1 (\TABLE{phydms}) -- a finding that 
 Amino-acid preferences for the BG505 Env.
 At each site, the height of the letter is proportional for that site's preference for that amino acid.
 The top color bar indicates the region of Env (gp120 variable loop, gp120 not variable loop, or gp41).
-The lower color bar indicates the evidence that the site evolves faster ($\omega_r > 1$) or slower ($\omega_r < 1$) than expected given the experiments~\citep[see the last section of the Results and][]{bloom2017identification}; we report the $P$-value for $\omega_r \ne 1$ rather than the value of $\omega_r$ itself since point estimates of these values are unreliable for individual sites due to low numbers of observations~\citep{kosakovsky2005not,murrell2012detecting}.
+The lower color bar indicates the evidence that the site evolves faster ($\omega_r > 1$) or slower ($\omega_r < 1$) than expected given the experiments~\citep[see the last section of the Results and][]{bloom2017identification}.
+We report the $P$-value for $\omega_r \ne 1$ rather than the value of $\omega_r$ itself since point estimates of $\omega_r$ are unreliable for individual sites due to low numbers of observations, making the $P$-value a better indicator of the strength of the statistical evidence for faster or slower than expected evolution~\citep{kosakovsky2005not,murrell2012detecting}.
 The letters above the logos indicate the wildtype amino acid in BG505.
-Sites are numbered using the HXB2 scheme~\citep{korber1998numbering}).
+Sites are numbered using the HXB2 scheme~\citep{korber1998numbering}.
 This logo plot shows the site-specific amino-acid preferences for BG505 after averaging the replicates and re-scaling by the stringency parameter in \TABLE{phydms}.
 The figure was generated using \texttt{dms\_tools2}~\citep[\url{https://jbloomlab.github.io/dms_tools2/}]{bloom2015software}, which in turn utilizes \texttt{weblogo}~\citep{crooks2004weblogo}.
 }
@@ -400,6 +404,8 @@ For the majority of shifted sites, one Env prefers a specific amino acid whereas
 Such broadening and narrowing of a site's mutational tolerance is frequently linked to changes in protein stability, with a more stable protein typically being more mutationally tolerant~\citep{wang2002evolution,bloom2006protein,gong2013stability,kumar2017stability}.
 Work with engineered Env protein in the form of ``SOSIP'' trimer~\citep{binley2000recombinant,sanders2002stabilization} has shown that BG505 SOSIP is more thermostable than BF520 SOSIP~\citep{verkerke2016epitope}.
 Consistent with this fact, sites with altered mutational tolerance are often (although not always, see sites 165 and 520 in \FIG{prefsdist}C) more mutationally tolerant in BG505.
+Differences in Env's expression level might also contribute to a general broadening or narrowing of tolerance to subsequent mutations.
+Because our experiments select for viral growth---which is affected by both Env function and expression---it is possible that some of the shifts are due to epistatic mutational effects on expression rather than function.
 
 However, not all of the significantly shifted sites show a simple pattern of broadening or narrowing of mutational tolerance.
 For instance, site 288 does not alter its mutational tolerance but rather flips its rather narrow amino-acid preference from phenylalanine in BG505 to leucine in BF520 (\FIG{prefsdist}C).
@@ -625,6 +631,7 @@ Recent studies of protein evolution have focused on the idea that substitutions 
 Indeed, a prior protein-wide comparison of amino-acid preferences across homologs of influenza nucleoprotein found a significant enrichment of shifts at sites of substitutions~\citep{doud2015site}.
 But although there is some entrenchment of differences between BG505 and BF520, this is not the major factor behind the shifts in amino-acid preferences: the majority of sites that have shifted between BG505 and BF520 actually have the same wildtype amino acid in both Envs even though the preferences have shifted.
 This rather surprising result might be due to Env's exceptional conformational complexity -- mutations can cause long-range alterations in Env's conformation~\citep{kwong2000structures,white2010molecular,almond2010structural,davenport2013isolate}, so it seems plausible that they might also shift mutational tolerance at distant sites. 
+Regardless of the exact mechanism, our large-scale datasets of mutational effects in multiple viral strains should be useful for efforts to computationally parameterize ``fitness landscapes'' of Env~\citep{kouyos2012exploring,ferguson2013translating,mann2014fitness,barton2015scaling,louie2018fitness}.
 
 Our experiments provide highly quantitative data on the mutational tolerance of Env under selection for viral growth in cell culture.
 These data are amenable to rigorous functional and evolutionary analyses.
@@ -636,7 +643,7 @@ Future experiments that modulate selection pressures in other relevant ways shou
 
 \subsection{Creation of codon-mutant libraries}
 Our codon mutant libraries mutagenized all sites in \textit{env} to all 64 codons, except that the signal peptide and cytoplasmic tail were not mutagenized.
-The rationale for excluding these regions is that they are not part of Env's ectodomain, and may be prone to mutations that strongly modulate Env's expression level.
+The rationale for excluding these regions is that they are not part of Env's ectodomain, and are prone to mutations that strongly modulate Env's expression level~\citep{chakrabarti1989cytoplasmic,yuste2004modulation,li1994control}.
 
 The codon-mutant libraries were generated using the approach originally described in \citet{bloom2014experimentally}, with the modification of \citet{dingens2017comprehensive} to ensure more uniform primer melting temperatures.
 The computer script used to design the mutagenesis primers (along with some detailed implementation notes) is at \url{https://github.com/jbloomlab/CodonTilingPrimers}.
@@ -718,6 +725,7 @@ Note how for these Env alignments, using a gamma-distributed $\omega$ is very im
 
 For detection of sites with faster or slower than expected evolution, we used the approach in \citet{bloom2017identification}, which is exactly modeled on the FEL approach of \citet{kosakovsky2005not} but extended to ExpCM.
 This approach estimates a $P$-value that $\omega_r$ is not equal to one for each site $r$ using a likelihood-ratio test.
+The actual point estimates of $\omega_r$ are unreliable for individual sites due to the limited number of observations, so we report the $P$-value that $\omega_r$ is not equal to one, which is a better indication of the strength of the statistical evidence for faster or slower than expected evolution~\citep{kosakovsky2005not,murrell2012detecting}.
 For the Q-values and false discovery rate testing, we considered the tests for $\omega_r > 1$ and $\omega_r < 1$ separately.
 
 Supplementary~files~\ref{suppfile:code} and \ref{suppfile:html} contains the code that runs \texttt{phydms} to reproduce all of these analyses.
