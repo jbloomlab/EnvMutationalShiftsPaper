@@ -83,7 +83,7 @@ for site in sites_with_data:
     if site not in unique_sites_in_structure:
     	sites_not_in_structure.append(site)
 color_scheme = 'white_red'
-cmd.spectrum('b', color_scheme, structure, minimum=min_RMSD, maximum=max_RMSD)
+###cmd.spectrum('b', color_scheme, structure, minimum=min_RMSD, maximum=max_RMSD)
 print ("\nSites with data not in structure: {0}".format(
                                 ', '.join(sites_not_in_structure)))
 print ("Sites with significant shifts not in structure: {0}".format(
@@ -100,7 +100,7 @@ if len(sites_lacking_data) > 0:
 print ("\nThere are {0} sites with significant RMSD corrected values".format(len(sig_sites)))
 print (', '.join(sig_sites))
 cmd.select('sig_RMSDcorrected', '{0} and resi {1}'.format(structure, '+'.join(sig_sites)))
-cmd.show('spheres', 'sig_RMSDcorrected')
+###cmd.show('spheres', 'sig_RMSDcorrected')
 cmd.hide('spheres', 'het')
 
 # Report how many significant sites are in the structure
@@ -138,6 +138,11 @@ subs_in_structure = [site for site in substituted_sites if site in unique_sites_
 print ("\nOf the substituted sites, {0} of them are in the structure".format(len(subs_in_structure)))
 
 # Annotations of structural features
+# a0 helix
+cmd.select('a0 helix', structure +' and resi 63-72')
+# network of hydrophobic residues from Ozorowski, 2017, Nature
+cmd.select('hydrophobic network', structure +' and resi 435+427+111+112+69+72+564')
+
 # gp120 and gp41
 cmd.select('gp120', structure + ' and resi 31-511')
 cmd.select('gp41', structure +' and resi 512-664')

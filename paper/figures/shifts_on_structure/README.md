@@ -22,6 +22,7 @@ This directory has multiple `PyMOL` scripts for visualizing shifts in amino-acid
 
 ## Results
 
+### Clustering of sites in the six-helix bundle
 There are multiple crystal structures of the six-helix bundle, each obtained by crystalizing fragments of gp41 that sum to about 80 residues in length. Of the four structures we examined (PDB codes: `1AIK`, `1ENV`, `1SZT` and `2X7R`), each of which resolve slightly different sets of sites, the one that resolved the most significantly shifted sites in our analysis was `1ENV`. Specifically, there are four shifted sites in this structure. Of relevance to the reviewer comment, this structure also has five substituted sites (i.e., sites that differ in wildtype amino-acid sequence between BG505 and BF520) (HXB2 numbering, `1ENV` numbering):
 
     * (542, 31), (582, 71), (583, 72), (587, 76)
@@ -30,6 +31,32 @@ In analyzing the structural proximity of the shifted and substituted sites, we f
 
 However, as the observed clustering is still of interest, we added a new supplemental figure that highlights the larger of the two clusters (cite figure). Interestingly, all three of the shifted sites in this cluster are more mutationally tolerant in the BG505 structure, indicating that they are more structurally and functionally critical in BF520. For the two shifted sites that point into the core of the six helix bundle, this may have to do with the role of these residues in packing. However, since the BF520 structure has not been determined, it is difficult to test this hypothesis.
 
+### Clustering of sites near the hydrophobic network of the CD4-bound structure
+
+This figure shows a region of Env in the open CD4-bound state that is involved in mediating the large conformational changes that occur upon CD4 binding. Nearly one third of the significantly shifted sites (9/30) cluster within this region near a network of hydrophobic residues that help mediate this change. Side chains of sites that are shifted, sites in the hydrophobic network, and sites that have substituted are all shown as sticks and are colored according to the key. Most shifted sites do not directly contact network residues. But, their presence in this dynamic region makes it possible that they also influence Env's dynamics and that this accounts for their shifts in preference. One possibility is that these shifts are caused by substitutions at shifted sites or direct contacts between shifted and substituted sites. However, a visual inspection of this region shows that only a few of the shifted sites have substituted or are immediately adjacent to substituted sites, suggesting that shifts at these sites may be mediated by long-range epistatic interactions with distant substitutions. It is possible that these interactions are mediated through a larger network of residues that modulate Env's dynamics. Though this hypothesis is difficult to test.
+
+### Trimer apex
+
+308 (sub) - R in BG505, H in BF520
+164 (shfted, contacts 308) - bulky hydrophobics in BG505, less bulky hydrophobics in BF520
+
+### Scratch
+
+
+The $\sim$80 residues per monomer that are resolved in this structure include four significantly shifted sites and five substituted sites.
+Of these, three of the shifted sites (582, 583, and 587) and one substituted site (588) form a cluster at one end of the bundle, where we highlight the side chain of each site in a different color.
+As shown in \FIG{prefsdist}D, each of the shifted sites are more tolerant of mutations in BG505 than in BF520, indicating they are of greater structural and functional importance in BF520.
+For the two shifted sites that point inward towards the bundles core (583 and 587), this importance may involve in packing.
+Based on this structure, it is difficult to discern if or how the substituted site may impact the preferences at the shifted sites nearby, in part since the arginine side chain is not fully resolved.
+
+### Reviewer response
+
+We added an entire supplemental figure on:
+"Clusters of shifted and substituted sites in context of different conformations of Env"
+
+512, 516, 520 (all in the fusion peptide?)
+
+
 ## To do
 
-* Analyze clusters. Is there any structural significance? E.g., what about the cluster of residues at the trimer apex of `5VN3`? Could sites be involved in co-receptor interface, or the conformational change induced by receptor binding?
+* Look at co-receptor binding site
