@@ -10,6 +10,7 @@ Hugh Haddox, November-2-2017
 # Imports
 import pymol
 from pymol import cmd
+import math
 
 homologs = ['BG505', 'BF520']
 for h in homologs:
@@ -55,8 +56,8 @@ for h in homologs:
 	with open('../merged_omegabysite.csv') as f:
 		lines = f.readlines()[1:]
 		for line in lines:
-			(site, omega, P, dLnL, Q, Env, log10P, log10Pdir, N_glycans) = line.strip().split(',')
-			omega_d[Env][site] = float(log10Pdir)
+			(site, omega, P, dLnL, Q, Env, log10Q, log10Qdir, N_glycans) = line.strip().split(',')
+			omega_d[Env][site] = float(log10Qdir)
 			if float(Q) < Q_cutoff and float(omega) < 1.0:
 				sites_sig_slow[Env].append(site)
 			if float(Q) < Q_cutoff and float(omega) > 1.0:
@@ -67,7 +68,7 @@ for h in homologs:
 	print "min: {0}".format(min_omega)
 	print "max: {0}".format(max_omega)
 
-	# Color residues by omega-by-site log10P values
+	# Color residues by omega-by-site log10Q values
 
 	BG505_sites = sorted(omega_d['BG505'].keys())
 	BF520_sites = sorted(omega_d['BF520'].keys())
@@ -78,7 +79,14 @@ for h in homologs:
 		cmd.alter("{0} and resi {1}".format(structure, site), "b = {0}".format(omega_d[h][site]))
 		if site not in unique_sites_in_structure:
 			sites_not_in_structure.append(site)
-	cmd.spectrum('b', 'blue_white_red', structure, minimum = min_omega, maximum = max_omega)
+	cutoff_min_omega = -6
+	cutoff_max_omega = 6
+	if cutoff_min_omega:
+		print("Using manually specified min and max omega values of {0} and {1}".format(
+			cutoff_min_omega, cutoff_max_omega
+		))
+	cmd.spectrum('b', 'blue_white_red', structure,
+					minimum = cutoff_min_omega, maximum = cutoff_max_omega)
 	print ("\nSites with data not in structure: {0}".format(', '.join(sites_not_in_structure)))
 
 	# Color residues lacking data black
@@ -103,25 +111,12 @@ for h in homologs:
 		-0.000450239,   -0.000266090, -364.028167725,\
 		64.596366882,   39.767127991,   -5.709826946,\
 	   224.197448730,  503.894958496,  -20.000000000""")
-	take_pictures = False
+	take_pictures = True
 	if take_pictures:
 		cmd.bg_color('white')
 		cmd.png('{0}_face1.png'.format(h), width=1000, dpi=1000, ray=1)
 		cmd.rotate('y', '120')
 		cmd.png('{0}_face2.png'.format(h), width=1000, dpi=1000, ray=1)
-
-# Identify sites that have substituted
-substituted_sites = []
-with open('../BG505_to_BF520_prefs_dist.csv') as f:
-	lines = f.readlines())[1:]
-	for line in lines:
-		 (site, RMSDcorrected, RMSDbetween,RMSDwithin,
-		 BG505, BF520, significant_shift, substituted) = line.split(',')[:8]
-		 if substituted == 'TRUE':
-			 substituted_sites.append(site)
-print("There are {0} substituted sites:")
-print(", ".join(substituted_sites))
-cmd.select('subs', structure + ' and resi ' + '+'.join(substituted_sites))
 
 # Annotations of structural features
 # gp120 and gp41
