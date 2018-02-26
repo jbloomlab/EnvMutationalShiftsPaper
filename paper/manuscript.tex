@@ -74,7 +74,7 @@ However, the prevalence of such shifts in mutational effects remains unclear.
 Here we quantify the effects on viral growth of all amino-acid mutations to two HIV envelope (Env) proteins that differ at $>$100 residues.
 Most mutations similarly affect both Envs, but the amino-acid preferences of a minority of sites have clearly shifted.
 These shifted sites usually prefer a specific amino acid in one Env, but tolerate many amino acids in the other.
-Surprisingly, shifts are only slightly enriched at sites that have substituted between the Envs -- and many occur at residues that do not even contact substitutions.
+Surprisingly, shifts are only slightly enriched at sites that have substituted between the Envs---and many occur at residues that do not even contact substitutions.
 Therefore, long-range epistasis can unpredictably shift Env's mutational tolerance during HIV evolution, although the amino-acid preferences of most sites are conserved between moderately diverged viral strains.
 \end{abstract}
 
@@ -93,7 +93,7 @@ Most mutational studies have measured how just a small number of these mutations
 But interpreting these studies in the context of Env evolution requires addressing a fundamental question: How informative are mutational studies of a single protein variant about constraints on long-term evolution?
 During protein evolution, substitutions at one site can change the effect of mutations at other sites~\citep{natarajan2013epistasis,gong2013stability,harms2014historical,podgornaia2015pervasive,starr2016epistasis,klink2017parallel}.
 We will follow the nomenclature of \citet{pollock2012amino} to refer to these changes in mutational effects as \emph{shifts} in a site's amino-acid preferences.
-Such shifts can accumulate as substitutions become entrenched via epistatic interactions with subsequent changes~\citep{starr2017pervasive,pollock2012amino,shah2015contingency,bazykin2015changing} -- although the magnitude of these shifts is usually limited~\citep{doud2015site,chan2017correlation,ashenberg2013mutational,risso2014mutational}.
+Such shifts can accumulate as substitutions become entrenched via epistatic interactions with subsequent changes~\citep{starr2017pervasive,pollock2012amino,shah2015contingency,bazykin2015changing}---although the magnitude of these shifts is usually limited~\citep{doud2015site,chan2017correlation,ashenberg2013mutational,risso2014mutational}.
 
 Given that the Envs of circulating HIV strains represent a vast collection of homologs that often differ at $>$100 residues, shifts in amino-acid preferences could make the outcome of any study highly dependent on the Env used.
 Indeed, epistasis among a few combinations of Env mutations has been experimentally demonstrated~\citep{da2010fitness}, and epistatic fitness landscapes have been computationally inferred for a variety of HIV proteins~\citep{kouyos2012exploring,ferguson2013translating,mann2014fitness,barton2015scaling} including Env~\citep{louie2018fitness}. 
@@ -161,7 +161,7 @@ Our libraries encompassed all codon mutations to all sites in Env except for the
 \caption{\label{fig:dms_schematic}
 Deep mutational scanning workflow.
 {\bf (A)} We made libraries of proviral HIV plasmids with random codon-level mutations in the \textit{env} gene.
-The number of mutations per gene approximately followed a Poisson distribution with a mean between 1 and 1.5 (\FIGSUPP[dms_schematic]{fsanger}).
+The number of mutations per gene approximately followed a Poisson distribution with a mean between 1 and 1.5 (\FIGSUPP[dms_schematic]{sanger}).
 We transfected the plasmids into 293T cells to generate mutant viruses, which lack a genotype-phenotype link since cells are multiply transfected.
 To establish a genotype-phenotype link and select for Env variants that support HIV growth, we passaged the libraries in SupT1.CCR5 cells for four days at a low multiplicity of infection (MOI) of 0.01.
 To isolate the \textit{env} genes from only viruses that encoded a functional Env protein, we infected the passaged libraries into SupT1.CCR5 cells at high MOI and harvested reverse-transcribed non-integrated viral DNA after 12 hours.
@@ -246,7 +246,7 @@ The correlations between the preferences from different experimental replicates 
 These replicate-to-replicate correlations are substantially higher than those for the deep mutational scanning of LAI Env by \citet{haddox2016experimental}, which had replicate-to-replicate Pearson correlations of only $R = 0.45$ to $0.50$. 
 
 While the replicates are well correlated across all replicates for both BG505 and BF520, the replicates for BG505 are more correlated with each other than with replicates for BF520, and vice versa (\FIG{mutfreqs}B, compare red and blue versus gray plots).
-This fact hints that there are some shifts in amino-acid preferences between the two Envs -- something that is investigated with more statistical rigor later in this paper.
+This fact hints that there are some shifts in amino-acid preferences between the two Envs---something that is investigated with more statistical rigor later in this paper.
 Note also that there is a trend for highly preferred amino acids to be more strongly preferred in BG505 than BF520 (most high-preference points in the gray plots in \FIG{mutfreqs}B fall above the diagonal); however, this trend does not necessarily reflect differences between the Envs.
 Rather, there were modest differences in the stringency of selection between our deep mutational scans of BG505 and BF520 (\FIGSUPP[mutfreqs]{mutfreqs} shows that purifying selection better purged stop codons in BG505).
 In the next section, we correct for these experimental differences by calibrating each dataset to match the stringency of selection in nature.
@@ -291,7 +291,7 @@ But for ExpCM's, the gene-wide average $\omega$ is $>$1 (\TABLE{phydms}), indica
 ExpCM's also have a stringency parameter that relates selection in the experiments to that in nature.
 Essentially, this experiment indicates how strongly natural selection prefers the amino acids that are preferred in the deep mutational scanning~\citep{hilton2017phydms}
 A stringency parameter $>$1 indicates that natural selection prefers the same amino acids as the experiments, but with greater stringency.
-Both ExpCM's have stringency parameters $>$1 (\TABLE{phydms}) -- a finding that makes sense, since the stop-codon analysis in the previous section suggests that the experimental selections are more lax than natural selection on HIV.
+Both ExpCM's have stringency parameters $>$1 (\TABLE{phydms})---a finding that makes sense, since the stop-codon analysis in the previous section suggests that the experimental selections are more lax than natural selection on HIV.
 
 \begin{figure}
 \begin{fullwidth}
@@ -334,9 +334,9 @@ A qualitative way to assess if the deep mutational scanning authentically descri
 \FIG{BG505prefs} and \FIG{BF520prefs} show the re-scaled across-replicate average of the amino-acid preferences for each Env.
 At sites of known functional importance, these preferences are usually consistent with prior knowledge.
 For instance, residues T257, D368, E370, W427, and D457 are important for Env binding to CD4~\citep{olshevsky1990identification}, and all these amino acids are highly preferred in our deep mutational scanning (\FIG{BG505prefs} and \FIG{BF520prefs}).
-Likewise, Env has 10 disulfide bonds (linking sites 54-74, 119-205, 126-196, 131-157, 218-247, 228-239, 296-331, 378-445, 385-418, and 598-604), most of which are important for function~\citep{van2008only} -- and the cysteines at these sites are highly preferred in our deep mutational scanning.
+Likewise, Env has 10 disulfide bonds (linking sites 54-74, 119-205, 126-196, 131-157, 218-247, 228-239, 296-331, 378-445, 385-418, and 598-604), most of which are important for function~\citep{van2008only}---and the cysteines at these sites are highly preferred in our deep mutational scanning.
 The deep mutational scanning is also consistent with prior knowledge about sites that are tolerant of mutations.
-For instance, Env has five variable loops that mostly evolve under weak constraint in nature~\citep{starcich1986identification,zolla2010structure} -- and most sites in these loops are mutationally tolerant in our deep mutational scanning (see sites indicated by gray overlay bars in \FIG{BG505prefs} and \FIG{BF520prefs}, such as 132 to 195).
+For instance, Env has five variable loops that mostly evolve under weak constraint in nature~\citep{starcich1986identification,zolla2010structure}---and most sites in these loops are mutationally tolerant in our deep mutational scanning (see sites indicated by gray overlay bars in \FIG{BG505prefs} and \FIG{BF520prefs}, such as 132 to 195).
 It is beyond the scope of this paper to catalog associations between our measurements and all other prior mutational studies of Env, but the concordance of our findings with the above mutational studies, and the fact that our data improve phylogenetic models of Env's natural evolution, suggest that our measurements authentically describe functional selection on Env.
 
 \subsection{Shifts in amino-acid preferences between BG505 and BF520}
@@ -388,7 +388,7 @@ This approach calculates the magnitude of the shift after correcting for experim
 The overall distribution of shifts between BG505 and BF520 is shown in \FIG{prefsdist}B.
 Most sites have relatively small shifts (close to zero), although there is a long tail of sites with large shifts.
 This tail reaches its upper value with site 512, which has a shift of 0.52 out of a maximum possible of 1.0.
-How should we interpret this distribution -- have mutational effects shifted a lot, or not very much?
+How should we interpret this distribution---have mutational effects shifted a lot, or not very much?
 We can establish an upper-bound for how much sites might shift by comparing Env to a \emph{non}-homologous protein.
 \FIG{prefsdist}B shows the distribution of shifts when comparing Env to influenza's hemagglutinin protein, which has previously had its amino-acid preferences measured by deep mutational scanning~\citep{doud2016accurate} .
 Most sites have large shifts between Env and hemagglutinin, with the typical shift being $\sim$0.4 and some approaching the maximum value of 1.0.
@@ -537,7 +537,7 @@ There are 12,521 possible amino-acid mutations at the 659 mutagenized sites alig
 The blue densities show the effects of all these mutations to each Env.
 The orange densities show the effects of just the 92 mutations that convert BG505 to BF520 or vice versa.
 In the absence of entrenchment, mutating a site in BG505 to its identity in BF520 should have the opposite effect of mutating the site in BF520 to its identity in BG505.
-In this case, we would expect the BF520$\rightarrow$BG505 distribution to be the mirror image of the BG505$\rightarrow$BF520 distribution -- and both distributions should be centered around zero if the two Envs are equivalently functional.
+In this case, we would expect the BF520$\rightarrow$BG505 distribution to be the mirror image of the BG505$\rightarrow$BF520 distribution---and both distributions should be centered around zero if the two Envs are equivalently functional.
 Instead, mutating a site in either Env to its identity in the other Env tends to be deleterious, indicating that substitutions are often entrenched in the Env in which they have fixed.
 The effect of a mutation is quantified as the log of the ratio of the site's preference for the mutant amino acid to the preference for the wildtype amino acid.
 }
@@ -549,7 +549,7 @@ Given two homologs, if there is no entrenchment then the effect of mutating a si
 But if there is entrenchment, then both mutations will be unfavorable, since the site is entrenched at its preferred identity in each homolog.
 
 \FIG{entrenchment} shows the distribution of effects for mutating all sites that differ between BG505 and BF520 to the identity in the other Env.
-As expected under entrenchment, the average effect of these mutations is deleterious -- although there are a substantial number of sites where the mutational flips are not deleterious. 
+As expected under entrenchment, the average effect of these mutations is deleterious---although there are a substantial number of sites where the mutational flips are not deleterious. 
 We can get some sense of the magnitude of the entrenchment by comparing the effects of the BG505$\leftrightarrow$BF520 mutations to the distribution of effects of all possible amino-acid mutations (\FIG{entrenchment}).
 This comparison shows that even unfavorable inter-Env mutational flips are generally more favorable than random amino-acid mutations.
 Therefore, entrenchment occurs for some but not all substitutions that distinguish BG505 and BF520, and the magnitude of entrenchment is less than the effect of a typical random mutation.
@@ -594,7 +594,7 @@ As can be seen from these box plots with overlaid points for each site, sites of
 {This plot shows all sites that are N-linked glycosylation motifs in both BG505 and BF520.
 Each motif is named by the residue number of the asparagine, and the preferences (averaged across replicates) for each Env are shown as well as the frequencies of amino acids across the clade A alignment at each of the three positions in the motif (N-X-S/T).
 As can be seen from this plot, the experiments measure relatively broad mutational tolerance at many sites where the natural Env sequences have a strongly conserved motif.
-We suspect this is because many glycans serve as a shield against immunity in nature -- a function that is not required in cell culture.}
+We suspect this is because many glycans serve as a shield against immunity in nature---a function that is not required in cell culture.}
 {\includegraphics[width=\textwidth]{figures/glycan_prefs.pdf}}
 \figsupp[\label{figsupp:slower}Amino-acid preferences and alignment frequencies of sites that evolve slower than expected.]{
 This plot shows all sites that are evolving more slowly than expected in natural sequences given the preferences measured in both Envs.
@@ -626,9 +626,9 @@ Since our deep mutational scanning did not impose antibody pressure, sites where
 Interestingly, immune selection also offers a plausible explanation for the sites that evolve \emph{slower} than expected.
 In addition to escaping immunity via substitutions at antibody-binding footprints, Env is notorious for employing a range of more general strategies to reduce its susceptibility to antibodies.
 These strategies include shielding immunogenic regions with glycans~\citep{wei2003antibody,stewart2016trimeric,gristick2016natively} or hiding them by adopting a closed protein conformation~\citep{kwong2002hiv,guttman2015antibody,ozorowski2017open}.
-Sites that contribute to such general immune-evasion strategies will be under a constraint in nature that is not present in our experiments -- and indeed, such sites evolve more slowly than expected from our experiments.
+Sites that contribute to such general immune-evasion strategies will be under a constraint in nature that is not present in our experiments---and indeed, such sites evolve more slowly than expected from our experiments.
 For instance, we find very little selection to maintain most glycans in our cell-culture experiments.
-Of the 21 N-linked glycosylation sites shared between BG505 and BF520, only four are under strong selection to maintain the glycan in our experiments -- despite the fact that most are conserved in nature (\FIG{divsel}C and \FIGSUPP[divsel]{glycans}). 
+Of the 21 N-linked glycosylation sites shared between BG505 and BF520, only four are under strong selection to maintain the glycan in our experiments---despite the fact that most are conserved in nature (\FIG{divsel}C and \FIGSUPP[divsel]{glycans}). 
 This finding concords with prior literature suggesting that these glycans are selected primarily for their role in immune evasion~\citep{pugach2004prolonged,wang2013systematic,rathore2017glycosylation}. 
 Similarly, a network of sites that help regulate Env's transition between open and closed conformations that have different antibody susceptibilities (\FIG{divsel}D) also evolve slower in nature than expected from our experiments.
 Therefore, we can distinguish evolutionary patterns that are shaped by simple selection for Env function from those that are due to the additional complex pressures imposed during human infections. 
@@ -644,21 +644,21 @@ The major question that our study aimed to answer is whether the maps are still 
 This question is reminiscent of one that was grappled with in the early days of protein crystallography, when it first became possible to build maps of a protein's structure.
 Because it was not (and is still not) possible to crystallize every variant of a protein, it was necessary to determine whether protein structures could be usefully generalized among homologs.
 Fortunately for the utility of structural biology, it soon became apparent that closely homologous proteins have similar structures~\citep{chothia1986relation,sander1991database}.
-This rough generalizability of protein structures holds even for a protein as conformationally complex as Env -- for although there are many examples of mutations that alter aspects of Env's conformation and dynamics~\citep{kwong2000structures,white2010molecular,almond2010structural,davenport2013isolate}, SOSIP trimer structures from diverse Env strains remain highly similar in most respects~\citep{julien2015design,pugach2015native,stewart2016trimeric,verkerke2016epitope,gristick2016natively}.
+This rough generalizability of protein structures holds even for a protein as conformationally complex as Env---for although there are many examples of mutations that alter aspects of Env's conformation and dynamics~\citep{kwong2000structures,white2010molecular,almond2010structural,davenport2013isolate}, SOSIP trimer structures from diverse Env strains remain highly similar in most respects~\citep{julien2015design,pugach2015native,stewart2016trimeric,verkerke2016epitope,gristick2016natively}.
 
 Our results show that amino-acid preference maps of Env also have a useful level of conservation for many purposes.
 From a qualitative perspective, the amino-acid preferences look mostly similar between BG505 and BF520, and so provide a valuable reference for estimating which mutations are likely to be tolerated at each site in diverse HIV strains.
 Indeed, we anticipate that the complete maps of mutational effects in \FIG{BG505prefs} and \FIG{BF520prefs} will be useful for future sequence-structure-function studies.
-From an analytical perspective, a powerful use of our maps is to identify sites that evolve differently in nature than is required by the simple selection for viral growth imposed in our experiments -- and the identified sites are largely the same regardless of whether the analysis uses an amino-acid preference map from BG505 or BF520.
+From an analytical perspective, a powerful use of our maps is to identify sites that evolve differently in nature than is required by the simple selection for viral growth imposed in our experiments---and the identified sites are largely the same regardless of whether the analysis uses an amino-acid preference map from BG505 or BF520.
 
 Of course, from the perspective of protein evolution, the most interesting sites are the exceptions to the general conservation of amino-acid preferences.
 Consistent with studies of other proteins~\citep{natarajan2013epistasis,harms2014historical,doud2015site,starr2017pervasive}, we find a subset of sites that change markedly in which mutations they tolerate.
-Some shifted sites simply accommodate more amino acids in the more stable BG505 Env -- a type of shift that has been well-documented for other proteins~\citep{wang2002evolution,bloom2006protein,gong2013stability,kumar2017stability}.
+Some shifted sites simply accommodate more amino acids in the more stable BG505 Env---a type of shift that has been well-documented for other proteins~\citep{wang2002evolution,bloom2006protein,gong2013stability,kumar2017stability}.
 But interestingly, there is no strong trend for shifts to be enhanced at sites that differ between BG505 and BF520.
 Recent studies of protein evolution have focused on the idea that substitutions become ``entrenched'' as sites shift to accommodate new amino acids~\citep{pollock2012amino,shah2015contingency,bazykin2015changing,starr2017pervasive}.
 Indeed, a prior protein-wide comparison of amino-acid preferences across homologs of influenza nucleoprotein found a significant enrichment of shifts at sites of substitutions~\citep{doud2015site}.
 But although there is some entrenchment of differences between BG505 and BF520, this is not the major factor behind the shifts in amino-acid preferences: the majority of sites that have shifted between BG505 and BF520 actually have the same wildtype amino acid in both Envs even though the preferences have shifted.
-This rather surprising result might be due to Env's exceptional conformational complexity -- mutations can cause long-range alterations in Env's conformation~\citep{kwong2000structures,white2010molecular,almond2010structural,davenport2013isolate}, so it seems plausible that they might also shift mutational tolerance at distant sites. 
+This rather surprising result might be due to Env's exceptional conformational complexity---mutations can cause long-range alterations in Env's conformation~\citep{kwong2000structures,white2010molecular,almond2010structural,davenport2013isolate}, so it seems plausible that they might also shift mutational tolerance at distant sites. 
 Regardless of the exact mechanism, our large-scale datasets of mutational effects in multiple viral strains should be useful for efforts to computationally parameterize ``fitness landscapes'' of Env~\citep{kouyos2012exploring,ferguson2013translating,mann2014fitness,barton2015scaling,louie2018fitness}.
 
 Our experiments provide highly quantitative data on the mutational tolerance of Env under selection for viral growth in cell culture.
@@ -749,7 +749,7 @@ For both the M5 model and the ExpCM with a gamma-distributed $\omega$, we used f
 
 \TABLE{phydms}-source-data~\ref{tabledata:phydms} shows the results for a wider set of models than those used in \TABLE{phydms}. 
 These include the M0 model of \citet{yang2000codon}, ExpCM without a gamma-distributed $\omega$, and ExpCM in which the amino-acid preferences are averaged across sites as a control to ensure that the improved performance of these models is due to their site-specificity.
-Note how for these Env alignments, using a gamma-distributed $\omega$ is very important in order for the ExpCMs to outperform the M5 model -- we suspect this is because there are many sites of strong diversifying selection.
+Note how for these Env alignments, using a gamma-distributed $\omega$ is very important in order for the ExpCMs to outperform the M5 model---we suspect this is because there are many sites of strong diversifying selection.
 
 For detection of sites with faster or slower than expected evolution, we used the approach in \citet{bloom2017identification}, which is exactly modeled on the FEL approach of \citet{kosakovsky2005not} but extended to ExpCM.
 This approach estimates a $P$-value that $\omega_r$ is not equal to one for each site $r$ using a likelihood-ratio test.
