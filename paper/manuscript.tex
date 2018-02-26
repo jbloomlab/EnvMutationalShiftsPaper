@@ -457,25 +457,25 @@ There are $\sim$80 residues per monomer that are resolved in this structure, inc
 Of these, three of the shifted sites (582, 583, and 587) and one substituted site (588) form a cluster at one end of the bundle.
 We show the side chains for each of these sites colored according to whether the site has shifted (red) or substituted (yellow).
 We wondered whether this cluster was unique to the six-helix bundle, but found that it is also present in roughly the same structural arrangement in both the closed pre-fusion conformation (center panel) and the open CD4-bound conformation (right panel; note that some of the surrounding residues in both the closed and open structures have been hidden for the sake of clarity).
-As shown in \FIG{prefsdist}C, each of the shifted sites are more tolerant of mutations in BG505 than in BF520, indicating they are of greater structural and functional importance in BF520.
+As shown in \FIG{prefsdist}C, each of the shifted sites are more tolerant of mutations in BG505 than in BF520.
 The two shifted sites that point inward towards the bundle's core (583 and 587) may be important for packing.
 Based on these structures, it is difficult to discern if or how the substituted site may impact the preferences at the shifted sites nearby.
 }
 {\includegraphics[width=\textwidth]{figures/shifts_on_structure/six_helix_bundle_cluster.pdf}}
 
 \figsupp[\label{figsupp:dynamic_clusters}Clusters of shifted sites in highly dynamic regions of Env.]
-{This figure gives a fine-grained view of two clusters of shifted sites, both of which reside in highly dynamic regions of Env.
-In each structure, we only show side chains for shifted sites or other sites of interest, which include substituted sites and sites that are proposed to take part in a hydrophobic network that helps control Env's dynamics~\cite{ozorowski2017open}.
-These side chains are colored differently according to the key.
+{A fine-grained view of two clusters of shifted sites, both of which are in conformationally dynamic regions of Env.
+In each structure, we only show side chains for shifted sites or other sites of interest, which include substituted sites and sites that are proposed to take part in a hydrophobic network that helps control Env's dynamics~\citep{ozorowski2017open}.
+These side chains are colored according to the key in the upper right.
 {\bf (A)}
-This panel shows a cluster of four shifted sites at the apex of the closed pre-fusion conformation of Env~\citep[PDB 5FYL;][]{stewart2016trimeric}, a region that is not resolved in the open CD4-bound conformation.
+A cluster of four shifted sites at the apex of the closed pre-fusion conformation of Env~\citep[PDB 5FYL;][]{stewart2016trimeric}, a region that is not resolved in the open CD4-bound conformation.
 These sites are in Env's first/second variable loop (164 and 165) and its third variable loop (307 and 309), which pack against one another and against an adjacent Env protomer (the inter-protomer boundary is indicated by a dashed line).
 Each of the shifted sites has substituted.
 And these sites are in the immediate vicinity of other non-shifted, but substituted sites.
 Thus, it seems likely that these shifts at least partially arise from short-range epistatic interactions within this cluster.
 However, longer-range epistatic interactions with more distant sites also seem plausible given the highly dynamic nature of this region.
 {\bf (B)}
-This panel shows a cluster of shifted sites that are adjacent to a network of hydrophobic residues (blue/purple) that help mediate the conformational change between the closed pre-fusion state to the open CD4-bound state~\cite{ozorowski2017open}.
+A cluster of shifted sites that are adjacent to a network of hydrophobic residues (blue/purple) that help mediate the conformational change between the closed pre-fusion state to the open CD4-bound state~\citep{ozorowski2017open}.
 One of the shifted sites (purple) is in this network.
 These sites are shown in context of both structural states, the latter of which is from~\citep[PDB 5VN3;][]{ozorowski2017open}.
 Nearly one third of the shifted residues cluster within this structural region (9/30).
@@ -567,7 +567,7 @@ Sites in Env that evolve faster or slower in nature than expected given the func
 We calculated the statistical evidence that each site evolves faster ($\omega_r > 1$) or slower ($\omega_r < 1$) than expected given the experimentally measured amino-acid preferences using the method of \citet{bloom2017identification}.
 {\bf (A)}
 One monomer of the Env trimer~\citep[PDB 5FYL;][]{stewart2016trimeric} is colored from blue to white to red based on the strength of evidence that sites evolve slower than expected (blue), as expected (white) or faster than expected (red) given the BG505 experiments.
-We used a color scale that only ranges between significance values of $-6 < \log_{10}Q < 6$, which decreases the resolution between a small number of sites with extreme values, but provides greater resolution among other sites.
+%We used a color scale that only ranges between significance values of $-6 < \log_{10}Q < 6$, which decreases the resolution between a small number of sites with extreme values, but provides greater resolution among other sites.
 Sites for which we lack $\omega_r$ estimates are colored black.
 Sites where the rate of evolution is significantly different than expected at a false discovery rate of 0.05 are shown in spheres.
 {\bf (B)}
@@ -727,6 +727,7 @@ We analyzed the deep-sequencing data using the \texttt{dms\_tools2} software pac
 The algorithm that goes from the deep-sequencing counts to the amino-acid preferences is that described in \citet{bloom2015software} (see also \url{https://jbloomlab.github.io/dms_tools2/prefs.html}).
 A Jupyter notebook that performs the entire analysis including generation of most of the figures in this paper is in Supplementary~file~\ref{suppfile:code}.
 An HTML rendering of this notebook is in Supplementary~file~\ref{suppfile:html}.
+A repository containing all of this code is also available at \url{https://github.com/jbloomlab/EnvMutationalShiftsPaper}~\citep[][copy archived at \url{https://github.com/elifesciences-publications/EnvMutationalShiftsPaper}]{haddox2018github}.
 
 The Jupyter notebooks in Supplementary~files~\ref{suppfile:code} and \ref{suppfile:html} also contain numerous plots that summarize relevant aspects of the deep sequencing such as read depth, per-codon mutation frequency, mutation types, etc.
 Supplementary~file~\ref{suppfile:code} also contains text files and CSV files with the numerical values shown in these plots.
@@ -797,6 +798,7 @@ If $\pi_{r,a}$ is the preference of site $r$ for amino-acid $a$ and $\pi_{r,a'}$
 
 \subsection{Data and code availability}
 All code and input data required to reproduce all analyses in this paper are in Supplementary~file~\ref{suppfile:code} (see also Supplementary~file~\ref{suppfile:html}).
+A repository containing all of this code is also available at \url{https://github.com/jbloomlab/EnvMutationalShiftsPaper}~\citep[][copy archived at \url{https://github.com/elifesciences-publications/EnvMutationalShiftsPaper}]{haddox2018github}.
 The deep sequencing data are on the Sequence Read Archive with the accession numbers listed in Supplementary~files~\ref{suppfile:code} and \ref{suppfile:html}.
 
 \section{Acknowledgments}
