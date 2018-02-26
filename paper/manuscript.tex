@@ -452,9 +452,10 @@ $P$ values were calculated using the Mann-Whitney $U$ test.
 However, this association is only borderline statistically significant, with $P = 0.055$ using a Fisher's exact test.}
 {\input{figures/shifts_vs_subs_table}}
 
-\figsupp[\label{figsupp:shifts_on_six_helix_bundlel}Cluster of shifted and substituted sites in context of the post-fusion six-helix bundle of Env.]
+\figsupp[\label{figsupp:shifts_on_six_helix_bundlel}Cluster of shifted sites in the post-fusion six-helix bundle of Env.]
 {
 The left-most panel shows the six-helix bundle of Env~\citep[PDB 1ENV;][]{weissenhorn1997atomic}, focusing on the central three helices, each of which is derived from a different Env monomer and which pack together to form the bundle's core.
+The other three helices that make up this bundle are located in another part of the structure.
 There are $\sim$80 residues per monomer that are resolved in this structure, including four significantly shifted sites and five substituted sites.
 Of these, three of the shifted sites (582, 583, and 587) and one substituted site (588) form a cluster at one end of the bundle.
 We show the side chains for each of these sites colored according to whether the site has shifted (red) or substituted (yellow).
@@ -465,29 +466,24 @@ Based on these structures, it is difficult to discern if or how the substituted 
 }
 {\includegraphics[width=\textwidth]{figures/shifts_on_structure/six_helix_bundle_cluster.pdf}}
 
-\figsupp[\label{figsupp:shifted_site_clusters}Clusters of shifted and substituted sites in context of different conformations of Env.]
-{This figure gives a fine-grained view of three clusters of shifted sites in context of different conformations of Env.
-In each structure, we only show side chains for shifted sites or other sites of interest, such as substituted sites.
-Side chains are colored differently according to the key.
+\figsupp[\label{figsupp:dynamic_clusters}Clusters of shifted sites in highly dynamic regions of Env.]
+{This figure gives a fine-grained view of two clusters of shifted sites, both of which reside in highly dynamic regions of Env.
+In each structure, we only show side chains for shifted sites or other sites of interest, which include substituted sites and sites that are proposed to take part in a hydrophobic network that helps control Env's dynamics~\cite{ozorowski2017open}.
+These side chains are colored differently according to the key.
 {\bf (A)}
-This panel shows a cluster of four shifted sites at the apex of the closed pre-fusion conformation of Env~\citep[PDB 5FYL;][]{stewart2016trimeric}.
-Each of these shifted sites has also substituted.
-Further, this cluster is adjacent to other substituted sites, raising the possibility of epistasis among these sites.
-This region of the structure involves packing between variable loops (V1/V2 and V3) and between these loops and an adjacent Env protomer.
-This packing is known to control the conformational dynamics of these loops~\cite{guttman2014cd4,powell2017plasticity}.
-Notably, a recent study found that mutations at two of the shifted sites (165 and 307) resulted in Env trimers with aberrant conformations~\cite{lee2017broadly}.
-Thus, it is possible that this cluster of shifted sites is involved in controlling Env's dynamics.
-Indeed, although each of these shifted sites prefers hydrophobic amino acids in both homologs, one homolog often has a higher preference for bulkier aromatic amino acids than the other.
-This difference could make structural sense if these residues pack in different arrangements in the different homologs, possibly due to the substitutions in this region.
-However, this hypothesis is difficult to test since there is not a high-resolution structure for BF520.
+This panel shows a cluster of four shifted sites at the apex of the closed pre-fusion conformation of Env~\citep[PDB 5FYL;][]{stewart2016trimeric}, a region that is not resolved in the open CD4-bound conformation.
+These sites are in Env's first/second variable loop (164 and 165) and its third variable loop (307 and 309), which pack against one another and against an adjacent Env protomer (the inter-protomer boundary is indicated by a dashed line).
+Each of the shifted sites has substituted.
+And these sites are in the immediate vicinity of other non-shifted, but substituted sites.
+Thus, it seems likely that these shifts at least partially arise from short-range epistatic interactions within this cluster.
+However, longer-range epistatic interactions with more distant sites also seem plausible given the highly dynamic nature of this region.
 {\bf (B)}
 This panel shows a cluster of shifted sites that are adjacent to a network of hydrophobic residues (blue/purple) that help mediate the conformational change between the closed pre-fusion state to the open CD4-bound state~\cite{ozorowski2017open}.
-These sites are shown in context of both states, the latter of which is from~\citep[PDB 5VN3;][]{ozorowski2017open}.
+One of the shifted sites (purple) is in this network.
+These sites are shown in context of both structural states, the latter of which is from~\citep[PDB 5VN3;][]{ozorowski2017open}.
 Nearly one third of the shifted residues cluster within this structural region (9/30).
 In contrast to panel (A), only a few of the shifted sites are adjacent to substitutions or have substituted themselves.
 This trend is found in both the closed and open conformations, suggesting that the shifts may be primarily due to long-range epistatic interactions.
-Such long-range interactions seem especially plausible in this region given that it is dynamic over a large swath or residues.
-Indeed, one of the shifted sites (69) overlaps with the hydrophobic network, and mutations at another (64) have been shown to modulate the relative stability of the open and closed conformations~\cite{de2015immunogenicity}.
 }
 {\includegraphics[width=\textwidth]{figures/shifts_on_structure/clusters_on_structure.pdf}}
 \end{figure}
@@ -498,6 +494,7 @@ Env's structure is highly conformationally dynamic and undergoes large changes u
 In an effort to account for these dynamics, we examined multiple conformational states of Env, including: the closed pre-fusion state~\cite{julien2013crystal,pancera2014structure,stewart2016trimeric}, the open CD4-bound state~\cite{pancera2010structure,ozorowski2017open}, and the post-fusion six-helix bundle~\cite{weissenhorn1997atomic,chan1997core,tan1997atomic}.
 \FIG{shiftfeatures}A shows the locations of the shifted sites on the crystal structure of Env in the closed pre-fusion state.
 There is no visually obvious tendency for shifted sites to preferentially be on Env's surface or in its core, and statistical analysis of both the closed and open states of Env (\FIG{shiftfeatures}B) finds no association between a site's relative solvent accessibility and whether its amino-acid preferences have shifted.
+
 However, \FIG{shiftfeatures}A does suggest that the sites of significant shifts tend to cluster in Env's structure, and a statistical analysis confirms that this is the case for both the closed and open states (\FIG{shiftfeatures}C).
 Therefore, the factors that drive shifts in Env's mutational tolerance often affect physically interacting clusters of residues in a coordinated fashion.
 Moreover, these factors are present in multiple conformations of Env.
@@ -517,6 +514,18 @@ There is a borderline trend for the significantly shifted sites to be more likel
 The lack of strong enrichment in shifts at substituted sites contrasts with previous protein-wide experimental~\citep{doud2015site} and simulation-based~\citep{pollock2012amino,shah2015contingency} studies of shifting amino-acid preferences, which found that shifts were dramatically more pronounced at sites of substitutions.
 The difference may arise because these earlier studies examined proteins that are fairly conformationally static (absolutely so in the case of the simulations).
 On the other hand, as stated above, Env is extremely complex and conformationally dynamic~\citep{munro2014conformational,ozorowski2017open}, which may increase the opportunities for long-range epistasis to enable substitutions at one site to shift the amino-acid preferences of distant sites.
+
+Indeed, many of the shifted sites cluster within regions of Env that are highly dynamic.
+\FIGSUPP[shiftfeatures]{dynamic_clusters} shows the structural context of these clusters in finer detail.
+One cluster is at the trimer apex where two of Env's variable loops pack against one another and against an adjacent protomer.
+Upon CD4 binding, these loops become highly disordered~\cite{guttman2014cd4,ozorowski2017open}.
+Mutations at two of the shifted sites in this cluster (165 and 307) have been shown to cause Env to assume aberrant conformations, suggesting that these sites can strongly modulate Env's dynamics~\cite{lee2017broadly}.
+The other cluster of shifted sites is near a network of hydrophobic amino acids that has been proposed to help transmit the large-scale conformational change that takes place upon CD4 binding~\cite{ozorowski2017open}.
+One of the shifted sites (69) overlaps with this network, and mutations at another (64) have been shown to strongly modulate the relative stability of the open and closed conformations~\cite{de2015immunogenicity}.
+In total, these two clusters consist of nearly half (13/30) of the shifted sites.
+One hypothesis as to why so many shifted sites cluster in these regions is that their dynamic nature allows long-range epistatic interactions to be readily propagated between substituted sites and distant shifted sites.
+Indeed, as shown in \FIGSUPP[shiftfeatures]{dynamic_clusters}, these dynamic regions also contain several substituted sites.
+However, due to the complexity of Env's dynamics, it is difficult to discern exactly how these interactions might occur.
 
 \subsection{Entrenchment of substitutions modestly contributes to mutational shifts}
 
