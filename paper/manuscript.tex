@@ -152,7 +152,7 @@ We have previously described a deep mutational scanning strategy for measuring h
 Here we made several modifications to this earlier strategy to apply it to transmitted-founder Envs and to reduce the experimental noise. 
 This last consideration is especially important when comparing Envs, since it is only possible to reliably detect differences that exceed the magnitude of the experimental noise. 
 Our modified deep mutational scanning strategy is in \FIG{dms_schematic}A.
-This approach had the following substantive changes: instead of SupT1 cells, we used SupT1.CCR5 cells (SupT1 cells lentiviral transduced to express CCR5 in addition to CXCR4 \citep{boyd2015mutations}) to support growth of viruses with transmitted-founder, CCR5-tropic Envs; we used more virions for the first passage ($\ge 3 \times 10^6$ versus $5\times 10^5$ infectious units per library) to avoid bottlenecking library diversity; and rather than performing a full second passage we just did a short high-MOI infection to enable recovery of \textit{env} genes from infectious virions without bottlenecking (\FIG{dms_schematic}A).
+This approach had the following substantive changes: instead of SupT1 cells, we used SupT1.CCR5 cells (SupT1 cells that express CCR5 in addition to CXCR4 \citep{boyd2015mutations}) to support growth of viruses with transmitted-founder, CCR5-tropic Envs; we used more virions for the first passage ($\ge 3 \times 10^6$ versus $5\times 10^5$ infectious units per library) to avoid bottlenecking library diversity; and rather than performing a full second passage we just did a short high-MOI infection to enable recovery of \textit{env} genes from infectious virions without bottlenecking (\FIG{dms_schematic}A).
 We performed this deep mutational scanning in full biological triplicate for both BG505 and BF520 (\FIG{dms_schematic}B).
 Our libraries encompassed all codon mutations to all sites in Env except for the signal peptide and cytoplasmic tail.
 
@@ -270,10 +270,10 @@ Importantly, since we expect some sites in Env to be under diversifying selectio
 Evolutionary models informed by the deep mutational scanning describe HIV's evolution in nature much better than a standard substitution model.
 Shown are the results of maximum likelihood fitting of substitution models to the clade A phylogeny in \FIG{tree}.
 Experimentally informed codon models~\citep[ExpCM,][]{hilton2017phydms} utilizing the across-replicate average of the deep mutational scanning describe Env's natural evolution far better than a standard codon substitution model~\citep[the M5 model of][]{yang2000codon} as judged by comparing the Akaike information criteria~\citep[$\Delta$AIC,][]{posada2004model}.
-Both ExpCM models have a stringency parameter $>$1.
+Both ExpCM's have a stringency parameter $>$1.
 All models draw $\omega$ from a gamma distribution, and the table shows the mean ($\overline{\omega}$) and shape parameters ($\omega_{\alpha}$ and $\omega_{\beta}$) of this distribution.
 The last two columns show the number of sites evolving faster ($\omega_r > 1$) or slower ($\omega_r < 1$) than expected at a false discovery rate of 0.05, as determined using the approach in \citet{bloom2017identification} (see also the last section of the Results).
-Analyses were performed using \texttt{phydms} (\url{http://jbloomlab.github.io/phydms/}).
+Analyses were performed using \texttt{phydms}~\citep[][\url{http://jbloomlab.github.io/phydms/}]{hilton2017phydms}.
 \TABLE{phydms}-source-data~\ref{tabledata:phydms} shows the results for additional substitution models.
 }
 \tabledata{\label{tabledata:phydms}Results for phylogenetic models where $\omega$ is not drawn from a gamma-distribution or where the preferences are averaged across sites to eliminate the site specificity are in \texttt{modelcomparison.md}.}
@@ -286,10 +286,10 @@ Recall that for standard codon substitution models, $\omega$ is simply the rate 
 For such models, the gene-wide average $\omega$ is almost always $<$1, since purifying selection purges many functionally deleterious amino-acid mutations even for adaptively evolving proteins~\citep{murrell2015gene}.
 Indeed, \TABLE{phydms} shows that Env's gene-wide average $\omega$ is $<$1 for a standard model.
 But for ExpCM's, $\omega$ is the relative rate of nonsynonymous to synonymous substitutions \emph{after} accounting for functional constraints measured in the deep mutational scanning~\citep{bloom2017identification}.
-But for ExpCM's, the gene-wide average $\omega$ is $>$1 (\TABLE{phydms}), indicating that external selection (e.g., from immunity) drives Env to fix amino-acid mutations faster than expected under a null model that only accounts for functional constraints on the protein.
+For the ExpCM's, the gene-wide average $\omega$ is $>$1 (\TABLE{phydms}), indicating that external selection (e.g., from immunity) drives Env to fix amino-acid mutations faster than expected under a null model that only accounts for functional constraints on the protein.
 
 ExpCM's also have a stringency parameter that relates selection in the experiments to that in nature.
-Essentially, this experiment indicates how strongly natural selection prefers the amino acids that are preferred in the deep mutational scanning~\citep{hilton2017phydms}
+Essentially, this parameter indicates how strongly natural selection prefers the amino acids that are preferred in the deep mutational scanning~\citep{hilton2017phydms}.
 A stringency parameter $>$1 indicates that natural selection prefers the same amino acids as the experiments, but with greater stringency.
 Both ExpCM's have stringency parameters $>$1 (\TABLE{phydms})---a finding that makes sense, since the stop-codon analysis in the previous section suggests that the experimental selections are more lax than natural selection on HIV.
 
@@ -337,7 +337,7 @@ For instance, residues T257, D368, E370, W427, and D457 are important for Env bi
 Likewise, Env has 10 disulfide bonds (linking sites 54-74, 119-205, 126-196, 131-157, 218-247, 228-239, 296-331, 378-445, 385-418, and 598-604), most of which are important for function~\citep{van2008only}---and the cysteines at these sites are highly preferred in our deep mutational scanning.
 The deep mutational scanning is also consistent with prior knowledge about sites that are tolerant of mutations.
 For instance, Env has five variable loops that mostly evolve under weak constraint in nature~\citep{starcich1986identification,zolla2010structure}---and most sites in these loops are mutationally tolerant in our deep mutational scanning (see sites indicated by gray overlay bars in \FIG{BG505prefs} and \FIG{BF520prefs}, such as 132 to 195).
-It is beyond the scope of this paper to catalog associations between our measurements and all other prior mutational studies of Env, but the concordance of our findings with the above mutational studies, and the fact that our data improve phylogenetic models of Env's natural evolution, suggest that our measurements authentically describe functional selection on Env.
+It is beyond the scope of this paper to catalog associations between our measurements and all other prior mutational studies of Env, but the concordance of our findings with the above mutational studies, and the fact that our data improve phylogenetic models of Env's natural evolution, suggest that our experiments do a reasonable job of authentically measuring functional selection on Env.
 
 \subsection{Shifts in amino-acid preferences between BG505 and BF520}
 The most fundamental question that we seek to address is how similar the amino-acid preferences are between the two Envs.
@@ -405,7 +405,7 @@ Such broadening and narrowing of a site's mutational tolerance is frequently lin
 Work with engineered Env protein in the form of ``SOSIP'' trimer~\citep{binley2000recombinant,sanders2002stabilization} has shown that BG505 SOSIP is more thermostable than BF520 SOSIP~\citep{verkerke2016epitope}.
 Consistent with this fact, sites with altered mutational tolerance are often (although not always, see sites 165 and 520 in \FIG{prefsdist}C) more mutationally tolerant in BG505.
 Differences in Env's expression level might also contribute to a general broadening or narrowing of tolerance to subsequent mutations.
-Because our experiments select for viral growth---which is affected by both Env function and expression---it is possible that some of the shifts are due to epistatic mutational effects on expression rather than function.
+The reason is that our experiments select for viral growth (which is affected by both Env function and expression), so it is possible that some of the shifts are due to epistatic mutational effects on expression rather than function.
 
 However, not all of the significantly shifted sites show a simple pattern of broadening or narrowing of mutational tolerance.
 For instance, site 288 does not alter its mutational tolerance but rather flips its rather narrow amino-acid preference from phenylalanine in BG505 to leucine in BF520 (\FIG{prefsdist}C).
@@ -429,21 +429,18 @@ Characteristics of significantly shifted sites.
 Sites that are significantly shifted according to \FIG{prefsdist}B are in spheres, and all other sites are in cartoon representation.
 {\bf (B)} 
 There is no significant difference in the relative solvent accessibility of sites that have and have not undergone significant shifts.
-This observation holds for both the pre-fusion Env trimer in (A) and the CD4-bound Env trimer~\citep[PDB 5VN3;][]{ozorowski2017open}.
+This observation holds for both the closed trimer conformation in (A) and the CD4-bound trimer conformation~\citep[PDB 5VN3;][]{ozorowski2017open}.
 The absolute solvent accessibility of each site was calculated using DSSP~\citep{kabsch1983dictionary} and normalized to a relative solvent accessibility using the absolute accessibilities from \citet{tien2013maximum}.
 {\bf (C)} 
 Sites of significant shifts are clustered in the structures of both the closed and open Env trimers.
 The left two plots show the distance of each significantly shifted and not-shifted site to the closest other shifted site in the indicated structure.
-The right-most plot shows the minimum distance across both the closed and open conformations.
-The trend for shifts to cluster becomes stronger when considering the minimum distance, indicating that multiple conformations may shape this trend.
+The right-most plot shows the minimum distance across both conformations.
+The trend for shifts to cluster becomes stronger when considering the minimum distance, suggesting multiple conformations contribute to this trend.
 {\bf (D)}
 Large mutational shifts are \emph{not} strongly enriched at sites that have substituted between BG505 and BF520, or at sites that contact sites that have substituted. 
-The left-most plot shows the magnitudes of the shifts in context of the closed conformation of Env among the 83 crystallographically resolved sites that have substituted between BG505 and BF520, the 204 non-substituted sites that physically contact a substitution in this structure (any non-hydrogen atom within 3.5\angstrom), and all other sites.
-The center plot shows these magnitudes in context of the open conformation, while the right-most plot shows these magnitudes when considering both the closed and open conformations, with the relative number of sites in each category shown in parentheses.
-In the right-most plot, non-substituted sites are considered to be contacting a substitution if they do so in at least one structural context.
-\FIGSUPP[shiftfeatures]{subs_shifts} shows that there is a modest borderline-significant tendency of significantly shifted sites to have substituted.
-All panels only show the 577 and 520 sites that are resolved in the structures of the closed and open conformations, repectively.
-Of the 30 significantly shifted sites in \FIG{prefsdist}B, only 28 and 27 are structurally resolved in the closed and open conformations, respectively.
+The plots show the magnitudes of the shifts among crystallographically resolved sites that have substituted between BG505 and BF520, the non-substituted sites that physically contact a substitution in the indicated structure(s) (any non-hydrogen atom within 3.5\angstrom), and all other sites.
+\FIGSUPP[shiftfeatures]{subs_shifts} shows that there is a borderline-significant tendency of significantly shifted sites to have substituted.
+All plots only show sites that are crystallographically resolved in the indicated structure(s). 
 Structural distances and solvent accessibilities were calculated using all monomers in the trimer.
 $P$ values were calculated using the Mann-Whitney $U$ test.
 }
@@ -452,7 +449,7 @@ $P$ values were calculated using the Mann-Whitney $U$ test.
 However, this association is only borderline statistically significant, with $P = 0.055$ using a Fisher's exact test.}
 {\input{figures/shifts_vs_subs_table}}
 
-\figsupp[\label{figsupp:shifts_on_six_helix_bundlel}Cluster of shifted sites in the post-fusion six-helix bundle of Env.]
+\figsupp[\label{figsupp:shifts_on_six_helix_bundle}Cluster of shifted sites in the post-fusion six-helix bundle of Env.]
 {
 The left-most panel shows the six-helix bundle of Env~\citep[PDB 1ENV;][]{weissenhorn1997atomic}, focusing on the central three helices, each of which is derived from a different Env monomer and which pack together to form the bundle's core.
 The other three helices that make up this bundle are located in another part of the structure.
@@ -491,41 +488,41 @@ This trend is found in both the closed and open conformations, suggesting that t
 What distinguishes the sites that have undergone significant shifts?
 First, we analyzed the distribution of shifted sites in context of Env's three-dimensional structure.
 Env's structure is highly conformationally dynamic and undergoes large changes upon receptor binding and membrane fusion.
-In an effort to account for these dynamics, we examined multiple conformational states of Env, including: the closed pre-fusion state~\cite{julien2013crystal,pancera2014structure,stewart2016trimeric}, the open CD4-bound state~\cite{pancera2010structure,ozorowski2017open}, and the post-fusion six-helix bundle~\cite{weissenhorn1997atomic,chan1997core,tan1997atomic}.
+In an effort to account for these dynamics, we examined multiple conformational states of Env: the closed pre-fusion state~\citep{stewart2016trimeric}, the open CD4-bound state~\citep{ozorowski2017open}, and the post-fusion six-helix bundle~\citep{weissenhorn1997atomic}.
 \FIG{shiftfeatures}A shows the locations of the shifted sites on the crystal structure of Env in the closed pre-fusion state.
 There is no visually obvious tendency for shifted sites to preferentially be on Env's surface or in its core, and statistical analysis of both the closed and open states of Env (\FIG{shiftfeatures}B) finds no association between a site's relative solvent accessibility and whether its amino-acid preferences have shifted.
+We did not attempt to analyze the association between solvent accessibility and shift for the post-fusion six-helix bundle because crystal structures of this conformation only contain $\sim$80 Env residues~\citep{weissenhorn1997atomic,chan1997core,tan1997atomic}.
 
-However, \FIG{shiftfeatures}A does suggest that the sites of significant shifts tend to cluster in Env's structure, and a statistical analysis confirms that this is the case for both the closed and open states (\FIG{shiftfeatures}C).
+However, \FIG{shiftfeatures}A does suggest that the sites of significant shifts tend to cluster in Env's structure.
+A statistical analysis confirms that there is clustering of shifted sites for the closed and open conformations, with the effect being strongest when we define contacts based on the closest intra-residue distance across these two conformations  (\FIG{shiftfeatures}C).
 Therefore, the factors that drive shifts in Env's mutational tolerance often affect physically interacting clusters of residues in a coordinated fashion.
-Moreover, these factors are present in multiple conformations of Env.
-We also investigated the distribution of shifted sites in context of the post-fusion six-helix bundle.
-However, only $\sim$80 residues are resolved in this structure, and of these sites, only four have shifted amino-acid preferences.
-This low number of sites does not lend itself to statistical analysis, but a qualitative analysis of these sites on the structure revealed that three of the four shifted sites cluster at one end of the helical bundle (\FIGSUPP[shiftfeatures]{shifts_on_six_helix_bundlel}).
+We also investigated clustering of shifted sites in the post-fusion six-helix bundle.
+Because structures of this conformation only resolve the coordinates of $\sim$80 residues, we did not perform a statistical analysis.
+However, a qualitative analysis revealed that three of the four shifted sites that are resolved in the post-fusion conformation cluster at one end of the helical bundle (\FIGSUPP[shiftfeatures]{shifts_on_six_helix_bundle}).
 
 An obvious hypothesis is that strongly shifted sites have substituted between BG505 and BF520, or physically contact such substitutions.
 According to this hypothesis, substitutions would alter the local physicochemical environment of the substituted site and its neighbors, thereby shifting the amino-acid preferences of sites in the physical cluster.
 But surprisingly, for both the closed and open conformations, the typical magnitude of shifts is not significantly larger at sites that have substituted, or at sites that contact sites that have experienced substitutions (\FIG{shiftfeatures}D).
-In the case of the six-helix bundle, there are a total of five structurally resolved substituted sites, one of which is adjacent to the cluster of shifted sites (\FIGSUPP[shiftfeatures]{shifts_on_six_helix_bundlel}).
-The number of resolved shifted and substituted sites in this structure is too low for to perform the same statistical analysis as in \FIG{shiftfeatures}D.
-However, we found that the cluster of shifted and substituted sites in the six-helix bundle is also present in the closed and open states (\FIGSUPP[shiftfeatures]{shifts_on_six_helix_bundlel}).
-Thus, this cluster is already well-accounted for by other states.
+For the six-helix bundle, there are five structurally resolved substituted sites, one of which is adjacent to the cluster of shifted sites (\FIGSUPP[shiftfeatures]{shifts_on_six_helix_bundle}).
+The number of resolved shifted and substituted sites in this structure is too small for a meaningful statistical analysis of the type in \FIG{shiftfeatures}D.
+However, the cluster of shifted and substituted sites in the six-helix bundle is also present in the closed and open states (\FIGSUPP[shiftfeatures]{shifts_on_six_helix_bundle}), and so is included in the statistical analyses in \FIG{shiftfeatures}D.
 
 There is a borderline trend for the significantly shifted sites to be more likely to have substituted between BG505 and BF520 (\FIGSUPP[shiftfeatures]{subs_shifts}), but most shifted sites have not substituted (only 8 of the 30 shifted sites differ in amino-acid identity between the two Envs).
 The lack of strong enrichment in shifts at substituted sites contrasts with previous protein-wide experimental~\citep{doud2015site} and simulation-based~\citep{pollock2012amino,shah2015contingency} studies of shifting amino-acid preferences, which found that shifts were dramatically more pronounced at sites of substitutions.
 The difference may arise because these earlier studies examined proteins that are fairly conformationally static (absolutely so in the case of the simulations).
-On the other hand, as stated above, Env is extremely complex and conformationally dynamic~\citep{munro2014conformational,ozorowski2017open}, which may increase the opportunities for long-range epistasis to enable substitutions at one site to shift the amino-acid preferences of distant sites.
+That fact that Env is extremely complex and conformationally dynamic~\citep{munro2014conformational,ozorowski2017open} may increase the opportunities for long-range epistasis to enable substitutions at one site to shift the amino-acid preferences of distant sites.
 
-Indeed, many of the shifted sites cluster within regions of Env that are highly dynamic.
+Indeed, many of the shifted sites cluster within regions of Env that are highly conformationally dynamic.
 \FIGSUPP[shiftfeatures]{dynamic_clusters} shows the structural context of these clusters in finer detail.
 One cluster is at the trimer apex where two of Env's variable loops pack against one another and against an adjacent protomer.
-Upon CD4 binding, these loops become highly disordered~\cite{guttman2014cd4,ozorowski2017open}.
-Mutations at two of the shifted sites in this cluster (165 and 307) have been shown to cause Env to assume aberrant conformations, suggesting that these sites can strongly modulate Env's dynamics~\cite{lee2017broadly}.
-The other cluster of shifted sites is near a network of hydrophobic amino acids that has been proposed to help transmit the large-scale conformational change that takes place upon CD4 binding~\cite{ozorowski2017open}.
-One of the shifted sites (69) overlaps with this network, and mutations at another (64) have been shown to strongly modulate the relative stability of the open and closed conformations~\cite{de2015immunogenicity}.
-In total, these two clusters consist of nearly half (13/30) of the shifted sites.
-One hypothesis as to why so many shifted sites cluster in these regions is that their dynamic nature allows long-range epistatic interactions to be readily propagated between substituted sites and distant shifted sites.
-Indeed, as shown in \FIGSUPP[shiftfeatures]{dynamic_clusters}, these dynamic regions also contain several substituted sites.
-However, due to the complexity of Env's dynamics, it is difficult to discern exactly how these interactions might occur.
+Upon CD4 binding, these loops become highly disordered~\citep{guttman2014cd4,ozorowski2017open}.
+Mutations at two of the shifted sites in this cluster (165 and 307) have been shown to cause Env to assume aberrant conformations, suggesting that these sites can strongly modulate Env's dynamics~\citep{lee2017broadly}.
+The other cluster of shifted sites is near a network of hydrophobic amino acids that has been proposed to help transmit the large-scale conformational change that takes place upon CD4 binding~\citep{ozorowski2017open}.
+One of the shifted sites (site 69) overlaps with this network, and mutations at another (site 64) have been shown to strongly modulate the relative stability of the open and closed conformations~\citep{de2015immunogenicity}.
+In total, these two clusters consist of nearly half of the shifted sites (13 out of 30).
+One hypothesis why so many shifted sites cluster in these regions is that their dynamic nature allows long-range epistatic interactions to be readily propagated between substituted sites and distant shifted sites.
+Due to the complexity of Env's dynamics, it is difficult to discern exactly how these interactions might occur.
+But there is certainly a trend for sites that are conformationally dynamic to also be sites that show shifts in their amino-acid preferences during evolution.
 
 \subsection{Entrenchment of substitutions modestly contributes to mutational shifts}
 
