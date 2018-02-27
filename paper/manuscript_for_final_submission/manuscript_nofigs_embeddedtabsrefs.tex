@@ -1,0 +1,1772 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% ELIFE ARTICLE TEMPLATE
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% PREAMBLE 
+\documentclass[9pt]{elife}
+\sloppy
+% add lineno for line numbering
+% Use the onehalfspacing option for 1.5 line spacing
+% Use the doublespacing option for 2.0 line spacing
+% Please note that these options may affect formatting.
+
+
+\usepackage{lipsum} % Required to insert dummy text
+\usepackage[version=4]{mhchem}
+\usepackage{siunitx}
+\DeclareSIUnit\Molar{M}
+%\usepackage{indentfirst} %I prefer to have indents following section headings, I find it to be more consistent in style throughout document
+\usepackage{natbib}
+\usepackage{float}
+\usepackage{tikz}
+\usepackage{seqsplit}
+
+\usepackage{amsmath} % or simply amstext
+\newcommand{\angstrom}{\textup{\AA}}
+
+
+\newfloat{suppfile}{thp}{lofsupfile}
+%\renewcommand{\thesuppfile}{Supplementary file \arabic{suppfile}}
+\floatname{suppfile}{Supplementary file}
+\usepackage{placeins}
+
+\renewcommand{\topfraction}{1}
+\renewcommand{\bottomfraction}{1}
+\renewcommand{\textfraction}{0}
+\renewcommand{\floatpagefraction}{1}
+\setcounter{topnumber}{9}
+\setcounter{bottomnumber}{9}
+\setcounter{totalnumber}{20}
+
+\newcommand{\jdbcomment}[1]{\emph{\color{red} [#1]}}
+\newcommand{\hhcomment}[1]{\emph{\color{blue} [#1]}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% ARTICLE SETUP
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{Mapping mutational effects along the evolutionary landscape of HIV envelope}
+
+\author[1,2,\authfn{1}]{Hugh K. Haddox}
+\author[1,2,\authfn{1}]{Adam S. Dingens}
+\author[1,3]{Sarah K. Hilton}
+\author[4]{Julie Overbaugh}
+\author[1,3,*]{Jesse D. Bloom}
+\affil[1]{Basic Sciences Division and Computational Biology Program, Fred Hutchinson Cancer Research Center, Seattle, WA} 
+\affil[2]{Molecular and Cellular Biology PhD program, University of Washington, Seattle, WA}
+\affil[3]{Department of Genome Sciences, University of Washington, Seattle, WA}
+\affil[4]{Human Biology Division and Epidemiology Program, Fred Hutchinson Cancer Research Center, Seattle, WA}
+\contrib[\authfn{1}]{These authors contributed equally to this work}
+
+\corr{jbloom@fredhutch.org}{JDB}
+% \presentadd[\authfn{5}]{eLife Sciences editorial Office, eLife Sciences, Cambridge, United Kingdom}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% ARTICLE START
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+The immediate evolutionary space accessible to HIV is largely determined by how single amino-acid mutations affect fitness.
+These mutational effects can shift as the virus evolves.
+However, the prevalence of such shifts in mutational effects remains unclear.
+Here we quantify the effects on viral growth of all amino-acid mutations to two HIV envelope (Env) proteins that differ at $>$100 residues.
+Most mutations similarly affect both Envs, but the amino-acid preferences of a minority of sites have clearly shifted.
+These shifted sites usually prefer a specific amino acid in one Env, but tolerate many amino acids in the other.
+Surprisingly, shifts are only slightly enriched at sites that have substituted between the Envs---and many occur at residues that do not even contact substitutions.
+Therefore, long-range epistasis can unpredictably shift Env's mutational tolerance during HIV evolution, although the amino-acid preferences of most sites are conserved between moderately diverged viral strains.
+\end{abstract}
+
+
+\section{Introduction}
+HIV's envelope (Env) protein evolves very rapidly.
+The major group of HIV-1 that is responsible for the current pandemic originated from a virus that entered the human population $\sim$100 years ago~\citep{sharp2011origins,worobey2008direct,faria2014early}.
+The descendants of this virus have evolved so rapidly that their Envs now have as little as 65\% protein identity~\citep{lynch2009appreciating}.
+For comparison, protein orthologs shared between humans and mice have only diverged to a median identity of 78\% over 90 million years~\citep{waterston2002initial,hedges2006timetree}.
+
+Env's rapid evolution has dire consequences for anti-HIV immunity, since it erodes the efficacy of most neutralizing antibodies~\citep{albert1990rapid,wei2003antibody,richman2003rapid,burton2005antibody}.
+Because of this public-health importance, numerous studies have experimentally characterized aspects of the ``evolutionary landscape'' that Env traverses.
+The immediate evolutionary space accessible to any given Env is largely defined by the effects on viral fitness of all single amino-acid mutations to Env.
+Most mutational studies have measured how just a small number of these mutations affect viral growth in cell culture, although it has recently become possible to use deep mutational scanning to measure the effects of many~\citep{al2014high,duenas2016saturation} or even all~\citep{haddox2016experimental} single amino-acid mutations mutations to an Env variant.
+
+But interpreting these studies in the context of Env evolution requires addressing a fundamental question: How informative are mutational studies of a single protein variant about constraints on long-term evolution?
+During protein evolution, substitutions at one site can change the effect of mutations at other sites~\citep{natarajan2013epistasis,gong2013stability,harms2014historical,podgornaia2015pervasive,starr2016epistasis,klink2017parallel}.
+We will follow the nomenclature of \citet{pollock2012amino} to refer to these changes in mutational effects as \emph{shifts} in a site's amino-acid preferences.
+Such shifts can accumulate as substitutions become entrenched via epistatic interactions with subsequent changes~\citep{starr2017pervasive,pollock2012amino,shah2015contingency,bazykin2015changing}---although the magnitude of these shifts is usually limited~\citep{doud2015site,chan2017correlation,ashenberg2013mutational,risso2014mutational}.
+
+Given that the Envs of circulating HIV strains represent a vast collection of homologs that often differ at $>$100 residues, shifts in amino-acid preferences could make the outcome of any study highly dependent on the Env used.
+Indeed, epistasis among a few combinations of Env mutations has been experimentally demonstrated~\citep{da2010fitness}, and epistatic fitness landscapes have been computationally inferred for a variety of HIV proteins~\citep{kouyos2012exploring,ferguson2013translating,mann2014fitness,barton2015scaling} including Env~\citep{louie2018fitness}. 
+However, the only protein-wide experimental studies of how amino-acid preferences shift during evolution have examined proteins that are structurally far simpler than Env, which forms a large heavily glycosylated heterotrimeric complex that transitions through multiple conformational states~\citep{munro2014conformational,ozorowski2017open}.
+
+Here we use an improved version of a previously described deep mutational scanning strategy~\citep{haddox2016experimental} to measure the effects on viral growth of all single amino-acid mutations to two transmitted-founder virus Envs that differ by $>$100 mutations.
+We compare these complete maps of mutational effects to identify sites that have shifted in their amino-acid preferences between the Envs.
+Most sites show no detectable shifts, but 30 sites have clearly shifted preferences.
+These shifted sites usually prefer a specific amino acid in one Env but have shifted to tolerate many amino acids in the other Env.
+The shifted sites cluster in structure, but are often distant from any amino-acid substitutions that distinguish the two Envs, demonstrating the action of long-range epistasis.
+By aggregating our measurements for both Envs, we identify sites that evolve faster or slower in nature than expected given the functional constraints measured in the lab, probably due to pressure for immune evasion.
+Overall, our work provides complete across-strain maps of mutational effects that inform analyses of Env's evolution and function.
+
+\section{Results}
+
+\subsection{Two Envs from clade A transmitted-founder viruses}
+The viruses most relevant to HIV's long-term evolution are those which are transmitted from human-to-human.
+However, the only prior work that has measured how all Env amino-acid mutations affect HIV growth is a study by some of us~\citep{haddox2016experimental} that used a late-stage lab-passaged CXCR4-tropic virus~\citep[LAI;][]{peden1991changes}.
+The properties of Env can vary substantially between such late-stage viruses and the transmitted-founder viruses relevant to HIV's long-term evolution~\citep{sagar2006human,wilen2011phenotypic,parrish2013phenotypic,ronen2015hiv}.
+
+\begin{figure}
+\caption{\label{fig:tree}
+Phylogenetic tree showing the relationship of BG505 and BF520 to other clade A Envs.
+The tree shows the 69 Envs in the alignment in \FIG{tree}-source~data~\ref{figdata:alignment}, which is a subsample of clade A sequences from the group M alignment in the Los Alamos HIV sequence database (\url{http://www.hiv.lanl.gov}).
+Sites not mutagenized in our experiments (the signal peptide and cytoplasmic tail) or that are poorly alignable were masked as indicated in \FIG{tree}-source~data~\ref{figdata:mask}, leaving 616 alignable sites.
+The pairwise identity of BG505 and BF520 to other sequences at alignable sites is in \FIGSUPP[tree]{identity}.
+The tree topology was inferred using \texttt{RAxML}~\citep{stamatakis2014raxml} under the GTRCAT model of nucleotide substitution, and branch lengths were optimized under the M0 Goldman-Yang model~\citep{yang2000codon} using \texttt{phydms}~\citep{hilton2017phydms}.
+}
+\figsupp[\label{figsupp:identity}  Pairwise identity of all Env sequences to BG505 and BF520.]
+{The histograms show the pairwise amino-acid identity of each Env to all other sequences in the clade A alignment in \FIG{tree}-source~data~\ref{figdata:alignment} after masking the sites delineated in \FIG{tree}-source~data~\ref{figdata:mask}.
+There are 616 non-masked sites.
+The pairwise protein identity between BG505 and BF520 is 86.2\% (721 of 836 sites identical) when considering \emph{all} sites, and 89.1\% (549 of 616 sites identical) when considering just the non-masked sites.}
+{}
+\figdata{\label{figdata:alignment} The alignment of clade A \textit{env} coding sequences is in \texttt{cladeA\_alignment.fasta}.}
+\figdata{\label{figdata:mask} The 240 Env sites masked in all phylogenetic analyses because they were not mutagenized in our experiments or are poorly alignable are listed in \texttt{alignment\_mask.csv}.}
+\end{figure}
+
+We therefore selected Envs from two transmitted-founder viruses, BG505.W6M.C2.T332N and BF520.W14M.C2 (hereafter referred to as BG505 and BF520), that were isolated from HIV-infected infants shortly after mother-to-child transmission~\citep{nduati2000effect,wu2006neutralization,goo2014early}.
+The BG505 Env has been extensively studied from a structural standpoint~\citep{julien2013crystal,lyumkis2013cryo,pancera2014structure,huang2014broad,sanders2015hiv,stewart2016trimeric,gristick2016natively}, and variants of this Env are being tested as a vaccine immunogens~\citep{sanders2013next,sanders2015hiv,de2015immunogenicity}.
+We used the T332N variant of BG505 Env because it has a common glycosylation site that is targeted by many anti-HIV antibodies~\citep{sanders2013next}.
+The BF520 Env was isolated from an infant who developed an early broad anti-HIV antibody response~\citep{goo2014early,simonich2016hiv}.
+We have previously created comprehensive codon-mutant libraries of the BF520 Env and used them to map HIV antibody escape~\citep{dingens2017comprehensive}, but these BF520 libraries have not been characterized with respect to how mutations affect viral growth.
+
+Both BG505 and BF520 are from clade A of the major (M) group of HIV-1.
+\FIG{tree} shows the phylogenetic relationship among these two Envs and other clade A sequences.
+BG505 and BF520 are identical at 721 of the 836 pairwise-alignable protein sites (86.2\% identity).
+However, in our experiments we mutagenized only the ectodomain and transmembrane domain of Env, and excluded the signal peptide and cytoplasmic tail.
+The reason is that we measure how Env mutations affect viral growth, which is influenced both by the functionality of Env protein molecules and their expression level.
+Mutations in the signal peptide and cytoplasmic tail commonly affect Env expression level~\citep{chakrabarti1989cytoplasmic,yuste2004modulation,li1994control}, so we excluded these regions with the goal of reducing the degree to which we simply identified mutations that affected Env expression.
+In the ectodomain and transmembrane domains of Env, BG505 and BF520 are identical at 549 of the 616 sites (89.1\% identity) that are alignable across clade A Envs (\FIG{tree}-source~data~\ref{figdata:alignment}, \FIG{tree}-source~data~\ref{figdata:mask}).
+The divergence between BG505 and BF520 therefore offers ample opportunity to investigate mutational shifts during Env evolution.
+
+\subsection{Deep mutational scanning of each Env}
+We have previously described a deep mutational scanning strategy for measuring how all amino-acid mutations to Env affect HIV growth in cell culture, and applied this strategy to the late-stage lab-adapted LAI strain~\citep{haddox2016experimental}.
+Here we made several modifications to this earlier strategy to apply it to transmitted-founder Envs and to reduce the experimental noise. 
+This last consideration is especially important when comparing Envs, since it is only possible to reliably detect differences that exceed the magnitude of the experimental noise. 
+Our modified deep mutational scanning strategy is in \FIG{dms_schematic}A.
+This approach had the following substantive changes: instead of SupT1 cells, we used SupT1.CCR5 cells (SupT1 cells that express CCR5 in addition to CXCR4 \citep{boyd2015mutations}) to support growth of viruses with transmitted-founder, CCR5-tropic Envs; we used more virions for the first passage ($\ge 3 \times 10^6$ versus $5\times 10^5$ infectious units per library) to avoid bottlenecking library diversity; and rather than performing a full second passage we just did a short high-MOI infection to enable recovery of \textit{env} genes from infectious virions without bottlenecking (\FIG{dms_schematic}A).
+We performed this deep mutational scanning in full biological triplicate for both BG505 and BF520 (\FIG{dms_schematic}B).
+Our libraries encompassed all codon mutations to all sites in Env except for the signal peptide and cytoplasmic tail.
+
+\begin{figure}
+%\centerline{\includegraphics[width=0.75\textwidth]{figures/dms_schematic/dms_schematic.pdf}}
+\caption{\label{fig:dms_schematic}
+Deep mutational scanning workflow.
+{\bf (A)} We made libraries of proviral HIV plasmids with random codon-level mutations in the \textit{env} gene.
+The number of mutations per gene approximately followed a Poisson distribution with a mean between 1 and 1.5 (\FIGSUPP[dms_schematic]{sanger}).
+We transfected the plasmids into 293T cells to generate mutant viruses, which lack a genotype-phenotype link since cells are multiply transfected.
+To establish a genotype-phenotype link and select for Env variants that support HIV growth, we passaged the libraries in SupT1.CCR5 cells for four days at a low multiplicity of infection (MOI) of 0.01.
+To isolate the \textit{env} genes from only viruses that encoded a functional Env protein, we infected the passaged libraries into SupT1.CCR5 cells at high MOI and harvested reverse-transcribed non-integrated viral DNA after 12 hours.
+We then deep sequenced the \textit{env} genes from these final samples as well as the initial plasmid library, using molecular barcoding to reduce sequencing errors.
+We also deep sequenced identically handled wildtype controls to estimate error rates.
+Using these sequencing data, we estimated the preference for each of the 20 amino acids at each site in Env.
+These data are represented in logo plots, with the height of each letter proportional to that site's preference for that amino acid.
+{\bf (B)} We conducted this experiment in full biological triplicate for both BG505 and BF520, beginning each replicate with independent creation of the plasmid mutant library.
+These replicates therefore account for \emph{all} sources of noise and error in the experiments.
+}
+\figsupp[Sanger sequencing of selected clones from the mutant plasmid libraries.\label{figsupp:sanger}]{
+We Sanger sequenced 44 clones of BG505 Env sampled roughly evenly from each of the three replicate mutant plasmid libraries.
+{\bf(A)} There was an average of 1.5 mutant codons per clone, with the number of mutations per clone roughly following a Poisson distribution. 
+{\bf(B)} The mutant codons had a mix of single-, double-, and triple-nucleotide changes, with an elevated number of single-nucleotide changes than expected.
+{\bf(C)} Nucleotide frequencies were fairly uniform in the mutant codons.
+{\bf(D)} Mutations were distributed roughly evenly along the mutagenized region of {\it env} (30-699 in the sequential numbering scheme used in this plot).
+{\bf(E)} For clones with multiple mutations, we computed the pairwise distance in primary sequence between each codon mutation and plotted the cumulative distribution of these distances (red line). 
+We also simulated the expected distribution of pairwise distances if mutations occurred entirely independently (blue line). 
+The observed distribution is close to the expected distribution.
+Comparable data for the BF520 libraries is provided in \citet{dingens2017comprehensive}.
+}{}%\includegraphics[width=\textwidth]{figures/sanger_sequencing_supp/sanger_sequencing_supp.pdf}}
+\end{figure}
+
+\begin{figure}
+\caption{\label{fig:mutfreqs}
+The deep mutational scanning selects for functional Envs and yields measurements that are well correlated among replicates.
+{\bf (A)}
+The average per-codon mutation frequency when sequencing plasmids encoding wildtype Env (\emph{DNA}), plasmid mutant libraries (\emph{mutDNA}), mutant viruses after the final infection (\emph{mutvirus}), and virus generated from wildtype plasmids (\emph{virus}).
+Mutations are categorized as nonsynonymous, synonymous, or stop codon. 
+The \emph{DNA} samples show that sequencing errors are rare, and the \emph{virus} samples show that viral-replication errors are well below the frequency of mutations in the \emph{mutDNA} samples.
+Comparing the \emph{mutvirus} to \emph{mutDNA} shows clear purifying selection against stop codons and some nonsynonymous mutations, particularly after subtracting the background error rates given by the \emph{virus} and \emph{DNA} samples (\FIGSUPP[mutfreqs]{mutfreqs}).
+More extensive plots from the analysis of the deep sequencing data are in Supplementary~files~\ref{suppfile:code} and \ref{suppfile:html}.
+{\bf (B)}
+Correlations between replicates in the measured preferences of each site in Env for all 20 amino acids.
+Blue indicates replicate measurements on BF520, red indicates replicate measurements on BG505, and gray indicates across-Env measurements of BF520 versus BG505.
+$R$ is the Pearson correlation coefficient. 
+The numerical values for the preferences are in \FIG{mutfreqs}-source~data~\ref{figdata:allprefs}.
+\FIGSUPP[mutfreqs]{contour} shows the correlations using contour rather than scatter plots.
+}
+\figsupp[\label{figsupp:mutfreqs} Numerical frequencies of mutations.]
+{This table gives the average frequencies of nonsynonymous, synonymous, and stop-codon mutations as plotted in \FIG{mutfreqs}.
+Note that there is only one \emph{DNA} sample for BF520, so that same sample is repeated three times in the sample in conjunction with each BF520 replicate.
+We calculate the error-corrected \emph{pre}-selection mutation frequency as the \emph{mutDNA} frequency minus the \emph{DNA} frequency, and the error-corrected \emph{post}-selection mutation frequency as the \emph{mutvirus} frequency minus the \emph{virus} frequency.
+We then use these error-corrected frequencies to calculate the \emph{percent} of mutations remaining after selection for each replicate and type of mutation.}
+{}
+\figsupp[\label{figsupp:contour} Correlations plotted on a contour rather than a scatter plot.]
+{
+This figure shows the same data as in \FIG{mutfreqs}B except that it shows KDE contour plots rather than points.
+As is obvious from this representation, the vast majority of the points fall near the origin (very low preference in both replicates), and most of the correlation signal is therefore due to the relatively modest number of amino acids that have high preference at any given site.
+This is expected, since most amino acid mutations at most sites will be strongly deleterious, and so have low preference.
+}{}%\includegraphics[width=\textwidth]{figures/allprefscorr_contour.pdf}}
+\figdata{\label{figdata:allprefs} Preferences for each replicate and averages are in \texttt{all\_prefs\_unscaled.zip}.}
+\end{figure}
+
+The deep mutational scanning effectively selected for functional Envs as evidenced by strong purifying selection against stop codons.
+\FIG{mutfreqs}A shows the average frequency of mutations across Env in the plasmid mutant libraries, the mutant viruses, and wildtype controls as determined from the deep sequencing.
+The mutant viruses show clear selection against stop codons and many nonsynonymous mutations (\FIG{mutfreqs}A).
+This selection is more apparent if we correct for the background error rates estimated from the wildtype controls (\FIGSUPP[mutfreqs]{mutfreqs}).
+The error-corrected frequencies of stop codons drop to 3\%--16\% of their original values (\FIGSUPP[mutfreqs]{mutfreqs}), with the residual stop codons probably due to some non-functional virions surviving due to complementation by other co-infecting virions. 
+The error-corrected frequencies of nonsynonymous mutations also drop substantially (43\%--49\% of their original values), whereas the frequencies of synonymous mutations drop only slightly (85\%--95\% of their original values).
+These trends are consistent with the fact that nonsynonymous mutations are often deleterious, whereas synonymous mutations often~\citep[although certainly not always, see][]{zanini2013quantifying} have only mild effects on viral growth.
+\FIG{mutfreqs}A only summarizes one aspect of the deep mutational scanning data, but Supplementary~files~\ref{suppfile:code} and \ref{suppfile:html} contain detailed plots showing all aspects of the data (read depth, per-site mutation rate, etc) as generated by the \texttt{dms\_tools2} software~\citep[\url{https://jbloomlab.github.io/dms_tools2/}]{bloom2015software}.
+
+We used the deep mutational scanning data to estimate the preference of each site in Env for each amino acid via the analysis method described in \citet{bloom2015software}.
+As graphically illustrated in \FIG{dms_schematic}A, the preferences for each site are normalized to sum to one.
+Our libraries were mutagenized at 670 sites in BG505 and 662 sites in BF520, so $670 \times 20 = 13,400$ and $662 \times 20 = 13,240$ preferences were estimated for each Env, respectively.
+The correlations between the preferences from different experimental replicates are in \FIG{mutfreqs}B.
+These replicate-to-replicate correlations are substantially higher than those for the deep mutational scanning of LAI Env by \citet{haddox2016experimental}, which had replicate-to-replicate Pearson correlations of only $R = 0.45$ to $0.50$. 
+
+While the replicates are well correlated across all replicates for both BG505 and BF520, the replicates for BG505 are more correlated with each other than with replicates for BF520, and vice versa (\FIG{mutfreqs}B, compare red and blue versus gray plots).
+This fact hints that there are some shifts in amino-acid preferences between the two Envs---something that is investigated with more statistical rigor later in this paper.
+Note also that there is a trend for highly preferred amino acids to be more strongly preferred in BG505 than BF520 (most high-preference points in the gray plots in \FIG{mutfreqs}B fall above the diagonal); however, this trend does not necessarily reflect differences between the Envs.
+Rather, there were modest differences in the stringency of selection between our deep mutational scans of BG505 and BF520 (\FIGSUPP[mutfreqs]{mutfreqs} shows that purifying selection better purged stop codons in BG505).
+In the next section, we correct for these experimental differences by calibrating each dataset to match the stringency of selection in nature.
+
+\subsection{Amino-acid preferences of the Envs and their relationship to HIV evolution}
+The most immediate question is how authentically the experimental measurements describe the actual selection on Env function in nature.
+Direct comparisons between experimentally measured amino-acid preferences and amino-acid frequencies in natural sequences are confounded by the fact that the natural sequences are evolutionarily related.
+This problem can be overcome by making the comparison in a phylogenetic context to account for the evolutionary relationships among sequences.
+
+Specifically, we used our deep mutational scanning data to construct experimentally informed codon models (ExpCM's) for Env's evolution.
+An ExpCM is a phylogenetic substitution model that incorporates the functional constraints measured in a deep mutational scanning experiment~\citep{hilton2017phydms}.
+If the experiment captures much of the actual evolutionary constraint on a gene, then an ExpCM will describe the gene's natural evolution better than a standard phylogenetic codon substitution model.
+The reason is that standard codon substitution models~\citep[such as the commonly used Goldman-Yang style models;][]{yang2000codon} only model functional constraint via a single parameter that represents the rate of fixation of nonsynonymous protein-altering mutations relative to synonymous ones; this parameter is called dN/dS or $\omega$.
+In contrast, an ExpCM accounts for the preference of each site for each of the 20 amino acids under the functional selection in the deep mutational scan, and then additionally adds an $\omega$ parameter that represents the relative rate of nonsynonymous to synonymous substitutions after accounting for these functional constraints~\citep{bloom2017identification,hilton2017phydms}.
+Importantly, since we expect some sites in Env to be under diversifying selection from immunity, we extended the ExpCM's described in \citet{hilton2017phydms} to draw $\omega$ from a gamma distribution as is commonly done for codon-substitution models~\citep{yang2000codon}.
+
+\begin{table}
+\begin{fullwidth}
+{\centering 
+\begin{tabular}{lrrrrrrrrr}
+\toprule
+           Model &  $\Delta$AIC &  LogLikelihood &  nParams &  stringency &  $\overline{\omega}$ &  $\omega_{\alpha}$ &  $\omega_{\beta}$ &  nsites $\omega_r > 1$ &  nsites $\omega_r < 1$ \\
+\midrule
+     ExpCM BF520 &          0.0 &       -35218.8 &        7 &         2.8 &                  1.4 &                1.0 &               0.7 &                     66 &                     35 \\
+     ExpCM BG505 &        269.0 &       -35353.3 &        7 &         2.1 &                  1.3 &                0.9 &               0.7 &                     65 &                     53 \\
+ Goldman-Yang M5 &       3455.1 &       -36941.4 &       12 &         nan &                  0.8 &                0.6 &               0.7 &                     14 &                    211 \\
+\bottomrule
+\end{tabular}
+}
+\caption{\label{tab:phydms}
+Evolutionary models informed by the deep mutational scanning describe HIV's evolution in nature much better than a standard substitution model.
+Shown are the results of maximum likelihood fitting of substitution models to the clade A phylogeny in \FIG{tree}.
+Experimentally informed codon models~\citep[ExpCM,][]{hilton2017phydms} utilizing the across-replicate average of the deep mutational scanning describe Env's natural evolution far better than a standard codon substitution model~\citep[the M5 model of][]{yang2000codon} as judged by comparing the Akaike information criteria~\citep[$\Delta$AIC,][]{posada2004model}.
+Both ExpCM's have a stringency parameter $>$1.
+All models draw $\omega$ from a gamma distribution, and the table shows the mean ($\overline{\omega}$) and shape parameters ($\omega_{\alpha}$ and $\omega_{\beta}$) of this distribution.
+The last two columns show the number of sites evolving faster ($\omega_r > 1$) or slower ($\omega_r < 1$) than expected at a false discovery rate of 0.05, as determined using the approach in \citet{bloom2017identification} (see also the last section of the Results).
+Analyses were performed using \texttt{phydms}~\citep[][\url{http://jbloomlab.github.io/phydms/}]{hilton2017phydms}.
+\TABLE{phydms}-source-data~\ref{tabledata:phydms} shows the results for additional substitution models.
+}
+\tabledata{\label{tabledata:phydms}Results for phylogenetic models where $\omega$ is not drawn from a gamma-distribution or where the preferences are averaged across sites to eliminate the site specificity are in \texttt{modelcomparison.md}.}
+\end{fullwidth}
+\end{table}
+
+\TABLE{phydms} shows that ExpCM's informed by the deep mutational scanning of either BG505 or BF520 describe the natural evolution of Env vastly better than a standard codon substitution model.
+In addition to the improved fit of the ExpCM's, we can also interpret the $\omega$ parameter.
+Recall that for standard codon substitution models, $\omega$ is simply the rate of fixation of nonsynonymous mutations relative to synonymous ones.
+For such models, the gene-wide average $\omega$ is almost always $<$1, since purifying selection purges many functionally deleterious amino-acid mutations even for adaptively evolving proteins~\citep{murrell2015gene}.
+Indeed, \TABLE{phydms} shows that Env's gene-wide average $\omega$ is $<$1 for a standard model.
+But for ExpCM's, $\omega$ is the relative rate of nonsynonymous to synonymous substitutions \emph{after} accounting for functional constraints measured in the deep mutational scanning~\citep{bloom2017identification}.
+For the ExpCM's, the gene-wide average $\omega$ is $>$1 (\TABLE{phydms}), indicating that external selection (e.g., from immunity) drives Env to fix amino-acid mutations faster than expected under a null model that only accounts for functional constraints on the protein.
+
+ExpCM's also have a stringency parameter that relates selection in the experiments to that in nature.
+Essentially, this parameter indicates how strongly natural selection prefers the amino acids that are preferred in the deep mutational scanning~\citep{hilton2017phydms}.
+A stringency parameter $>$1 indicates that natural selection prefers the same amino acids as the experiments, but with greater stringency.
+Both ExpCM's have stringency parameters $>$1 (\TABLE{phydms})---a finding that makes sense, since the stop-codon analysis in the previous section suggests that the experimental selections are more lax than natural selection on HIV.
+
+\begin{figure}
+\begin{fullwidth}
+%{\includegraphics[width=1.3\textwidth]{figures/BG505_prefs.pdf}}
+\caption{\label{fig:BG505prefs}
+Amino-acid preferences for the BG505 Env.
+At each site, the height of the letter is proportional for that site's preference for that amino acid.
+The top color bar indicates the region of Env (gp120 variable loop, gp120 not variable loop, or gp41).
+The lower color bar indicates the evidence that the site evolves faster ($\omega_r > 1$) or slower ($\omega_r < 1$) than expected given the experiments~\citep[see the last section of the Results and][]{bloom2017identification}.
+We report the $P$-value for $\omega_r \ne 1$ rather than the value of $\omega_r$ itself since point estimates of $\omega_r$ are unreliable for individual sites due to low numbers of observations, making the $P$-value a better indicator of the strength of the statistical evidence for faster or slower than expected evolution~\citep{kosakovsky2005not,murrell2012detecting}.
+The letters above the logos indicate the wildtype amino acid in BG505.
+Sites are numbered using the HXB2 scheme~\citep{korber1998numbering}.
+This logo plot shows the site-specific amino-acid preferences for BG505 after averaging the replicates and re-scaling by the stringency parameter in \TABLE{phydms}.
+The figure was generated using \texttt{dms\_tools2}~\citep[\url{https://jbloomlab.github.io/dms_tools2/}]{bloom2015software}, which in turn utilizes \texttt{weblogo}~\citep{crooks2004weblogo}.
+}
+\figdata{The numerical values of the amino-acid preferences plotted in this figure are in \texttt{rescaled\_BG505\_prefs.csv.}}
+\figdata{The sequence of BG505 Env and mapping from sequential (\emph{original} column) to HXB2 numbering (\emph{new} column) is in \texttt{BG505\_to\_HXB2.csv}.}
+\figdata{The $\omega_r$ values and associated $P$-values for BG505 in HXB2 numbering are in \texttt{BG505\_omegabysite.tsv}.}
+\end{fullwidth}
+\end{figure}
+
+\begin{figure}
+\begin{fullwidth}
+%{\includegraphics[width=1.3\textwidth]{figures/BF520_prefs.pdf}}
+\caption{\label{fig:BF520prefs}
+Amino-acid preferences for the BF520 Env.
+This figure is the same as \FIG{BG505prefs} except that it shows the data for BF520 instead of BG505.
+}
+\figdata{The numerical values of the amino-acid preferences plotted in this figure are in \texttt{rescaled\_BF520\_prefs.csv.}}
+\figdata{The sequence of BF520 Env and mapping from sequential (\emph{original} column) to HXB2 numbering (\emph{new} column) is in \texttt{BF520\_to\_HXB2.csv}.}
+\figdata{The $\omega_r$ values and associated $P$-values for BF520 in HXB2 numbering are in \texttt{BF520\_omegabysite.tsv}.}
+\end{fullwidth}
+\end{figure}
+
+For the entire rest of the paper, we use the experimentally measured preferences re-scaled by the stringency parameters in \TABLE{phydms}.
+The reason we do this is to distinguish genuine differences between the two Envs from mere variation in the strength of selection between the two sets of experiments.
+Re-scaling both sets of preferences to optimally describe Env evolution in nature is a principled way to standardize the measurements; see \citet{hilton2017phydms} and the Methods section entitled ``Re-scaling the preferences'' for a more detailed explanation.
+
+A qualitative way to assess if the deep mutational scanning authentically describes selection on Env function is to visually compare the measurements with existing knowledge.
+\FIG{BG505prefs} and \FIG{BF520prefs} show the re-scaled across-replicate average of the amino-acid preferences for each Env.
+At sites of known functional importance, these preferences are usually consistent with prior knowledge.
+For instance, residues T257, D368, E370, W427, and D457 are important for Env binding to CD4~\citep{olshevsky1990identification}, and all these amino acids are highly preferred in our deep mutational scanning (\FIG{BG505prefs} and \FIG{BF520prefs}).
+Likewise, Env has 10 disulfide bonds (linking sites 54-74, 119-205, 126-196, 131-157, 218-247, 228-239, 296-331, 378-445, 385-418, and 598-604), most of which are important for function~\citep{van2008only}---and the cysteines at these sites are highly preferred in our deep mutational scanning.
+The deep mutational scanning is also consistent with prior knowledge about sites that are tolerant of mutations.
+For instance, Env has five variable loops that mostly evolve under weak constraint in nature~\citep{starcich1986identification,zolla2010structure}---and most sites in these loops are mutationally tolerant in our deep mutational scanning (see sites indicated by gray overlay bars in \FIG{BG505prefs} and \FIG{BF520prefs}, such as 132 to 195).
+It is beyond the scope of this paper to catalog associations between our measurements and all other prior mutational studies of Env, but the concordance of our findings with the above mutational studies, and the fact that our data improve phylogenetic models of Env's natural evolution, suggest that our experiments do a reasonable job of authentically measuring functional selection on Env.
+
+\subsection{Shifts in amino-acid preferences between BG505 and BF520}
+The most fundamental question that we seek to address is how similar the amino-acid preferences are between the two Envs.
+We have already noted that \FIG{mutfreqs}B shows that the preferences are more correlated for replicate measurements on the same Env than for replicate measurements on different Envs.
+However, simply comparing correlation coefficients does not identify specific sites where mutational effects have shifted, nor does it quantify the magnitude of any shifts.
+
+\begin{figure}
+\begin{fullwidth}
+\caption{\label{fig:prefsdist}
+Env sites with shifted amino-acid preferences between BG505 and BF520.
+Note that the preferences have been re-scaled using the stringency parameters in \TABLE{phydms} to enable direct comparison across Envs.
+{\bf (A)} Calculation of the corrected distance between the amino-acid preferences of BG505 and BF520 at four example sites.
+We have triplicate measurements for each Env.
+We calculate the distance between each pair of replicate measurements, and group these into comparisons \emph{between} the two Envs and \emph{within} replicates for the same Env.
+We compute the root-mean-square distance (RMSD) for both sets of comparisons, which we denote as RMSD$_{\rm{between}}$ and RMSD$_{\rm{within}}$.
+The latter quantity is a measure of experimental noise.
+The noise-corrected distance between Envs at a site, RMSD$_{\rm{corrected}}$, is simply the distance between the two Envs minus this noise.
+{\bf (B)} The bottom distribution (orange) shows the corrected distances between BG505 and BF520 at all alignable sites.
+The next distribution (blue) is a null generated by computing the corrected distances on all randomizations of the replicates among Envs.
+The top two distributions (green) compare Env to the non-homologous influenza hemagglutinin (HA) protein~\citep{doud2016accurate} simply putting sites into correspondence based on sequence number.
+We compute the $P$-value that a site has shifted between BG505 and BF520 as the fraction of the null distribution that exceeds that shift, and identify significant shifts at a false discovery rate (FDR) of 0.1 using the method of \citet{benjamini1995controlling}.
+Using this approach, 30 of the 659 sites have significant shifts (corrected distance $\ge$0.22).
+{\bf (C)} All sites that have significantly shifted their amino-acid preferences at an FDR of 0.01.
+For each site, the logo stacks show the across-replicate average preferences for BG505 and BF520.
+The wildtype amino acid for that Env is indicated using the small black letters above each logo plot; note how the wildtype amino acid is frequently but not always the most preferred one.
+The sites are sorted by the magnitude of the shift.
+}
+\figdata{\label{figdata:prefsdist}The corrected distances between BG505 and BF520 at each site are in \texttt{BG505\_to\_BF520\_prefs\_dist.csv}.}
+\end{fullwidth}
+\end{figure}
+
+We therefore used a more rigorous approach to identify sites where the amino-acid preferences differ between BG505 and BF520 by an amount that exceeds the noise in our experiments.
+We first re-scaled the preferences from each experimental replicate by the stringency parameter for that Env from \TABLE{phydms} to calibrate all measurements to the stringency of natural selection.
+We then identified the 659 sites in the mutagenized regions of Env that are pairwise alignable between BG505 and BF520 (\FIG{prefsdist}-source~data~\ref{figdata:prefsdist}).
+For each site, we calculated the shift in amino-acid preferences between Envs using an approach similar to that of \citet{doud2015site} as illustrated in \FIG{prefsdist}A.
+This approach calculates the magnitude of the shift after correcting for experimental noise by comparing the differences in preferences between replicates for BG505 and BF520 to the differences between replicates for the same Env.
+\FIG{prefsdist}A shows this calculation for a site that has not shifted (site 598, which strongly prefers cysteine in both Envs), the most shifted site (512, which shifts from being mutationally tolerant in BG505 to strongly preferring alanine in BF520), and two other sites with more intermediate behaviors.
+
+The overall distribution of shifts between BG505 and BF520 is shown in \FIG{prefsdist}B.
+Most sites have relatively small shifts (close to zero), although there is a long tail of sites with large shifts.
+This tail reaches its upper value with site 512, which has a shift of 0.52 out of a maximum possible of 1.0.
+How should we interpret this distribution---have mutational effects shifted a lot, or not very much?
+We can establish an upper-bound for how much sites might shift by comparing Env to a \emph{non}-homologous protein.
+\FIG{prefsdist}B shows the distribution of shifts when comparing Env to influenza's hemagglutinin protein, which has previously had its amino-acid preferences measured by deep mutational scanning~\citep{doud2016accurate} .
+Most sites have large shifts between Env and hemagglutinin, with the typical shift being $\sim$0.4 and some approaching the maximum value of 1.0.
+We can also establish a lower-bound by creating a null distribution for the expected shifts if all differences are simply due to experimental noise.
+This null distribution is created by randomizing the experimental replicates among Envs.
+\FIG{prefsdist}B shows that the null distribution is more peaked at zero than the real distribution, and does not have the same prominent tail of sites with large shifts.
+The answer to the question of how much mutational effects have shifted is therefore nuanced: they have substantially shifted at some sites, but remain vastly more similar between the two Envs than between two unrelated proteins. 
+
+We can use the null distribution to identify sites where the shifts between BG505 and BF520 are significantly larger than the noise in our experiments (\FIG{prefsdist}B).
+There are 30 such sites at a false discovery rate of 0.1.
+\FIG{prefsdist}C shows the amino-acid preferences of these significantly shifted sites for each Env.
+For the majority of shifted sites, one Env prefers a specific amino acid whereas the other Env tolerates many amino acids; for instance, see sites 512, 516, 599, 165, 605 and 505 in \FIG{prefsdist}C.
+Such broadening and narrowing of a site's mutational tolerance is frequently linked to changes in protein stability, with a more stable protein typically being more mutationally tolerant~\citep{wang2002evolution,bloom2006protein,gong2013stability,kumar2017stability}.
+Work with engineered Env protein in the form of ``SOSIP'' trimer~\citep{binley2000recombinant,sanders2002stabilization} has shown that BG505 SOSIP is more thermostable than BF520 SOSIP~\citep{verkerke2016epitope}.
+Consistent with this fact, sites with altered mutational tolerance are often (although not always, see sites 165 and 520 in \FIG{prefsdist}C) more mutationally tolerant in BG505.
+Differences in Env's expression level might also contribute to a general broadening or narrowing of tolerance to subsequent mutations.
+The reason is that our experiments select for viral growth (which is affected by both Env function and expression), so it is possible that some of the shifts are due to epistatic mutational effects on expression rather than function.
+
+However, not all of the significantly shifted sites show a simple pattern of broadening or narrowing of mutational tolerance.
+For instance, site 288 does not alter its mutational tolerance but rather flips its rather narrow amino-acid preference from phenylalanine in BG505 to leucine in BF520 (\FIG{prefsdist}C).
+Thus, there is variation in both the extent and types of shifts observed.
+
+\subsection{Structural and evolutionary properties of shifted sites}
+
+\begin{figure}
+\caption{\label{fig:shiftfeatures}
+Characteristics of significantly shifted sites.
+{\bf (A)} One monomer of the closed pre-fusion Env trimer~\citep[PDB 5FYL;][]{stewart2016trimeric} is colored from white to red according to the magnitude of the mutational shift at each site (red indicates large shift).
+Sites that are significantly shifted according to \FIG{prefsdist}B are in spheres, and all other sites are in cartoon representation.
+{\bf (B)} 
+There is no significant difference in the relative solvent accessibility of sites that have and have not undergone significant shifts.
+This observation holds for both the closed trimer conformation in (A) and the CD4-bound trimer conformation~\citep[PDB 5VN3;][]{ozorowski2017open}.
+The absolute solvent accessibility of each site was calculated using DSSP~\citep{kabsch1983dictionary} and normalized to a relative solvent accessibility using the absolute accessibilities from \citet{tien2013maximum}.
+{\bf (C)} 
+Sites of significant shifts are clustered in the structures of both the closed and open Env trimers.
+The left two plots show the distance of each significantly shifted and not-shifted site to the closest other shifted site in the indicated structure.
+The right-most plot shows the minimum distance across both conformations.
+The trend for shifts to cluster becomes stronger when considering the minimum distance, suggesting multiple conformations contribute to this trend.
+{\bf (D)}
+Large mutational shifts are \emph{not} strongly enriched at sites that have substituted between BG505 and BF520, or at sites that contact sites that have substituted. 
+The plots show the magnitudes of the shifts among structurally resolved sites that have substituted between BG505 and BF520, the non-substituted sites that physically contact a substitution in the indicated structure(s) (any non-hydrogen atom within 3.5\angstrom), and all other sites.
+\FIGSUPP[shiftfeatures]{subs_shifts} shows that there is a borderline-significant tendency of significantly shifted sites to have substituted.
+All plots only show sites that are structurally resolved in the indicated structure(s). 
+Structural distances and solvent accessibilities were calculated using all monomers in the trimer.
+$P$ values were calculated using the Mann-Whitney $U$ test.
+}
+\figsupp[\label{figsupp:subs_shifts}Statistical testing of whether significantly shifted sites are more likely to have substituted between BG505 and BF520.]
+{The sites of significant shifts as determined in \FIG{prefsdist}B are somewhat more likely to be among the sites that have substituted between BG505 and BF520.
+However, this association is only borderline statistically significant, with $P = 0.055$ using a Fisher's exact test.}
+{}
+
+\figsupp[\label{figsupp:shifts_on_six_helix_bundle}Cluster of shifted sites in the post-fusion six-helix bundle of Env.]
+{
+The left-most panel shows the six-helix bundle of Env~\citep[PDB 1ENV;][]{weissenhorn1997atomic}, focusing on the central three helices, each of which is derived from a different Env monomer and which pack together to form the bundle's core.
+The other three helices that make up this bundle are located in another part of the structure.
+There are $\sim$80 residues per monomer that are resolved in this structure, including four significantly shifted sites and five substituted sites.
+Of these, three of the shifted sites (582, 583, and 587) and one substituted site (588) form a cluster at one end of the bundle.
+We show the side chains for each of these sites colored according to whether the site has shifted (red) or substituted (yellow).
+We wondered whether this cluster was unique to the six-helix bundle, but found that it is also present in roughly the same structural arrangement in both the closed pre-fusion conformation (center panel) and the open CD4-bound conformation (right panel; note that some of the surrounding residues in both the closed and open structures have been hidden for the sake of clarity).
+As shown in \FIG{prefsdist}C, each of the shifted sites are more tolerant of mutations in BG505 than in BF520.
+The two shifted sites that point inward towards the bundle's core (583 and 587) may be important for packing.
+Based on these structures, it is difficult to discern if or how the substituted site may impact the preferences at the shifted sites nearby.
+}
+{}%\includegraphics[width=\textwidth]{figures/shifts_on_structure/six_helix_bundle_cluster.pdf}}
+
+\figsupp[\label{figsupp:dynamic_clusters}Clusters of shifted sites in highly dynamic regions of Env.]
+{A fine-grained view of two clusters of shifted sites, both of which are in conformationally dynamic regions of Env.
+In each structure, we only show side chains for shifted sites or other sites of interest, which include substituted sites and sites that are proposed to take part in a hydrophobic network that helps control Env's dynamics~\citep{ozorowski2017open}.
+These side chains are colored according to the key in the upper right.
+{\bf (A)}
+A cluster of four shifted sites at the apex of the closed pre-fusion conformation of Env~\citep[PDB 5FYL;][]{stewart2016trimeric}, a region that is not resolved in the open CD4-bound conformation.
+These sites are in Env's first/second variable loop (164 and 165) and its third variable loop (307 and 309), which pack against one another and against an adjacent Env protomer (the inter-protomer boundary is indicated by a dashed line).
+Each of the shifted sites has substituted.
+And these sites are in the immediate vicinity of other non-shifted, but substituted sites.
+Thus, it seems likely that these shifts at least partially arise from short-range epistatic interactions within this cluster.
+However, longer-range epistatic interactions with more distant sites also seem plausible given the highly dynamic nature of this region.
+{\bf (B)}
+A cluster of shifted sites that are adjacent to a network of hydrophobic residues (blue/purple) that help mediate the conformational change between the closed pre-fusion state to the open CD4-bound state~\citep{ozorowski2017open}.
+One of the shifted sites (purple) is in this network.
+These sites are shown in context of both structural states, the latter of which is from~\citep[PDB 5VN3;][]{ozorowski2017open}.
+Nearly one third of the shifted residues cluster within this structural region (9/30).
+In contrast to panel (A), only a few of the shifted sites are adjacent to substitutions or have substituted themselves.
+This trend is found in both the closed and open conformations, suggesting that the shifts may be primarily due to long-range epistatic interactions.
+}
+{}%\includegraphics[width=\textwidth]{figures/shifts_on_structure/clusters_on_structure.pdf}}
+\end{figure}
+
+What distinguishes the sites that have undergone significant shifts?
+First, we analyzed the distribution of shifted sites in context of Env's three-dimensional structure.
+Env's structure is highly conformationally dynamic and undergoes large changes upon receptor binding and membrane fusion.
+In an effort to account for these dynamics, we examined multiple conformational states of Env: the closed pre-fusion state~\citep{stewart2016trimeric}, the open CD4-bound state~\citep{ozorowski2017open}, and the post-fusion six-helix bundle~\citep{weissenhorn1997atomic}.
+\FIG{shiftfeatures}A shows the locations of the shifted sites on the crystal structure of Env in the closed pre-fusion state.
+There is no visually obvious tendency for shifted sites to preferentially be on Env's surface or in its core, and statistical analysis of both the closed and open states of Env (\FIG{shiftfeatures}B) finds no association between a site's relative solvent accessibility and whether its amino-acid preferences have shifted.
+We did not attempt to analyze the association between solvent accessibility and shift for the post-fusion six-helix bundle because crystal structures of this conformation only contain $\sim$80 Env residues~\citep{weissenhorn1997atomic,chan1997core,tan1997atomic}.
+
+However, \FIG{shiftfeatures}A does suggest that the sites of significant shifts tend to cluster in Env's structure.
+A statistical analysis confirms that there is clustering of shifted sites for the closed and open conformations, with the effect being strongest when we define contacts based on the closest intra-residue distance across these two conformations  (\FIG{shiftfeatures}C).
+Therefore, the factors that drive shifts in Env's mutational tolerance often affect physically interacting clusters of residues in a coordinated fashion.
+We also investigated clustering of shifted sites in the post-fusion six-helix bundle.
+Because structures of this conformation only resolve the coordinates of $\sim$80 residues, we did not perform a statistical analysis.
+However, a qualitative analysis revealed that three of the four shifted sites that are resolved in the post-fusion conformation cluster at one end of the helical bundle (\FIGSUPP[shiftfeatures]{shifts_on_six_helix_bundle}).
+
+An obvious hypothesis is that strongly shifted sites have substituted between BG505 and BF520, or physically contact such substitutions.
+According to this hypothesis, substitutions would alter the local physicochemical environment of the substituted site and its neighbors, thereby shifting the amino-acid preferences of sites in the physical cluster.
+But surprisingly, for both the closed and open conformations, the typical magnitude of shifts is not significantly larger at sites that have substituted, or at sites that contact sites that have experienced substitutions (\FIG{shiftfeatures}D).
+For the six-helix bundle, there are five structurally resolved substituted sites, one of which is adjacent to the cluster of shifted sites (\FIGSUPP[shiftfeatures]{shifts_on_six_helix_bundle}).
+The number of resolved shifted and substituted sites in this structure is too small for a meaningful statistical analysis of the type in \FIG{shiftfeatures}D.
+However, the cluster of shifted and substituted sites in the six-helix bundle is also present in the closed and open states (\FIGSUPP[shiftfeatures]{shifts_on_six_helix_bundle}), and so is included in the statistical analyses in \FIG{shiftfeatures}D.
+
+There is a borderline trend for the significantly shifted sites to be more likely to have substituted between BG505 and BF520 (\FIGSUPP[shiftfeatures]{subs_shifts}), but most shifted sites have not substituted (only 8 of the 30 shifted sites differ in amino-acid identity between the two Envs).
+The lack of strong enrichment in shifts at substituted sites contrasts with previous protein-wide experimental~\citep{doud2015site} and simulation-based~\citep{pollock2012amino,shah2015contingency} studies of shifting amino-acid preferences, which found that shifts were dramatically more pronounced at sites of substitutions.
+The difference may arise because these earlier studies examined proteins that are fairly conformationally static (absolutely so in the case of the simulations).
+That fact that Env is extremely complex and conformationally dynamic~\citep{munro2014conformational,ozorowski2017open} may increase the opportunities for long-range epistasis to enable substitutions at one site to shift the amino-acid preferences of distant sites.
+
+Indeed, many of the shifted sites cluster within regions of Env that are highly conformationally dynamic.
+\FIGSUPP[shiftfeatures]{dynamic_clusters} shows the structural context of these clusters in finer detail.
+One cluster is at the trimer apex where two of Env's variable loops pack against one another and against an adjacent protomer.
+These interactions are likely involved in regulating the transition between conformational states, and upon CD4 binding, these loops become highly disordered~\citep{guttman2014cd4,ozorowski2017open}.
+Mutations at two of the shifted sites in this cluster (165 and 307) have been shown to cause Env to assume aberrant conformations, suggesting that these sites can strongly modulate Env's dynamics~\citep{lee2017broadly}.
+Strikingly, this cluster of shifted sites may reflect previously observed differences in the conformational dynamics of this regions between these two Envs; the V2 region of BF520 SOSIP trimer is more accessible to deuterium exchange than the BG505 SOSIP trimer~\citep{verkerke2016epitope}.
+The other cluster of shifted sites is near a network of hydrophobic amino acids that has been proposed to help transmit the large-scale conformational change that takes place upon CD4 binding~\citep{ozorowski2017open}.
+One of the shifted sites (site 69) overlaps with this network, and mutations at another (site 64) have been shown to strongly modulate the relative stability of the open and closed conformations~\citep{de2015immunogenicity}.
+In total, these two clusters consist of nearly half of the shifted sites (13 out of 30).
+One hypothesis why so many shifted sites cluster in these regions is that their dynamic nature allows long-range epistatic interactions to be readily propagated between substituted sites and distant shifted sites.
+It is difficult to discern exactly how these interactions might occur, but there is certainly a trend for sites that are conformationally dynamic to also be sites that show shifts in their amino-acid preferences during evolution.
+
+\subsection{Entrenchment of substitutions modestly contributes to mutational shifts}
+
+\begin{figure}
+%\centerline{\includegraphics[clip=true, trim=0in 0in 0in 0in, width=0.68\textwidth]{figures/entrenchment.pdf}}
+\caption{\label{fig:entrenchment}
+Entrenchment of substitutions during Env evolution.
+There are 12,521 possible amino-acid mutations at the 659 mutagenized sites alignable between BG505 and BF520.
+The blue densities show the effects of all these mutations to each Env.
+The orange densities show the effects of just the 92 mutations that convert BG505 to BF520 or vice versa.
+In the absence of entrenchment, mutating a site in BG505 to its identity in BF520 should have the opposite effect of mutating the site in BF520 to its identity in BG505.
+In this case, we would expect the BF520$\rightarrow$BG505 distribution to be the mirror image of the BG505$\rightarrow$BF520 distribution---and both distributions should be centered around zero if the two Envs are equivalently functional.
+Instead, mutating a site in either Env to its identity in the other Env tends to be deleterious, indicating that substitutions are often entrenched in the Env in which they have fixed.
+The effect of a mutation is quantified as the log of the ratio of the site's preference for the mutant amino acid to the preference for the wildtype amino acid.
+}
+\end{figure}
+
+One idea that has recently gained support in the protein-evolution field is that substitutions become ``entrenched'' by subsequent evolution~\citep{pollock2012amino,shah2015contingency,starr2017pervasive}.
+Entrenchment is the tendency of a mutational reversion to become increasingly unfavorable as a sequence evolves.
+Given two homologs, if there is no entrenchment then the effect of mutating a site in the first homolog to its identity in the second will simply be the opposite of mutating the site in the second homolog to its identity in the first.
+But if there is entrenchment, then both mutations will be unfavorable, since the site is entrenched at its preferred identity in each homolog.
+
+\FIG{entrenchment} shows the distribution of effects for mutating all sites that differ between BG505 and BF520 to the identity in the other Env.
+As expected under entrenchment, the average effect of these mutations is deleterious---although there are a substantial number of sites where the mutational flips are not deleterious. 
+We can get some sense of the magnitude of the entrenchment by comparing the effects of the BG505$\leftrightarrow$BF520 mutations to the distribution of effects of all possible amino-acid mutations (\FIG{entrenchment}).
+This comparison shows that even unfavorable inter-Env mutational flips are generally more favorable than random amino-acid mutations.
+Therefore, entrenchment occurs for some but not all substitutions that distinguish BG505 and BF520, and the magnitude of entrenchment is less than the effect of a typical random mutation.
+Entrenchment of substitutions therefore contributes to some of the mutational shifts.
+But given that many of these shifts occur at sites that do not even differ between the Envs (\FIG{shiftfeatures}D), entrenchment of substitutions is clearly not the only cause of the shifting amino-acid preferences.
+
+
+\subsection{Comparing selection in the lab to natural selection}
+Our experiments measure the effects of mutations on viral growth in a T-cell line in the lab.
+But HIV actually evolves in humans, where additional selection pressures on Env are undoubtedly present.
+For instance, antibody pressure might increase the rate of evolution at some sites~\citep{albert1990rapid,wei2003antibody,richman2003rapid}, whereas pressure to mask certain epitopes~\citep{kwong2002hiv} might add constraint at other sites. 
+Comparing selection in our experiments to natural selection can identify sites that are under such additional pressures during HIV's actual evolution in humans.
+
+\begin{figure}
+%\includegraphics[width=1.0\textwidth]{figures/omegabysite_structural_analysis/omegabysite_structural_analysis.pdf}
+\caption{\label{fig:divsel}
+Sites in Env that evolve faster or slower in nature than expected given the functional constraints measured in the lab.
+We calculated the statistical evidence that each site evolves faster ($\omega_r > 1$) or slower ($\omega_r < 1$) than expected given the experimentally measured amino-acid preferences using the method of \citet{bloom2017identification}.
+{\bf (A)}
+One monomer of the Env trimer~\citep[PDB 5FYL;][]{stewart2016trimeric} is colored from blue to white to red based on the strength of evidence that sites evolve slower than expected (blue), as expected (white) or faster than expected (red) given the BG505 experiments.
+%We used a color scale that only ranges between significance values of $-6 < \log_{10}Q < 6$, which decreases the resolution between a small number of sites with extreme values, but provides greater resolution among other sites.
+Sites for which we lack $\omega_r$ estimates are colored black.
+Sites where the rate of evolution is significantly different than expected at a false discovery rate of 0.05 are shown in spheres.
+{\bf (B)}
+Like (A) but using the data from the BF520 experiments.
+For both Envs, sites that evolve significantly slower or faster than expected are often on Env's surface (\FIGSUPP[divsel]{divselRSA}).
+{\bf (C)}
+The results are similar regardless of whether the BG505 or BF520 experiments are used.
+Many of the sites of slower-than-expected evolution are asparagines in N-linked glycosylation motifs (\FIGSUPP[divsel]{glycans}).
+All sites that evolve slower than expected for both experimental datasets are in \FIGSUPP[divsel]{slower}.
+{\bf (D)} 
+A large cluster of sites that evolve slower than expected is likely involved in Env's transition between open and closed conformational states.
+Gray boxes indicate sites that \citet[PDB 5VN3]{ozorowski2017open} proposed form a hydrophobic network that regulates the conformational change; blue boxes and sticks indicate sites that evolve slower than expected.
+All analyses used the phylogenetic tree in \FIG{tree}.
+}
+\figsupp[\label{figsupp:divselRSA}Relative solvent accessibilities of sites evolving faster or slower than expected.]{
+Sites are grouped by whether they have $\omega_r > 1$ (diversifying selection) or $\omega_r < 1$ (purifying selection) at $Q < 0.05$ in \emph{both} Envs, or whether they fall into neither of these categories.
+Relative solvent accessibilities were calculated as in \FIG{shiftfeatures}.
+As can be seen from these box plots with overlaid points for each site, sites of both diversifying and purifying selection tend to have higher relative solvent accessibility than other sites.
+}{}%\includegraphics[width=\textwidth]{figures/selsites_rsa.pdf}}
+\figsupp[\label{figsupp:glycans}Amino-acid preferences and alignment frequencies for glycosylation motifs.]
+{This plot shows all sites that are N-linked glycosylation motifs in both BG505 and BF520.
+Each motif is named by the residue number of the asparagine, and the preferences (averaged across replicates) for each Env are shown as well as the frequencies of amino acids across the clade A alignment at each of the three positions in the motif (N-X-S/T).
+As can be seen from this plot, the experiments measure relatively broad mutational tolerance at many sites where the natural Env sequences have a strongly conserved motif.
+We suspect this is because many glycans serve as a shield against immunity in nature---a function that is not required in cell culture.}
+{}%\includegraphics[width=\textwidth]{figures/glycan_prefs.pdf}}
+\figsupp[\label{figsupp:slower}Amino-acid preferences and alignment frequencies of sites that evolve slower than expected.]{
+This plot shows all sites that are evolving more slowly than expected in natural sequences given the preferences measured in both Envs.
+Specifically, it shows all sites with $\omega_r < 1$ at $Q < 0.05$ for the ExpCMs for \emph{both} BG505 and BF520.
+For each site, the plots show the preferences averaged across replicates and re-scaled for each Env, as well as the frequencies of amino acids in the clade A Env alignment. 
+The $Q$-value indicated is the maximum of that for the two Envs.
+}{}%\includegraphics[width=\textwidth]{figures/purifying_selsites.pdf}}
+\figdata{The $\omega_r$ and $Q$-values are in \texttt{merged\_omegabysite.csv}.}
+\end{figure}
+
+We determined whether each site in Env evolves faster or slower in nature than expected given three models: that evolution is purely neutral (all nonsynonymous and synonymous mutations have equivalent effects), that sites are under the protein-level constraint measured in our experiments with BG505, or that sites are under the constraint measured with BF520. 
+The first model used a standard dN/dS test~\citep[the ``FEL'' method of][]{kosakovsky2005not}, whereas the other two models are conceptually similar but account for the experimentally measured amino-acid preferences as described by \citet{bloom2017identification}.
+All three models test if individual sites evolve faster or slower than expected, but they ``expect'' different things: the dN/dS model expects nonsynonymous and synonymous mutations fix at the same rate, while the ExpCM expects the rate at a site to depend on the experimentally measured functional constraints.
+In all cases, the evidence that a site $r$ evolves differently than expected is statistically summarized by the $P$-value that $\omega_r$ is $>$ or $<$ 1.
+The standard dN/dS model finds hundreds of sites that evolve slower than expected under neutral evolution (\TABLE{phydms}, $\omega_r < 1$), and only a handful of sites that evolve faster than expected under neutral evolution (\TABLE{phydms}, $\omega_r > 1$).
+This finding is unsurprising, since it is well known that Env is under functional constraint.
+In contrast, ExpCM's that test the rates of evolution relative to the experimentally measured constraints find far fewer sites that evolve slower than expected, but many more sites that evolve faster (\TABLE{phydms}). 
+
+The sites that evolve slower or faster than expected from the experiments are shown in \FIG{divsel}A,B, and overlaid on the logoplots in \FIG{BG505prefs} and \FIG{BF520prefs} as the $\omega_r$ values.
+The identified sites are similar regardless of whether we use the experiments with BG505 or BF520 (\FIG{divsel}C).
+The reason the results are similar for both experimental datasets is that (as discussed above) the amino-acid preferences of \emph{most} sites are similar in both Envs, suggesting that either dataset provides a reasonable approximation of the site-specific functional constraints across the clade A Envs in \FIG{tree}.
+
+What causes some sites to evolve faster or slower in nature than expected from the experiments?
+The answer in both cases is likely to be immune selection.
+Most of the sites of faster-than-expected evolution are on the surface of Env (\FIG{divsel}A,B and \FIGSUPP[divsel]{divselRSA}).
+Env's escape from autologous neutralizing antibodies often involves amino-acid substitutions in surface-exposed regions~\citep{moore2009specificity}, including at many of the sites that evolve faster than expected.
+Since our deep mutational scanning did not impose antibody pressure, sites where substitutions are antibody-driven will evolve faster in nature than expected from the experiments.
+
+Interestingly, immune selection also offers a plausible explanation for the sites that evolve \emph{slower} than expected.
+In addition to escaping immunity via substitutions at antibody-binding footprints, Env is notorious for employing a range of more general strategies to reduce its susceptibility to antibodies.
+These strategies include shielding immunogenic regions with glycans~\citep{wei2003antibody,stewart2016trimeric,gristick2016natively} or hiding them by adopting a closed protein conformation~\citep{kwong2002hiv,guttman2015antibody,ozorowski2017open}.
+Sites that contribute to such general immune-evasion strategies will be under a constraint in nature that is not present in our experiments---and indeed, such sites evolve more slowly than expected from our experiments.
+For instance, we find very little selection to maintain most glycans in our cell-culture experiments.
+Of the 21 N-linked glycosylation sites shared between BG505 and BF520, only four are under strong selection to maintain the glycan in our experiments---despite the fact that most are conserved in nature (\FIG{divsel}C and \FIGSUPP[divsel]{glycans}). 
+This finding concords with prior literature suggesting that these glycans are selected primarily for their role in immune evasion~\citep{pugach2004prolonged,wang2013systematic,rathore2017glycosylation}. 
+Similarly, a network of sites that help regulate Env's transition between open and closed conformations that have different antibody susceptibilities (\FIG{divsel}D) also evolve slower in nature than expected from our experiments.
+Therefore, we can distinguish evolutionary patterns that are shaped by simple selection for Env function from those that are due to the additional complex pressures imposed during human infections. 
+
+\section{Discussion}
+We have experimentally measured the preference for each amino acid at each site in the ectodomain and transmembrane domain of two Envs under selection for viral growth in cell culture.
+These amino-acid preference maps are generally consistent with prior knowledge about sites that are important for protein properties such as receptor binding or disulfide-mediated stability.
+However, the main value of these maps comes not from comparing them with prior knowledge, but from the fact that such prior knowledge encompasses just a small fraction of the vast mutational space available to Env.
+Because Env evolves so rapidly, every study of this protein must be placed in an evolutionary context, and our comprehensive amino-acid preference maps potentially enable this in ways that prior piecemeal studies of mutations cannot.
+
+But these maps come with a potentially serious caveat: each one is measured for just a single Env variant.
+The major question that our study aimed to answer is whether the maps are still useful for evolutionary questions, or whether Env's amino-acid preferences shift so rapidly that each map only applies to the specific HIV strain for which it was measured.
+This question is reminiscent of one that was grappled with in the early days of protein crystallography, when it first became possible to build maps of a protein's structure.
+Because it was not (and is still not) possible to crystallize every variant of a protein, it was necessary to determine whether protein structures could be usefully generalized among homologs.
+Fortunately for the utility of structural biology, it soon became apparent that closely homologous proteins have similar structures~\citep{chothia1986relation,sander1991database}.
+This rough generalizability of protein structures holds even for a protein as conformationally complex as Env---for although there are many examples of mutations that alter aspects of Env's conformation and dynamics~\citep{kwong2000structures,white2010molecular,almond2010structural,davenport2013isolate}, SOSIP trimer structures from diverse Env strains remain highly similar in most respects~\citep{julien2015design,pugach2015native,stewart2016trimeric,verkerke2016epitope,gristick2016natively}.
+
+Our results show that amino-acid preference maps of Env also have a useful level of conservation for many purposes.
+From a qualitative perspective, the amino-acid preferences look mostly similar between BG505 and BF520, and so provide a valuable reference for estimating which mutations are likely to be tolerated at each site in diverse HIV strains.
+Indeed, we anticipate that the complete maps of mutational effects in \FIG{BG505prefs} and \FIG{BF520prefs} will be useful for future sequence-structure-function studies.
+From an analytical perspective, a powerful use of our maps is to identify sites that evolve differently in nature than is required by the simple selection for viral growth imposed in our experiments---and the identified sites are largely the same regardless of whether the analysis uses an amino-acid preference map from BG505 or BF520.
+
+Of course, from the perspective of protein evolution, the most interesting sites are the exceptions to the general conservation of amino-acid preferences.
+Consistent with studies of other proteins~\citep{natarajan2013epistasis,harms2014historical,doud2015site,starr2017pervasive}, we find a subset of sites that change markedly in which mutations they tolerate.
+Some shifted sites simply accommodate more amino acids in the more stable BG505 Env---a type of shift that has been well-documented for other proteins~\citep{wang2002evolution,bloom2006protein,gong2013stability,kumar2017stability}.
+But interestingly, there is no strong trend for shifts to be enhanced at sites that differ between BG505 and BF520.
+Recent studies of protein evolution have focused on the idea that substitutions become ``entrenched'' as sites shift to accommodate new amino acids~\citep{pollock2012amino,shah2015contingency,bazykin2015changing,starr2017pervasive}.
+Indeed, a prior protein-wide comparison of amino-acid preferences across homologs of influenza nucleoprotein found a significant enrichment of shifts at sites of substitutions~\citep{doud2015site}.
+But although there is some entrenchment of differences between BG505 and BF520, this is not the major factor behind the shifts in amino-acid preferences: the majority of sites that have shifted between BG505 and BF520 actually have the same wildtype amino acid in both Envs even though the preferences have shifted.
+This rather surprising result might be due to Env's exceptional conformational complexity---mutations can cause long-range alterations in Env's conformation~\citep{kwong2000structures,white2010molecular,almond2010structural,davenport2013isolate}, so it seems plausible that they might also shift mutational tolerance at distant sites. 
+Regardless of the exact mechanism, our large-scale datasets of mutational effects in multiple viral strains should be useful for efforts to computationally parameterize ``fitness landscapes'' of Env~\citep{kouyos2012exploring,ferguson2013translating,mann2014fitness,barton2015scaling,louie2018fitness}.
+
+Our experiments provide highly quantitative data on the mutational tolerance of Env under selection for viral growth in cell culture.
+These data are amenable to rigorous functional and evolutionary analyses.
+Here we have shown how these data can be compared between Envs to identify sites where mutational tolerance shifts with viral genotype, or between experiments and nature to identify sites under different pressure in the lab and in humans.
+Future experiments that modulate selection pressures in other relevant ways should provide further insight into the forces that drive and constrain HIV's evolution.
+
+\clearpage
+\section{Methods and Materials}
+
+\subsection{Creation of codon-mutant libraries}
+Our codon mutant libraries mutagenized all sites in \textit{env} to all 64 codons, except that the signal peptide and cytoplasmic tail were not mutagenized.
+The rationale for excluding these regions is that they are not part of Env's ectodomain, and are prone to mutations that strongly modulate Env's expression level~\citep{chakrabarti1989cytoplasmic,yuste2004modulation,li1994control}.
+
+The codon-mutant libraries were generated using the approach originally described in \citet{bloom2014experimentally}, with the modification of \citet{dingens2017comprehensive} to ensure more uniform primer melting temperatures.
+The computer script used to design the mutagenesis primers (along with some detailed implementation notes) is at \url{https://github.com/jbloomlab/CodonTilingPrimers}.
+For BF520, the three libraries are the same ones described by \citet{dingens2017comprehensive}.
+For BG505, we created three libraries for this study.
+The wildtype BG505 sequence used for these libraries is in Supplemental~file~\ref{suppfile:BG505}.
+The BG505 mutagenesis primers are in Supplemental~file~\ref{suppfile:BG505primers}.
+
+The end primers for the BG505 mutagenesis were: \seqsplit{5'-tgaaggcaaaactactggtccgtctcgagcagaagacagtggcaatgaga-3'} and \seqsplit{5'-gctacaaatgcatataacagcgtctcattctttccctaacctcaggcca-3'}.
+As with BF520, we cloned the BG505 \textit{env} libraries into the \textit{env} locus of the full-length proviral genome of HIV strain Q23 \citep[another subtype-A transmitted/founder virus;][]{poss1999variants} using the high-efficiency cloning vector described in \citet{dingens2017comprehensive}.
+For this cloning, we digested the cloning vector with BsmBI, and then used PCR to elongate the amplicons to include 30 nucleotides at each end that were identical in sequence to the ends of the BsmBI-digested vector.
+The primers for this PCR were:
+\seqsplit{5'-agataggttaattgagagaataagagaaagagcagaagacagtggcaatgagagtgatgg-3'} and \seqsplit{5'-ctcctggtgctgctggaggggcacgtctcattctttccctaacctcaggccatcc-3'}.
+Next, we used NEBuilder HiFi DNA Assembly (NEB, E2621S) to clone the \textit{env} amplicons into the BsmBI-digested plasmids.
+We purified the assembled products using Agencourt AMPure XP beads (Beckman Coulter, A63880) using a bead-to-sample ratio of 1.5, and then transformed the purified products into Stellar electrocompetent cells (Takara, 636765).
+The transformations yielded between 1.5-3.6 million unique clones for each of the three replicate libraries, as estimated by plating 1:2,000 dilutions of the transformations.
+We scraped the plated colonies and maxiprepped the plasmid DNA; unlike in \citet{dingens2017comprehensive}, we did not include a 4-hour outgrowth step after the scraping step.
+For the wildtype controls, we maxiprepped three independent cultures of wildtype BG505 \textit{env} cloned into the same Q23 proviral plasmid.
+See \FIGSUPP[dms_schematic]{sanger} and \FIG{mutfreqs}A for information on the average mutation rate in these libraries as estimated by Sanger sequencing and deep sequencing, respectively.
+
+\subsection{Generation and passaging of viruses}
+For BG505, we generated mutant virus libraries from the proviral plasmid libraries by transfecting 293T cells in three 6-well plates (so 18 wells total per library) with a per-well mixture of 2 $\mu$g plasmid DNA, 6 $\mu$l FuGENE 6 Transfection Reagent (Promega, E269A), and 100 $\mu$l DMEM.
+The 293T cells were seeded at $5\times 10^5$ cells/well in D10 media (DMEM supplemented with 10\% FBS, 1\% 200 mM L-glutamine, and 1\% of a solution of 10,000 units/mL penicillin and 10,000 $\mu$g/mL streptomycin) the day before transfection, such that they were approximately 50\% confluent at the time of transfection.
+In parallel, we generated wildtype viruses by transfecting one 6-well plate of 293T cells with each wildtype plasmid replicate.
+At 2 days post-transfection, we harvested the transfection supernatant, passed it through a 0.2 $\mu$m filter to remove cells, treated the supernatant with DNAse to digest residual plasmid DNA as in~\citet{haddox2016experimental}, and froze aliquots at -80$^{\circ}$C.
+We thawed and titered aliquots using the TZM-bl assay in the presence of 10 $\mu$g/mL DEAE-dextran as described in~\citet{dingens2017comprehensive}.
+
+We conducted the low MOI viral passage illustrated in \FIG{dms_schematic}A in SupT1.CCR5 cells~\citep[obtained from Dr. James Hoxie;][]{boyd2015mutations}.
+During this passage, cells were maintained in R10 media, which has the same composition as the D10 described above, except RPMI-1640 (GE Healthcare Life Sciences, SH30255.01) is used in the place of DMEM.
+In addition, the media contained 10 $\mu$g/mL DEAE-dextran to enhance viral infection.
+We infected cells with 4 million (for replicate 1) or 5 million (for replicates 2 and 3) TZM-bl infectious units of mutant virus at an MOI of 0.01, with cells at a starting concentration of 1 million cells/mL in vented tissue-culture flasks (Fisher Scientific, 14-826-80).
+At day 1 post-infection, we pelleted cells, aspirated the supernatant, and resuspended cell pellets in the same volume of fresh media still including the DEAE-dextran.
+At 2 days post-infection, we doubled the volume of each culture with fresh media still including DEAE-dextran.
+At 4 days post-infection, we pelleted cells, passed the viral supernatant through a 0.2 $\mu$m filter, concentrated the virus $\sim$30 fold using ultracentrifugation as described in \citet{dingens2017comprehensive}, and froze aliquots at -80$^{\circ}$C.
+In parallel, for each replicate, we also passaged $2\times 10^5$ (for replicate 1) or $5 \times 10^5$ (for replicates 2 and 3) TZM-bl infectious units of wildtype virus using the same procedure.
+To obtain final titers for our concentrated virus, we thawed one of the aliquots stored at -80$^{\circ}$C and titered using the TZM-bl assay in the presence of 10 $\mu$g/mL DEAE-dextran.
+
+For the final short-duration infection illustrated in \FIG{dms_schematic}A, for each replicate we infected $10^6$ TZM-bl infectious units into $10^6$ SupT1.CCR5 cells in the presence of 100 $\mu$g/mL DEAE-dextran (note that this is a 10-fold higher concentration of DEAE-dextran than for the other steps, meaning that the effective MOI of infection is higher if DEAE-dextran has the expected effect of enhancing viral infection).
+Three hours post-infection, we pelleted the cells and resuspended them in fresh media without any DEAE-dextran.
+At 12 hours post-infection, we pelleted cells, washed them once with PBS, and then used a miniprep kit to harvest reverse-transcribed unintegrated viral DNA \citep{haddox2016experimental}.
+
+The generation, passaging and deep sequencing of BF520 was done in a highly similar fashion, except that we only had a single replicate of the wildtype control.
+Note that the final passaged BF520 mutant libraries analyzed here actually correspond to the ``no-antibody'' controls described in \citet{dingens2017comprehensive}, but that study did not analyze the initial plasmid mutant libraries relative to these passaged viruses, and so was not able to provide measurements of the amino-acid preferences.
+
+\subsection{Illumina deep sequencing}
+We deep sequenced all of the samples shown in \FIG{mutfreqs}A: the plasmid mutant libraries and wildtype plasmid controls, and the cDNA from the final mutant viruses and wildtype virus controls.
+In order to increase the sequence accuracy, we used a barcoded-subamplicon sequencing strategy.
+This general strategy was originally applied in the context of deep mutational scanning by \citet{wu2014high}, and the specific protocol used in our work is described in \citet{doud2016accurate} (see also \url{https://jbloomlab.github.io/dms_tools2/bcsubamp.html}).
+
+The primers used for BG505 are in Supplementary~file~\ref{suppfile:B505bcsubamp}.
+The primers used for BF520 are in \citet{dingens2017comprehensive}.
+The data generated by the Illumina deep sequencing are on the Sequence Read Archive under the accession numbers provided at the beginning of the Jupyter notebook in Supplementary~files~\ref{suppfile:code} and \ref{suppfile:html}.
+
+\subsection{Analysis of deep-sequencing data}
+We analyzed the deep-sequencing data using the \texttt{dms\_tools2} software package~\citep[\url{https://jbloomlab.github.io/dms_tools2/}, version 2.2.4]{bloom2015software}.
+The algorithm that goes from the deep-sequencing counts to the amino-acid preferences is that described in \citet{bloom2015software} (see also \url{https://jbloomlab.github.io/dms_tools2/prefs.html}).
+A Jupyter notebook that performs the entire analysis including generation of most of the figures in this paper is in Supplementary~file~\ref{suppfile:code}.
+An HTML rendering of this notebook is in Supplementary~file~\ref{suppfile:html}.
+A repository containing all of this code is also available at \url{https://github.com/jbloomlab/EnvMutationalShiftsPaper}~\citep[][copy archived at \url{https://github.com/elifesciences-publications/EnvMutationalShiftsPaper}]{haddox2018github}.
+
+The Jupyter notebooks in Supplementary~files~\ref{suppfile:code} and \ref{suppfile:html} also contain numerous plots that summarize relevant aspects of the deep sequencing such as read depth, per-codon mutation frequency, mutation types, etc.
+Supplementary~file~\ref{suppfile:code} also contains text files and CSV files with the numerical values shown in these plots.
+
+Citations are also owed to \texttt{weblogo}~\citep[][\url{http://weblogo.threeplusone.com/}]{crooks2004weblogo} and \texttt{ggseqlogo}~\citep[][\url{https://omarwagih.github.io/ggseqlogo/}]{wagih2017ggseqlogo}, which were used in the generation of the logoplots. 
+
+\subsection{Alignments and phylogenetic analyses of Env sequences}
+A basic description of the process used to generate the clade A sequence alignment in \FIG{tree}-source~data~\ref{figdata:alignment}, the alignment mask in \FIG{tree}-source~data~\ref{figdata:mask}, and the phylogenetic tree in \FIG{tree} are provided in the legend to that figure.
+An algorithmic description of how the alignment and tree were generated are in Supplementary~files~\ref{suppfile:code} and \ref{suppfile:html}.
+
+For fitting of the phylogenetic substitution models, we used \texttt{phydms}~\citep[][\url{http://jbloomlab.github.io/phydms/}, version 2.2.1]{hilton2017phydms} to optimize the substitution model parameters and branch lengths on the fixed tree topology in \FIG{tree}.
+The Goldman-Yang (or YNGKP) model used in \TABLE{phydms} is the M5 variant described by \citet{yang2000codon}, with the equilibrium codon frequencies determined empirically using the CF3x4 method~\citep{pond2010correcting}.
+For the ExpCM shown in \TABLE{phydms}, we extended the models with empirical nucleotide frequencies described in \citet{hilton2017phydms} to also allow $\omega$ to be drawn from discrete gamma-distributed categories exactly as for the M5 model.
+These ExpCM with gamma-distributed $\omega$ were implemented in \texttt{phydms} using the equations provided by \citet{yang1994maximum} (see also \url{http://jbloomlab.github.io/phydms/implementation.html#models-with-a-gamma-distributed-model-parameter}).
+The preferences were re-scaled by the stringency parameters in \TABLE{phydms} as described in \citet{hilton2017phydms}.
+For both the M5 model and the ExpCM with a gamma-distributed $\omega$, we used four categories for the discretized gamma distribution.
+
+\TABLE{phydms}-source-data~\ref{tabledata:phydms} shows the results for a wider set of models than those used in \TABLE{phydms}. 
+These include the M0 model of \citet{yang2000codon}, ExpCM without a gamma-distributed $\omega$, and ExpCM in which the amino-acid preferences are averaged across sites as a control to ensure that the improved performance of these models is due to their site-specificity.
+Note how for these Env alignments, using a gamma-distributed $\omega$ is very important in order for the ExpCMs to outperform the M5 model---we suspect this is because there are many sites of strong diversifying selection.
+
+For detection of sites with faster or slower than expected evolution, we used the approach in \citet{bloom2017identification}, which is exactly modeled on the FEL approach of \citet{kosakovsky2005not} but extended to ExpCM.
+This approach estimates a $P$-value that $\omega_r$ is not equal to one for each site $r$ using a likelihood-ratio test.
+The actual point estimates of $\omega_r$ are unreliable for individual sites due to the limited number of observations, so we report the $P$-value that $\omega_r$ is not equal to one, which is a better indication of the strength of the statistical evidence for faster or slower than expected evolution~\citep{kosakovsky2005not,murrell2012detecting}.
+For the Q-values and false discovery rate testing, we considered the tests for $\omega_r > 1$ and $\omega_r < 1$ separately.
+
+Supplementary~files~\ref{suppfile:code} and \ref{suppfile:html} contains the code that runs \texttt{phydms} to reproduce all of these analyses.
+
+\subsection{Re-scaling the preferences}
+The amino-acid preferences that are directly extracted from the deep sequencing data essentially give the enrichment / depletion of each mutation, normalized to sum to one at each site~\cite[][\url{https://jbloomlab.github.io/dms_tools2/prefs.html}]{bloom2015software}.
+However, the extent that any mutation is enriched or depleted is a combination of two factors: the inherent effect of that mutation, and the ``stringency'' of the experimental selection.
+For instance, if the selection is weak, then deleterious mutations will only be slightly depleted; conversely, if selection is strong, then deleterious mutations will be greatly depleted.
+The fact that the preferences depend on the stringency of the experimental selection is important if we want to compare results between Envs.
+The reason is that our goal is to identify differences in the inherent effects of mutations between Envs, not simply find differences due to variation in experimental stringency.
+Of course, we have done our best to perform the experiments for BG505 and BF520 equivalently, but because these are different viruses with different growth rates, it is impossible to exactly match the experimental stringencies.
+This can be seen in \FIGSUPP[mutfreqs]{mutfreqs}, which shows that stop codons were more depleted for BG505 than BF520, indicating that selection in our experiments was more stringent for BG505.
+
+How should we best re-scale the preferences?
+Raising them to a power is a sensible approach.
+To see why, imagine a mutation that is depleted 3-fold after 2 rounds of viral growth. 
+If our experiment instead allowed $2^2 = 4$ rounds of viral growth, then the mutation would be depleted $3^2 = 9$-fold.
+More generally, if a mutation is enriched in frequency by $\phi$-fold after $n$ rounds of viral growth, then it will be enriched in frequency by $\phi^{\beta}$-fold after $\beta \times n$ rounds of viral growth.
+Since the amino-acid preferences are conceptually equivalent to the re-normalized enrichments of mutations~\cite[][\url{https://jbloomlab.github.io/dms_tools2/prefs.html}]{bloom2015software}, it therefore makes sense that the re-scaled preference $\pi_{r,a}$ for amino-acid $a$ at site $r$ should be related to the directly measured preference $\hat{\pi}_{r,a}$ by $\pi_{r,a} \propto \left(\hat{\pi}_{r,a}\right)^{\beta}$.
+And indeed, this is exactly the re-scaling scheme described in \citet{hilton2017phydms} that we use to re-scale our preferences for BG505 and BF520.
+
+The last point is how to choose the re-scaling parameter $\beta$ for each Env.
+It turns out that the features that we have described above for our experiments are also a feature of natural evolution: the expected frequency of a substitution during evolution depends not only on the inherent fitness effect of that mutation, but also on the effective population size, which is conceptually somewhat similar to the stringency of selection.
+It turns out that in a mutation-selection phylogenetic model of evolution, if the amino-acid preferences are taken to represent the ``fitness effects'' of mutations, then the exponential scaling parameter $\beta$ is proportional to the effective population size~\citep{halpern1998evolutionary,mccandlish2014modeling,bloom2014informed}.
+Therefore, fitting the $\beta$ parameter using a phylogenetic approach enables standardization of the preferences for the two Envs, and re-scales the preferences so that they best match with the actual stringency of selection observed in nature~\citep{hilton2017phydms}.
+
+Note that in practice this re-scaling scheme is roughly equivalent to a more heuristic approach that has been used by \citet{gray2017analysis} and others.
+In this heuristic approach, the log-transformed enrichment ratios from different experiments are adjusted so that the distributions have equal spreads.
+Since multiplying log-transformed enrichment ratios is equivalent to exponentiating amino-acid preferences, these two re-scaling procedures apply the same mathematical transformation.
+
+\subsection{Identifying sites of shifted amino-acid preference}
+When identifying shifts in amino-acid preferences between the two Envs, we needed a way to quantify differences between the Envs while accounting for the fact that our measurements are noisy.
+The approach we use is based closely on that of \citet{doud2015site}, and is illustrated graphically in \FIG{prefsdist}A.
+The RMSD$_{\rm{corrected}}$ value is our measure of the magnitude of the shift.
+\FIG{prefsdist}A, its legend, and the associated text completely explains these calculations with the following exception: they do not detail how the ``distance'' between any two preference measurements was calculated. 
+The distance between preferences at each site was simply defined as half of the sum of absolute value of the difference between preferences for each amino acid.
+Specifically, for a given site $r$, let $\pi_{r,a}^{i}$ be the re-scaled preference for amino-acid $a$ in homolog $i$ (e.g., BG505) and let $\pi_{r,a}^{j}$ be the re-scaled preference for that same amino acid in homolog $j$ (e.g., BF520). 
+Then the distance between the homologs at this site is simply $D_{r}^{i,j} = \frac{1}{2}\sum_{a}|\pi_{r,a}^{i}-\pi_{r,a}^{j}|$.
+The factor of $\frac{1}{2}$ is used so that the maximum distance will always fall between zero and one.
+
+\subsection{Analysis of entrenchment}
+For the analysis in \FIG{entrenchment}, the results are presented in terms of the mutational effects rather than the amino-acid preferences. 
+If $\pi_{r,a}$ is the preference of site $r$ for amino-acid $a$ and $\pi_{r,a'}$ is the preference for amino-acid $a'$ (both re-scaled by the stringency parameters in \TABLE{phydms}), then the estimated effect of the mutation from $a$ to $a'$ is simply $\log\left(\frac{\pi_{r,a'}}{\pi_{r,a}}\right)$.
+
+\subsection{Data and code availability}
+All code and input data required to reproduce all analyses in this paper are in Supplementary~file~\ref{suppfile:code} (see also Supplementary~file~\ref{suppfile:html}).
+A repository containing all of this code is also available at \url{https://github.com/jbloomlab/EnvMutationalShiftsPaper}~\citep[][copy archived at \url{https://github.com/elifesciences-publications/EnvMutationalShiftsPaper}]{haddox2018github}.
+The deep sequencing data are on the Sequence Read Archive with the accession numbers listed in Supplementary~files~\ref{suppfile:code} and \ref{suppfile:html}.
+
+\section{Acknowledgments}
+We thank Michael Doud and Orr Ashenberg for computer code that formed the basis for some of the analyses.
+We thank Andrew Ward for pointing out to us that some of the sites with slower-than-expected rates of evolution are involved in Env's conformational changes upon receptor binding.
+We thank Kelly Lee for helpful input about the relative stabilities of the BG505 and BF520 Envs.
+We thank the Fred Hutch Genomics Core for performing the Illumina deep sequencing.
+
+\begin{thebibliography}{114}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\urlprefix}{}
+\providecommand{\doiprefix}{doi: }
+
+\bibitem[{Al-Mawsawi et~al.(2014)Al-Mawsawi, Laith Q and Wu, Nicholas C and
+  Olson, C Anders and Shi, Vivian Cai and Qi, Hangfei and Zheng, Xiaojuan and
+  Wu, Ting-Ting and Sun, Ren}]{al2014high}
+\textbf{\color{eLifeMediumGrey} Al-Mawsawi LQ}, Wu NC, Olson CA, Shi VC, Qi H,
+  Zheng X, Wu TT, Sun R.
+\newblock High-throughput profiling of point mutations across the HIV-1 genome.
+\newblock Retrovirology.  2014; 11(1):124.
+
+\bibitem[{Albert et~al.(1990)Albert, Jan and Abrahamsson, Bengt and Nagy,
+  Karoly and Aurelius, Elisabeth and Gaines, Hans and Nystr{\"o}m, Gunnel and
+  Feny{\"o}, Eva Maria}]{albert1990rapid}
+\textbf{\color{eLifeMediumGrey} Albert J}, Abrahamsson B, Nagy K, Aurelius E,
+  Gaines H, Nystr{\"o}m G, Feny{\"o} EM.
+\newblock Rapid development of isolate-specific neutralizing antibodies after
+  primary HIV-1 infection and consequent emergence of virus variants which
+  resist neutralization by autologous sera.
+\newblock AIDS.  1990; 4(2):107--112.
+
+\bibitem[{Almond et~al.(2010)Almond, David and Kimura, Tetsuya and Kong,
+  XiangPeng and Swetnam, James and Zolla-Pazner, Susan and Cardozo,
+  Timothy}]{almond2010structural}
+\textbf{\color{eLifeMediumGrey} Almond D}, Kimura T, Kong X, Swetnam J,
+  Zolla-Pazner S, Cardozo T.
+\newblock Structural conservation predominates over sequence variability in the
+  crown of {HIV} type 1's {V3} loop.
+\newblock AIDS research and human retroviruses.  2010; 26(6):717--723.
+
+\bibitem[{van Anken et~al.(2008)van Anken, Eelco and Sanders, Rogier W and
+  Liscaljet, I Marije and Land, Aafke and Bontjer, Ilja and Tillemans, Sonja
+  and Nabatov, Alexey A and Paxton, William A and Berkhout, Ben and Braakman,
+  Ineke}]{van2008only}
+\textbf{\color{eLifeMediumGrey} van Anken E}, Sanders RW, Liscaljet IM, Land A,
+  Bontjer I, Tillemans S, Nabatov AA, Paxton WA, Berkhout B, Braakman I.
+\newblock Only five of 10 strictly conserved disulfide bonds are essential for
+  folding and eight for function of the HIV-1 envelope glycoprotein.
+\newblock Molecular Biology of the Cell.  2008; 19(10):4298--4309.
+
+\bibitem[{Ashenberg et~al.(2013)Ashenberg, Orr and Gong, L Ian and Bloom, Jesse
+  D}]{ashenberg2013mutational}
+\textbf{\color{eLifeMediumGrey} Ashenberg O}, Gong LI, Bloom JD.
+\newblock Mutational effects on stability are largely conserved during protein
+  evolution.
+\newblock Proceedings of the National Academy of Sciences.  2013;
+  110(52):21071--21076.
+
+\bibitem[{Barton et~al.(2015)Barton, John P and Kardar, Mehran and Chakraborty,
+  Arup K}]{barton2015scaling}
+\textbf{\color{eLifeMediumGrey} Barton JP}, Kardar M, Chakraborty AK.
+\newblock Scaling laws describe memories of host--pathogen riposte in the {HIV}
+  population.
+\newblock Proceedings of the National Academy of Sciences.  2015;
+  112(7):1965--1970.
+
+\bibitem[{Bazykin(2015)Bazykin, Georgii A}]{bazykin2015changing}
+\textbf{\color{eLifeMediumGrey} Bazykin GA}.
+\newblock Changing preferences: deformation of single position amino acid
+  fitness landscapes and evolution of proteins.
+\newblock Biology Letters.  2015; 11(10):20150315.
+
+\bibitem[{Benjamini and Hochberg(1995)Benjamini, Yoav and Hochberg,
+  Yosef}]{benjamini1995controlling}
+\textbf{\color{eLifeMediumGrey} Benjamini Y}, Hochberg Y.
+\newblock Controlling the false discovery rate: a practical and powerful
+  approach to multiple testing.
+\newblock Journal of the Royal Statistical Society, Series B.  1995; p.
+  289--300.
+
+\bibitem[{Binley et~al.(2000)Binley, James M and Sanders, Rogier W and Clas,
+  Brian and Schuelke, Norbert and Master, Aditi and Guo, Yong and Kajumo,
+  Francis and Anselma, Deborah J and Maddon, Paul J and Olson, William C and
+  others}]{binley2000recombinant}
+\textbf{\color{eLifeMediumGrey} Binley JM}, Sanders RW, Clas B, Schuelke N,
+  Master A, Guo Y, Kajumo F, Anselma DJ, Maddon PJ, Olson WC, et~al.
+\newblock A recombinant human immunodeficiency virus type 1 envelope
+  glycoprotein complex stabilized by an intermolecular disulfide bond between
+  the gp120 and gp41 subunits is an antigenic mimic of the trimeric
+  virion-associated structure.
+\newblock Journal of Virology.  2000; 74(2):627--643.
+
+\bibitem[{Bloom(2014{\natexlab{a}})Bloom, Jesse D}]{bloom2014experimentally}
+\textbf{\color{eLifeMediumGrey} Bloom JD}.
+\newblock An experimentally determined evolutionary model dramatically improves
+  phylogenetic fit.
+\newblock Mol Biol Evol.  2014; 31(8):1956--1978.
+
+\bibitem[{Bloom(2014{\natexlab{b}})Bloom, Jesse D}]{bloom2014informed}
+\textbf{\color{eLifeMediumGrey} Bloom JD}.
+\newblock An experimentally informed evolutionary model improves phylogenetic
+  fit to divergent lactamase homologs.
+\newblock Molecular Biology and Evolution.  2014; 31(10):2753--2769.
+
+\bibitem[{Bloom(2015)Bloom, Jesse D}]{bloom2015software}
+\textbf{\color{eLifeMediumGrey} Bloom JD}.
+\newblock Software for the analysis and visualization of deep mutational
+  scanning data.
+\newblock BMC Bioinformatics.  2015; 16:168.
+
+\bibitem[{Bloom(2017)Bloom, Jesse D}]{bloom2017identification}
+\textbf{\color{eLifeMediumGrey} Bloom JD}.
+\newblock Identification of positive selection in genes is greatly improved by
+  using experimentally informed site-specific models.
+\newblock Biology Direct.  2017; 12(1):1.
+
+\bibitem[{Bloom et~al.(2006)Bloom, Jesse D and Labthavikul, Sy T and Otey,
+  Christopher R and Arnold, Frances H}]{bloom2006protein}
+\textbf{\color{eLifeMediumGrey} Bloom JD}, Labthavikul ST, Otey CR, Arnold FH.
+\newblock Protein stability promotes evolvability.
+\newblock Proceedings of the National Academy of Sciences.  2006;
+  103(15):5869--5874.
+
+\bibitem[{Boyd et~al.(2015)Boyd, David F and Peterson, Dylan and Haggarty, Beth
+  S and Jordan, Andrea PO and Hogan, Michael J and Goo, Leslie and Hoxie, James
+  A and Overbaugh, Julie}]{boyd2015mutations}
+\textbf{\color{eLifeMediumGrey} Boyd DF}, Peterson D, Haggarty BS, Jordan AP,
+  Hogan MJ, Goo L, Hoxie JA, Overbaugh J.
+\newblock Mutations in HIV-1 envelope that enhance entry with the macaque CD4
+  receptor alter antibody recognition by disrupting quaternary interactions
+  within the trimer.
+\newblock Journal of Virology.  2015; 89(2):894--907.
+
+\bibitem[{Burton et~al.(2005)Burton, Dennis R and Stanfield, Robyn L and
+  Wilson, Ian A}]{burton2005antibody}
+\textbf{\color{eLifeMediumGrey} Burton DR}, Stanfield RL, Wilson IA.
+\newblock Antibody vs. HIV in a clash of evolutionary titans.
+\newblock Proceedings of the National Academy of Sciences of the United States
+  of America.  2005; 102(42):14943--14948.
+
+\bibitem[{Chakrabarti et~al.(1989)Chakrabarti, L and Emerman, M and Tiollais, P
+  and Sonigo, P}]{chakrabarti1989cytoplasmic}
+\textbf{\color{eLifeMediumGrey} Chakrabarti L}, Emerman M, Tiollais P, Sonigo
+  P.
+\newblock The cytoplasmic domain of simian immunodeficiency virus transmembrane
+  protein modulates infectivity.
+\newblock Journal of Virology.  1989; 63(10):4395--4403.
+
+\bibitem[{Chan et~al.(1997)Chan, David C and Fass, Deborah and Berger, James M
+  and Kim, Peter S}]{chan1997core}
+\textbf{\color{eLifeMediumGrey} Chan DC}, Fass D, Berger JM, Kim PS.
+\newblock Core structure of gp41 from the HIV envelope glycoprotein.
+\newblock Cell.  1997; 89(2):263--273.
+
+\bibitem[{Chan et~al.(2017)Chan, Yvonne H and Venev, Sergey V and Zeldovich,
+  Konstantin B and Matthews, C Robert}]{chan2017correlation}
+\textbf{\color{eLifeMediumGrey} Chan YH}, Venev SV, Zeldovich KB, Matthews CR.
+\newblock Correlation of fitness landscapes from three orthologous TIM barrels
+  originates from sequence and structure constraints.
+\newblock Nature Communications.  2017; 8:14614.
+
+\bibitem[{Chothia and Lesk(1986)Chothia, Cyrus and Lesk, Arthur
+  M}]{chothia1986relation}
+\textbf{\color{eLifeMediumGrey} Chothia C}, Lesk AM.
+\newblock The relation between the divergence of sequence and structure in
+  proteins.
+\newblock The EMBO Journal.  1986; 5(4):823.
+
+\bibitem[{Crooks et~al.(2004)Crooks, Gavin E and Hon, Gary and Chandonia,
+  John-Marc and Brenner, Steven E}]{crooks2004weblogo}
+\textbf{\color{eLifeMediumGrey} Crooks GE}, Hon G, Chandonia JM, Brenner SE.
+\newblock WebLogo: a sequence logo generator.
+\newblock Genome Research.  2004; 14(6):1188--1190.
+
+\bibitem[{Davenport et~al.(2013)Davenport, Thaddeus M and Guttman, Miklos and
+  Guo, Wenjin and Cleveland, Brad and Kahn, Maria and Hu, Shiu-Lok and Lee,
+  Kelly K}]{davenport2013isolate}
+\textbf{\color{eLifeMediumGrey} Davenport TM}, Guttman M, Guo W, Cleveland B,
+  Kahn M, Hu SL, Lee KK.
+\newblock Isolate-specific differences in the conformational dynamics and
+  antigenicity of HIV-1 gp120.
+\newblock Journal of Virology.  2013; 87(19):10855--10873.
+
+\bibitem[{Dingens et~al.(2017)Dingens, Adam S and Haddox, Hugh K and Overbaugh,
+  Julie and Bloom, Jesse D}]{dingens2017comprehensive}
+\textbf{\color{eLifeMediumGrey} Dingens AS}, Haddox HK, Overbaugh J, Bloom JD.
+\newblock Comprehensive mapping of HIV-1 escape from a broadly neutralizing
+  antibody.
+\newblock Cell Host \& Microbe.  2017; 21:777--787.
+
+\bibitem[{Doud et~al.(2015)Doud, Michael B and Ashenberg, O and Bloom, Jesse
+  D}]{doud2015site}
+\textbf{\color{eLifeMediumGrey} Doud MB}, Ashenberg O, Bloom JD.
+\newblock Site-specific amino acid preferences are mostly conserved in two
+  closely related protein homologs.
+\newblock Molecular Biology and Evolution.  2015; 32(11):2944--2960.
+
+\bibitem[{Doud and Bloom(2016)Doud, Michael B and Bloom, Jesse
+  D}]{doud2016accurate}
+\textbf{\color{eLifeMediumGrey} Doud MB}, Bloom JD.
+\newblock Accurate measurement of the effects of all amino-acid mutations to
+  influenza hemagglutinin.
+\newblock Viruses.  2016; 8:155.
+
+\bibitem[{Duenas-Decamp et~al.(2016)Duenas-Decamp, Maria and Jiang, Li and
+  Bolon, Daniel and Clapham, Paul R}]{duenas2016saturation}
+\textbf{\color{eLifeMediumGrey} Duenas-Decamp M}, Jiang L, Bolon D, Clapham PR.
+\newblock Saturation Mutagenesis of the {HIV-1} Envelope {CD4} Binding Loop
+  Reveals Residues Controlling Distinct Trimer Conformations.
+\newblock PLoS Pathogens.  2016; 12(11):e1005988.
+
+\bibitem[{Faria et~al.(2014)Faria, Nuno R and Rambaut, Andrew and Suchard, Marc
+  A and Baele, Guy and Bedford, Trevor and Ward, Melissa J and Tatem, Andrew J
+  and Sousa, Jo{\~a}o D and Arinaminpathy, Nimalan and P{\'e}pin, Jacques and
+  others}]{faria2014early}
+\textbf{\color{eLifeMediumGrey} Faria NR}, Rambaut A, Suchard MA, Baele G,
+  Bedford T, Ward MJ, Tatem AJ, Sousa JD, Arinaminpathy N, P{\'e}pin J, et~al.
+\newblock The early spread and epidemic ignition of {HIV-1} in human
+  populations.
+\newblock Science.  2014; 346(6205):56--61.
+
+\bibitem[{Ferguson et~al.(2013)Ferguson, Andrew L and Mann, Jaclyn K and
+  Omarjee, Saleha and Ndung’u, Thumbi and Walker, Bruce D and Chakraborty,
+  Arup K}]{ferguson2013translating}
+\textbf{\color{eLifeMediumGrey} Ferguson AL}, Mann JK, Omarjee S, Ndung’u T,
+  Walker BD, Chakraborty AK.
+\newblock Translating {HIV} sequences into quantitative fitness landscapes
+  predicts viral vulnerabilities for rational immunogen design.
+\newblock Immunity.  2013; 38(3):606--617.
+
+\bibitem[{Gong et~al.(2013)Gong, Lizhi Ian and Suchard, Marc A and Bloom, Jesse
+  D}]{gong2013stability}
+\textbf{\color{eLifeMediumGrey} Gong LI}, Suchard MA, Bloom JD.
+\newblock Stability-mediated epistasis constrains the evolution of an influenza
+  protein.
+\newblock eLife.  2013; 2:e00631.
+
+\bibitem[{Goo et~al.(2014)Goo, Leslie and Chohan, Vrasha and Nduati, Ruth and
+  Overbaugh, Julie}]{goo2014early}
+\textbf{\color{eLifeMediumGrey} Goo L}, Chohan V, Nduati R, Overbaugh J.
+\newblock Early development of broadly neutralizing antibodies in
+  HIV-1-infected infants.
+\newblock Nature Medicine.  2014; 20(6):655--658.
+
+\bibitem[{Gray et~al.(2017)Gray, Vanessa E and Hause, Ronald J and Fowler,
+  Douglas M}]{gray2017analysis}
+\textbf{\color{eLifeMediumGrey} Gray VE}, Hause RJ, Fowler DM.
+\newblock Analysis of Large-Scale Mutagenesis Data To Assess the Impact of
+  Single Amino Acid Substitutions.
+\newblock Genetics.  2017; 207(1):53.
+
+\bibitem[{Gristick et~al.(2016)Gristick, Harry B and von Boehmer, Lotta and
+  West Jr, Anthony P and Schamber, Michael and Gazumyan, Anna and Golijanin,
+  Jovana and Seaman, Michael S and F{\"a}tkenheuer, Gerd and Klein, Florian and
+  Nussenzweig, Michel C and others}]{gristick2016natively}
+\textbf{\color{eLifeMediumGrey} Gristick HB}, von Boehmer L, West~Jr AP,
+  Schamber M, Gazumyan A, Golijanin J, Seaman MS, F{\"a}tkenheuer G, Klein F,
+  Nussenzweig MC, et~al.
+\newblock Natively glycosylated HIV-1 Env structure reveals new mode for
+  antibody recognition of the CD4-binding site.
+\newblock Nature Structural \& Molecular Biology.  2016; 23(10):906--915.
+
+\bibitem[{Guttman et~al.(2015)Guttman, M and Cupo, A and Julien, JP and
+  Sanders, RW and Wilson, IA and Moore, JP and Lee, KK}]{guttman2015antibody}
+\textbf{\color{eLifeMediumGrey} Guttman M}, Cupo A, Julien J, Sanders R, Wilson
+  I, Moore J, Lee K.
+\newblock Antibody potency relates to the ability to recognize the closed,
+  pre-fusion form of {HIV Env}.
+\newblock Nature Communications.  2015; 6:6144--6144.
+
+\bibitem[{Guttman et~al.(2014)Guttman, Miklos and Garcia, Natalie K and Cupo,
+  Albert and Matsui, Tsutomu and Julien, Jean-Philippe and Sanders, Rogier W
+  and Wilson, Ian A and Moore, John P and Lee, Kelly K}]{guttman2014cd4}
+\textbf{\color{eLifeMediumGrey} Guttman M}, Garcia NK, Cupo A, Matsui T, Julien
+  JP, Sanders RW, Wilson IA, Moore JP, Lee KK.
+\newblock CD4-induced activation in a soluble HIV-1 Env trimer.
+\newblock Structure.  2014; 22(7):974--984.
+
+\bibitem[{Haddox et~al.(2016)Haddox, Hugh K and Dingens, Adam S and Bloom,
+  Jesse D}]{haddox2016experimental}
+\textbf{\color{eLifeMediumGrey} Haddox HK}, Dingens AS, Bloom JD.
+\newblock Experimental estimation of the effects of all amino-acid mutations to
+  {HIV's} envelope protein on viral replication in cell culture.
+\newblock PLoS Pathogens.  2016; 12(12):e1006114.
+
+\bibitem[{Haddox et~al.(2018)Haddox, Hugh K and Dingens, Adam S and Hilton,
+  Sarah K and Overbaugh, Julie and Bloom, Jesse D}]{haddox2018github}
+\textbf{\color{eLifeMediumGrey} Haddox HK}, Dingens AS, Hilton SK, Overbaugh J,
+  Bloom JD.
+\newblock Computer code for ``Mapping mutational effects along the evolutionary
+  landscape of HIV envelope''.
+\newblock Github.  2018; commit ec358fd.
+\newblock
+  \urlprefix\url{https://github.com/jbloomlab/EnvMutationalShiftsPaper}.
+
+\bibitem[{Halpern and Bruno(1998)Halpern, Aaron L and Bruno, William
+  J}]{halpern1998evolutionary}
+\textbf{\color{eLifeMediumGrey} Halpern AL}, Bruno WJ.
+\newblock Evolutionary distances for protein-coding sequences: modeling
+  site-specific residue frequencies.
+\newblock Molecular Biology and Evolution.  1998; 15(7):910--917.
+
+\bibitem[{Harms and Thornton(2014)Harms, Michael J and Thornton, Joseph
+  W}]{harms2014historical}
+\textbf{\color{eLifeMediumGrey} Harms MJ}, Thornton JW.
+\newblock Historical contingency and its biophysical basis in glucocorticoid
+  receptor evolution.
+\newblock Nature.  2014; 512(7513):203.
+
+\bibitem[{Hedges et~al.(2006)Hedges, S Blair and Dudley, Joel and Kumar,
+  Sudhir}]{hedges2006timetree}
+\textbf{\color{eLifeMediumGrey} Hedges SB}, Dudley J, Kumar S.
+\newblock {TimeTree}: a public knowledge-base of divergence times among
+  organisms.
+\newblock Bioinformatics.  2006; 22(23):2971--2972.
+
+\bibitem[{Hilton et~al.(2017)Hilton, Sarah K and Doud, Michael B and Bloom,
+  Jesse D}]{hilton2017phydms}
+\textbf{\color{eLifeMediumGrey} Hilton SK}, Doud MB, Bloom JD.
+\newblock phydms: Software for phylogenetic analyses informed by deep
+  mutational scanning.
+\newblock PeerJ.  2017; 5:e3657.
+
+\bibitem[{Huang et~al.(2014)Huang, Jinghe and Kang, Byong H and Pancera, Marie
+  and Lee, Jeong Hyun and Tong, Tommy and Feng, Yu and Imamichi, Hiromi and
+  Georgiev, Ivelin S and Chuang, Gwo-Yu and Druz, Aliaksandr and
+  others}]{huang2014broad}
+\textbf{\color{eLifeMediumGrey} Huang J}, Kang BH, Pancera M, Lee JH, Tong T,
+  Feng Y, Imamichi H, Georgiev IS, Chuang GY, Druz A, et~al.
+\newblock Broad and potent HIV-1 neutralization by a human antibody that binds
+  the gp41-gp120 interface.
+\newblock Nature.  2014; 515(7525):138--142.
+
+\bibitem[{Julien et~al.(2013)Julien, Jean-Philippe and Cupo, Albert and Sok,
+  Devin and Stanfield, Robyn L and Lyumkis, Dmitry and Deller, Marc C and
+  Klasse, Per-Johan and Burton, Dennis R and Sanders, Rogier W and Moore, John
+  P and others}]{julien2013crystal}
+\textbf{\color{eLifeMediumGrey} Julien JP}, Cupo A, Sok D, Stanfield RL,
+  Lyumkis D, Deller MC, Klasse PJ, Burton DR, Sanders RW, Moore JP, et~al.
+\newblock Crystal structure of a soluble cleaved HIV-1 envelope trimer.
+\newblock Science.  2013; 342(6165):1477--1483.
+
+\bibitem[{Julien et~al.(2015)Julien, Jean-Philippe and Lee, Jeong Hyun and
+  Ozorowski, Gabriel and Hua, Yuanzi and de la Pe{\~n}a, Alba Torrents and de
+  Taeye, Steven W and Nieusma, Travis and Cupo, Albert and Yasmeen, Anila and
+  Golabek, Michael and others}]{julien2015design}
+\textbf{\color{eLifeMediumGrey} Julien JP}, Lee JH, Ozorowski G, Hua Y, de~la
+  Pe{\~n}a AT, de~Taeye SW, Nieusma T, Cupo A, Yasmeen A, Golabek M, et~al.
+\newblock Design and structure of two HIV-1 clade C SOSIP. 664 trimers that
+  increase the arsenal of native-like Env immunogens.
+\newblock Proceedings of the National Academy of Sciences.  2015;
+  112(38):11947--11952.
+
+\bibitem[{Kabsch and Sander(1983)Kabsch, Wolfgang and Sander,
+  Christian}]{kabsch1983dictionary}
+\textbf{\color{eLifeMediumGrey} Kabsch W}, Sander C.
+\newblock Dictionary of protein secondary structure: pattern recognition of
+  hydrogen-bonded and geometrical features.
+\newblock Biopolymers.  1983; 22(12):2577--2637.
+
+\bibitem[{Klink and Bazykin(2017)Klink, GV and Bazykin, GA}]{klink2017parallel}
+\textbf{\color{eLifeMediumGrey} Klink G}, Bazykin G.
+\newblock Parallel evolution of metazoan mitochondrial proteins.
+\newblock Genome Biology and Evolution.  2017; 9:1341--1350.
+
+\bibitem[{Korber et~al.(1998)Korber, Bette and Foley, Brian T and Kuiken, C and
+  Pillai, Satish K and Sodroski, Joseph G and others}]{korber1998numbering}
+\textbf{\color{eLifeMediumGrey} Korber B}, Foley BT, Kuiken C, Pillai SK,
+  Sodroski JG, et~al.
+\newblock Numbering positions in HIV relative to HXB2CG.
+\newblock Human Retroviruses and AIDS.  1998; 3:102--111.
+
+\bibitem[{Kosakovsky~Pond and Frost(2005)Kosakovsky Pond, Sergei L and Frost,
+  Simon DW}]{kosakovsky2005not}
+\textbf{\color{eLifeMediumGrey} Kosakovsky~Pond SL}, Frost SD.
+\newblock Not so different after all: a comparison of methods for detecting
+  amino acid sites under selection.
+\newblock Molecular Biology and Evolution.  2005; 22(5):1208--1222.
+
+\bibitem[{Kouyos et~al.(2012)Kouyos, Roger D and Leventhal, Gabriel E and
+  Hinkley, Trevor and Haddad, Mojgan and Whitcomb, Jeannette M and Petropoulos,
+  Christos J and Bonhoeffer, Sebastian}]{kouyos2012exploring}
+\textbf{\color{eLifeMediumGrey} Kouyos RD}, Leventhal GE, Hinkley T, Haddad M,
+  Whitcomb JM, Petropoulos CJ, Bonhoeffer S.
+\newblock Exploring the complexity of the {HIV-1} fitness landscape.
+\newblock PLoS Genetics.  2012; 8(3):e1002551.
+
+\bibitem[{Kumar et~al.(2017)Kumar, Amit and Natarajan, Chandrasekhar and
+  Moriyama, Hideaki and Witt, Christopher C and Weber, Roy E and Fago, Angela
+  and Storz, Jay F}]{kumar2017stability}
+\textbf{\color{eLifeMediumGrey} Kumar A}, Natarajan C, Moriyama H, Witt CC,
+  Weber RE, Fago A, Storz JF.
+\newblock Stability-mediated epistasis restricts accessible mutational pathways
+  in the functional evolution of avian hemoglobin.
+\newblock Molecular Biology and Evolution.  2017; 34(5):1240--1251.
+
+\bibitem[{Kwong et~al.(2002)Kwong, Peter D and Doyle, Michael L and Casper,
+  David J and Cicala, Claudia and Leavitt, Stephanie A and Majeed, Shahzad and
+  Steenbeke, Tavis D and Venturi, Miro and Chaiken, Irwin and Fung, Michael and
+  others}]{kwong2002hiv}
+\textbf{\color{eLifeMediumGrey} Kwong PD}, Doyle ML, Casper DJ, Cicala C,
+  Leavitt SA, Majeed S, Steenbeke TD, Venturi M, Chaiken I, Fung M, et~al.
+\newblock HIV-1 evades antibody-mediated neutralization through conformational
+  masking of receptor-binding sites.
+\newblock Nature.  2002; 420(6916):678--682.
+
+\bibitem[{Kwong et~al.(2000)Kwong, Peter D and Wyatt, Richard and Majeed,
+  Shahzad and Robinson, James and Sweet, Raymond W and Sodroski, Joseph and
+  Hendrickson, Wayne A}]{kwong2000structures}
+\textbf{\color{eLifeMediumGrey} Kwong PD}, Wyatt R, Majeed S, Robinson J, Sweet
+  RW, Sodroski J, Hendrickson WA.
+\newblock Structures of HIV-1 gp120 envelope glycoproteins from
+  laboratory-adapted and primary isolates.
+\newblock Structure.  2000; 8(12):1329--1339.
+
+\bibitem[{Lee et~al.(2017)Lee, Jeong Hyun and Andrabi, Raiees and Su, Ching-Yao
+  and Yasmeen, Anila and Julien, Jean-Philippe and Kong, Leopold and Wu,
+  Nicholas C and McBride, Ryan and Sok, Devin and Pauthner, Matthias and
+  others}]{lee2017broadly}
+\textbf{\color{eLifeMediumGrey} Lee JH}, Andrabi R, Su CY, Yasmeen A, Julien
+  JP, Kong L, Wu NC, McBride R, Sok D, Pauthner M, et~al.
+\newblock A broadly neutralizing antibody targets the dynamic HIV envelope
+  trimer apex via a long, rigidified, and anionic $\beta$-hairpin structure.
+\newblock Immunity.  2017; 46(4):690--702.
+
+\bibitem[{Li et~al.(1994)Li, Yan and Luo, Lizhong and Thomas, David Y and Kang,
+  O Yong}]{li1994control}
+\textbf{\color{eLifeMediumGrey} Li Y}, Luo L, Thomas DY, Kang OY.
+\newblock Control of expression, glycosylation, and secretion of HIV-1 gp120 by
+  homologous and heterologous signal sequences.
+\newblock Virology.  1994; 204(1):266--278.
+
+\bibitem[{Louie et~al.(2018)Louie, Raymond HY and Kaczorowski, Kevin J and
+  Barton, John P and Chakraborty, Arup K and McKay, Matthew
+  R}]{louie2018fitness}
+\textbf{\color{eLifeMediumGrey} Louie RH}, Kaczorowski KJ, Barton JP,
+  Chakraborty AK, McKay MR.
+\newblock Fitness landscape of the human immunodeficiency virus envelope
+  protein that is targeted by antibodies.
+\newblock Proceedings of the National Academy of Sciences.  2018; p. 201717765.
+
+\bibitem[{Lynch et~al.(2009)Lynch, Rebecca M and Shen, Tongye and Gnanakaran, S
+  and Derdeyn, Cynthia A}]{lynch2009appreciating}
+\textbf{\color{eLifeMediumGrey} Lynch RM}, Shen T, Gnanakaran S, Derdeyn CA.
+\newblock Appreciating {HIV} type 1 diversity: subtype differences in {Env}.
+\newblock AIDS Research and Human Retroviruses.  2009; 25(3):237--248.
+
+\bibitem[{Lyumkis et~al.(2013)Lyumkis, Dmitry and Julien, Jean-Philippe and de
+  Val, Natalia and Cupo, Albert and Potter, Clinton S and Klasse, Per-Johan and
+  Burton, Dennis R and Sanders, Rogier W and Moore, John P and Carragher,
+  Bridget and others}]{lyumkis2013cryo}
+\textbf{\color{eLifeMediumGrey} Lyumkis D}, Julien JP, de~Val N, Cupo A, Potter
+  CS, Klasse PJ, Burton DR, Sanders RW, Moore JP, Carragher B, et~al.
+\newblock Cryo-EM structure of a fully glycosylated soluble cleaved HIV-1
+  envelope trimer.
+\newblock Science.  2013; 342(6165):1484--1490.
+
+\bibitem[{Mann et~al.(2014)Mann, Jaclyn K and Barton, John P and Ferguson,
+  Andrew L and Omarjee, Saleha and Walker, Bruce D and Chakraborty, Arup and
+  Ndung'u, Thumbi}]{mann2014fitness}
+\textbf{\color{eLifeMediumGrey} Mann JK}, Barton JP, Ferguson AL, Omarjee S,
+  Walker BD, Chakraborty A, Ndung'u T.
+\newblock The fitness landscape of {HIV-1} gag: advanced modeling approaches
+  and validation of model predictions by in vitro testing.
+\newblock PLoS Computational Biology.  2014; 10(8):e1003776.
+
+\bibitem[{McCandlish and Stoltzfus(2014)McCandlish, David M and Stoltzfus,
+  Arlin}]{mccandlish2014modeling}
+\textbf{\color{eLifeMediumGrey} McCandlish DM}, Stoltzfus A.
+\newblock Modeling evolution using the probability of fixation: history and
+  implications.
+\newblock The Quarterly Review of Biology.  2014; 89(3):225--252.
+
+\bibitem[{Moore et~al.(2009)Moore, Penny L and Gray, Elin S and Morris,
+  Lynn}]{moore2009specificity}
+\textbf{\color{eLifeMediumGrey} Moore PL}, Gray ES, Morris L.
+\newblock Specificity of the autologous neutralizing antibody response.
+\newblock Current Opinion in HIV and AIDS.  2009; 4(5):358.
+
+\bibitem[{Munro et~al.(2014)Munro, James B and Gorman, Jason and Ma, Xiaochu
+  and Zhou, Zhou and Arthos, James and Burton, Dennis R and Koff, Wayne C and
+  Courter, Joel R and Smith, Amos B and Kwong, Peter D and
+  others}]{munro2014conformational}
+\textbf{\color{eLifeMediumGrey} Munro JB}, Gorman J, Ma X, Zhou Z, Arthos J,
+  Burton DR, Koff WC, Courter JR, Smith AB, Kwong PD, et~al.
+\newblock Conformational dynamics of single HIV-1 envelope trimers on the
+  surface of native virions.
+\newblock Science.  2014; 346(6210):759--763.
+
+\bibitem[{Murrell et~al.(2015)Murrell, Ben and Weaver, Steven and Smith, Martin
+  D and Wertheim, Joel O and Murrell, Sasha and Aylward, Anthony and Eren,
+  Kemal and Pollner, Tristan and Martin, Darren P and Smith, Davey M and
+  others}]{murrell2015gene}
+\textbf{\color{eLifeMediumGrey} Murrell B}, Weaver S, Smith MD, Wertheim JO,
+  Murrell S, Aylward A, Eren K, Pollner T, Martin DP, Smith DM, et~al.
+\newblock Gene-wide identification of episodic selection.
+\newblock Molecular Biology and Evolution.  2015; 32(5):1365--1371.
+
+\bibitem[{Murrell et~al.(2012)Murrell, Ben and Wertheim, Joel O and Moola,
+  Sasha and Weighill, Thomas and Scheffler, Konrad and Pond, Sergei L
+  Kosakovsky}]{murrell2012detecting}
+\textbf{\color{eLifeMediumGrey} Murrell B}, Wertheim JO, Moola S, Weighill T,
+  Scheffler K, Pond SLK.
+\newblock Detecting individual sites subject to episodic diversifying
+  selection.
+\newblock PLoS Genetics.  2012; 8(7):e1002764.
+
+\bibitem[{Natarajan et~al.(2013)Natarajan, Chandrasekhar and Inoguchi, Noriko
+  and Weber, Roy E and Fago, Angela and Moriyama, Hideaki and Storz, Jay
+  F}]{natarajan2013epistasis}
+\textbf{\color{eLifeMediumGrey} Natarajan C}, Inoguchi N, Weber RE, Fago A,
+  Moriyama H, Storz JF.
+\newblock Epistasis among adaptive mutations in deer mouse hemoglobin.
+\newblock Science.  2013; 340(6138):1324--1327.
+
+\bibitem[{Nduati et~al.(2000)Nduati, Ruth and John, Grace and Mbori-Ngacha,
+  Dorothy and Richardson, Barbra and Overbaugh, Julie and Mwatha, Anthony and
+  Ndinya-Achola, Jeckoniah and Bwayo, Job and Onyango, Francis E and Hughes,
+  James and others}]{nduati2000effect}
+\textbf{\color{eLifeMediumGrey} Nduati R}, John G, Mbori-Ngacha D, Richardson
+  B, Overbaugh J, Mwatha A, Ndinya-Achola J, Bwayo J, Onyango FE, Hughes J,
+  et~al.
+\newblock Effect of breastfeeding and formula feeding on transmission of HIV-1:
+  a randomized clinical trial.
+\newblock JAMA.  2000; 283(9):1167--1174.
+
+\bibitem[{Olshevsky et~al.(1990)Olshevsky, U and Helseth, E and Furman, C and
+  Li, J and Haseltine, W and Sodroski, J}]{olshevsky1990identification}
+\textbf{\color{eLifeMediumGrey} Olshevsky U}, Helseth E, Furman C, Li J,
+  Haseltine W, Sodroski J.
+\newblock Identification of individual human immunodeficiency virus type 1
+  gp120 amino acids important for CD4 receptor binding.
+\newblock Journal of Virology.  1990; 64(12):5701--5707.
+
+\bibitem[{Ozorowski et~al.(2017)Ozorowski, Gabriel and Pallesen, Jesper and de
+  Val, Natalia and Lyumkis, Dmitry and Cottrell, Christopher A and Torres,
+  Jonathan L and Copps, Jeffrey and Stanfield, Robyn L and Cupo, Albert and
+  Pugach, Pavel and others}]{ozorowski2017open}
+\textbf{\color{eLifeMediumGrey} Ozorowski G}, Pallesen J, de~Val N, Lyumkis D,
+  Cottrell CA, Torres JL, Copps J, Stanfield RL, Cupo A, Pugach P, et~al.
+\newblock Open and closed structures reveal allostery and pliability in the
+  HIV-1 envelope spike.
+\newblock Nature.  2017; 547(7663):360--363.
+
+\bibitem[{Pancera et~al.(2014)Pancera, Marie and Zhou, Tongqing and Druz,
+  Aliaksandr and Georgiev, Ivelin S and Soto, Cinque and Gorman, Jason and
+  Huang, Jinghe and Acharya, Priyamvada and Chuang, Gwo-Yu and Ofek, Gilad and
+  others}]{pancera2014structure}
+\textbf{\color{eLifeMediumGrey} Pancera M}, Zhou T, Druz A, Georgiev IS, Soto
+  C, Gorman J, Huang J, Acharya P, Chuang GY, Ofek G, et~al.
+\newblock Structure and immune recognition of trimeric pre-fusion HIV-1 Env.
+\newblock Nature.  2014; 514(7523):455--461.
+
+\bibitem[{Parrish et~al.(2013)Parrish, Nicholas F and Gao, Feng and Li, Hui and
+  Giorgi, Elena E and Barbian, Hannah J and Parrish, Erica H and Zajic, Lara
+  and Iyer, Shilpa S and Decker, Julie M and Kumar, Amit and
+  others}]{parrish2013phenotypic}
+\textbf{\color{eLifeMediumGrey} Parrish NF}, Gao F, Li H, Giorgi EE, Barbian
+  HJ, Parrish EH, Zajic L, Iyer SS, Decker JM, Kumar A, et~al.
+\newblock Phenotypic properties of transmitted founder {HIV-1}.
+\newblock Proceedings of the National Academy of Sciences.  2013;
+  110(17):6626--6633.
+
+\bibitem[{Peden et~al.(1991)Peden, Keith and Emerman, Michael and Montagnier,
+  Luc}]{peden1991changes}
+\textbf{\color{eLifeMediumGrey} Peden K}, Emerman M, Montagnier L.
+\newblock Changes in growth properties on passage in tissue culture of viruses
+  derived from infectious molecular clones of HIV-1 LAI, HIV-1 MAL, and HIV-1
+  ELI.
+\newblock Virology.  1991; 185(2):661--672.
+
+\bibitem[{Podgornaia and Laub(2015)Podgornaia, Anna I and Laub, Michael
+  T}]{podgornaia2015pervasive}
+\textbf{\color{eLifeMediumGrey} Podgornaia AI}, Laub MT.
+\newblock Pervasive degeneracy and epistasis in a protein-protein interface.
+\newblock Science.  2015; 347(6222):673--677.
+
+\bibitem[{Pollock et~al.(2012)Pollock, David D and Thiltgen, Grant and
+  Goldstein, Richard A}]{pollock2012amino}
+\textbf{\color{eLifeMediumGrey} Pollock DD}, Thiltgen G, Goldstein RA.
+\newblock Amino acid coevolution induces an evolutionary Stokes shift.
+\newblock Proceedings of the National Academy of Sciences.  2012;
+  109(21):E1352--E1359.
+
+\bibitem[{Pond et~al.(2010)Pond, Sergei Kosakovsky and Delport, Wayne and Muse,
+  Spencer V and Scheffler, Konrad}]{pond2010correcting}
+\textbf{\color{eLifeMediumGrey} Pond SK}, Delport W, Muse SV, Scheffler K.
+\newblock Correcting the bias of empirical frequency parameter estimators in
+  codon models.
+\newblock PLoS One.  2010; 5(7):e11230.
+
+\bibitem[{Posada and Buckley(2004)Posada, David and Buckley, Thomas
+  R}]{posada2004model}
+\textbf{\color{eLifeMediumGrey} Posada D}, Buckley TR.
+\newblock Model selection and model averaging in phylogenetics: advantages of
+  Akaike information criterion and Bayesian approaches over likelihood ratio
+  tests.
+\newblock Systematic Biology.  2004; 53(5):793--808.
+
+\bibitem[{Poss and Overbaugh(1999)Poss, Mary and Overbaugh,
+  Julie}]{poss1999variants}
+\textbf{\color{eLifeMediumGrey} Poss M}, Overbaugh J.
+\newblock Variants from the diverse virus population identified at
+  seroconversion of a clade A human immunodeficiency virus type 1-infected
+  woman have distinct biological properties.
+\newblock Journal of Virology.  1999; 73(7):5255--5264.
+
+\bibitem[{Pugach et~al.(2004)Pugach, Pavel and Kuhmann, Shawn E and Taylor,
+  Joann and Marozsan, Andre J and Snyder, Amy and Ketas, Thomas and Wolinsky,
+  Steven M and Korber, Bette T and Moore, John P}]{pugach2004prolonged}
+\textbf{\color{eLifeMediumGrey} Pugach P}, Kuhmann SE, Taylor J, Marozsan AJ,
+  Snyder A, Ketas T, Wolinsky SM, Korber BT, Moore JP.
+\newblock The prolonged culture of human immunodeficiency virus type 1 in
+  primary lymphocytes increases its sensitivity to neutralization by soluble
+  CD4.
+\newblock Virology.  2004; 321(1):8--22.
+
+\bibitem[{Pugach et~al.(2015)Pugach, Pavel and Ozorowski, Gabriel and Cupo,
+  Albert and Ringe, Rajesh and Yasmeen, Anila and de Val, Natalia and Derking,
+  Ronald and Kim, Helen J and Korzun, Jacob and Golabek, Michael and
+  others}]{pugach2015native}
+\textbf{\color{eLifeMediumGrey} Pugach P}, Ozorowski G, Cupo A, Ringe R,
+  Yasmeen A, de~Val N, Derking R, Kim HJ, Korzun J, Golabek M, et~al.
+\newblock A native-like SOSIP. 664 trimer based on an HIV-1 subtype B env gene.
+\newblock Journal of Virology.  2015; 89(6):3380--3395.
+
+\bibitem[{Rathore et~al.(2017)Rathore, Ujjwal and Saha, Piyali and
+  Kesavardhana, Sannula and Kumar, Aditya Arun and Datta, Rohini and
+  Devanarayanan, Sivasankar and Das, Raksha and Mascola, John R and
+  Varadarajan, Raghavan}]{rathore2017glycosylation}
+\textbf{\color{eLifeMediumGrey} Rathore U}, Saha P, Kesavardhana S, Kumar AA,
+  Datta R, Devanarayanan S, Das R, Mascola JR, Varadarajan R.
+\newblock Glycosylation of the core of the HIV-1 envelope subunit protein gp120
+  is not required for native trimer formation or viral infectivity.
+\newblock Journal of Biological Chemistry.  2017; 292(24):10197--10219.
+
+\bibitem[{Richman et~al.(2003)Richman, Douglas D and Wrin, Terri and Little,
+  Susan J and Petropoulos, Christos J}]{richman2003rapid}
+\textbf{\color{eLifeMediumGrey} Richman DD}, Wrin T, Little SJ, Petropoulos CJ.
+\newblock Rapid evolution of the neutralizing antibody response to HIV type 1
+  infection.
+\newblock Proceedings of the National Academy of Sciences.  2003;
+  100(7):4144--4149.
+
+\bibitem[{Risso et~al.(2014)Risso, Valeria A and Manssour-Triedo, Fadia and
+  Delgado-Delgado, Asunci{\'o}n and Arco, Rocio and Barroso-delJesus, Alicia
+  and Ingles-Prieto, Alvaro and Godoy-Ruiz, Raquel and Gavira, Jose A and
+  Gaucher, Eric A and Ibarra-Molero, Beatriz and others}]{risso2014mutational}
+\textbf{\color{eLifeMediumGrey} Risso VA}, Manssour-Triedo F, Delgado-Delgado
+  A, Arco R, Barroso-delJesus A, Ingles-Prieto A, Godoy-Ruiz R, Gavira JA,
+  Gaucher EA, Ibarra-Molero B, et~al.
+\newblock Mutational studies on resurrected ancestral proteins reveal
+  conservation of site-specific amino acid preferences throughout evolutionary
+  history.
+\newblock Molecular Biology and Evolution.  2014; 32(2):440--455.
+
+\bibitem[{Ronen et~al.(2015)Ronen, Keshet and Sharma, Amit and Overbaugh,
+  Julie}]{ronen2015hiv}
+\textbf{\color{eLifeMediumGrey} Ronen K}, Sharma A, Overbaugh J.
+\newblock HIV transmission biology: translation for HIV prevention.
+\newblock AIDS.  2015; 29:2219--2227.
+
+\bibitem[{Sagar et~al.(2006)Sagar, Manish and Wu, Xueling and Lee, Sandra and
+  Overbaugh, Julie}]{sagar2006human}
+\textbf{\color{eLifeMediumGrey} Sagar M}, Wu X, Lee S, Overbaugh J.
+\newblock Human immunodeficiency virus type 1 {V1-V2} envelope loop sequences
+  expand and add glycosylation sites over the course of infection, and these
+  modifications affect antibody neutralization sensitivity.
+\newblock Journal of Virology.  2006; 80(19):9586--9598.
+
+\bibitem[{Sander and Schneider(1991)Sander, Chris and Schneider,
+  Reinhard}]{sander1991database}
+\textbf{\color{eLifeMediumGrey} Sander C}, Schneider R.
+\newblock Database of homology-derived protein structures and the structural
+  meaning of sequence alignment.
+\newblock Proteins: Structure, Function, and Bioinformatics.  1991;
+  9(1):56--68.
+
+\bibitem[{Sanders et~al.(2013)Sanders, Rogier W and Derking, Ronald and Cupo,
+  Albert and Julien, Jean-Philippe and Yasmeen, Anila and de Val, Natalia and
+  Kim, Helen J and Blattner, Claudia and de la Pe{\~n}a, Alba Torrents and
+  Korzun, Jacob and others}]{sanders2013next}
+\textbf{\color{eLifeMediumGrey} Sanders RW}, Derking R, Cupo A, Julien JP,
+  Yasmeen A, de~Val N, Kim HJ, Blattner C, de~la Pe{\~n}a AT, Korzun J, et~al.
+\newblock A next-generation cleaved, soluble {HIV-1} Env trimer, {BG505
+  SOSIP.664 gp140}, expresses multiple epitopes for broadly neutralizing but
+  not non-neutralizing antibodies.
+\newblock PLoS Pathogens.  2013; 9(9):e1003618.
+
+\bibitem[{Sanders et~al.(2015)Sanders, Rogier W and Van Gils, Marit J and
+  Derking, Ronald and Sok, Devin and Ketas, Thomas J and Burger, Judith A and
+  Ozorowski, Gabriel and Cupo, Albert and Simonich, Cassandra and Goo, Leslie
+  and others}]{sanders2015hiv}
+\textbf{\color{eLifeMediumGrey} Sanders RW}, Van~Gils MJ, Derking R, Sok D,
+  Ketas TJ, Burger JA, Ozorowski G, Cupo A, Simonich C, Goo L, et~al.
+\newblock HIV-1 neutralizing antibodies induced by native-like envelope
+  trimers.
+\newblock Science.  2015; 349(6244):aac4223.
+
+\bibitem[{Sanders et~al.(2002)Sanders, Rogier W and Vesanen, Mika and Schuelke,
+  Norbert and Master, Aditi and Schiffner, Linnea and Kalyanaraman, Roopa and
+  Paluch, Maciej and Berkhout, Ben and Maddon, Paul J and Olson, William C and
+  others}]{sanders2002stabilization}
+\textbf{\color{eLifeMediumGrey} Sanders RW}, Vesanen M, Schuelke N, Master A,
+  Schiffner L, Kalyanaraman R, Paluch M, Berkhout B, Maddon PJ, Olson WC,
+  et~al.
+\newblock Stabilization of the soluble, cleaved, trimeric form of the envelope
+  glycoprotein complex of human immunodeficiency virus type 1.
+\newblock Journal of Virology.  2002; 76(17):8875--8889.
+
+\bibitem[{Shah et~al.(2015)Shah, Premal and McCandlish, David M and Plotkin,
+  Joshua B}]{shah2015contingency}
+\textbf{\color{eLifeMediumGrey} Shah P}, McCandlish DM, Plotkin JB.
+\newblock Contingency and entrenchment in protein evolution under purifying
+  selection.
+\newblock Proceedings of the National Academy of Sciences.  2015;
+  112(25):E3226--E3235.
+
+\bibitem[{Sharp and Hahn(2011)Sharp, Paul M and Hahn, Beatrice
+  H}]{sharp2011origins}
+\textbf{\color{eLifeMediumGrey} Sharp PM}, Hahn BH.
+\newblock Origins of {HIV} and the {AIDS} pandemic.
+\newblock Cold Spring Harbor Perspectives in Medicine.  2011; 1(1):a006841.
+
+\bibitem[{da~Silva et~al.(2010)da Silva, Jack and Coetzer, Mia and Nedellec,
+  Rebecca and Pastore, Cristina and Mosier, Donald E}]{da2010fitness}
+\textbf{\color{eLifeMediumGrey} da~Silva J}, Coetzer M, Nedellec R, Pastore C,
+  Mosier DE.
+\newblock Fitness epistasis and constraints on adaptation in a human
+  immunodeficiency virus type 1 protein region.
+\newblock Genetics.  2010; 185(1):293--303.
+
+\bibitem[{Simonich et~al.(2016)Simonich, Cassandra A and Williams, Katherine L
+  and Verkerke, Hans P and Williams, James A and Nduati, Ruth and Lee, Kelly K
+  and Overbaugh, Julie}]{simonich2016hiv}
+\textbf{\color{eLifeMediumGrey} Simonich CA}, Williams KL, Verkerke HP,
+  Williams JA, Nduati R, Lee KK, Overbaugh J.
+\newblock HIV-1 neutralizing antibodies with limited hypermutation from an
+  infant.
+\newblock Cell.  2016; 166(1):77--87.
+
+\bibitem[{Stamatakis(2014)Stamatakis, Alexandros}]{stamatakis2014raxml}
+\textbf{\color{eLifeMediumGrey} Stamatakis A}.
+\newblock RAxML version 8: a tool for phylogenetic analysis and post-analysis
+  of large phylogenies.
+\newblock Bioinformatics.  2014; 30:1312--1313.
+
+\bibitem[{Starcich et~al.(1986)Starcich, Bruno R and Hahn, Beatrice H and Shaw,
+  George M and McNeely, Paul D and Modrow, Susanne and Wolf, Hans and Parks,
+  Elizabeth S and Parks, Wade P and Josephs, Steven F and Gallo, Robert C and
+  others}]{starcich1986identification}
+\textbf{\color{eLifeMediumGrey} Starcich BR}, Hahn BH, Shaw GM, McNeely PD,
+  Modrow S, Wolf H, Parks ES, Parks WP, Josephs SF, Gallo RC, et~al.
+\newblock Identification and characterization of conserved and variable regions
+  in the envelope gene of HTLV-III/LAV, the retrovirus of AIDS.
+\newblock Cell.  1986; 45(5):637--648.
+
+\bibitem[{Starr et~al.(2017)Starr, Tyler N and Flynn, Julia M and Mishra, Parul
+  and Bolon, Daniel NA and Thornton, Joseph W}]{starr2017pervasive}
+\textbf{\color{eLifeMediumGrey} Starr TN}, Flynn JM, Mishra P, Bolon DN,
+  Thornton JW.
+\newblock Pervasive contingency and entrenchment in a billion years of Hsp90
+  evolution.
+\newblock bioRxiv.  2017; p. 189803.
+
+\bibitem[{Starr and Thornton(2016)Starr, Tyler N and Thornton, Joseph
+  W}]{starr2016epistasis}
+\textbf{\color{eLifeMediumGrey} Starr TN}, Thornton JW.
+\newblock Epistasis in protein evolution.
+\newblock Protein Science.  2016; 25(7):1204--1218.
+
+\bibitem[{Stewart-Jones et~al.(2016)Stewart-Jones, Guillaume BE and Soto,
+  Cinque and Lemmin, Thomas and Chuang, Gwo-Yu and Druz, Aliaksandr and Kong,
+  Rui and Thomas, Paul V and Wagh, Kshitij and Zhou, Tongqing and Behrens,
+  Anna-Janina and others}]{stewart2016trimeric}
+\textbf{\color{eLifeMediumGrey} Stewart-Jones GB}, Soto C, Lemmin T, Chuang GY,
+  Druz A, Kong R, Thomas PV, Wagh K, Zhou T, Behrens AJ, et~al.
+\newblock Trimeric {HIV-1-Env} Structures Define Glycan Shields from Clades {A,
+  B, and G}.
+\newblock Cell.  2016; 165(4):813--826.
+
+\bibitem[{de~Taeye et~al.(2015)de Taeye, Steven W and Ozorowski, Gabriel and de
+  la Pe{\~n}a, Alba Torrents and Guttman, Miklos and Julien, Jean-Philippe and
+  van den Kerkhof, Tom LGM and Burger, Judith A and Pritchard, Laura K and
+  Pugach, Pavel and Yasmeen, Anila and others}]{de2015immunogenicity}
+\textbf{\color{eLifeMediumGrey} de~Taeye SW}, Ozorowski G, de~la Pe{\~n}a AT,
+  Guttman M, Julien JP, van~den Kerkhof TL, Burger JA, Pritchard LK, Pugach P,
+  Yasmeen A, et~al.
+\newblock Immunogenicity of Stabilized HIV-1 Envelope Trimers with Reduced
+  Exposure of Non-neutralizing Epitopes.
+\newblock Cell.  2015; 163(7):1702--1715.
+
+\bibitem[{Tan et~al.(1997)Tan, Kemin and Liu, Jin-huan and Wang, Jia-huai and
+  Shen, Steven and Lu, Min}]{tan1997atomic}
+\textbf{\color{eLifeMediumGrey} Tan K}, Liu Jh, Wang Jh, Shen S, Lu M.
+\newblock Atomic structure of a thermostable subdomain of HIV-1 gp41.
+\newblock Proceedings of the National Academy of Sciences.  1997;
+  94(23):12303--12308.
+
+\bibitem[{Tien et~al.(2013)Tien, Matthew Z and Meyer, Austin G and Sydykova,
+  Dariya K and Spielman, Stephanie J and Wilke, Claus O}]{tien2013maximum}
+\textbf{\color{eLifeMediumGrey} Tien MZ}, Meyer AG, Sydykova DK, Spielman SJ,
+  Wilke CO.
+\newblock Maximum allowed solvent accessibilites of residues in proteins.
+\newblock PloS One.  2013; 8(11):e80635.
+
+\bibitem[{Verkerke et~al.(2016)Verkerke, Hans P and Williams, James A and
+  Guttman, Miklos and Simonich, Cassandra A and Liang, Yu and Filipavicius,
+  Modestas and Hu, Shiu-Lok and Overbaugh, Julie and Lee, Kelly
+  K}]{verkerke2016epitope}
+\textbf{\color{eLifeMediumGrey} Verkerke HP}, Williams JA, Guttman M, Simonich
+  CA, Liang Y, Filipavicius M, Hu SL, Overbaugh J, Lee KK.
+\newblock Epitope-independent purification of native-like envelope trimers from
+  diverse {HIV-1} isolates.
+\newblock Journal of Virology.  2016; 90(20):9471--9482.
+
+\bibitem[{Wagih(2017)Wagih, Omar}]{wagih2017ggseqlogo}
+\textbf{\color{eLifeMediumGrey} Wagih O}.
+\newblock ggseqlogo: a versatile {R} package for drawing sequence logos.
+\newblock Bioinformatics.  2017; 33(22):3645--3647.
+
+\bibitem[{Wang et~al.(2013)Wang, Wenbo and Nie, Jianhui and Prochnow, Courtney
+  and Truong, Carolyn and Jia, Zheng and Wang, Suting and Chen, Xiaojiang S and
+  Wang, Youchun}]{wang2013systematic}
+\textbf{\color{eLifeMediumGrey} Wang W}, Nie J, Prochnow C, Truong C, Jia Z,
+  Wang S, Chen XS, Wang Y.
+\newblock A systematic study of the N-glycosylation sites of HIV-1 envelope
+  protein on infectivity and antibody-mediated neutralization.
+\newblock Retrovirology.  2013; 10(1):1.
+
+\bibitem[{Wang et~al.(2002)Wang, Xiaojun and Minasov, George and Shoichet,
+  Brian K}]{wang2002evolution}
+\textbf{\color{eLifeMediumGrey} Wang X}, Minasov G, Shoichet BK.
+\newblock Evolution of an antibiotic resistance enzyme constrained by stability
+  and activity trade-offs.
+\newblock Journal of molecular biology.  2002; 320(1):85--95.
+
+\bibitem[{Waterston et~al.(2002)Waterston, RH and Lindblad-Toh, K and Birney, E
+  and Rogers, J and Abril, JF and Agarwal, P and Agarwala, R and Ainscough, R
+  and Alexandersson, M and An, P and others}]{waterston2002initial}
+\textbf{\color{eLifeMediumGrey} Waterston R}, Lindblad-Toh K, Birney E, Rogers
+  J, Abril J, Agarwal P, Agarwala R, Ainscough R, Alexandersson M, An P, et~al.
+\newblock Initial sequencing and comparative analysis of the mouse genome.
+\newblock Nature.  2002; 420(6915):520--562.
+
+\bibitem[{Wei et~al.(2003)Wei, Xiping and Decker, Julie M and Wang, Shuyi and
+  Hui, Huxiong and Kappes, John C and Wu, Xiaoyun and Salazar-Gonzalez, Jesus F
+  and Salazar, Maria G and Kilby, J Michael and Saag, Michael S and
+  others}]{wei2003antibody}
+\textbf{\color{eLifeMediumGrey} Wei X}, Decker JM, Wang S, Hui H, Kappes JC, Wu
+  X, Salazar-Gonzalez JF, Salazar MG, Kilby JM, Saag MS, et~al.
+\newblock Antibody neutralization and escape by HIV-1.
+\newblock Nature.  2003; 422(6929):307--312.
+
+\bibitem[{Weissenhorn et~al.(1997)Weissenhorn, Winfried and Dessen, A and
+  Harrison, SC and Skehel, JJ and Wiley, DC}]{weissenhorn1997atomic}
+\textbf{\color{eLifeMediumGrey} Weissenhorn W}, Dessen A, Harrison S, Skehel J,
+  Wiley D.
+\newblock Atomic structure of the ectodomain from HIV-1 gp41.
+\newblock Nature.  1997; 387(6631):426.
+
+\bibitem[{White et~al.(2010)White, Tommi A and Bartesaghi, Alberto and Borgnia,
+  Mario J and Meyerson, Joel R and de la Cruz, M Jason V and Bess, Julian W and
+  Nandwani, Rachna and Hoxie, James A and Lifson, Jeffrey D and Milne,
+  Jacqueline LS and others}]{white2010molecular}
+\textbf{\color{eLifeMediumGrey} White TA}, Bartesaghi A, Borgnia MJ, Meyerson
+  JR, de~la Cruz MJV, Bess JW, Nandwani R, Hoxie JA, Lifson JD, Milne JL,
+  et~al.
+\newblock Molecular architectures of trimeric SIV and HIV-1 envelope
+  glycoproteins on intact viruses: strain-dependent variation in quaternary
+  structure.
+\newblock PLoS Pathogens.  2010; 6(12):e1001249.
+
+\bibitem[{Wilen et~al.(2011)Wilen, Craig B and Parrish, Nicholas F and Pfaff,
+  Jennifer M and Decker, Julie M and Henning, Elizabeth A and Haim, Hillel and
+  Petersen, Josiah E and Wojcechowskyj, Jason A and Sodroski, Joseph and
+  Haynes, Barton F and others}]{wilen2011phenotypic}
+\textbf{\color{eLifeMediumGrey} Wilen CB}, Parrish NF, Pfaff JM, Decker JM,
+  Henning EA, Haim H, Petersen JE, Wojcechowskyj JA, Sodroski J, Haynes BF,
+  et~al.
+\newblock Phenotypic and immunologic comparison of clade {B}
+  transmitted/founder and chronic {HIV-1} envelope glycoproteins.
+\newblock Journal of Virology.  2011; 85(17):8514--8527.
+
+\bibitem[{Worobey et~al.(2008)Worobey, Michael and Gemmel, Marlea and Teuwen,
+  Dirk E and Haselkorn, Tamara and Kunstman, Kevin and Bunce, Michael and
+  Muyembe, Jean-Jacques and Kabongo, Jean-Marie M and Kalengayi, Rapha{\"e}l M
+  and Van Marck, Eric and others}]{worobey2008direct}
+\textbf{\color{eLifeMediumGrey} Worobey M}, Gemmel M, Teuwen DE, Haselkorn T,
+  Kunstman K, Bunce M, Muyembe JJ, Kabongo JMM, Kalengayi RM, Van~Marck E,
+  et~al.
+\newblock Direct evidence of extensive diversity of {HIV-1} in {Kinshasa} by
+  1960.
+\newblock Nature.  2008; 455(7213):661--664.
+
+\bibitem[{Wu et~al.(2014)Wu, Nicholas C and Young, Arthur P and Al-Mawsawi,
+  Laith Q and Olson, C Anders and Feng, Jun and Qi, Hangfei and Chen, Shu-Hwa
+  and Lu, I-Hsuan and Lin, Chung-Yen and Chin, Robert G and
+  others}]{wu2014high}
+\textbf{\color{eLifeMediumGrey} Wu NC}, Young AP, Al-Mawsawi LQ, Olson CA, Feng
+  J, Qi H, Chen SH, Lu IH, Lin CY, Chin RG, et~al.
+\newblock High-throughput profiling of influenza A virus hemagglutinin gene at
+  single-nucleotide resolution.
+\newblock Scientific Reports.  2014; 4:4942.
+
+\bibitem[{Wu et~al.(2006)Wu, Xueling and Parast, Adam B and Richardson, Barbra
+  A and Nduati, Ruth and John-Stewart, Grace and Mbori-Ngacha, Dorothy and
+  Rainwater, Stephanie MJ and Overbaugh, Julie}]{wu2006neutralization}
+\textbf{\color{eLifeMediumGrey} Wu X}, Parast AB, Richardson BA, Nduati R,
+  John-Stewart G, Mbori-Ngacha D, Rainwater SM, Overbaugh J.
+\newblock Neutralization escape variants of human immunodeficiency virus type 1
+  are transmitted from mother to infant.
+\newblock Journal of Virology.  2006; 80(2):835--844.
+
+\bibitem[{Yang(1994)Yang, Ziheng}]{yang1994maximum}
+\textbf{\color{eLifeMediumGrey} Yang Z}.
+\newblock Maximum likelihood phylogenetic estimation from DNA sequences with
+  variable rates over sites: approximate methods.
+\newblock Journal of Molecular Evolution.  1994; 39(3):306--314.
+
+\bibitem[{Yang et~al.(2000)Yang, Ziheng and Nielsen, Rasmus and Goldman, Nick
+  and Pedersen, Anne-Mette Krabbe}]{yang2000codon}
+\textbf{\color{eLifeMediumGrey} Yang Z}, Nielsen R, Goldman N, Pedersen AMK.
+\newblock Codon-substitution models for heterogeneous selection pressure at
+  amino acid sites.
+\newblock Genetics.  2000; 155(1):431--449.
+
+\bibitem[{Yuste et~al.(2004)Yuste, Elo{\'\i}sa and Reeves, Jacqueline D and
+  Doms, Robert W and Desrosiers, Ronald C}]{yuste2004modulation}
+\textbf{\color{eLifeMediumGrey} Yuste E}, Reeves JD, Doms RW, Desrosiers RC.
+\newblock Modulation of Env content in virions of simian immunodeficiency
+  virus: correlation with cell surface expression and virion infectivity.
+\newblock Journal of Virology.  2004; 78(13):6775--6785.
+
+\bibitem[{Zanini and Neher(2013)Zanini, Fabio and Neher, Richard
+  A}]{zanini2013quantifying}
+\textbf{\color{eLifeMediumGrey} Zanini F}, Neher RA.
+\newblock Quantifying selection against synonymous mutations in HIV-1 env
+  evolution.
+\newblock Journal of Virology.  2013; 87(21):11843--11850.
+
+\bibitem[{Zolla-Pazner and Cardozo(2010)Zolla-Pazner, Susan and Cardozo,
+  Timothy}]{zolla2010structure}
+\textbf{\color{eLifeMediumGrey} Zolla-Pazner S}, Cardozo T.
+\newblock Structure--function relationships of HIV-1 envelope sequence-variable
+  regions refocus vaccine design.
+\newblock Nature Reviews Immunology.  2010; 10(7):527--535.
+
+\end{thebibliography}
+
+
+\clearpage
+
+\begin{suppfile}
+\caption{
+\label{suppfile:code}
+The code to perform all steps in the analysis is in \texttt{analysis\_code.zip}.
+Specifically, this file contains a Jupyter notebook that performs the analysis, all required input data, and all reasonably sized output files.
+The Jupyter notebook downloads the deep sequencing data, processes it with the \texttt{dms\_tools2} software~\citep[\url{https://jbloomlab.github.io/dms_tools2/}]{bloom2015software}, and also performs a variety of downstream analyses that generate most of the figures for this paper.
+}
+\end{suppfile}
+
+\begin{suppfile}
+\caption{
+\label{suppfile:html}
+An HTML rendering of the Jupyter notebook that performs the computational analysis.
+The actual notebook is in Supplementary~file~\ref{suppfile:code}, but if you just want to look at the analysis rather than run it, then you may prefer this file instead.
+In particular, the notebook contains plots detailing the deep sequencing data analysis as generated using the \texttt{dms\_tools2} software~\citep[\url{https://jbloomlab.github.io/dms_tools2/}]{bloom2015software}.
+}
+\end{suppfile}
+
+\begin{suppfile}
+\caption{
+\label{suppfile:BG505}
+The sequence of the wildtype BG505 \textit{env} used in our study is in FASTA format in the file \texttt{BG505\_env.fasta}.
+}
+\end{suppfile}
+
+\begin{suppfile}
+\caption{
+\label{suppfile:BG505primers}
+The sequences of the primers used for the BG505 codon mutagenesis are in the file \texttt{BG505\_codon\_mutagenesis\_primers.txt}.
+}
+\end{suppfile}
+
+\begin{suppfile}
+\caption{
+\label{suppfile:B505bcsubamp}
+The primers used for the BG505 barcoded-subamplicon sequencing are in the file \texttt{BG505\_bcsubamp\_primers.txt}.
+}
+\end{suppfile}
+
+
+\end{document}
