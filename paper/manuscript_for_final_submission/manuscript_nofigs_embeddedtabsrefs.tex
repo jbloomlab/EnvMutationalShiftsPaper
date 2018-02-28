@@ -9,6 +9,9 @@
 % Use the doublespacing option for 2.0 line spacing
 % Please note that these options may affect formatting.
 
+% do not show figures
+\renewcommand\includegraphics[2][]{}
+
 
 \usepackage{lipsum} % Required to insert dummy text
 \usepackage[version=4]{mhchem}
@@ -115,6 +118,7 @@ However, the only prior work that has measured how all Env amino-acid mutations 
 The properties of Env can vary substantially between such late-stage viruses and the transmitted-founder viruses relevant to HIV's long-term evolution~\citep{sagar2006human,wilen2011phenotypic,parrish2013phenotypic,ronen2015hiv}.
 
 \begin{figure}
+\centerline{\includegraphics[clip=true, trim= 1in 0in 1.4in 0in, angle=-90, width=0.85\textwidth]{figures/tree_plot.pdf}}
 \caption{\label{fig:tree}
 Phylogenetic tree showing the relationship of BG505 and BF520 to other clade A Envs.
 The tree shows the 69 Envs in the alignment in \FIG{tree}-source~data~\ref{figdata:alignment}, which is a subsample of clade A sequences from the group M alignment in the Los Alamos HIV sequence database (\url{http://www.hiv.lanl.gov}).
@@ -126,7 +130,7 @@ The tree topology was inferred using \texttt{RAxML}~\citep{stamatakis2014raxml} 
 {The histograms show the pairwise amino-acid identity of each Env to all other sequences in the clade A alignment in \FIG{tree}-source~data~\ref{figdata:alignment} after masking the sites delineated in \FIG{tree}-source~data~\ref{figdata:mask}.
 There are 616 non-masked sites.
 The pairwise protein identity between BG505 and BF520 is 86.2\% (721 of 836 sites identical) when considering \emph{all} sites, and 89.1\% (549 of 616 sites identical) when considering just the non-masked sites.}
-{}
+{\includegraphics[width=0.7\textwidth]{figures/masked_alignment_identity.pdf}}
 \figdata{\label{figdata:alignment} The alignment of clade A \textit{env} coding sequences is in \texttt{cladeA\_alignment.fasta}.}
 \figdata{\label{figdata:mask} The 240 Env sites masked in all phylogenetic analyses because they were not mutagenized in our experiments or are poorly alignable are listed in \texttt{alignment\_mask.csv}.}
 \end{figure}
@@ -156,7 +160,7 @@ We performed this deep mutational scanning in full biological triplicate for bot
 Our libraries encompassed all codon mutations to all sites in Env except for the signal peptide and cytoplasmic tail.
 
 \begin{figure}
-%\centerline{\includegraphics[width=0.75\textwidth]{figures/dms_schematic/dms_schematic.pdf}}
+\centerline{\includegraphics[width=0.75\textwidth]{figures/dms_schematic/dms_schematic.pdf}}
 \caption{\label{fig:dms_schematic}
 Deep mutational scanning workflow.
 {\bf (A)} We made libraries of proviral HIV plasmids with random codon-level mutations in the \textit{env} gene.
@@ -181,17 +185,31 @@ We Sanger sequenced 44 clones of BG505 Env sampled roughly evenly from each of t
 We also simulated the expected distribution of pairwise distances if mutations occurred entirely independently (blue line). 
 The observed distribution is close to the expected distribution.
 Comparable data for the BF520 libraries is provided in \citet{dingens2017comprehensive}.
-}{}%\includegraphics[width=\textwidth]{figures/sanger_sequencing_supp/sanger_sequencing_supp.pdf}}
+}{\includegraphics[width=\textwidth]{figures/sanger_sequencing_supp/sanger_sequencing_supp.pdf}}
 \end{figure}
 
 \begin{figure}
+%\begin{minipage}[t]{0.34\textwidth}
+%{\bf \Large A} \\ 
+%\centerline{{\includegraphics[clip=true, trim=4.3in 1.4in 0in 0.48in, width=0.4\textwidth]{figures/BG505_avgmutfreqs.pdf}}} 
+%\centerline{\small BG505}
+%\includegraphics[clip=true, trim=0in 0in 1.7in 0in, width=\textwidth]{figures/BG505_avgmutfreqs.pdf}
+%\centerline{\small BF520}
+%\includegraphics[clip=true, trim=0in 0in 1.7in 0in, width=0.89\textwidth]{figures/BF520_avgmutfreqs.pdf}
+%\end{minipage}
+%\begin{minipage}[t]{0.01\textwidth}
+%\end{minipage}
+%\begin{minipage}[t]{0.65\textwidth}
+%{\bf \Large B} \\
+%\includegraphics[width=\textwidth]{figures/allprefscorr.pdf}
+%\end{minipage}
 \caption{\label{fig:mutfreqs}
 The deep mutational scanning selects for functional Envs and yields measurements that are well correlated among replicates.
 {\bf (A)}
 The average per-codon mutation frequency when sequencing plasmids encoding wildtype Env (\emph{DNA}), plasmid mutant libraries (\emph{mutDNA}), mutant viruses after the final infection (\emph{mutvirus}), and virus generated from wildtype plasmids (\emph{virus}).
 Mutations are categorized as nonsynonymous, synonymous, or stop codon. 
 The \emph{DNA} samples show that sequencing errors are rare, and the \emph{virus} samples show that viral-replication errors are well below the frequency of mutations in the \emph{mutDNA} samples.
-Comparing the \emph{mutvirus} to \emph{mutDNA} shows clear purifying selection against stop codons and some nonsynonymous mutations, particularly after subtracting the background error rates given by the \emph{virus} and \emph{DNA} samples (\FIGSUPP[mutfreqs]{mutfreqs}).
+Comparing the \emph{mutvirus} to \emph{mutDNA} shows clear purifying selection against stop codons and some nonsynonymous mutations, particularly after subtracting the background error rates given by the \emph{virus} and \emph{DNA} samples (\FIG{mutfreqs}-source~data~\ref{figdata:mutfreqs}).
 More extensive plots from the analysis of the deep sequencing data are in Supplementary~files~\ref{suppfile:code} and \ref{suppfile:html}.
 {\bf (B)}
 Correlations between replicates in the measured preferences of each site in Env for all 20 amino acids.
@@ -200,26 +218,24 @@ $R$ is the Pearson correlation coefficient.
 The numerical values for the preferences are in \FIG{mutfreqs}-source~data~\ref{figdata:allprefs}.
 \FIGSUPP[mutfreqs]{contour} shows the correlations using contour rather than scatter plots.
 }
-\figsupp[\label{figsupp:mutfreqs} Numerical frequencies of mutations.]
-{This table gives the average frequencies of nonsynonymous, synonymous, and stop-codon mutations as plotted in \FIG{mutfreqs}.
-Note that there is only one \emph{DNA} sample for BF520, so that same sample is repeated three times in the sample in conjunction with each BF520 replicate.
-We calculate the error-corrected \emph{pre}-selection mutation frequency as the \emph{mutDNA} frequency minus the \emph{DNA} frequency, and the error-corrected \emph{post}-selection mutation frequency as the \emph{mutvirus} frequency minus the \emph{virus} frequency.
-We then use these error-corrected frequencies to calculate the \emph{percent} of mutations remaining after selection for each replicate and type of mutation.}
-{}
 \figsupp[\label{figsupp:contour} Correlations plotted on a contour rather than a scatter plot.]
 {
 This figure shows the same data as in \FIG{mutfreqs}B except that it shows KDE contour plots rather than points.
 As is obvious from this representation, the vast majority of the points fall near the origin (very low preference in both replicates), and most of the correlation signal is therefore due to the relatively modest number of amino acids that have high preference at any given site.
 This is expected, since most amino acid mutations at most sites will be strongly deleterious, and so have low preference.
-}{}%\includegraphics[width=\textwidth]{figures/allprefscorr_contour.pdf}}
+}{\includegraphics[width=\textwidth]{figures/allprefscorr_contour.pdf}}
 \figdata{\label{figdata:allprefs} Preferences for each replicate and averages are in \texttt{all\_prefs\_unscaled.zip}.}
+\figdata{\label{figdata:mutfreqs} Average frequencies of nonsynonymous, synonymous, and stop-codon mutations as plotted in \FIG{mutfreqs} are in \texttt{avgmutfreqs.csv}.
+There is only one \emph{DNA} sample for BF520 which is listed three times with each BF520 replicate.
+We calculate the error-corrected \emph{pre}-selection mutation frequency as the \emph{mutDNA} minus \emph{DNA}, and the error-corrected \emph{post}-selection mutation frequency as the \emph{mutvirus} minus the \emph{virus}.
+We use these error-corrected frequencies to calculate the \emph{percent} of mutations remaining after selection.}
 \end{figure}
 
 The deep mutational scanning effectively selected for functional Envs as evidenced by strong purifying selection against stop codons.
 \FIG{mutfreqs}A shows the average frequency of mutations across Env in the plasmid mutant libraries, the mutant viruses, and wildtype controls as determined from the deep sequencing.
 The mutant viruses show clear selection against stop codons and many nonsynonymous mutations (\FIG{mutfreqs}A).
-This selection is more apparent if we correct for the background error rates estimated from the wildtype controls (\FIGSUPP[mutfreqs]{mutfreqs}).
-The error-corrected frequencies of stop codons drop to 3\%--16\% of their original values (\FIGSUPP[mutfreqs]{mutfreqs}), with the residual stop codons probably due to some non-functional virions surviving due to complementation by other co-infecting virions. 
+This selection is more apparent if we correct for the background error rates estimated from the wildtype controls (\FIG{mutfreqs}-source~data~\ref{figdata:mutfreqs}).
+The error-corrected frequencies of stop codons drop to 3\%--16\% of their original values (\FIG{mutfreqs}-source~data~\ref{figdata:mutfreqs}), with the residual stop codons probably due to some non-functional virions surviving due to complementation by other co-infecting virions. 
 The error-corrected frequencies of nonsynonymous mutations also drop substantially (43\%--49\% of their original values), whereas the frequencies of synonymous mutations drop only slightly (85\%--95\% of their original values).
 These trends are consistent with the fact that nonsynonymous mutations are often deleterious, whereas synonymous mutations often~\citep[although certainly not always, see][]{zanini2013quantifying} have only mild effects on viral growth.
 \FIG{mutfreqs}A only summarizes one aspect of the deep mutational scanning data, but Supplementary~files~\ref{suppfile:code} and \ref{suppfile:html} contain detailed plots showing all aspects of the data (read depth, per-site mutation rate, etc) as generated by the \texttt{dms\_tools2} software~\citep[\url{https://jbloomlab.github.io/dms_tools2/}]{bloom2015software}.
@@ -227,13 +243,13 @@ These trends are consistent with the fact that nonsynonymous mutations are often
 We used the deep mutational scanning data to estimate the preference of each site in Env for each amino acid via the analysis method described in \citet{bloom2015software}.
 As graphically illustrated in \FIG{dms_schematic}A, the preferences for each site are normalized to sum to one.
 Our libraries were mutagenized at 670 sites in BG505 and 662 sites in BF520, so $670 \times 20 = 13,400$ and $662 \times 20 = 13,240$ preferences were estimated for each Env, respectively.
-The correlations between the preferences from different experimental replicates are in \FIG{mutfreqs}B.
+The correlations between the preferences from different experimental replicates are in \FIG{mutfreqs}B, and the preferences themselves are in \FIG{mutfreqs}-source~data~\ref{figdata:allprefs}.
 These replicate-to-replicate correlations are substantially higher than those for the deep mutational scanning of LAI Env by \citet{haddox2016experimental}, which had replicate-to-replicate Pearson correlations of only $R = 0.45$ to $0.50$. 
 
 While the replicates are well correlated across all replicates for both BG505 and BF520, the replicates for BG505 are more correlated with each other than with replicates for BF520, and vice versa (\FIG{mutfreqs}B, compare red and blue versus gray plots).
 This fact hints that there are some shifts in amino-acid preferences between the two Envs---something that is investigated with more statistical rigor later in this paper.
 Note also that there is a trend for highly preferred amino acids to be more strongly preferred in BG505 than BF520 (most high-preference points in the gray plots in \FIG{mutfreqs}B fall above the diagonal); however, this trend does not necessarily reflect differences between the Envs.
-Rather, there were modest differences in the stringency of selection between our deep mutational scans of BG505 and BF520 (\FIGSUPP[mutfreqs]{mutfreqs} shows that purifying selection better purged stop codons in BG505).
+Rather, there were modest differences in the stringency of selection between our deep mutational scans of BG505 and BF520 (\FIG{mutfreqs}-source~data~\ref{figdata:mutfreqs} shows that purifying selection better purged stop codons in BG505).
 In the next section, we correct for these experimental differences by calibrating each dataset to match the stringency of selection in nature.
 
 \subsection{Amino-acid preferences of the Envs and their relationship to HIV evolution}
@@ -290,7 +306,7 @@ Both ExpCM's have stringency parameters $>$1 (\TABLE{phydms})---a finding that m
 
 \begin{figure}
 \begin{fullwidth}
-%{\includegraphics[width=1.3\textwidth]{figures/BG505_prefs.pdf}}
+{\includegraphics[width=1.3\textwidth]{figures/BG505_prefs.pdf}}
 \caption{\label{fig:BG505prefs}
 Amino-acid preferences for the BG505 Env.
 At each site, the height of the letter is proportional for that site's preference for that amino acid.
@@ -301,23 +317,25 @@ The letters above the logos indicate the wildtype amino acid in BG505.
 Sites are numbered using the HXB2 scheme~\citep{korber1998numbering}.
 This logo plot shows the site-specific amino-acid preferences for BG505 after averaging the replicates and re-scaling by the stringency parameter in \TABLE{phydms}.
 The figure was generated using \texttt{dms\_tools2}~\citep[\url{https://jbloomlab.github.io/dms_tools2/}]{bloom2015software}, which in turn utilizes \texttt{weblogo}~\citep{crooks2004weblogo}.
+The numerical values of the preferences are in \FIG{BG505prefs}-source~data~\ref{figdata:BG505prefs}, the mapping from sequential to HXB2 numbering is in \FIG{BG505prefs}-source~data~\ref{figdata:BG505numbering}, and the $\omega_r$ values are in \FIG{BG505prefs}-source~data~\ref{figdata:BG505omega}.
 }
-\figdata{The numerical values of the amino-acid preferences plotted in this figure are in \texttt{rescaled\_BG505\_prefs.csv.}}
-\figdata{The sequence of BG505 Env and mapping from sequential (\emph{original} column) to HXB2 numbering (\emph{new} column) is in \texttt{BG505\_to\_HXB2.csv}.}
-\figdata{The $\omega_r$ values and associated $P$-values for BG505 in HXB2 numbering are in \texttt{BG505\_omegabysite.tsv}.}
+\figdata{\label{figdata:BG505prefs}The numerical values of the amino-acid preferences plotted in this figure are in \texttt{rescaled\_BG505\_prefs.csv.}}
+\figdata{\label{figdata:BG505numbering}The sequence of BG505 Env and mapping from sequential (\emph{original} column) to HXB2 numbering (\emph{new} column) is in \texttt{BG505\_to\_HXB2.csv}.}
+\figdata{\label{figdata:BG505omega}The $\omega_r$ values and associated $P$-values for BG505 in HXB2 numbering are in \texttt{BG505\_omegabysite.tsv}.}
 \end{fullwidth}
 \end{figure}
 
 \begin{figure}
 \begin{fullwidth}
-%{\includegraphics[width=1.3\textwidth]{figures/BF520_prefs.pdf}}
+{\includegraphics[width=1.3\textwidth]{figures/BF520_prefs.pdf}}
 \caption{\label{fig:BF520prefs}
 Amino-acid preferences for the BF520 Env.
 This figure is the same as \FIG{BG505prefs} except that it shows the data for BF520 instead of BG505.
+The numerical values of the preferences are in \FIG{BF520prefs}-source~data~\ref{figdata:BF520prefs}, the mapping from sequential to HXB2 numbering is in \FIG{BF520prefs}-source~data~\ref{figdata:BF520numbering}, and the $\omega_r$ values are in \FIG{BF520prefs}-source~data~\ref{figdata:BF520omega}.
 }
-\figdata{The numerical values of the amino-acid preferences plotted in this figure are in \texttt{rescaled\_BF520\_prefs.csv.}}
-\figdata{The sequence of BF520 Env and mapping from sequential (\emph{original} column) to HXB2 numbering (\emph{new} column) is in \texttt{BF520\_to\_HXB2.csv}.}
-\figdata{The $\omega_r$ values and associated $P$-values for BF520 in HXB2 numbering are in \texttt{BF520\_omegabysite.tsv}.}
+\figdata{\label{figdata:BF520prefs}The numerical values of the amino-acid preferences plotted in this figure are in \texttt{rescaled\_BF520\_prefs.csv.}}
+\figdata{\label{figdata:BF520numbering}The sequence of BF520 Env and mapping from sequential (\emph{original} column) to HXB2 numbering (\emph{new} column) is in \texttt{BF520\_to\_HXB2.csv}.}
+\figdata{\label{figdata:BF520omega}The $\omega_r$ values and associated $P$-values for BF520 in HXB2 numbering are in \texttt{BF520\_omegabysite.tsv}.}
 \end{fullwidth}
 \end{figure}
 
@@ -341,6 +359,15 @@ However, simply comparing correlation coefficients does not identify specific si
 
 \begin{figure}
 \begin{fullwidth}
+%{\bf \Large A} \hspace{0.61\textwidth} {\bf \Large B} \\
+%\hspace{0.01\textwidth} 
+%\includegraphics[width=0.58\textwidth]{figures/prefs_distance/prefs_distance.pdf}
+%\hspace{0.03\textwidth}
+%\includegraphics[clip=true, trim=0in 0in 0in 0.4in, width=0.65\textwidth]{figures/distance_distribution.pdf}
+%\vspace{0.15in}
+%\\ 
+%{\bf \Large C} \\
+%\includegraphics[width=1.3\textwidth]{figures/shifted_sites.pdf}
 \caption{\label{fig:prefsdist}
 Env sites with shifted amino-acid preferences between BG505 and BF520.
 Note that the preferences have been re-scaled using the stringency parameters in \TABLE{phydms} to enable direct comparison across Envs.
@@ -350,7 +377,7 @@ We calculate the distance between each pair of replicate measurements, and group
 We compute the root-mean-square distance (RMSD) for both sets of comparisons, which we denote as RMSD$_{\rm{between}}$ and RMSD$_{\rm{within}}$.
 The latter quantity is a measure of experimental noise.
 The noise-corrected distance between Envs at a site, RMSD$_{\rm{corrected}}$, is simply the distance between the two Envs minus this noise.
-{\bf (B)} The bottom distribution (orange) shows the corrected distances between BG505 and BF520 at all alignable sites.
+{\bf (B)} The bottom distribution (orange) shows the corrected distances between BG505 and BF520 at all alignable sites (see \FIG{prefsdist}-source~data~\ref{figdata:prefsdist} for numerical values).
 The next distribution (blue) is a null generated by computing the corrected distances on all randomizations of the replicates among Envs.
 The top two distributions (green) compare Env to the non-homologous influenza hemagglutinin (HA) protein~\citep{doud2016accurate} simply putting sites into correspondence based on sequence number.
 We compute the $P$-value that a site has shifted between BG505 and BF520 as the fraction of the null distribution that exceeds that shift, and identify significant shifts at a false discovery rate (FDR) of 0.1 using the method of \citet{benjamini1995controlling}.
@@ -400,6 +427,15 @@ Thus, there is variation in both the extent and types of shifts observed.
 \subsection{Structural and evolutionary properties of shifted sites}
 
 \begin{figure}
+%{\bf \Large A} \hspace{0.6\textwidth} {\bf \Large B}  \\
+%\includegraphics[width=0.57\textwidth]{figures/shifts_on_structure/shifts_on_structure.pdf}
+%\hspace{0.06\textwidth}
+%\includegraphics[width=0.32\textwidth]{figures/rsa_vs_shifts.pdf}
+%\\
+ %{\bf \Large C} \hspace{0.45\textwidth} {\bf \Large D} \\
+%\includegraphics[width=0.45\textwidth]{figures/shifts_proximity.pdf}
+%\hspace{0.02\textwidth}
+%\includegraphics[width=0.53\textwidth]{figures/conservation_vs_shifts.pdf} 
 \caption{\label{fig:shiftfeatures}
 Characteristics of significantly shifted sites.
 {\bf (A)} One monomer of the closed pre-fusion Env trimer~\citep[PDB 5FYL;][]{stewart2016trimeric} is colored from white to red according to the magnitude of the mutational shift at each site (red indicates large shift).
@@ -416,15 +452,12 @@ The trend for shifts to cluster becomes stronger when considering the minimum di
 {\bf (D)}
 Large mutational shifts are \emph{not} strongly enriched at sites that have substituted between BG505 and BF520, or at sites that contact sites that have substituted. 
 The plots show the magnitudes of the shifts among structurally resolved sites that have substituted between BG505 and BF520, the non-substituted sites that physically contact a substitution in the indicated structure(s) (any non-hydrogen atom within 3.5\angstrom), and all other sites.
-\FIGSUPP[shiftfeatures]{subs_shifts} shows that there is a borderline-significant tendency of significantly shifted sites to have substituted.
+\FIG{shiftfeatures}-source~data~\ref{figdata:subs_shifts} shows that there is a borderline-significant tendency of significantly shifted sites to have substituted.
 All plots only show sites that are structurally resolved in the indicated structure(s). 
 Structural distances and solvent accessibilities were calculated using all monomers in the trimer.
 $P$ values were calculated using the Mann-Whitney $U$ test.
+\FIGSUPP[shiftfeatures]{shifts_on_six_helix_bundle} and \FIGSUPP[shiftfeatures]{dynamic_clusters} zoom in on some relevant clusters of sites.
 }
-\figsupp[\label{figsupp:subs_shifts}Statistical testing of whether significantly shifted sites are more likely to have substituted between BG505 and BF520.]
-{The sites of significant shifts as determined in \FIG{prefsdist}B are somewhat more likely to be among the sites that have substituted between BG505 and BF520.
-However, this association is only borderline statistically significant, with $P = 0.055$ using a Fisher's exact test.}
-{}
 
 \figsupp[\label{figsupp:shifts_on_six_helix_bundle}Cluster of shifted sites in the post-fusion six-helix bundle of Env.]
 {
@@ -438,7 +471,7 @@ As shown in \FIG{prefsdist}C, each of the shifted sites are more tolerant of mut
 The two shifted sites that point inward towards the bundle's core (583 and 587) may be important for packing.
 Based on these structures, it is difficult to discern if or how the substituted site may impact the preferences at the shifted sites nearby.
 }
-{}%\includegraphics[width=\textwidth]{figures/shifts_on_structure/six_helix_bundle_cluster.pdf}}
+{\includegraphics[width=\textwidth]{figures/shifts_on_structure/six_helix_bundle_cluster.pdf}}
 
 \figsupp[\label{figsupp:dynamic_clusters}Clusters of shifted sites in highly dynamic regions of Env.]
 {A fine-grained view of two clusters of shifted sites, both of which are in conformationally dynamic regions of Env.
@@ -459,7 +492,11 @@ Nearly one third of the shifted residues cluster within this structural region (
 In contrast to panel (A), only a few of the shifted sites are adjacent to substitutions or have substituted themselves.
 This trend is found in both the closed and open conformations, suggesting that the shifts may be primarily due to long-range epistatic interactions.
 }
-{}%\includegraphics[width=\textwidth]{figures/shifts_on_structure/clusters_on_structure.pdf}}
+{\includegraphics[width=\textwidth]{figures/shifts_on_structure/clusters_on_structure.pdf}}
+
+\figdata{\label{figdata:subs_shifts} The sites of significant shifts in \FIG{prefsdist}B are somewhat more likely to have substituted between BG505 and BF520.
+This association is borderline statistically significant, with $P = 0.055$ using a Fisher's exact test on the contingency table in \texttt{shifts\_vs\_subs\_table.csv}.}
+
 \end{figure}
 
 What distinguishes the sites that have undergone significant shifts?
@@ -484,7 +521,7 @@ For the six-helix bundle, there are five structurally resolved substituted sites
 The number of resolved shifted and substituted sites in this structure is too small for a meaningful statistical analysis of the type in \FIG{shiftfeatures}D.
 However, the cluster of shifted and substituted sites in the six-helix bundle is also present in the closed and open states (\FIGSUPP[shiftfeatures]{shifts_on_six_helix_bundle}), and so is included in the statistical analyses in \FIG{shiftfeatures}D.
 
-There is a borderline trend for the significantly shifted sites to be more likely to have substituted between BG505 and BF520 (\FIGSUPP[shiftfeatures]{subs_shifts}), but most shifted sites have not substituted (only 8 of the 30 shifted sites differ in amino-acid identity between the two Envs).
+There is a borderline trend for the significantly shifted sites to be more likely to have substituted between BG505 and BF520 (\FIG{shiftfeatures}-source~data~\ref{figdata:subs_shifts}), but most shifted sites have not substituted (only 8 of the 30 shifted sites differ in amino-acid identity between the two Envs).
 The lack of strong enrichment in shifts at substituted sites contrasts with previous protein-wide experimental~\citep{doud2015site} and simulation-based~\citep{pollock2012amino,shah2015contingency} studies of shifting amino-acid preferences, which found that shifts were dramatically more pronounced at sites of substitutions.
 The difference may arise because these earlier studies examined proteins that are fairly conformationally static (absolutely so in the case of the simulations).
 That fact that Env is extremely complex and conformationally dynamic~\citep{munro2014conformational,ozorowski2017open} may increase the opportunities for long-range epistasis to enable substitutions at one site to shift the amino-acid preferences of distant sites.
@@ -504,7 +541,7 @@ It is difficult to discern exactly how these interactions might occur, but there
 \subsection{Entrenchment of substitutions modestly contributes to mutational shifts}
 
 \begin{figure}
-%\centerline{\includegraphics[clip=true, trim=0in 0in 0in 0in, width=0.68\textwidth]{figures/entrenchment.pdf}}
+\centerline{\includegraphics[clip=true, trim=0in 0in 0in 0in, width=0.68\textwidth]{figures/entrenchment.pdf}}
 \caption{\label{fig:entrenchment}
 Entrenchment of substitutions during Env evolution.
 There are 12,521 possible amino-acid mutations at the 659 mutagenized sites alignable between BG505 and BF520.
@@ -538,13 +575,12 @@ For instance, antibody pressure might increase the rate of evolution at some sit
 Comparing selection in our experiments to natural selection can identify sites that are under such additional pressures during HIV's actual evolution in humans.
 
 \begin{figure}
-%\includegraphics[width=1.0\textwidth]{figures/omegabysite_structural_analysis/omegabysite_structural_analysis.pdf}
+\includegraphics[width=1.0\textwidth]{figures/omegabysite_structural_analysis/omegabysite_structural_analysis.pdf}
 \caption{\label{fig:divsel}
 Sites in Env that evolve faster or slower in nature than expected given the functional constraints measured in the lab.
 We calculated the statistical evidence that each site evolves faster ($\omega_r > 1$) or slower ($\omega_r < 1$) than expected given the experimentally measured amino-acid preferences using the method of \citet{bloom2017identification}.
 {\bf (A)}
 One monomer of the Env trimer~\citep[PDB 5FYL;][]{stewart2016trimeric} is colored from blue to white to red based on the strength of evidence that sites evolve slower than expected (blue), as expected (white) or faster than expected (red) given the BG505 experiments.
-%We used a color scale that only ranges between significance values of $-6 < \log_{10}Q < 6$, which decreases the resolution between a small number of sites with extreme values, but provides greater resolution among other sites.
 Sites for which we lack $\omega_r$ estimates are colored black.
 Sites where the rate of evolution is significantly different than expected at a false discovery rate of 0.05 are shown in spheres.
 {\bf (B)}
@@ -558,25 +594,26 @@ All sites that evolve slower than expected for both experimental datasets are in
 A large cluster of sites that evolve slower than expected is likely involved in Env's transition between open and closed conformational states.
 Gray boxes indicate sites that \citet[PDB 5VN3]{ozorowski2017open} proposed form a hydrophobic network that regulates the conformational change; blue boxes and sticks indicate sites that evolve slower than expected.
 All analyses used the phylogenetic tree in \FIG{tree}.
+The $\omega_r$ and $Q$-values are in \FIG{divsel}-source~data~\ref{figdata:omega}.
 }
 \figsupp[\label{figsupp:divselRSA}Relative solvent accessibilities of sites evolving faster or slower than expected.]{
 Sites are grouped by whether they have $\omega_r > 1$ (diversifying selection) or $\omega_r < 1$ (purifying selection) at $Q < 0.05$ in \emph{both} Envs, or whether they fall into neither of these categories.
 Relative solvent accessibilities were calculated as in \FIG{shiftfeatures}.
 As can be seen from these box plots with overlaid points for each site, sites of both diversifying and purifying selection tend to have higher relative solvent accessibility than other sites.
-}{}%\includegraphics[width=\textwidth]{figures/selsites_rsa.pdf}}
+}{\includegraphics[width=\textwidth]{figures/selsites_rsa.pdf}}
 \figsupp[\label{figsupp:glycans}Amino-acid preferences and alignment frequencies for glycosylation motifs.]
 {This plot shows all sites that are N-linked glycosylation motifs in both BG505 and BF520.
 Each motif is named by the residue number of the asparagine, and the preferences (averaged across replicates) for each Env are shown as well as the frequencies of amino acids across the clade A alignment at each of the three positions in the motif (N-X-S/T).
 As can be seen from this plot, the experiments measure relatively broad mutational tolerance at many sites where the natural Env sequences have a strongly conserved motif.
 We suspect this is because many glycans serve as a shield against immunity in nature---a function that is not required in cell culture.}
-{}%\includegraphics[width=\textwidth]{figures/glycan_prefs.pdf}}
+{\includegraphics[width=\textwidth]{figures/glycan_prefs.pdf}}
 \figsupp[\label{figsupp:slower}Amino-acid preferences and alignment frequencies of sites that evolve slower than expected.]{
 This plot shows all sites that are evolving more slowly than expected in natural sequences given the preferences measured in both Envs.
 Specifically, it shows all sites with $\omega_r < 1$ at $Q < 0.05$ for the ExpCMs for \emph{both} BG505 and BF520.
 For each site, the plots show the preferences averaged across replicates and re-scaled for each Env, as well as the frequencies of amino acids in the clade A Env alignment. 
 The $Q$-value indicated is the maximum of that for the two Envs.
-}{}%\includegraphics[width=\textwidth]{figures/purifying_selsites.pdf}}
-\figdata{The $\omega_r$ and $Q$-values are in \texttt{merged\_omegabysite.csv}.}
+}{\includegraphics[width=\textwidth]{figures/purifying_selsites.pdf}}
+\figdata{\label{figdata:omega}The $\omega_r$ and $Q$-values are in \texttt{merged\_omegabysite.csv}.}
 \end{figure}
 
 We determined whether each site in Env evolves faster or slower in nature than expected given three models: that evolution is purely neutral (all nonsynonymous and synonymous mutations have equivalent effects), that sites are under the protein-level constraint measured in our experiments with BG505, or that sites are under the constraint measured with BF520. 
@@ -740,7 +777,7 @@ For instance, if the selection is weak, then deleterious mutations will only be 
 The fact that the preferences depend on the stringency of the experimental selection is important if we want to compare results between Envs.
 The reason is that our goal is to identify differences in the inherent effects of mutations between Envs, not simply find differences due to variation in experimental stringency.
 Of course, we have done our best to perform the experiments for BG505 and BF520 equivalently, but because these are different viruses with different growth rates, it is impossible to exactly match the experimental stringencies.
-This can be seen in \FIGSUPP[mutfreqs]{mutfreqs}, which shows that stop codons were more depleted for BG505 than BF520, indicating that selection in our experiments was more stringent for BG505.
+This can be seen in \FIG{mutfreqs}-source~data~\ref{figdata:mutfreqs}, which shows that stop codons were more depleted for BG505 than BF520, indicating that selection in our experiments was more stringent for BG505.
 
 How should we best re-scale the preferences?
 Raising them to a power is a sensible approach.
