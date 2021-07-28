@@ -1,3 +1,16 @@
-results
 slurm*
 *.sbatch
+
+results/*
+
+!results/codoncounts
+results/codoncounts/*/*
+!results/codoncounts/*/*codoncounts.csv
+
+!results/renumbered_codoncounts
+results/renumbered_codoncounts/*/*
+!results/renumbered_codoncounts/*/*codoncounts.csv
+
+!results/prefs
+results/prefs/*
+!results/prefs/*prefs.csv
